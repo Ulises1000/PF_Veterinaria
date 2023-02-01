@@ -2,22 +2,17 @@ const {Router} = require("express");
 const {User} = require("../../db");
 const router = Router();
 
-router.post("/post", async (req, res) => {
+router.post("/update", async (req, res) => {
     const {
+        idUser,
         name,
         email,
         password,
         creditCard,
-        direction,
-        idCarrito
+        direction
     } = req.body;
     try{
-        if(!name || !email || !password || !creditCard || !direction) res.status(200).json({
-            ok: false,
-            msg: "Faltan Datos",
-            detail: "Faltan Datos"
-        }) 
-        const createdUser = await User.create({
+        await User.update({cod_user: idUser},{
             name_U: name,
             email_U: email,
             password_U: password,
@@ -25,11 +20,9 @@ router.post("/post", async (req, res) => {
             direction_U: direction
         })
 
-        //await createdUser.addShoppingCart(idCarrito);
-
         res.status(200).json({
             ok: true,
-            value: "Se ha Agregado El Usuario."
+            value: "Se ha Modificado El Usuario."
         });
     }catch(err){
         res.status(404).send({
