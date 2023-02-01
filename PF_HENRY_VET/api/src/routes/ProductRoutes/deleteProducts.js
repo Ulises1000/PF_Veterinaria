@@ -1,7 +1,7 @@
 const {Router} = require("express");
 const router = Router();
 
-router.post("/unsuscribe", async (req, res) => {
+router.post("/unsubscribe", async (req, res) => {
     try{
 
     }catch(err){
