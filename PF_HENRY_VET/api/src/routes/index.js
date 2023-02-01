@@ -6,6 +6,8 @@ const getUserRouter = require("./UserRoutes/getUser");
 const postUserRouter = require("./UserRoutes/postUser");
 const deleteUserRouter = require("./UserRoutes/deleteUser");
 const updateUserRouter = require("./UserRoutes/updateUser");
+const getAllFavorite= require("../controllers/controllerUsers/favoritecontroller")
+const addfavorite = require("../controllers/controllerUsers/favoritecontroller")
 // Importar todos los routers;
 // Ejemplo: const authRouter = require('./auth.js');
 
@@ -15,5 +17,6 @@ const router = Router();
 // Ejemplo: router.use('/auth', authRouter);
 router.use("/products", getProductRouter, postProductRouter, deleteProductRouter);
 router.use("/users", getUserRouter, postUserRouter, deleteUserRouter, updateUserRouter);
+router.use("/favorite",getAllFavorite,addfavorite);
 
 module.exports = router;

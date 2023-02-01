@@ -14,13 +14,16 @@ const sequelize = new Sequelize(`postgres://${DB_USER}:${DB_PASSWORD}@${DB_HOST}
 
 
 // Injectamos la conexion (sequelize) a todos los modelos
-models.forEach(model => model(sequelize));
+models.forEach((model) => model(sequelize));
 // Capitalizamos los nombres de los modelos ie: product => Product
 let entries = Object.entries(sequelize.models);
 let capsEntries = entries.map((entry) => [entry[0][0].toUpperCase() + entry[0].slice(1), entry[1]]);
 sequelize.models = Object.fromEntries(capsEntries);
 
 //makeAssociations(sequelize);
+const {Favorite, User} = sequelize.models;
+User.hasMany(Favorite, {foreignKey:"user_favorite"})
+Favorite.belongsTo(User, {foreignKey:"user_favorite"})
 
 module.exports = {
   ...sequelize.models, // para poder importar los modelos así: const { Product, User } = require('./db.js');
