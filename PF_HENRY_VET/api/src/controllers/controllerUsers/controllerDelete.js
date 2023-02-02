@@ -1,6 +1,6 @@
 const {getSingleUserFromDb} = require("./generalFunctions");
 
-async function findUser(idUser){
+async function findUserToDelete(idUser){
     try{
         const info = await getSingleUserFromDb(idUser);
         if(!info || info.usubscribe_U) return false;
@@ -10,15 +10,6 @@ async function findUser(idUser){
     }
 }
 
-function addNewValuesToAnObj(newValues){
-    let newObj = {};
-    for(let prop in newValues){
-        if(newValues[prop]) newObj[prop] = newValues[prop];
-    }
-    return newObj;
-}
-
 module.exports = {
-    findUser,
-    addNewValuesToAnObj
+    findUserToDelete
 }
