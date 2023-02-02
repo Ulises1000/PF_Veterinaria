@@ -1,5 +1,5 @@
 const {Router} = require("express");
-const {User} = require("../../db");
+const {User, ShoppingCart} = require("../../db");
 const {findUser} = require("../../controllers/controllerUsers/controllerGet");
 const router = Router();
 
@@ -26,15 +26,16 @@ router.post("/post", async (req, res) => {
             detail: "Ya Existe El Usuario En La BD"
         })
         else {
+            //CREA TANTO EL CARRITO COMO EL USER AL MISMO TIEMPO
+            const createShoppingCart = await ShoppingCart.create();
             const createdUser = await User.create({
+                shoppingCartCodCart: createShoppingCart.cod_Cart,
                 name_U: name,
                 email_U: email,
                 password_U: password,
-                  creditCard_U: creditCard,
-                  direction_U: direction
+                creditCard_U: creditCard,
+                direction_U: direction
               })
-
-            //await createdUser.addShoppingCart(idCarrito);
 
             res.status(200).json({
                 ok: true,
