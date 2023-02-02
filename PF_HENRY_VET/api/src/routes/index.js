@@ -7,6 +7,10 @@ const postUserRouter = require("./UserRoutes/postUser");
 const deleteUserRouter = require("./UserRoutes/deleteUser");
 const updateUserRouter = require("./UserRoutes/updateUser");
 const getShoppingCart = require("./ShoppingCartRoutes/getShoppingCart");
+const getShoppingCartDtail = require("./ShoppingCartDtailRoutes/getShoppingCartDtail");
+const updateShoppingCartDtail = require("./ShoppingCartDtailRoutes/updateShoppingCartDtail");
+const deleteShoppingCartDtail = require("./ShoppingCartDtailRoutes/deleteShoppingCartDtail");
+const postShoppingCartDtail = require("./ShoppingCartDtailRoutes/postShoppingCartDtail");
 // Importar todos los routers;
 // Ejemplo: const authRouter = require('./auth.js');
 
@@ -17,5 +21,6 @@ const router = Router();
 router.use("/products", getProductRouter, postProductRouter, deleteProductRouter);
 router.use("/users", getUserRouter, postUserRouter, deleteUserRouter, updateUserRouter);
 router.use("/shoppingCart", getShoppingCart);
+router.use("/shoppingCartDetail", getShoppingCartDtail, updateShoppingCartDtail, deleteShoppingCartDtail, postShoppingCartDtail)
 
 module.exports = router;
