@@ -1,8 +1,30 @@
 const {Router} = require("express");
+const axios = require("axios");
+const {getProducts} = require("../../controllers/controllerProducts/controllerGetProduct")
 const router = Router();
 
-router.post("/get", async (req, res) => {
-    const {name} = req.query;
+router.get("/getAllProduc",async  (req, res) => {
+    try{
+       const getP = await getProducts()       
+      res.json(getP)
+
+    }catch(err){
+       console.log(err + "error en tal ruta")
+    }
+});
+
+module.exports = router;
+
+
+
+
+
+
+
+
+/* 
+router.post("/getAllProducts", async (req, res) => {
+    const {image,nombre,precio} = req.query;
     try{
         if(name){
             
@@ -14,6 +36,4 @@ router.post("/get", async (req, res) => {
             detail: err.message 
         })
     }
-});
-
-module.exports = router;
+}); */
