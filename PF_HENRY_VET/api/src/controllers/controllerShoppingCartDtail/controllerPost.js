@@ -9,7 +9,7 @@ async function verifyProductInCart(values){
         quantity
     } = values;
     try{
-        const [info, created] = ShoppingCartDetail.findOrCreate({
+        const [info, created] = await ShoppingCartDetail.findOrCreate({
             where: {
                 productCodProduct: idProduct,
                 shoppingCartCodCart: idCart

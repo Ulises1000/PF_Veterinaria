@@ -1,10 +1,10 @@
 const {Router} = require("express");
 const {ShoppingCartDetail} = require("../../db");
-//const {findUserToDelete} = require("../../controllers/controllerUsers/controllerDelete");
+const {findCartDtailToDelete} = require("../../controllers/controllerShoppingCartDtail/controllerDelete");
 const router = Router();
 
-router.put("/unsubscribe/:idCartDtail", async (req, res) => {
-    const {idCartDtail} = req.params;
+router.delete("/unsubscribe/:idCartDtail/:productId", async (req, res) => {
+    const {idCartDtail,productId} = req.params;
     try{
         if(!idCartDtail) res.status(200).json({
             ok: false, 
@@ -12,7 +12,7 @@ router.put("/unsubscribe/:idCartDtail", async (req, res) => {
             detail: "idCartDtail No Se Ha Enviado."
         })  
         else{
-            const info = await findCartDtailToDelete(idCartDtail);
+            const info = await findCartDtailToDelete(idCartDtail,productId);
 
             if(!info) res.status(200).json({
                 ok: false, 
@@ -23,10 +23,11 @@ router.put("/unsubscribe/:idCartDtail", async (req, res) => {
                 //ELIMINO LOS DETALLES DE CARRITOS ASI NO SE GUARDA INFORMACION INUTIL EN LA DB
                 const deletedCartDetail = await ShoppingCartDetail.destroy({
                     where: {
-                        cod_CartDetail: idCartDtail
+                        cod_CartDetail: idCartDtail,
+                        productCodProduct: productId 
                     }
                 })  
-                deletedCartDetail[0] ? res.status(200).json({
+                deletedCartDetail ? res.status(200).json({
                     ok: true,
                     value: "Se Ha Borrado El Producto Del Carrito."
                 }) 

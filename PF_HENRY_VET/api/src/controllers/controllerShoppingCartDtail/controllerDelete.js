@@ -1,10 +1,14 @@
 const {ShoppingCartDetail} = require("../../db");
 
-async function findCartDtailToDelete(idCartDtail){
+async function findCartDtailToDelete(idCartDtail,productId){
     try{
-        const info = await ShoppingCartDetail.findByPk(idCartDtail);
-        if(!info || info.usubscribe_CD) return false;
-        return true;
+        const info = await ShoppingCartDetail.findOne({
+            where: {
+                productCodProduct: productId,
+                cod_CartDetail: idCartDtail
+            }
+        })
+        return info;
     }catch(err){
         throw new Error(err.message)
     }

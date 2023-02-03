@@ -25,18 +25,18 @@ router.post("/post", async (req, res) => {
             msg: "Ya Existe El Usuario.",
             detail: "Ya Existe El Usuario En La BD"
         })
-        else {
+        else { 
             //CREA TANTO EL CARRITO COMO EL USER AL MISMO TIEMPO
             const createShoppingCart = await ShoppingCart.create();
-            const createdUser = await User.create({
-                shoppingCartCodCart: createShoppingCart.cod_Cart,
+            
+            await User.create({
+                shoppingCartCodCart: createShoppingCart.cod_Cart,    
                 name_U: name,
                 email_U: email,
                 password_U: password,
                 creditCard_U: creditCard,
                 direction_U: direction
-              })
-
+            })
             res.status(200).json({
                 ok: true,
                 value: "Se ha Agregado El Usuario."

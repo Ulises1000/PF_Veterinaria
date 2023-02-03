@@ -1,11 +1,18 @@
 const {Router} = require("express");
+const {Product} = require("../../db.js");
 const router = Router();
 
-router.post("/post", async (req, res) => {
+router.post("/postProduct", async (req, res) => {
     try{
+        const{name, description,unit_price,stock,image_url} = req.body;
 
-    }catch(err){
-
+        const productCreate = await Product.create({
+            name, description,unit_price,stock,image_url
+        })
+        return res.status(201).send(productCreate)
+        
+    }catch(error){
+        console.log(error + ">>> routes/ProductRoutes/postProducts.js");
     }
 });
 

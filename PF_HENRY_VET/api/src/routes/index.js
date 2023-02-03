@@ -1,7 +1,8 @@
 const { Router } = require('express');
 const getProductRouter = require("./ProductRoutes/getProducts");
 const postProductRouter = require("./ProductRoutes/postProducts");
-const deleteProductRouter = require("./ProductRoutes/postProducts");
+const deleteProductRouter = require("./ProductRoutes/deleteProducts");
+const updateProductRouter = require("./ProductRoutes/updateProducts")
 const getUserRouter = require("./UserRoutes/getUser");
 const postUserRouter = require("./UserRoutes/postUser");
 const deleteUserRouter = require("./UserRoutes/deleteUser");
@@ -11,6 +12,9 @@ const getShoppingCartDtail = require("./ShoppingCartDtailRoutes/getShoppingCartD
 const updateShoppingCartDtail = require("./ShoppingCartDtailRoutes/updateShoppingCartDtail");
 const deleteShoppingCartDtail = require("./ShoppingCartDtailRoutes/deleteShoppingCartDtail");
 const postShoppingCartDtail = require("./ShoppingCartDtailRoutes/postShoppingCartDtail");
+const getFavoriteRouter = require("./FavoriteRoutes/getFavorite");
+const postFavoriteRouter = require("./FavoriteRoutes/postFavorite");
+const updateFavoriteRouter = require("./FavoriteRoutes/updateFavorite");
 // Importar todos los routers;
 // Ejemplo: const authRouter = require('./auth.js');
 
@@ -18,9 +22,9 @@ const router = Router();
 
 // Configurar los routers
 // Ejemplo: router.use('/auth', authRouter);
-router.use("/products", getProductRouter, postProductRouter, deleteProductRouter);
+router.use("/products", getProductRouter, postProductRouter,updateProductRouter, deleteProductRouter);
 router.use("/users", getUserRouter, postUserRouter, deleteUserRouter, updateUserRouter);
 router.use("/shoppingCart", getShoppingCart);
 router.use("/shoppingCartDetail", getShoppingCartDtail, updateShoppingCartDtail, deleteShoppingCartDtail, postShoppingCartDtail)
-
+router.use("/favorite",getFavoriteRouter, postFavoriteRouter,updateFavoriteRouter);
 module.exports = router;
