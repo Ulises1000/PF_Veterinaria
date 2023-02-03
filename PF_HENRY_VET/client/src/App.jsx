@@ -1,17 +1,10 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
 import './App.css'
-import Nav from "./components/Nav.jsx"
-import Searchbar from './components/Searchbar.jsx'
-import Caracteristic from './components/Caracteristic'
+import Home from "./pages/Home/Home.jsx";
 
 function App() {
-
   return (
     <div className="App">
-         <Nav/>
-         <Searchbar/>
-         <Caracteristic/>
+      <Home />
     </div>
   )
 }
