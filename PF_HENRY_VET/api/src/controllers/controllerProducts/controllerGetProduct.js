@@ -23,11 +23,12 @@ const getProducts = async () => {
      const allProducts = await Product.findAll();
      return allProducts;  
      
-  } catch (error) {
-    console.log(
-      error +
-        " >>  constrollers/controllerProducts/controllerGetProduct -- function (getProduct)"
-    );
+  } catch (err) {
+    res.status(404).send({
+      ok: false,
+      msg: "Lo Lamentamos, hubo error en agregar productos de la AP a la DB",
+      detail: err.message,
+    });
   }
 };
 
