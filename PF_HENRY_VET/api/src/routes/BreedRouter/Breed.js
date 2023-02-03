@@ -19,7 +19,7 @@ BreedRouter.get("",(req,res)=>{
   }
 });
 
-BreedRouter.post("/delete/:id_breed",(req,res)=>{
+BreedRouter.put("/deleteBreed/:id_breed",(req,res)=>{
   const {id_breed} = req.params
 
     try {
@@ -45,7 +45,7 @@ BreedRouter.post("/delete/:id_breed",(req,res)=>{
       })
     }
 })
-BreedRouter.post("/update",(req,res)=>{
+BreedRouter.put("/update",(req,res)=>{
 
   try {
     Update(req.body)
