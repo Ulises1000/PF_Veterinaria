@@ -24,11 +24,7 @@ const getProducts = async () => {
      return allProducts;  
      
   } catch (err) {
-    res.status(404).send({
-      ok: false,
-      msg: "Lo Lamentamos, hubo error en agregar productos de la AP a la DB",
-      detail: err.message,
-    });
+    throw new Error(err.message)
   }
 };
 
