@@ -1,15 +1,8 @@
-const {User} = require("../../db");
+const {User, ShoppingCart} = require("../../db");
 
 async function getAllUsersFromDb(){
     try{
-        const info = await User.findAll(
-            /*{
-            
-            include: {
-                model: ShoppingCart
-            }
-        }*/
-        )
+        const info = await User.findAll()
         return info;
     }catch(err){
         throw new Error(err);
