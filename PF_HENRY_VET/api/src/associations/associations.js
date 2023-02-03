@@ -5,7 +5,7 @@ function makeAssociations(sequelize){
     User.belongsTo(ShoppingCart);
 
     Breed.hasMany(Product);
-    Product.hasOne(Breed);
+    Product.belongsTo(Breed);
 }
 
 module.exports = makeAssociations;
