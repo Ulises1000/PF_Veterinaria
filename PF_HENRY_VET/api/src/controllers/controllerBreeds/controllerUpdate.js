@@ -11,7 +11,7 @@ try {
         if(params[prop]){
             /*Nos aseguramos que no hayan propiedades "undefined", por lo que creamos 
             un nuevo objeto llamado changes que contendra todos los datos "purgados"*/
-            if(prop!=="id"){
+            if(prop!=="id" && !params[prop]){
                 changes[prop] = params[prop]
             }
         };
