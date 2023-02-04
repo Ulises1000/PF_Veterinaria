@@ -1,5 +1,6 @@
 const { Router } = require('express');
 const getProductRouter = require("./ProductRoutes/getProducts");
+const getAProductRouter = require("./ProductRoutes/getProduct")
 const postProductRouter = require("./ProductRoutes/postProducts");
 const deleteProductRouter = require("./ProductRoutes/deleteProducts");
 const updateProductRouter = require("./ProductRoutes/updateProducts")
@@ -16,7 +17,7 @@ const router = Router();
 
 // Configurar los routers
 // Ejemplo: router.use('/auth', authRouter);
-router.use("/products", getProductRouter, postProductRouter,updateProductRouter, deleteProductRouter);
+router.use("/products", getProductRouter, postProductRouter,updateProductRouter, deleteProductRouter,getAProductRouter);
 router.use("/users", getUserRouter, postUserRouter, deleteUserRouter, updateUserRouter);
 router.use("/shoppingCart", getShoppingCart);
 router.use("/breed", BreedRouter)

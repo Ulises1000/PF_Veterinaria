@@ -1,22 +1,45 @@
-const {Router} = require("express");
+const { Router } = require("express");
+const {
+  findProductUP,
+  addNewValuesToAnObjProd,
+} = require("../../controllers/controllerProducts/controllerUpdate_P");
 const { Product } = require("../../db");
 const router = Router();
 
-router.put("/updateproduct/:codProduct", async (req, res) => {
-    try{
-    const {codProduct} = req.params;
-   // const{name, description,unit_price,stock,image_url} = req.body;
-    const buscaProduct = await Product.findOne({
-        where: {codProduct}, 
-    })
- 
-    buscaProduct.set(req.body)
-    await buscaProduct.save();   
+router.put("/update/:codProduct", async (req, res) => {
+  try {
+    const { codProduct } = req.params;
+    const buscaProduct = await findProductUP(codProduct);
 
-        return res.send("Product Updated")
-    }catch(error){
-        console.log(error + ">>> routes/ProductRoutes/updateProducts.js");
+  
+    if (!buscaProduct) {
+      res.status(200).json({
+        msg: "No se pudo encontrar el producto a actualizar.",
+      });
+    } else {
+      const newDataPro = addNewValuesToAnObjProd(req.body);
+
+      await Product.update(newDataPro, {
+        where: {
+          codProduct,
+        },
+      });
+
+      res.status(200).json({
+        ok: true,
+        value: "Se ha Modificado El Producto.",
+      });
+      /*  buscaProduct.set(req.body);
+      await buscaProduct.save();
+      return res.send("Producto actualizado"); */
     }
+  } catch (err) {
+    res.status(404).send({
+      ok: false,
+      msg: "Lo Lamentamos, No se pudo actualizar el producto.",
+      detail: err.message,
+    });
+  }
 });
 
 module.exports = router;
