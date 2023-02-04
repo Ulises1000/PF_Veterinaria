@@ -1,6 +1,7 @@
 const { Router } = require("express");
 const {
-  findProductUpdate,
+  findProductUP,
+  addNewValuesToAnObjProd,
 } = require("../../controllers/controllerProducts/controllerUpdate_P");
 const { Product } = require("../../db");
 const router = Router();
@@ -8,23 +9,36 @@ const router = Router();
 router.put("/update/:codProduct", async (req, res) => {
   try {
     const { codProduct } = req.params;
-    const buscaProduct = await findProductUpdate(codProduct);
+    const buscaProduct = await findProductUP(codProduct);
 
+  
     if (!buscaProduct) {
-      res.status(200).json({ 
-        msg: "No se pudo encontrar el producto a actualizar."        
+      res.status(200).json({
+        msg: "No se pudo encontrar el producto a actualizar.",
       });
     } else {
-      buscaProduct.set(req.body);
+      const newDataPro = addNewValuesToAnObjProd(req.body);
+
+      await Product.update(newDataPro, {
+        where: {
+          codProduct,
+        },
+      });
+
+      res.status(200).json({
+        ok: true,
+        value: "Se ha Modificado El Producto.",
+      });
+      /*  buscaProduct.set(req.body);
       await buscaProduct.save();
-      return res.send("Producto actualizado");
+      return res.send("Producto actualizado"); */
     }
   } catch (err) {
     res.status(404).send({
-        ok: false,
-        msg: "Lo Lamentamos, No se pudo actualizar el producto.",
-        detail: err.message,
-      });
+      ok: false,
+      msg: "Lo Lamentamos, No se pudo actualizar el producto.",
+      detail: err.message,
+    });
   }
 });
 
