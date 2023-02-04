@@ -23,12 +23,13 @@ const getProducts = async () => {
      const allProducts = await Product.findAll();
      return allProducts;  
      
-  } catch (error) {
-    console.log(
-      error +
-        " >>  constrollers/controllerProducts/controllerGetProduct -- function (getProduct)"
-    );
+  } catch (err) {
+    throw new Error(err.message)
   }
 };
 
 module.exports = { getProducts };
+
+
+
+///////
