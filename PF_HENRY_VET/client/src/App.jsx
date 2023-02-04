@@ -1,17 +1,17 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
 import './App.css'
-import Nav from "./components/Nav.jsx"
-import Searchbar from './components/Searchbar.jsx'
-import Caracteristic from './components/Caracteristic'
+import Home from "./pages/Home/Home.jsx";
+import {Route, Routes} from "react-router-dom";
+import LandingPage from "./pages/LandigPage/LandingPage.jsx";
+import Details from "./pages/Details/Details.jsx";
 
 function App() {
-
   return (
     <div className="App">
-         <Nav/>
-         <Searchbar/>
-         <Caracteristic/>
+        <Routes>
+            <Route exact path='/' element={<LandingPage />} />
+            <Route exact path='/home' element={<Home />} />
+            <Route exact path='/details/:id' element={<Details />} />
+        </Routes>
     </div>
   )
 }
