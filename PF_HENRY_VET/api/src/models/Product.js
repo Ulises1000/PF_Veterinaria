@@ -34,10 +34,3 @@ module.exports = (sequelize) => {
     },
   });
 };
-
-/* codProduct: {
-    type: DataTypes.UUID,
-    primaryKey: true,
-    allowNull: false,
-    defaultValue: DataTypes.UUIDV4
-}, */
