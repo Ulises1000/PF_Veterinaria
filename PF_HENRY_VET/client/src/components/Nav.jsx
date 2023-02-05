@@ -1,6 +1,6 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import logo_only from "../media/OnlyPetsLogo.jpg";
-import logo_user from "../media/avatar.png";
+// import logo_user from "../media/avatar.png";
 
 function Nav() {
   const [burgerbutton, setBurgerbutton] = useState(false);
@@ -16,7 +16,7 @@ function Nav() {
 
   return (
     // nav aca
-    <nav className="bg-violet-400">
+    <nav className="fixed w-full top-0 z-40 bg-violet-400">
       <div className="max-w-6xl mx-auto px-4">
         <div className="flex justify-between">
           <div className="flex space-x-6">
@@ -72,7 +72,7 @@ function Nav() {
           <div className="md:hidden flex items-center">
             <button
               className="mobile-menu-button"
-              onClick={(e) => {
+              onClick={() => {
                 setBurgerbutton(!burgerbutton);
               }}
             >
