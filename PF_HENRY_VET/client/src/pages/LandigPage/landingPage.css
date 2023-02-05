@@ -3,26 +3,26 @@
 }
 
 .Container {
-  margin-top: 60px;
-  display: grid;
-  grid-template-columns: 1fr 1fr;
+  margin-top: 60px !important;
+  display: grid !important;
+  grid-template-columns: 1fr 1fr !important;
 }
 
 .logoContainer {
 }
 
 .logoPrincipal {
-  background: rgba(165, 94, 234, 0.35);
-  border-radius: 24px;
+  background: rgba(165, 94, 234, 0.35) !important;
+  border-radius: 24px !important;
 }
 
 .linkContainer {
-  margin-bottom: 50px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  flex-wrap: wrap;
-  flex-direction: column;
+  margin-bottom: 50px !important;
+  display: flex !important;
+  justify-content: center !important;
+  align-items: center !important;
+  flex-wrap: wrap !important;
+  flex-direction: column !important;
 }
 
 .linkText {

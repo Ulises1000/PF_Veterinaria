@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import logo_only from "../media/OnlyPetsLogo.jpg";
+import { Link } from "react-router-dom";
 // import logo_user from "../media/avatar.png";
 
 function Nav() {
@@ -32,12 +33,12 @@ function Nav() {
             </div>
             {/* nav primario */}
             <div className="hidden md:flex items-center space-x-2">
-              <a
-                href="#"
+              <Link
+                to="/Mercado"
                 className="py-4 px-3 text-gray-700 hover:font-medium hover:text-black"
               >
                 Mercado
-              </a>
+              </Link>
               <a
                 href="#"
                 className="py-4 px-3 text-gray-700 hover:font-medium hover:text-black"
