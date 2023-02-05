@@ -14,7 +14,7 @@ router.get("/get", async (req, res) => {
             })
             else res.status(200).json({
                 ok: true,
-                value: info
+                value: info[0]
             })
         }else if(name) {
             res.status(200).json({

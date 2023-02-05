@@ -1,19 +1,26 @@
 const {Router} = require("express");
+const axios = require("axios");
+const {getProducts} = require("../../controllers/controllerProducts/controllerGetProduct")
 const router = Router();
 
-router.post("/get", async (req, res) => {
-    const {name} = req.query;
+router.get("/get",async  (req, res) => {
     try{
-        if(name){
-            
-        }
+       const getP = await getProducts()       
+      res.json(getP)
+
     }catch(err){
-        res.status(404).send({
-            ok: false, 
-            msg: "Lo Lamentamos, Ha Ocurrido Un Error.",
-            detail: err.message 
-        })
+      res.status(404).send({
+         ok: false,
+         msg: "Lo Lamentamos, Error al llamar los productos.",
+         detail: err.message,
+       });
     }
 });
 
 module.exports = router;
+
+
+
+
+
+

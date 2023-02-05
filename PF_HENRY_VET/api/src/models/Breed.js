@@ -11,23 +11,28 @@ module.exports = (sequelize) => {
         },
         /*Especie*/
         kind:{
-            type:DataTypes.STRING
+            type:DataTypes.STRING,
+            allowNull:false
         },
         /*Nombre*/
         name:{
-            type:DataTypes.STRING
+            type:DataTypes.STRING,
+            allowNull:false
         },
         /*Rango de Peso*/
         WeightRange:{
-            type:DataTypes.STRING
+            type:DataTypes.STRING,
+            allowNull:false
         },
         /*Rango de Altura*/
         HeightRange:{
-            type:DataTypes.STRING
+            type:DataTypes.STRING,
+            allowNull:false
         },
         /*Dar de baja*/
         unsuscribe:{
-            type:DataTypes.BOOLEAN
+            type:DataTypes.BOOLEAN,
+            allowNull:false
         }
     },{timestamps:false})
 }

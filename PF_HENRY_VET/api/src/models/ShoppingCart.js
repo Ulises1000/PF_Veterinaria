@@ -7,10 +7,6 @@ module.exports = (sequelize) => {
             primaryKey: true,
             defaultValue: DataTypes.UUIDV4,
             allowNull: false
-        },
-        products_Threshold: {
-            type: DataTypes.INTEGER,
-            defaultValue: 10
         }
     })
 }
