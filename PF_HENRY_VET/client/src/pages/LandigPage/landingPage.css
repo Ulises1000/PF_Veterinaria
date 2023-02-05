@@ -1,0 +1,109 @@
+* {
+  scroll-behavior: smooth;
+}
+
+.Container {
+  margin-top: 60px;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+}
+
+.logoContainer {
+}
+
+.logoPrincipal {
+  background: rgba(165, 94, 234, 0.35);
+  border-radius: 24px;
+}
+
+.linkContainer {
+  margin-bottom: 50px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-wrap: wrap;
+  flex-direction: column;
+}
+
+.linkText {
+  font-family: "Fredoka", sans-serif;
+}
+
+.bottomIcon {
+  background-color: #a55eea;
+  border-radius: 100px;
+  border: solid #000;
+  width: 200px;
+  height: 200px;
+  margin-top: 20px;
+  transition: 500ms ease-out;
+}
+
+.bottomIcon a img {
+  padding-top: 40px;
+}
+.paw {
+  margin-top: 32px;
+  margin-left: 32px;
+}
+.bottomIcon:hover {
+  background-color: rgba(165, 94, 234, 0.35);
+
+  cursor: pointer;
+}
+
+@keyframes fade-in {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+
+@keyframes fade-out {
+  100% {
+    opacity: 0;
+  }
+  0% {
+    opacity: 1;
+  }
+}
+
+@keyframes slide-up {
+  0% {
+    transform: translateY(100%);
+  }
+  100% {
+    transform: translateY(0%);
+  }
+}
+
+.modal {
+  position: absolute;
+  float: left;
+  left: 60%;
+  top: 20%;
+  transform: translate(-50%, -50%);
+  box-shadow: var(--shadow-2), 0 0 0 100vw rgb(0 0 0 / 0.5);
+
+  color: #222;
+  border: 0;
+  border-radius: 0.25rem;
+}
+
+.modal::backdrop {
+  background: rgb(0 0 0 / 0.5);
+  opacity: 0;
+}
+
+.modal[open] {
+  animation: slide-up 1000ms forwards, fade-in 500ms forwards;
+}
+
+.modal[closing] {
+  display: block;
+  pointer-events: none;
+  inset: 0;
+  animation: fade-out 500ms forwards;
+}
