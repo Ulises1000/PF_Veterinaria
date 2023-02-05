@@ -1,5 +1,5 @@
 function makeAssociations(sequelize){
-    const {User, ShoppingCart, ShoppingCartDetail, Product, Favorite} = sequelize.models;
+    const {User, ShoppingCart, ShoppingCartDetail, Product, Favorite, Breed} = sequelize.models;
     //Associations Carrito-Usuario
     ShoppingCart.hasOne(User);
     User.belongsTo(ShoppingCart);
