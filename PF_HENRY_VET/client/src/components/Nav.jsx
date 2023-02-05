@@ -16,7 +16,7 @@ function Nav() {
 
   return (
     // nav aca
-    <nav className="bg-violet-400">
+    <nav className="fixed w-full top-0 z-40 bg-violet-400">
       <div className="max-w-6xl mx-auto px-4">
         <div className="flex justify-between">
           <div className="flex space-x-6">

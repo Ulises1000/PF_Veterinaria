@@ -5,10 +5,11 @@ export default function Characteristic() {
   // let currentGenre = useSelector((state) => state.currentGenre)
   // let loadingCheck = useSelector((state) => state.loading)
 
-  function onChange(event) {}
+  function onChange(event) { }
+
 
   return (
-    <div className="flex flex-col">
+    <div className="flex flex-col justify-center items-center -mt-4">
       <div className="pl-4 space-x-4 space-y-2">
         <select
           id="dropdown"

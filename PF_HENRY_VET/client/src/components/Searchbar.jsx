@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import Characteristic from "./Characteristic";
 
 function Searchbar() {
   const [nameSearch, setNameSearch] = useState("");
@@ -14,7 +15,7 @@ function Searchbar() {
     e.target.placeholder = "Search...";
   }
   return (
-    <div className="bg-violet-100 ">
+    <div className="fixed w-full mt-20 h-14 z-30 bg-violet-100">
       <form
         id="Form"
         className="focus:border focus:bg-red-400 focus:border-red-500"
@@ -49,6 +50,7 @@ function Searchbar() {
           </button>
         </div>
       </form>
+      <Characteristic />
     </div>
   );
 }

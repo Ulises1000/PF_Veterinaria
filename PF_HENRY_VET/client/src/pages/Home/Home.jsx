@@ -2,7 +2,6 @@ import React, { useState, useEffect } from 'react'
 import axios from "axios";
 import Nav from '../../components/Nav.jsx'
 import Searchbar from '../../components/Searchbar.jsx'
-import Characteristic from '../../components/Characteristic.jsx'
 import Card from '../../components/Card.jsx'
 import styles from './Home.module.css'
 
@@ -15,7 +14,7 @@ function Home() {
     async function fetchData() {
       setLoading(true);
       const result = await axios(
-          `https://productos-mascotas-default-rtdb.firebaseio.com/productos.json?page=${page}`,
+        `https://productos-mascotas-default-rtdb.firebaseio.com/productos.json?page=${page}`,
       );
 
       setProducts(result.data);
@@ -38,19 +37,22 @@ function Home() {
   }, [products]);
   return (
     <div>
-      <Nav />
+      <div className='h-14'>
+        <Nav />
         <Searchbar />
-        <Characteristic />
-      <div className={styles.center}>
-        {Object.values(products).map(product => (
+      </div>
+      <div className='mt-36'>
+        <div className={styles.center}>
+          {Object.values(products).map(product => (
             <Card
-                key={product.id}
-                image={product.image}
-                nombre={product.nombre}
-                precio={product.precio}
+              key={product.id}
+              image={product.image}
+              nombre={product.nombre}
+              precio={product.precio}
             />
-        ))}
-        {loading && <h1>Loading...</h1>}
+          ))}
+          {loading && <h1>Loading...</h1>}
+        </div>
       </div>
     </div>
   )
