@@ -5,6 +5,8 @@ import Card from "../../components/Card.jsx";
 import styles from "./Mercado.module.css";
 import { useDispatch, useSelector } from "react-redux";
 import { getAllProducts } from "../../redux/action/index.jsx";
+import loader from "../../style-assets/paw_icon.png";
+
 
 function Mercado() {
   const dispatch = useDispatch();
@@ -23,6 +25,24 @@ function Mercado() {
     fetchData();
   }, [state.page]);
 
+
+  const [loading, setLoading] = useState(false);
+  useEffect(() => {
+    setLoading(true);
+    setTimeout(() => {
+      setLoading(false);
+    }, 2000);
+  }, []);
+
+  if (loading) {
+    return (
+      <div className="flex items-center justify-center bg-patas flex-col h-screen w-screen absolute">
+        <img src={loader} className="imgLoader" />
+        <p className="loadingTxt">Loading...</p>
+      </div>
+    );
+  }
+  
   return (
       <div>
         <div className="h-14">
@@ -41,7 +61,6 @@ function Mercado() {
                     />
                 ))
             ))}
-            {state.loading && <h1>Loading...</h1>}
           </div>
         </div>
       </div>
