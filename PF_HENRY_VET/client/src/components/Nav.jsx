@@ -51,19 +51,24 @@ function Nav() {
               >
                 Trabajo
               </a>
+              <a
+                href="/profile"
+                className="py-4 px-3 text-gray-700 hover:font-medium hover:text-black"
+              >Perfil
+              </a>
             </div>
           </div>
 
           {/* nav secundario */}
           <div className="hidden md:flex items-center space-x-1">
             <a
-              href="#"
+              href="/"
               className="py-5 px-3  text-gray-700 font-mono hover:font-medium hover:text-black"
             >
               Login
             </a>
             <a
-              href="#"
+              href="/"
               className="py-2 px-3 bg-slate-50 rounded border-black border-2 text-gray-700 font-medium hover:bg-slate-200 hover:text-violet-500 transition duration-300"
             >
               Sign Up

@@ -1,7 +1,9 @@
 import React from "react";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import { Link } from "react-router-dom";
+import Nav from "../../components/nav";
+import loader from "../../style-assets/paw_icon.png";
 
 export default function UserProfile() {
   // const dispatch = useDispatch()
@@ -36,9 +38,26 @@ export default function UserProfile() {
   //      userValidate = users.find((e) => e.email === user.emails[0].value);
   //      userImage = user.photos[0].value
   //   }
+  
+  const [loading, setLoading] = useState(false);
+  useEffect(() => {
+    setLoading(true);
+    setTimeout(() => {
+      setLoading(false);
+    }, 2000);
+  }, []);
 
+  if (loading) {
+    return (
+      <div className="flex items-center justify-center bg-patas flex-col h-screen w-screen absolute">
+        <img src={loader} className="imgLoader" />
+        <p className="loadingTxt">Loading...</p>
+      </div>
+    );
+  }
   return (
     <div className="flex absolute top-0 left-0 -z-10 items-center justify-center w-screen h-screen bg-patas">
+      <Nav/>
       <div className="flex p-8 border rounded-xl border-black">
         <div className="space-y-3 pr-3">
           <div className="flex w-72">
