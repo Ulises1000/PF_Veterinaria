@@ -15,7 +15,7 @@ const Home = () => {
 
   if (loading) {
     return (
-      <div className="loading">
+      <div className="flex items-center justify-center bg-patas flex-col h-screen w-screen absolute">
         <img src={loader} className="imgLoader" />
         <p className="loadingTxt">Loading...</p>
       </div>
@@ -23,11 +23,11 @@ const Home = () => {
   }
 
   return (
-    <div className="h-screen w-screen">
+    <div className="h-screen w-screen bg-patas -mt-20">
       <Nav />
 
-      <div className="AnunciosCanino mt-36">
-        <div className="anuncioCanino">
+      <div className="AnunciosCanino mt-40 space-y-4">
+        <div className="anuncioCanino mt-3">
           <h1>Dieta y consejos</h1>
           <img
             className="w-96 h-52"
@@ -53,14 +53,15 @@ const Home = () => {
         </div>
       </div>
       <div>
-        <h1></h1>
         <img
           className="Banner1"
           src="https://nypost.com/wp-content/uploads/sites/2/2022/10/dogfood.jpg"
           alt="no image"
         />
       </div>
-      <div className="AnunciosFelino">
+      <div className="AnunciosFelino bg-patas flex-col">
+        <div className="flex flex-row space-x-4 justify-center items-center">
+
         <div className="anuncioFelino">
           <h1>Manten a tu gato entretenido y ejercitado!</h1>
           <img
@@ -85,13 +86,13 @@ const Home = () => {
           />
           <h2>Leer mas</h2>
         </div>
-      </div>
+        </div>
       <div>
+        <div className="ProductosDestacados ml-20">
         <h1>
           {" "}
           <strong> Productos Destacados </strong>
         </h1>
-        <div className="ProductosDestacados">
           <div className="ProductoDestacado">
             <h1>Cama Teepee para perros y gatos </h1>
             <img
@@ -109,6 +110,7 @@ const Home = () => {
             />
           </div>
         </div>
+      </div>
       </div>
     </div>
   );
