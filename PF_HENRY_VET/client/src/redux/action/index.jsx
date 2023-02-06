@@ -9,7 +9,8 @@ import {
     DELETE_USER,
     POST_USER,
     UPDATE_USER,
-    FILTERED
+    FILTERED,
+    SORT
 } from './constants';
 
 /* ruta + endpoints */
@@ -239,5 +240,12 @@ export function filtered(payload) {
     return {
         type: FILTERED,
         payload
+    }
+}
+
+export function sort(order) {
+    return{
+        type: SORT,
+        payload: order
     }
 }

@@ -1,17 +1,27 @@
 // import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux"
+import { ASCENDENTE, DESCENDENTE } from "../const/orderByName";
+import { sort } from "../redux/action";
 
 export default function Characteristic() {
-  // let dispatch = useDispatch()
+  let dispatch = useDispatch()
   // let currentGenre = useSelector((state) => state.currentGenre)
+  let order = useSelector((state) => state.currentOrder)
+      let orderedProducts = useSelector((state) => state.orderedProducts)
   // let loadingCheck = useSelector((state) => state.loading)
 
-  function onChange(event) { }
+  function onChange(event) {
+    console.log(event.target.value)
+    console.log(orderedProducts);
+
+    dispatch(sort(event.target.value))
+  }
 
 
   return (
     <div className="flex flex-col justify-center items-center -mt-4">
       <div className="pl-4 space-x-4 space-y-2">
-        <select
+        {/* <select
           id="dropdown"
           className="bg-violet-200 rounded-md px-4 py-2 text-sm text-gray-700 hover:font-semibold"
           onChange={onChange}
@@ -28,8 +38,8 @@ export default function Characteristic() {
           <option value="Areneros">Areneros</option>
           <option value="Jugetes">Jugetes</option>
 
-        </select>
-        <select
+        </select> */}
+        {/* <select
           id="dropdown"
           className="bg-violet-200 rounded-md  px-4 py-2 text-sm text-gray-700 hover:font-semibold"
           onChange={onChange}
@@ -43,33 +53,28 @@ export default function Characteristic() {
           <option value="Perro">Perro</option>
           <option value="Caballo">Caballo</option>
 
-        </select>
-        <select
+        </select> */}
+        {/* <select
           id="dropdown"
           className="bg-violet-200 rounded-md  px-4 py-2 text-sm text-gray-700 hover:font-semibold"
           onChange={onChange}
           value={"A-Z"}
         >
-          <option value="A-Z" hidden>
-            {" "}
-            A-Z
-          </option>
-          <option value="A-Z">A-Z</option>
-          <option value="Z-A">Z-A</option>
 
-        </select>
+        </select> */}
         <select
           id="dropdown"
           className="bg-violet-200 rounded-md  px-4 py-2 text-sm text-gray-700 hover:font-semibold"
           onChange={onChange}
-          value={"Precios"}
+          value={order}
         >
-          <option value="Precios" hidden>
+          <option value={ASCENDENTE}>
             {" "}
-            Precios
+            A-Z
           </option>
-          <option value="MayoraMenor">Mayor a Menor</option>
-          <option value="MenoraMayor">Menor a Mayor</option>
+          <option value={DESCENDENTE}>Z-A</option>
+          <option value="HighToLow">Mayor a Menor</option>
+          <option value="LowToHigh">Menor a Mayor</option>
 
         </select>
       </div>

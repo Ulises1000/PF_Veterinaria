@@ -11,3 +11,4 @@ export const UPDATE_USER = 'UPDATE_USER';
 
 /* filter */
 export const FILTERED = "FILTERED";
+export const SORT = "SORT";
