@@ -11,17 +11,30 @@ import {
     UPDATE_USER
 } from './constants';
 
-/* ruta */
-const URL = "http://localhost:3001";
+/* ruta + endpoints */
+const URL = "http://localhost:3001/";
 
-export function getAllProducts() {
+const Endpoints = {
+    product: "products/",
+    user: "users/",
+    carrito: "shoppingCart/",
+    detalleCarrito: "shoppingCartDetail/",
+    razas: "breed/",
+    favoritos: "favorite/"
+}
+
+export function getAllProducts(name) {
     return async function(dispatch) {
         try {
-            const { data } = await axios.get(`${URL}/get`);
+            //SE UTILIZA EL GET ALL PRODUCTS PARA TRAER TODOS LOS PRODUCTOS O SOLO AQUELLOS QUE CUMPLAN
+            //CON CIERTA CONDICION
+            //---------------------------------
+            const { data } = await axios.get(name ? `${URL + Endpoints.product}get?name=${name}` : `${URL + Endpoints.product}get`);
             dispatch({
                 type: GET_PRODUCTS,
                 payload: data,
             });
+            //---------------------------------
         } catch (error) {
             if (error.response) {
                 console.log(error.response.data);
@@ -40,7 +53,7 @@ export function getAllProducts() {
 export function getProduct(productName) {
     return async function(dispatch) {
         try {
-            const { data } = await axios.get(`${URL}/getp/${productName}`);
+            const { data } = await axios.get(`${URL + Endpoints.product}getp/${productName}`);
             dispatch({
                 type: GET_PRODUCT,
                 payload: data,
@@ -63,7 +76,7 @@ export function getProduct(productName) {
 export function deleteProduct(codProduct) {
     return async function(dispatch) {
         try {
-            await axios.delete(`${URL}/unsubscribe/${codProduct}`);
+            await axios.delete(`${URL + Endpoints.product}unsubscribe/${codProduct}`);
             dispatch({
                 type: DELETE_PRODUCT,
                 payload: productId,
@@ -86,7 +99,7 @@ export function deleteProduct(codProduct) {
 export function updateProduct(productId, productData) {
     return async function(dispatch) {
         try {
-            const { data } = await axios.put(`${URL}/update/${productId}`, productData);
+            const { data } = await axios.put(`${URL + Endpoints.product}update/${productId}`, productData);
             dispatch({
                 type: UPDATE_PRODUCT,
                 payload: data,
@@ -109,7 +122,7 @@ export function updateProduct(productId, productData) {
 export function postProduct(productData) {
     return async function(dispatch) {
         try {
-            const { data } = await axios.post(`${URL}/post`, productData);
+            const { data } = await axios.post(`${URL + Endpoints.product}post`, productData);
             dispatch({
                 type: POST_PRODUCT,
                 payload: data,
@@ -132,7 +145,7 @@ export function postProduct(productData) {
 export function getUser(userId) {
     return async function(dispatch) {
         try {
-            const { data } = await axios.get(`${URL}/get/${userId}`);
+            const { data } = await axios.get(`${URL + Endpoints.user}get/${userId}`);
             dispatch({
                 type: GET_USER,
                 payload: data,
@@ -155,7 +168,7 @@ export function getUser(userId) {
 export function deleteUser(userId) {
     return async function(dispatch) {
         try {
-            await axios.delete(`${URL}/unsubscribe/${userId}`);
+            await axios.delete(`${URL + Endpoints.user}unsubscribe/${userId}`);
             dispatch({
                 type: DELETE_USER,
                 payload: userId,
@@ -178,7 +191,7 @@ export function deleteUser(userId) {
 export function postUser(userData) {
     return async function(dispatch) {
         try {
-            const { data } = await axios.post(`${URL}/post`, userData);
+            const { data } = await axios.post(`${URL + Endpoints.user}post`, userData);
             dispatch({
                 type: POST_USER,
                 payload: data,
@@ -201,7 +214,7 @@ export function postUser(userData) {
 export function updateUser(userId, userData) {
     return async function(dispatch) {
         try {
-            const { data } = await axios.put(`${URL}/update/${userId}`, userData);
+            const { data } = await axios.put(`${URL + Endpoints.user}update/${userId}`, userData);
             dispatch({
                 type: UPDATE_USER,
                 payload: data,

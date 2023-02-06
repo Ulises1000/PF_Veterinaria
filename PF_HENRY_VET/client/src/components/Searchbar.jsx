@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { useDispatch } from 'react-redux';
-import { getProduct } from "../redux/action/index.jsx";
+import { getAllProducts } from "../redux/action/index.jsx";
 import Characteristic from "./Characteristic";
 
 function Searchbar() {
@@ -14,7 +14,7 @@ function Searchbar() {
 
   function handleSubmit(e) {
     e.preventDefault();
-    dispatch(getProduct(nameSearch))
+    dispatch(getAllProducts(nameSearch))
     console.log(nameSearch);
     setNameSearch("");
     e.target.placeholder = "Search...";
