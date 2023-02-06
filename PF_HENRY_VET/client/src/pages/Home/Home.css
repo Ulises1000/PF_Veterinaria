@@ -1,0 +1,63 @@
+.loading {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  margin-top: 50vh;
+}
+
+.imgLoader {
+  animation: rotate-center 2s ease-in-out infinite both;
+}
+
+@keyframes rotate-center {
+  0% {
+    transform: rotate(0);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+.AnunciosCanino {
+  display: flex;
+  column-gap: 100px;
+  flex-direction: row;
+  margin: 110px;
+}
+.anuncioCanino img {
+  border-radius: 19px;
+  box-shadow: 0px 5px 15px rgba(0, 0, 0, 0.25);
+}
+
+.Banner1 {
+  width: 100vw;
+  height: 20rem;
+  object-fit: cover;
+  object-position: 70% 70%;
+  box-shadow: 0px 5px 15px rgba(0, 0, 0, 0.25);
+}
+
+.AnunciosFelino {
+  display: flex;
+  column-gap: 100px;
+  flex-direction: row;
+  margin: 110px;
+}
+
+.anuncioFelino img {
+  border-radius: 19px;
+  box-shadow: 0px 5px 15px rgba(0, 0, 0, 0.25);
+}
+
+.ProductosDestacados {
+  display: flex;
+  column-gap: 100px;
+  flex-direction: row;
+  margin: 110px;
+}
+
+.ProductoDestacado img {
+  border-radius: 19px;
+  box-shadow: 0px 5px 15px rgba(0, 0, 0, 0.25);
+}
