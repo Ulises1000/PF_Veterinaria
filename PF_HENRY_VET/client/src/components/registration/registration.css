@@ -1,0 +1,61 @@
+.containerRegistration {
+  width: 450px !important;
+  display: grid !important;
+  grid-template-columns: 1fr !important;
+  background-color: rgba(136, 84, 208, 0.6) !important;
+  border-radius: 10px !important;
+}
+
+.btnExplore {
+  font-family: "Fredoka", sans-serif;
+
+  font-size: large;
+  border-radius: 20px;
+  color: #000;
+  background-color: #dcdde1;
+}
+.btnExplore:hover {
+  cursor: pointer;
+  color: #dcdde1;
+  background-color: #000;
+}
+
+.titleRegistration {
+  font-family: "Fredoka", sans-serif;
+  color: #000;
+  text-shadow: -1px -1px 0 #dcdde1, 1px -1px 0 #dcdde1, -1px 1px 0 #dcdde1,
+    1px 1px 0 #dcdde1;
+}
+
+.inputRegistration {
+  font-family: "Fredoka", sans-serif;
+  border-radius: 10px;
+  font-size: medium;
+  color: #dcdde1;
+  text-shadow: -1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000,
+    1px 1px 0 #000;
+  margin: 20px 10px;
+  font-weight: bold;
+}
+
+.submitRegistration {
+  font-family: "Fredoka", sans-serif;
+  width: 120px;
+  font-size: large;
+  border-radius: 20px;
+  color: #000;
+  background-color: #778ca3;
+}
+.submitRegistration:hover {
+  cursor: pointer;
+  color: #dcdde1;
+  background-color: rgba(119, 140, 163, 0.5);
+}
+
+.errorRegister {
+  font-family: "Fredoka", sans-serif;
+  color: #000;
+  text-shadow: -1px -1px 0 yellow, 1px -1px 0 yellow, -1px 1px 0 yellow,
+    1px 1px 0 yellow;
+  font-weight: bold;
+}
