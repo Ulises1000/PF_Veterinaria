@@ -33,9 +33,9 @@ export default function Characteristic() {
           id="dropdown"
           className="bg-violet-200 rounded-md  px-4 py-2 text-sm text-gray-700 hover:font-semibold"
           onChange={onChange}
-          value={"Animal"}
+          value={"Breed"}
         >
-          <option value="Animal" hidden>
+          <option value="Breed" hidden>
             {" "}
             Animal
           </option>

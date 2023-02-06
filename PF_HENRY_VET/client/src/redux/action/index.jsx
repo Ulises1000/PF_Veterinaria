@@ -8,7 +8,8 @@ import {
     GET_USER,
     DELETE_USER,
     POST_USER,
-    UPDATE_USER
+    UPDATE_USER,
+    FILTERED
 } from './constants';
 
 /* ruta + endpoints */
@@ -232,4 +233,11 @@ export function updateUser(userId, userData) {
             console.log(error.config);
         }
     };
+}
+
+export function filtered(payload) {
+    return {
+        type: FILTERED,
+        payload
+    }
 }

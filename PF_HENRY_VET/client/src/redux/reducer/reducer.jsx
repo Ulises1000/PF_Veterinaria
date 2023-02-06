@@ -1,10 +1,13 @@
-import { GET_PRODUCTS, GET_PRODUCT, DELETE_PRODUCT, POST_PRODUCT, UPDATE_PRODUCT } from '../action/constants';
+import { GET_PRODUCTS, GET_PRODUCT, DELETE_PRODUCT, POST_PRODUCT, UPDATE_PRODUCT, FILTERED } from '../action/constants';
 import { GET_USER, DELETE_USER, POST_USER, UPDATE_USER } from '../action/constants';
 
 const initialState = {
     products: [],
     product: {},
     user: {},
+    filteredproducts: [],
+    currentBreed: "Breed",
+    currentObject: "Objetos",
 };
 
 export const productsReducer = (state = initialState.products, action) => {
@@ -40,6 +43,53 @@ export const productsReducer = (state = initialState.products, action) => {
                      : product
              ),
          };
+     case FILTERED:
+        let filteredproducts = products
+
+            let filters = {
+                Breed: state.currentBreed,
+                Objecto: state.currentObject
+            }
+
+
+            for (let Key in action.payload){
+
+                filters[Key] = action.payload[Key]
+            }
+
+            if(filters.Breed !== "Breed"){
+                
+                filteredproducts = filteredproducts.filter((product) =>{
+
+                    for (let i = 0; i < product.Breed.length; i++) { 
+                        if (product.Breed[i].name === filters.Breed){
+                            return product
+                        }
+                    }
+                    return 0
+                })
+            }
+
+            if(filters.Objecto !== "Objeto"){
+        
+                filteredproducts = filteredproducts.filter((product) =>{
+                    for (let i = 0; i < product.Objecto.length; i++) {
+                        if (product.Objecto[i].name === filters.Objecto){
+                            return product
+                        }
+                    }
+                    return 0
+                })
+
+            }
+
+            return {
+                ...state,
+                currentBreed: filters.Breed,
+                currentObject: filters.Objecto,
+                filteredproducts: filteredproducts,
+                
+            }
      default:
          return state;
  }
