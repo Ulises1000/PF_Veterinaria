@@ -3,9 +3,11 @@ import Nav from "../../components/Nav";
 
 const Home = () => {
   return (
-    <div>
+    <div className="h-screen w-screen">
       <Nav />
-      <h1>NotFound</h1>
+      <div className="h-full mt-20 bg-red-500 ">
+        <h1>NotFound</h1>
+      </div>
     </div>
   );
 };

@@ -1,10 +1,10 @@
 import React from "react";
-import Nav from "../../components/Nav/Nav";
+import Nav from "../../components/Nav";
 
-const NotFound = ({ user }) => {
+const NotFound = () => {
   return (
     <div>
-      <Nav user={user} />
+      <Nav />
       <h1>NotFound</h1>
     </div>
   );

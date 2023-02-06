@@ -39,7 +39,7 @@ export default function LandingPage() {
   };
   return (
     <>
-      <div className="Container">
+      <div className="Container h-screen">
         <div className="logoContainer">
           <img
             src={logo}

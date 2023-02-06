@@ -38,30 +38,30 @@ export default function UserProfile() {
   //   }
 
   return (
-    <div className="flex absolute top-0 left-0 -z-10 items-center justify-center w-screen h-screen bg-violet-100">
+    <div className="flex absolute top-0 left-0 -z-10 items-center justify-center w-screen h-screen bg-patas">
       <div className="flex p-8 border rounded-xl border-black">
-      <div className="space-y-3 pr-3">
-        <div className="flex w-72">
-          <h1 className="pr-2 font-semibold">Username:</h1>
-          <p className="w-80">Alberto Diaz</p>
+        <div className="space-y-3 pr-3">
+          <div className="flex w-72">
+            <h1 className="pr-2 font-semibold">Username:</h1>
+            <p className="w-80">Alberto Diaz</p>
+          </div>
+          <div className="flex">
+            <h1 className="pr-2 font-semibold">Email: </h1>
+            <p className="flex">ThanksImFine@gmail.com.ar</p>
+          </div>
+          <div className="flex items-end justify-end w-72 h-36">
+            <button className="bg-white h-10 duration-300 hover:bg-red-100 p-2 rounded-lg border border-black ">
+              Logout
+            </button>
+          </div>
         </div>
-        <div className="flex">
-          <h1 className="pr-2 font-semibold">Email: </h1>
-          <p  className="flex">ThanksImFine@gmail.com.ar</p>
+        <div className="grid justify-items-center">
+          {<img className="z-30 h-52 w-52 rounded-xl " src="" alt="" />}
+          <div className="absolute opacity-0  hover:opacity-40 font-bold text-black  grid duration-300 justify-items-center content-center z-40 hover:bg-slate-50 hover:bg-opacity-40 h-52 w-52">
+            Change Image
+          </div>
         </div>
-        <div className="flex items-end justify-end w-72 h-36">
-        <button className="bg-white h-10 duration-300 hover:bg-red-100 p-2 rounded-lg border border-black ">
-          Logout
-        </button>
-        </div>
-      </div>
-      <div className="grid justify-items-center">
-        {<img className="z-30 h-52 w-52 rounded-xl " src="" alt="" />}
-        <div className="absolute opacity-0  hover:opacity-40 font-bold text-black  grid duration-300 justify-items-center content-center z-40 hover:bg-slate-50 hover:bg-opacity-40 h-52 w-52">
-          Change Image
-        </div>
-      </div>
-      {/* {user.emails === undefined ? <button><Link to="/userProfile/uploadImage">Change Image</Link></button> : ""} */}
+        {/* {user.emails === undefined ? <button><Link to="/userProfile/uploadImage">Change Image</Link></button> : ""} */}
       </div>
     </div>
   );
