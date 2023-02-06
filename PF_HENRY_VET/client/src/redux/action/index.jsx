@@ -8,7 +8,9 @@ import {
     GET_USER,
     DELETE_USER,
     POST_USER,
-    UPDATE_USER
+    UPDATE_USER,
+    FILTERED,
+    SORT
 } from './constants';
 
 /* ruta + endpoints */
@@ -233,5 +235,16 @@ export function updateUser(userId, userData) {
         }
     };
 }
+export function filtered(payload) {
+    return {
+        type: FILTERED,
+        payload
+    }
+}
+export function sort(order) {
+    return{
+        type: SORT,
+        payload: order
+    }
+}
 
-// Creo una action filter??

@@ -39,26 +39,24 @@ export default function LandingPage() {
   };
   return (
     <>
-      <div className="Container h-screen">
-        <div className="logoContainer">
+      <div className="grid grid-cols-1 md:grid-cols-2 h-screen w-screen">
+        <div className="flex ml-20 mt-20 md:ml-64 md:mt-56">
           <img
             src={logo}
             alt="Not found"
-            width="400px"
-            height="400px"
-            className="logoPrincipal"
+            className="h-48 w-48 md:h-400px md:w-400px bg-Dark-Violet rounded-xl"
             id="open-button"
           />
         </div>
-        <div className="linkContainer">
-          <h1 className="linkText">Ingresar</h1>
+        <div className="flex h-250px w-250px ml-14 -mt-20 md:mt-52 justify-center items-center flex-wrap flex-col md:w-400px md:h-400px">
+          <h1 className="font-Fredoka">Ingresar</h1>
 
-          <div className="bottomIcon">
-            <img src={icon} className="paw" onClick={showForm} />
+          <div className="bg-violet-400 border-4 border-black w-200px h-200px hover:bg-violet-200 rounded-full mt-5 transition duration-300 ease-out hover:cursor-pointer">
+            <img src={icon} className="mt-8 ml-8" onClick={showForm} />
           </div>
         </div>
         {openForm && (
-          <dialog className="modal" id="modal" open>
+          <dialog className="modal bg-transparent mt-80 ml-10 md:mt-44 md:mr-72" id="modal" open>
             <Registration />
           </dialog>
         )}

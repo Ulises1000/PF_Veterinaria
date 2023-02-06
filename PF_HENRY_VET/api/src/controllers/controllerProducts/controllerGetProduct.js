@@ -13,10 +13,11 @@ const getProducts = async (nameP) => {
         );
         
         const apiProducts = await api.data.map((p) => {
-            return {
-              image_url: p.image,
-              name: p.nombre,
-              unit_price: p.precio,
+            const obj = {            
+            image_url: p.image,
+            name: p.nombre,
+            unit_price: p.precio, 
+            breedName:Array.isArray(p.tipo) ? p.tipo.join("-"): p.tipo  
           };
         });
         
