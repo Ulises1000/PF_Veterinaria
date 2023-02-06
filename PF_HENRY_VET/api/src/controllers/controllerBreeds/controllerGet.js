@@ -7,9 +7,9 @@ let array=[]
 /*Esta funcion es para traer todas las razas tanto de los perros como de los gatos y guardarlas 
 en la base de datos*/
 async function get () {
-const breeds = [{name:"perro"},{name:"gato"}];
+
     try {
-        /*await axios.get(`https://api.thedogapi.com/v1/breeds?key${YOUR_API_KEY}`)
+        await axios.get(`https://api.thedogapi.com/v1/breeds?key${YOUR_API_KEY}`)
         .then(async (response)=>{
             const payload=response.data
             for(let i=0; i<payload.length;i++){
@@ -36,10 +36,8 @@ const breeds = [{name:"perro"},{name:"gato"}];
                 c={};
             }
         }); 
-   */
-        await Breed.bulkCreate(breeds)
-   } 
-   
+    } 
+    
     catch (error) {
 
         throw new Error(error.message)
