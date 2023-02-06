@@ -79,7 +79,7 @@ export function deleteProduct(codProduct) {
             await axios.delete(`${URL + Endpoints.product}unsubscribe/${codProduct}`);
             dispatch({
                 type: DELETE_PRODUCT,
-                payload: productId,
+                payload: codProduct,
             });
         } catch (error) {
             if (error.response) {
@@ -233,3 +233,5 @@ export function updateUser(userId, userData) {
         }
     };
 }
+
+// Creo una action filter??

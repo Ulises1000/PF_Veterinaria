@@ -13,12 +13,11 @@ const getProducts = async (nameP) => {
         );
         
         const apiProducts = await api.data.map((p) => {
-            const obj = {            
-            image_url: p.image,
-            name: p.nombre,
-            unit_price: p.precio,
+            return {
+              image_url: p.image,
+              name: p.nombre,
+              unit_price: p.precio,
           };
-          return obj;
         });
         
         await Product.bulkCreate(apiProducts);
