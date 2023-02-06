@@ -81,7 +81,7 @@ export function deleteProduct(codProduct) {
             await axios.delete(`${URL + Endpoints.product}unsubscribe/${codProduct}`);
             dispatch({
                 type: DELETE_PRODUCT,
-                payload: productId,
+                payload: codProduct,
             });
         } catch (error) {
             if (error.response) {
@@ -235,17 +235,16 @@ export function updateUser(userId, userData) {
         }
     };
 }
-
 export function filtered(payload) {
     return {
         type: FILTERED,
         payload
     }
 }
-
 export function sort(order) {
     return{
         type: SORT,
         payload: order
     }
 }
+
