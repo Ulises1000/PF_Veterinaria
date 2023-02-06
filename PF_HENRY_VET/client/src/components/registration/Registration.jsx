@@ -63,61 +63,83 @@ export function Registration() {
   }
 
   return (
-    <div className="containerRegistration">
-      <h1 className="titleRegistration">No tienes cuenta?</h1>
-      <Link to={"/home"}>
-        <button className="btnExplore">Explorar como Invitado</button>
-      </Link>
-      <form onSubmit={(e) => handleSubmitNewGame(e)}>
-        <div className="inputRegistration">
+    <div className="flex flex-1 flex-col justify-center items-center sm:w-72 md:w-450px md:h-450px -ml-10 md:-ml-0 bg-Dark-Violet2 rounded-xl">
+      <form className="flex flex-col justify-center items-center" onSubmit={(e) => handleSubmitNewGame(e)}>
+        <div className="inputRegistration font-Fredoka rounded-lg text-md font-bold text-gray-200">
           <label>Nombre de Usuario:</label> <br />
           <input
             type={"text"}
             value={input.name}
             name="name"
+            className="text-gray-700 font-normal"
             onChange={(e) => handleChange(e)}
           />
-          {errors.name && <p className="errorRegister">{errors.name}</p>}
         </div>
-        <div className="inputRegistration">
+          {errors.name && (
+            <p className="errorRegister font-Fredoka text-black font-bold">
+              {errors.name}
+            </p>
+          )}
+        <div className="inputRegistration font-Fredoka rounded-lg text-md font-bold text-gray-200">
           <label>Email:</label> <br />
           <input
             type={"text"}
             value={input.email}
+            className="text-gray-700 font-normal"
             name="email"
             onChange={(e) => handleChange(e)}
           />
-          {errors.email && <p className="errorRegister">{errors.email}</p>}
         </div>
-        <div className="inputRegistration">
+          {errors.email && (
+            <p className="errorRegister font-Fredoka text-black font-bold">
+              {errors.email}
+            </p>
+          )}
+        <div className="inputRegistration font-Fredoka rounded-lg text-md font-bold text-gray-200">
           <label>Contraseña:</label> <br />
           <input
             type={"text"}
+            className="text-gray-700 font-normal"
             value={input.password}
             name="password"
             onChange={(e) => handleChange(e)}
           />
-          {errors.password && (
-            <p className="errorRegister">{errors.password}</p>
-          )}
         </div>
-        <div className="inputRegistration">
+          {errors.password && (
+            <p className="errorRegister ml-8 font-Fredoka text-black font-bold">
+              {errors.password}
+            </p>
+          )}
+        <div className="inputRegistration font-Fredoka rounded-lg text-base font-bold text-gray-200">
           <label>Confirmar Contraseña:</label> <br />
           <input
+            className="text-gray-700 font-normal"
             type={"text"}
             value={input.confirmedPassword}
             name="confirmedPassword"
             onChange={(e) => handleChange(e)}
           />
-          {errors.confirmedPassword && (
-            <p className="errorRegister">{errors.confirmedPassword}</p>
-          )}
         </div>
+          {errors.confirmedPassword && (
+            <p className="errorRegister font-Fredoka text-black font-bold ml-5">
+              {errors.confirmedPassword}
+            </p>
+          )}
 
         <button type="submit" className="submitRegistration">
           Crear Cuenta
         </button>
       </form>
-    </div>
+      <div className="ml-10">
+        <h1 className="titleRegistration font-Fredoka text-black">
+          No tienes cuenta?
+        </h1>
+        <Link to={"/home"}>
+          <button className=" font-Fredoka text-lg rounded-2xl text-black hover:cursor-pointer hover:bg-gray-700 hover:text-gray-100 bg-gray-300">
+            Explorar como Invitado
+          </button>
+        </Link>
+      </div>
+      </div>
   );
 }

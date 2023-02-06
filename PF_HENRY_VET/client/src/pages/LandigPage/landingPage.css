@@ -2,55 +2,6 @@
   scroll-behavior: smooth;
 }
 
-.Container {
-  display: grid !important;
-  grid-template-columns: 1fr 1fr !important;
-}
-
-.logoContainer {
-}
-
-.logoPrincipal {
-  background: rgba(165, 94, 234, 0.35) !important;
-  border-radius: 24px !important;
-}
-
-.linkContainer {
-  margin-bottom: 50px !important;
-  display: flex !important;
-  justify-content: center !important;
-  align-items: center !important;
-  flex-wrap: wrap !important;
-  flex-direction: column !important;
-}
-
-.linkText {
-  font-family: "Fredoka", sans-serif;
-}
-
-.bottomIcon {
-  background-color: #a55eea;
-  border-radius: 100px;
-  border: solid #000;
-  width: 200px;
-  height: 200px;
-  margin-top: 20px;
-  transition: 500ms ease-out;
-}
-
-.bottomIcon a img {
-  padding-top: 40px;
-}
-.paw {
-  margin-top: 32px;
-  margin-left: 32px;
-}
-.bottomIcon:hover {
-  background-color: rgba(165, 94, 234, 0.35);
-
-  cursor: pointer;
-}
-
 @keyframes fade-in {
   0% {
     opacity: 0;
@@ -81,14 +32,9 @@
 .modal {
   position: absolute;
   float: left;
-  left: 60%;
-  top: 20%;
   transform: translate(-50%, -50%);
   box-shadow: var(--shadow-2), 0 0 0 100vw rgb(0 0 0 / 0.5);
-
   color: #222;
-  border: 0;
-  border-radius: 0.25rem;
 }
 
 .modal::backdrop {
