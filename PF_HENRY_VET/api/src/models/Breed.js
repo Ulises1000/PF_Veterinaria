@@ -6,7 +6,6 @@ module.exports = (sequelize) => {
         id_breed:{
             type:DataTypes.UUID,
             allowNull:false,
-            primaryKey:true,
             defaultValue:DataTypes.UUIDV4
         },
         /*Especie*/
@@ -17,6 +16,7 @@ module.exports = (sequelize) => {
         /*Nombre*/
         name:{
             type:DataTypes.STRING,
+            primaryKey:true,
             allowNull:false
         },
         /*Rango de Peso*/
