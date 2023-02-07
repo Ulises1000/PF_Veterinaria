@@ -17,6 +17,7 @@ function Mercado() {
     page: 1
   });
   
+  
   useEffect(() => {
     async function fetchData() {
       console.log(realState)
