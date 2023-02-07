@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { searchByName } from "../redux/action/index.jsx";
+import { filtered, searchByName } from "../redux/action/index.jsx";
 import Characteristic from "./Characteristic";
 
 function Searchbar() {
@@ -10,6 +10,8 @@ function Searchbar() {
   let currentBreed = useSelector((state) => state.currentBreed);
   let orderedProducts = useSelector((state) => state.orderedProducts);
   let searchedProducts = useSelector((state) => state.searchedProducts);
+  let currentSearch = useSelector((state) => state.filters.currentSearch);
+
 
   const [nameSearch, setNameSearch] = useState("");
 
@@ -20,8 +22,9 @@ function Searchbar() {
   function handleSubmit(e) {
     e.preventDefault();
     dispatch(searchByName(nameSearch));
+    dispatch(filtered())
     console.log(nameSearch);
-    console.log(currentOrder, "currentOrder");
+    console.log(currentSearch, "currentSearch");
     console.log(currentBreed, "currentBreed");
     console.log(orderedProducts, "orderedProducts");
     console.log(searchedProducts, "searchedProducts");

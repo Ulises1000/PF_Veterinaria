@@ -6,24 +6,21 @@ import { createPaginationArray, filtered, sort } from "../redux/action";
 export default function Characteristic() {
   let dispatch = useDispatch();
   // let currentGenre = useSelector((state) => state.currentGenre)
-  let currentOrder = useSelector((state) => state.currentOrder);
-  let currentBreed = useSelector((state) => state.currentBreed);
-  let orderedProducts = useSelector((state) => state.orderedProducts);
-  let searchedProducts = useSelector((state) => state.searchedProducts)
+  let realState = useSelector((state) => state)
+
+
+ 
   // let loadingCheck = useSelector((state) => state.loading)
 
-  function onChangeOrder(event) {
-    console.log(event.target.value);
-    console.log(orderedProducts);
-    console.log(searchedProducts);
 
+  function onChangeOrder(event) {
     dispatch(sort(event.target.value));
     dispatch(filtered())
     dispatch(createPaginationArray())
   }
 
   function onChangeBreed (){
-    dispatch(filtered(currentBreed))
+    dispatch(filtered())
     dispatch(createPaginationArray())
   }
 
@@ -52,7 +49,7 @@ export default function Characteristic() {
           id="dropdown"
           className="bg-violet-200 rounded-md  px-4 py-2 text-sm text-gray-700 hover:font-semibold"
           onChange={onChangeBreed}
-          value={currentBreed}
+          value={realState.filters.currentBreed}
         >
           <option value="breed" hidden>
             {" "}
@@ -75,8 +72,9 @@ export default function Characteristic() {
           id="dropdown"
           className="bg-violet-200 rounded-md  px-4 py-2 text-sm text-gray-700 hover:font-semibold"
           onChange={onChangeOrder}
-          value={currentOrder}
+          value={realState.filters.currentOrder}
         >
+          <option value={"Static"} hidden>Order</option>
           <option value={ASCENDENTE}> A-Z</option>
           <option value={DESCENDENTE}>Z-A</option>
           <option value="HighToLow">Mayor a Menor</option>

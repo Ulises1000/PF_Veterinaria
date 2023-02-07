@@ -21,7 +21,7 @@ const initialState = {
   products: [],
   product: {},
   user: {},
-  currentOrder: ASCENDENTE,
+  currentOrder: "Static",
   currentBreed: "breed",
   currentSearch: "",
   searchedProducts: [],
@@ -151,11 +151,11 @@ export const filters = (state = initialState, action) => {
         orderedProducts: action.payload,
         searchedProducts: action.payload,
         currentSearch: action.payload,
-        currentOrder: ASCENDENTE,
+        currentOrder: "Static",
         currentBreed: "breed",
       };
     case SORT:
-      if (state.filteredProducts.length === 0) {
+      if (state.searchedProducts.length === 0) {
         let orderedByNameProducts = [...state.products];
         console.log(orderedByNameProducts)
         if (action.payload === ASCENDENTE) {
@@ -218,8 +218,8 @@ export const filters = (state = initialState, action) => {
 
         if (action.payload === "LowToHigh") {
           orderedByNameProducts = orderedByNameProducts.sort(function (a, b) {
-            if (a.unit_price > b.unit_price) return 1;
             if (b.unit_price > a.unit_price) return -1;
+            if (a.unit_price > b.unit_price) return 1;
             return 0;
           });
         }
