@@ -15,6 +15,7 @@ import {
 
 /* ruta + endpoints */
 const URL = "http://localhost:3001/";
+// const URL = import.meta.env.VITE_API_URL
 
 const Endpoints = {
     product: "products/",

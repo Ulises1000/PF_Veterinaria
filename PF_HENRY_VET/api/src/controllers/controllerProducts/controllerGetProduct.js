@@ -19,8 +19,9 @@ const getProducts = async (nameP) => {
             unit_price: p.precio, 
             breedName:Array.isArray(p.tipo) ? p.tipo.join("-"): p.tipo  
           };
+
+          return obj
         });
-        
         await Product.bulkCreate(apiProducts);
     }       
     //DESPUES DE QUE SE GUARDAN O NO (PORQUE YA EXISTIAN), HACE UNA BUSQUEDA MAS COMPLEJA
