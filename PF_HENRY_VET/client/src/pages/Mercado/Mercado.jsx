@@ -10,16 +10,19 @@ import loader from "../../style-assets/paw_icon.png";
 
 function Mercado() {
   const dispatch = useDispatch();
-  const products = useSelector(state => state.products);
+  const paginationArray = useSelector(state => state.filters.paginationArray)
+  const realState = useSelector((state => state))
   const [state, setState] = useState({
     loading: false,
     page: 1
   });
-
+  
   useEffect(() => {
     async function fetchData() {
+      console.log(realState)
+      console.log(paginationArray)
       setState({ loading: true });
-      await dispatch(getAllProducts());
+      dispatch(getAllProducts());
       setState({ loading: false });
     }
     fetchData();
@@ -43,28 +46,30 @@ function Mercado() {
     );
   }
   
-  return (
-      <div>
-        <div className="h-14">
-          <Nav />
-          <Searchbar />
-        </div>
-        <div className="mt-36">
-          <div className={styles.center}>
-            {Object.values(products).map((product) => (
-                product.map((p, i) => (
-                    <Card
-                        key={i}
-                        image_url={p.image_url}
-                        name={p.name}
-                        unit_price={p.unit_price}
-                    />
-                ))
-            ))}
+  // if (loading === false && paginationArray[0]){
+    return (
+        <div>
+          <div className="h-14">
+            <Nav />
+            <Searchbar />
+          </div>
+          <div className="mt-36">
+            <div className={styles.center}>
+              {Object.values(paginationArray).map((product) => 
+              ( product.map((p, i) => (
+                      <Card
+                          key={i}
+                          image_url={p.image_url}
+                          name={p.name}
+                          unit_price={p.unit_price}
+                      />
+                  ))
+              ))}
+            </div>
           </div>
         </div>
-      </div>
-  );
+    );
+  // }
 }
 
 export default Mercado;
