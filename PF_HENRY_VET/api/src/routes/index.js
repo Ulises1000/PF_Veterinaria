@@ -8,7 +8,6 @@ const getUserRouter = require("./UserRoutes/getUser");
 const postUserRouter = require("./UserRoutes/postUser");
 const deleteUserRouter = require("./UserRoutes/deleteUser");
 const updateUserRouter = require("./UserRoutes/updateUser");
-const BreedRouter = require("./BreedRouter/Breed.js")
 const getShoppingCart = require("./ShoppingCartRoutes/getShoppingCart");
 const getShoppingCartDtail = require("./ShoppingCartDtailRoutes/getShoppingCartDtail");
 const updateShoppingCartDtail = require("./ShoppingCartDtailRoutes/updateShoppingCartDtail");
@@ -28,7 +27,6 @@ const router = Router();
 router.use("/products", getProductRouter, postProductRouter,updateProductRouter, deleteProductRouter,getAProductRouter);
 router.use("/users", getUserRouter, postUserRouter, deleteUserRouter, updateUserRouter);
 router.use("/shoppingCart", getShoppingCart);
-router.use("/breed", BreedRouter);
 router.use("/shoppingCartDetail", getShoppingCartDtail, updateShoppingCartDtail, deleteShoppingCartDtail, postShoppingCartDtail)
 router.use("/favorite",getFavoriteRouter, postFavoriteRouter,updateFavoriteRouter);
 router.use("/invoiceDetail",InvoiceDetailRouter);
