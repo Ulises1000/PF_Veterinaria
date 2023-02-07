@@ -1,5 +1,6 @@
 const {Router} = require("express");
 const {User, ShoppingCart} = require("../../db");
+const cloudinary = require("../../cloudinaryConfig/cloudinaryConfig");
 const {findUser} = require("../../controllers/controllerUsers/controllerGet");
 const router = Router();
 
@@ -10,6 +11,7 @@ router.post("/post", async (req, res) => {
         password,
         creditCard,
         direction,
+        image,
         idCarrito
     } = req.body;
     try{
@@ -29,14 +31,21 @@ router.post("/post", async (req, res) => {
             //CREA TANTO EL CARRITO COMO EL USER AL MISMO TIEMPO
             const createShoppingCart = await ShoppingCart.create();
             
-            await User.create({
+            const createdUser = await User.create({
                 shoppingCartCodCart: createShoppingCart.cod_Cart,    
                 name_U: name,
                 email_U: email,
                 password_U: password,
                 creditCard_U: creditCard,
+                image_U: image,
                 direction_U: direction
             })
+
+            await cloudinary.uploader.upload(
+                image, 
+                {public_id: createdUser.image_U}
+            )
+
             res.status(200).json({
                 ok: true,
                 value: "Se ha Agregado El Usuario."

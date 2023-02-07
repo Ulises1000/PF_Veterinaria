@@ -1,5 +1,6 @@
 const {Router} = require("express");
 const router = Router();
+const cloudinary = require("../../cloudinaryConfig/cloudinaryConfig");
 const {findUser} = require("../../controllers/controllerUsers/controllerGet");
 
 router.get("/get", async (req, res) => {
@@ -12,10 +13,18 @@ router.get("/get", async (req, res) => {
                 msg: "No Se Ha Encontrado El Usuario.",
                 detail: "No Existe El Usuario En BD."
             })
-            else res.status(200).json({
-                ok: true,
-                value: info[0]
-            })
+            else {
+                info[0].url = cloudinary.url(info[0].image_U, {
+                    width: 100,
+                    height: 150,
+                    Crop: 'fill'
+                });
+                
+                res.status(200).json({
+                    ok: true,
+                    value: info[0]
+                })
+            }
         }else if(name) {
             res.status(200).json({
                 ok: false,

@@ -33,7 +33,7 @@ router.post("/post", async (req, res) => {
         image_url,
       });
       return res.status(200).json({
-        ok: false,
+        ok: true,
         msg: "El Producto se posteo correctamente.",
         detail: "El Producto se posteo en la DB.",
       });
