@@ -23,7 +23,7 @@ function Nav() {
           <div className="flex space-x-6">
             {/* logo aca */}
             <div>
-              <a href="#" className="flex items-center py-4 px-3">
+              <a href="/home" className="flex items-center py-4 px-3">
                 <img
                   className="logo_only w-14 h-14 rounded-xl"
                   src={logo_only}
