@@ -15,9 +15,13 @@ function makeAssociations(sequelize){
     //Associations Usuario-Favorito
     User.hasMany(Favorite, {foreignKey:"user_favorite"})
     Favorite.belongsTo(User, {foreignKey:"user_favorite"})
-    //Associations Factura Detalles-Factura
+    //Associations Detalles de Factura-Factura
     Invoice.hasMany(InvoiceDetail,{foreignKey:"invoice_detail"});
     InvoiceDetail.belongsTo(Invoice,{foreignKey:"invoice_detail"});
+    //Associations Detalles de Factura-Productos
+    InvoiceDetail.belongsTo(Product);
+    Product.hasOne(InvoiceDetail);
+
 }
 
 module.exports = makeAssociations;

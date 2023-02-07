@@ -1,11 +1,13 @@
 const {InvoiceDetail} = require("../../db.js");
 
+
 exports.createDetails = async (params) => {
-    console.log(params)
+
+    const newDate = new Date();
     const { cod_invoice, cod_product, unit_price, amount } = params
-    console.log(cod_invoice)
+
    try {
-        const test = await InvoiceDetail.findOne({where:{cod_invoice:cod_invoice}})
+        const test = await InvoiceDetail.findAll({where:{cod_invoice:cod_invoice}})
         
         if(test){
             
