@@ -9,12 +9,15 @@ import {
     DELETE_USER,
     POST_USER,
     UPDATE_USER,
+    CREATE_PAGINATION_ARRAY,
+    SEARCH,
     FILTERED,
     SORT
 } from './constants';
 
 /* ruta + endpoints */
 const URL = "http://localhost:3001/";
+// const URL = import.meta.env.VITE_API_URL
 
 const Endpoints = {
     product: "products/",
@@ -36,6 +39,8 @@ export function getAllProducts(name) {
                 type: GET_PRODUCTS,
                 payload: data,
             });
+            dispatch(filtered())
+            dispatch(createPaginationArray())
             //---------------------------------
         } catch (error) {
             if (error.response) {
@@ -234,6 +239,42 @@ export function updateUser(userId, userData) {
             console.log(error.config);
         }
     };
+}
+
+export function searchByName(name){
+    return async function(dispatch){
+        try {
+            //SE UTILIZA EL GET ALL PRODUCTS PARA TRAER TODOS LOS PRODUCTOS O SOLO AQUELLOS QUE CUMPLAN
+            //CON CIERTA CONDICION
+            //---------------------------------
+            const { data } = await axios.get(`${URL + Endpoints.product}get?name=${name}`);
+            console.log(data)
+            dispatch({
+                type: SEARCH,
+                payload: data,
+            });
+            dispatch(filtered())
+            dispatch(createPaginationArray())
+            //---------------------------------
+        } catch (error) {
+            if (error.response) {
+                console.log(error.response.data);
+                console.log(error.response.status);
+                console.log(error.response.headers);
+            } else if (error.request) {
+                console.log(error.request);
+            } else {
+                console.log(error.message);
+            }
+            console.log(error.config);
+        }
+    }
+}
+export function createPaginationArray(payload){
+    return {
+        type: CREATE_PAGINATION_ARRAY,
+        payload,
+    }
 }
 export function filtered(payload) {
     return {

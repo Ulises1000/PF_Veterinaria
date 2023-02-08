@@ -10,5 +10,7 @@ export const POST_USER = 'POST_USER';
 export const UPDATE_USER = 'UPDATE_USER';
 
 /* filter */
+export const CREATE_PAGINATION_ARRAY= "CREATE_PAGINATION_ARRAY"
 export const FILTERED = "FILTERED";
 export const SORT = "SORT";
+export const SEARCH = "SEARCH";

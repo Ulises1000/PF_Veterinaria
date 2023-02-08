@@ -1,10 +1,17 @@
 import React, { useState } from "react";
-import { useDispatch } from 'react-redux';
-import { getAllProducts } from "../redux/action/index.jsx";
+import { useDispatch, useSelector } from "react-redux";
+import { filtered, searchByName } from "../redux/action/index.jsx";
 import Characteristic from "./Characteristic";
 
 function Searchbar() {
-  const dispatch = useDispatch()
+  const dispatch = useDispatch();
+  const paginationArray = useSelector((state) => state.paginationArray);
+  let currentOrder = useSelector((state) => state.currentOrder);
+  let currentBreed = useSelector((state) => state.currentBreed);
+  let orderedProducts = useSelector((state) => state.orderedProducts);
+  let searchedProducts = useSelector((state) => state.searchedProducts);
+  let currentSearch = useSelector((state) => state.filters.currentSearch);
+
 
   const [nameSearch, setNameSearch] = useState("");
 
@@ -14,8 +21,15 @@ function Searchbar() {
 
   function handleSubmit(e) {
     e.preventDefault();
-    dispatch(getAllProducts(nameSearch))
+    dispatch(searchByName(nameSearch));
+    dispatch(filtered())
     console.log(nameSearch);
+    console.log(currentSearch, "currentSearch");
+    console.log(currentBreed, "currentBreed");
+    console.log(orderedProducts, "orderedProducts");
+    console.log(searchedProducts, "searchedProducts");
+    console.log(paginationArray, "paginationArray");
+
     setNameSearch("");
     e.target.placeholder = "Search...";
   }

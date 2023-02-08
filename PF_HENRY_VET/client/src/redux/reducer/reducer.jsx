@@ -4,6 +4,8 @@ import {
   DELETE_PRODUCT,
   POST_PRODUCT,
   UPDATE_PRODUCT,
+  SEARCH,
+  CREATE_PAGINATION_ARRAY,
   FILTERED,
   SORT,
 } from "../action/constants";
@@ -19,10 +21,14 @@ const initialState = {
   products: [],
   product: {},
   user: {},
-  currentOrder: ASCENDENTE,
+  currentOrder: "Static",
+  currentBreed: "breed",
+  currentSearch: "",
   searchedProducts: [],
+  filteredProducts: [],
   orderedByNameProducts: [],
   orderedProducts: [],
+  paginationArray: [],
 };
 
 export const productsReducer = (state = initialState.products, action) => {
@@ -92,12 +98,66 @@ export const userReducer = (state = initialState.user, action) => {
 
 export const filters = (state = initialState, action) => {
   switch (action.type) {
+    case GET_PRODUCTS:{
+      return {
+        ...state,
+        products: action.payload,
+      };
+    }
     case FILTERED:
-      return {};
+      let filteredProducts = state.orderedProducts;
+
+      let filters = {
+        breed: state.currentBreed,
+      };
+
+      // for (let Key in action.payload) {
+      //   filters[Key] = action.payload[Key];
+      // }
+
+      // if (filters.breed !== "breed") {
+      //   filteredProducts = filteredProducts.filter((videogame) => {
+      //     for (let i = 0; i < videogame.Platforms.length; i++) {
+      //       if (videogame.Platforms[i].name === filters.Platform) {
+      //         return videogame;
+      //       }
+      //     }
+      //     return 0;
+      //   });
+      // }
+
+      // if (filters.Genre !== "Genre") {
+      //   filteredProducts = filteredProducts.filter((videogame) => {
+      //     for (let i = 0; i < videogame.Genres.length; i++) {
+      //       if (videogame.Genres[i].name === filters.Genre) {
+      //         return videogame;
+      //       }
+      //     }
+      //     return 0;
+      //   });
+      // }
+
+      return {
+        ...state,
+        // currentGenre: filters.Genre,
+        // currentPlatform: filters.Platform,
+        filteredProducts: filteredProducts,
+        // currentPage: 1,
+      };
+
+    case SEARCH:
+      return {
+        ...state,
+        orderedProducts: action.payload,
+        searchedProducts: action.payload,
+        currentSearch: action.payload,
+        currentOrder: "Static",
+        currentBreed: "breed",
+      };
     case SORT:
       if (state.searchedProducts.length === 0) {
         let orderedByNameProducts = [...state.products];
-
+        console.log(orderedByNameProducts)
         if (action.payload === ASCENDENTE) {
           orderedByNameProducts = orderedByNameProducts.sort((a, b) => {
             if (a.name.toLowerCase() < b.name.toLowerCase()) {
@@ -158,16 +218,16 @@ export const filters = (state = initialState, action) => {
 
         if (action.payload === "LowToHigh") {
           orderedByNameProducts = orderedByNameProducts.sort(function (a, b) {
-            if (a.rating > b.rating) return 1;
-            if (b.rating > a.rating) return -1;
+            if (b.unit_price > a.unit_price) return -1;
+            if (a.unit_price > b.unit_price) return 1;
             return 0;
           });
         }
 
         if (action.payload === "HighToLow") {
           orderedByNameProducts = orderedByNameProducts.sort(function (a, b) {
-            if (a.rating > b.rating) return -1;
-            if (b.rating > a.rating) return 1;
+            if (a.unit_price > b.unit_price) return -1;
+            if (b.unit_price > a.unit_price) return 1;
             return 0;
           });
         }
@@ -178,6 +238,23 @@ export const filters = (state = initialState, action) => {
           currentOrder: action.payload,
         };
       }
+    case CREATE_PAGINATION_ARRAY:
+      const pageSize = 15;
+      let pageHolder = [];
+      if (state.orderedProducts.length === 0){
+          const page = state.products
+          pageHolder.push(page);
+        }  
+        else {
+                const page = state.orderedProducts;
+                pageHolder.push(page);
+            }
+
+            console.log(pageHolder ,"PAGINATION 2")
+      return {
+        ...state,
+        paginationArray: pageHolder,
+      };
     default:
       return state;
   }
