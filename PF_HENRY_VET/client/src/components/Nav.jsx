@@ -23,56 +23,56 @@ function Nav() {
           <div className="flex space-x-6">
             {/* logo aca */}
             <div>
-              <a href="/home" className="flex items-center py-4 px-3">
+              <Link to="/home" className="flex items-center py-4 px-3">
                 <img
                   className="logo_only w-14 h-14 rounded-xl"
                   src={logo_only}
                   alt=""
                 />
-              </a>
+              </Link>
             </div>
             {/* nav primario */}
             <div className="hidden md:flex items-center space-x-2">
               <Link
-                to="/Mercado"
+                to="/market"
                 className="py-4 px-3 text-gray-700 hover:font-medium hover:text-black"
               >
                 Mercado
               </Link>
-              <a
-                href="#"
+              <Link
+                to="#"
                 className="py-4 px-3 text-gray-700 hover:font-medium hover:text-black"
               >
                 Turnos y Consultas
-              </a>
-              <a
-                href="#"
+              </Link>
+              <Link
+                to="#"
                 className="py-4 px-3 text-gray-700 hover:font-medium hover:text-black"
               >
                 Trabajo
-              </a>
-              <a
-                href="/profile"
+              </Link>
+              <Link
+                to="/profile"
                 className="py-4 px-3 text-gray-700 hover:font-medium hover:text-black"
               >Perfil
-              </a>
+              </Link>
             </div>
           </div>
 
           {/* nav secundario */}
           <div className="hidden md:flex items-center space-x-1">
-            <a
-              href="/"
+            <Link
+              to="/"
               className="py-5 px-3  text-gray-700 font-mono hover:font-medium hover:text-black"
             >
               Login
-            </a>
-            <a
-              href="/"
+            </Link>
+            <Link
+              to="/"
               className="py-2 px-3 bg-slate-50 rounded border-black border-2 text-gray-700 font-medium hover:bg-slate-200 hover:text-violet-500 transition duration-300"
             >
               Sign Up
-            </a>
+            </Link>
           </div>
           {/* botón de telefono */}
           <div className="md:hidden flex items-center">
@@ -103,11 +103,11 @@ function Nav() {
       {/* menu de telefono */}
       <div
         className={`mobile-menu ${
-          burgerbutton === false ? "hidden" : ""
+          burgerbutton === false ? "hidden" : "show"
         } md:hidden`}
       >
-        <a
-          href="#"
+        <Link
+          to="/market"
           className="flex py-2 px-4 text-sm items-center bg-violet-200 hover:bg-violet-300 group hover:font-medium text-gray-700 hover:text-black transition duration-300"
         >
           <svg
@@ -126,9 +126,9 @@ function Nav() {
           </svg>
 
           <span className="pl-2">Mercado</span>
-        </a>
-        <a
-          href="#"
+        </Link>
+        <Link
+          to="/consults"
           className="flex py-2 px-4 text-sm items-center bg-violet-200 hover:bg-violet-300 group hover:font-medium text-gray-700 hover:text-black transition duration-300"
         >
           <svg
@@ -147,9 +147,9 @@ function Nav() {
           </svg>
 
           <span className="pl-2">Turnos y Consultas</span>
-        </a>
-        <a
-          href="#"
+        </Link>
+        <Link
+          to="/work"
           className="flex py-2 px-4 text-sm items-center bg-violet-200 hover:bg-violet-300 group hover:font-medium text-gray-700 hover:text-black transition duration-300"
         >
           <svg
@@ -167,9 +167,9 @@ function Nav() {
             />
           </svg>
           <span className="pl-2">Trabajo</span>
-        </a>
-        <a
-          href="#"
+        </Link>
+        <Link
+          to="/"
           className="flex py-2 px-4 text-sm items-center bg-violet-200 hover:bg-violet-300 group hover:font-medium text-gray-700 hover:text-black transition duration-300"
         >
           <svg
@@ -178,7 +178,7 @@ function Nav() {
             viewBox="0 0 24 24"
             strokeWidth="1.5"
             stroke="currentColor"
-            className="w-6 h-6 text-gray-700  group-hover:text-black group-hover:bg-violet-300 group-hover:transition group-hover:duration-300 group-hover:font-medium "
+            className="w-6 h-6 text-gray-700 group-hover:text-black group-hover:bg-violet-300 group-hover:transition group-hover:duration-300 group-hover:font-medium "
           >
             <path
               strokeLinecap="round"
@@ -188,9 +188,9 @@ function Nav() {
           </svg>
 
           <span className="pl-2">Login</span>
-        </a>
-        <a
-          href="#"
+        </Link>
+        <Link
+          to="/"
           className="flex py-2 px-4 text-sm font-bold items-center bg-violet-200  hover:bg-violet-500 hover:border-black border-violet-500 border-2 text-gray-700 group hover:text-white transition duration-300"
         >
           <svg
@@ -208,7 +208,7 @@ function Nav() {
             />
           </svg>{" "}
           <span className="pl-2">Sign Up</span>
-        </a>
+        </Link>
       </div>
     </nav>
   );
