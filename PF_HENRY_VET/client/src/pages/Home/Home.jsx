@@ -22,18 +22,7 @@ const Home = () => {
       </div>
     );
   }
-  var title = <h1> Dieta y consejos </h1>;
-  var img =
-    "https://static2.lasprovincias.es/www/multimedia/202202/11/media/cortadas/carne-cruda-perro-kpfD-U120779372723zjH-1248x770@RC-RYAvnS4qTEYaL2HT7k6yvDI-624x385@Las%20Provincias.jpeg";
-  var text = (
-    <p> La salud de tus mascotas depende enormemente de su alimentacion</p>
-  );
-  var title2 = <h1> No olvides desparasitar a tus mascotas </h1>;
-  var img2 =
-    "https://ateuves.es/wp-content/uploads/2022/05/some-vitamins-for-small-puppy_pv2.jpg";
-  var text2 = (
-    <p> Recuerda realizar chequeos semanales en los primeros meses de vida</p>
-  );
+
   return (
     <>
       <div className="h-screen w-screen bg-patas -mt-20">
@@ -46,7 +35,7 @@ const Home = () => {
               className="w-96 h-52"
               src="https://static2.lasprovincias.es/www/multimedia/202202/11/media/cortadas/carne-cruda-perro-kpfD-U120779372723zjH-1248x770@RC-RYAvnS4qTEYaL2HT7k6yvDI-624x385@Las%20Provincias.jpeg"
             />
-            <Modal title={title} img={img} text={text} />
+            <h1>Leer Mas</h1>
           </div>
           <div className="anuncioCanino">
             <h1>No olvides desparasitar a tus mascotas!</h1>
@@ -54,7 +43,7 @@ const Home = () => {
               className="w-96 h-52"
               src="https://ateuves.es/wp-content/uploads/2022/05/some-vitamins-for-small-puppy_pv2.jpg"
             />
-            <Modal title={title2} img={img2} text={text2} />
+            <h1>Leer Mas</h1>
           </div>
           <div className="anuncioCanino">
             <h1>Adiestramiento 101</h1>
@@ -62,7 +51,7 @@ const Home = () => {
               className="w-96 h-52"
               src="https://adiestramientocanino.org/wp-content/uploads/2016/04/adiestramiento-canino.jpg"
             />
-            <h2>Leer mas</h2>
+            <h1>Leer Mas</h1>
           </div>
         </div>
         <div>
@@ -73,14 +62,14 @@ const Home = () => {
           />
         </div>
         <div className="AnunciosFelino bg-patas flex-col">
-          <div className="flex flex-row space-x-4 justify-center items-center">
+          <div className="flex flex-row space-x-4 justify-center items-center mt-11">
             <div className="anuncioFelino">
               <h1>Manten a tu gato entretenido y ejercitado!</h1>
               <img
                 className="w-96 h-52"
                 src="https://media.npr.org/assets/img/2021/08/11/gettyimages-1279899488_wide-f3860ceb0ef19643c335cb34df3fa1de166e2761-s1100-c50.jpg"
               />
-              <h2>Leer mas</h2>
+              <h1>Leer Mas</h1>
             </div>
             <div className="anuncioFelino">
               <h1>Consejos nutricionales para Felinos</h1>
@@ -100,7 +89,7 @@ const Home = () => {
             </div>
           </div>
           <div>
-            <div className="ProductosDestacados ml-20">
+            <div className="ProductosDestacados ml-20 mt-11">
               <h1>
                 {" "}
                 <strong> Productos Destacados </strong>
