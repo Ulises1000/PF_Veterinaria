@@ -14,7 +14,8 @@ router.get("/get", async (req, res) => {
                 detail: "No Existe El Usuario En BD."
             })
             else {
-                info[0].url = cloudinary.url(info[0].image_U, {
+                const user = {...info[0].dataValues} 
+                user.url = cloudinary.url(info[0].image_U, {
                     width: 100,
                     height: 150,
                     Crop: 'fill'
@@ -22,7 +23,7 @@ router.get("/get", async (req, res) => {
                 
                 res.status(200).json({
                     ok: true,
-                    value: info[0]
+                    value: user
                 })
             }
         }else if(name) {

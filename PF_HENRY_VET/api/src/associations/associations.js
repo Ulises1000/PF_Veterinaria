@@ -10,8 +10,11 @@ function makeAssociations(sequelize){
     Product.hasMany(ShoppingCartDetail);
     ShoppingCartDetail.belongsTo(Product);
     //Associations Usuario-Favorito
-    User.hasMany(Favorite, {foreignKey:"user_favorite"})
-    Favorite.belongsTo(User, {foreignKey:"user_favorite"})
+    User.hasMany(Favorite, {foreignKey:"user_favorite"});
+    Favorite.belongsTo(User, {foreignKey:"user_favorite"});
+    //Associations Producto-Favorito
+    Product.hasMany(Favorite, {foreignKey:"product_id"});
+    Favorite.belongsTo(Product, {foreignKey:"product_id"});
 }
 
 module.exports = makeAssociations;

@@ -2,6 +2,7 @@ const { Router } = require("express");
 const {
   findProduct,
 } = require("../../controllers/controllerProducts/controllerGet_P.js");
+const cloudinary = require("../../cloudinaryConfig/cloudinaryConfig");
 const { Product } = require("../../db.js");
 const router = Router();
 
@@ -32,6 +33,10 @@ router.post("/post", async (req, res) => {
         stock,
         image_url,
       });
+      await cloudinary.uploader.upload(
+        image_url, 
+        {public_id: productCreate.image_url}
+      )
       return res.status(200).json({
         ok: true,
         msg: "El Producto se posteo correctamente.",

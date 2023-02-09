@@ -18,7 +18,7 @@ module.exports = (sequelize) => {
     },
     description: {
       type: DataTypes.STRING,
-      allowNull: false
+      allowNull: true
     },
     unit_price: {
       type: DataTypes.FLOAT,
@@ -36,8 +36,9 @@ module.exports = (sequelize) => {
       allowNull: false
     },
     image_url: {
-      type: DataTypes.STRING,
+      type: DataTypes.UUID,
       allowNull: false,
+      defaultValue: DataTypes.UUIDV4
     },
     unsubscribe: {
       type: DataTypes.BOOLEAN,
