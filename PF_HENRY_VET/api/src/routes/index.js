@@ -16,7 +16,7 @@ const postShoppingCartDtail = require("./ShoppingCartDtailRoutes/postShoppingCar
 const getFavoriteRouter = require("./FavoriteRoutes/getFavorite");
 const postFavoriteRouter = require("./FavoriteRoutes/postFavorite");
 const updateFavoriteRouter = require("./FavoriteRoutes/updateFavorite");
-const InvoiceDetailRouter = require("./InvoiceDetailRouter/invoiceDetail.js")
+const MPRouter=require("./MercadoPago/MercadoPago.js")
 // Importar todos los routers;
 // Ejemplo: const authRouter = require('./auth.js');
 
@@ -29,6 +29,6 @@ router.use("/users", getUserRouter, postUserRouter, deleteUserRouter, updateUser
 router.use("/shoppingCart", getShoppingCart);
 router.use("/shoppingCartDetail", getShoppingCartDtail, updateShoppingCartDtail, deleteShoppingCartDtail, postShoppingCartDtail)
 router.use("/favorite",getFavoriteRouter, postFavoriteRouter,updateFavoriteRouter);
-router.use("/invoiceDetail",InvoiceDetailRouter);
+router.use("/pagos",MPRouter)
 
 module.exports = router;
