@@ -1,14 +1,13 @@
 const { Router } = require("express");
-const axios = require("axios");
 const {
   findProduct,
 } = require("../../controllers/controllerProducts/controllerGet_P");
 const router = Router();
 
-router.get("/getp/:name", async (req, res) => {
+router.get("/getp/:id", async (req, res) => {
   try {
-    const { name } = req.params;
-    const get_P = await findProduct(name);
+    const { id } = req.params;
+    const get_P = await findProduct(id);
      
 
     if (!get_P)
