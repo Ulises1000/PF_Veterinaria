@@ -16,7 +16,8 @@ const getProducts = async (nameP) => {
             const obj = {            
             image_url: p.image,
             name: p.nombre,
-            unit_price: p.precio, 
+            unit_price: p.precio,
+            stock:p.stock, 
             breedName:Array.isArray(p.tipo) ? p.tipo.join("-"): p.tipo  
           };
 
