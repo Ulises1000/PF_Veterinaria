@@ -250,7 +250,7 @@ export const filters = (state = initialState, action) => {
         }  
         else {
                 const page = state.orderedProducts;
-                pageHolder.push(page);
+                pageHolder.push(page); 
             }
 
             console.log(pageHolder ,"PAGINATION 2")
