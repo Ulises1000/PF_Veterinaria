@@ -13,7 +13,7 @@ function App() {
       <Routes>
         <Route exact path="/" element={<LandingPage />} />
         <Route exact path="/home" element={<Home />} />
-        <Route exact path="/mercado" element={<Mercado />} />
+        <Route exact path="/market" element={<Mercado />} />
         <Route exact path="/details/:id" element={<Details />} />
         <Route exact path="/profile" element={<UserProfile />} />
 

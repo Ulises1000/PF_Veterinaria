@@ -27,7 +27,7 @@ import { Link } from "react-router-dom";
 
 import "./landingPage.css";
 
-export default function LandingPage() {
+export default function LandingPage({Navset}) {
   const modal = document.querySelector("#modal");
   console.log("Esto es Modal ===", modal);
   const openModal = document.querySelector(".bottomIcon");
