@@ -1,14 +1,14 @@
 const { Router } = require("express");
-const axios = require("axios");
+const cloudinary = require("../../cloudinaryConfig/cloudinaryConfig");
 const {
   findProduct,
 } = require("../../controllers/controllerProducts/controllerGet_P");
 const router = Router();
 
-router.get("/getp/:name", async (req, res) => {
+router.get("/getp/:id", async (req, res) => {
   try {
-    const { name } = req.params;
-    const get_P = await findProduct(name);
+    const { id } = req.params;
+    const get_P = await findProduct(id);
      
 
     if (!get_P)
@@ -18,6 +18,11 @@ router.get("/getp/:name", async (req, res) => {
         detail: "No Existe el producto en la BD.",
       });
     else {
+      get_P.url = cloudinary.url(get_P.image_U, {
+          width: 100,
+          height: 150,
+          Crop: 'fill'
+        });
       res.send(get_P);
     }
   } catch (err) {

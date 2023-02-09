@@ -14,3 +14,8 @@ export const CREATE_PAGINATION_ARRAY= "CREATE_PAGINATION_ARRAY"
 export const FILTERED = "FILTERED";
 export const SORT = "SORT";
 export const SEARCH = "SEARCH";
+
+/* Favorites */
+
+export const GET_FAVORITES = 'GET_FAVORITES';
+export const UPDATE_FAVORITE = 'UPDATE_FAVORITE';

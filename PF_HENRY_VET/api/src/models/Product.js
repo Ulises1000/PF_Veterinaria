@@ -12,20 +12,33 @@ module.exports = (sequelize) => {
       type: DataTypes.STRING,
       allowNull: false,
     },
+    petSize: {
+      type: DataTypes.ARRAY(DataTypes.STRING),
+      allowNull: false
+    },
     description: {
       type: DataTypes.STRING,
+      allowNull: true
     },
     unit_price: {
       type: DataTypes.FLOAT,
-      //allowNull: false,
+      allowNull: false,
     },
     stock: {
       type: DataTypes.INTEGER,
-      //allowNull: false,
+      allowNull: false,
+      validate: {
+        min: 1
+      }
+    },
+    breedType: {
+      type: DataTypes.ARRAY(DataTypes.STRING),
+      allowNull: false
     },
     image_url: {
-      type: DataTypes.STRING,
+      type: DataTypes.UUID,
       allowNull: false,
+      defaultValue: DataTypes.UUIDV4
     },
     unsubscribe: {
       type: DataTypes.BOOLEAN,

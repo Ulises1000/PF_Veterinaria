@@ -1,5 +1,8 @@
 const {Router} = require("express");
-const {User, ShoppingCart} = require("../../db");
+const {User, ShoppingCart, Product} = require("../../db");
+const cloudinary = require("../../cloudinaryConfig/cloudinaryConfig");
+const axios = require("axios");
+const {postFavorite} = require("../FavoriteRoutes/postFavorite");
 const {findUser} = require("../../controllers/controllerUsers/controllerGet");
 const router = Router();
 
@@ -10,7 +13,7 @@ router.post("/post", async (req, res) => {
         password,
         creditCard,
         direction,
-        idCarrito
+        image
     } = req.body;
     try{
         const info = await findUser(name, password);
@@ -29,7 +32,7 @@ router.post("/post", async (req, res) => {
             //CREA TANTO EL CARRITO COMO EL USER AL MISMO TIEMPO
             const createShoppingCart = await ShoppingCart.create();
             
-            await User.create({
+            const createdUser = await User.create({
                 shoppingCartCodCart: createShoppingCart.cod_Cart,    
                 name_U: name,
                 email_U: email,
@@ -37,6 +40,18 @@ router.post("/post", async (req, res) => {
                 creditCard_U: creditCard,
                 direction_U: direction
             })
+            //--------------------------------
+
+            const todosLosProducts = await axios.get("http://localhost:3001/products/get");
+            todosLosProducts.data.forEach(async el => {
+                await postFavorite(el.codProduct, el.name, el.url, createdUser.cod_User)  
+            });
+            //--------------------------------
+            await cloudinary.uploader.upload(
+                image, 
+                {public_id: createdUser.image_U}
+            )
+
             res.status(200).json({
                 ok: true,
                 value: "Se ha Agregado El Usuario."
