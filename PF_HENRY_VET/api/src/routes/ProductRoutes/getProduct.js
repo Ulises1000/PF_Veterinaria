@@ -1,4 +1,5 @@
 const { Router } = require("express");
+const cloudinary = require("../../cloudinaryConfig/cloudinaryConfig");
 const {
   findProduct,
 } = require("../../controllers/controllerProducts/controllerGet_P");
@@ -17,6 +18,11 @@ router.get("/getp/:id", async (req, res) => {
         detail: "No Existe el producto en la BD.",
       });
     else {
+      get_P.url = cloudinary.url(get_P.image_U, {
+          width: 100,
+          height: 150,
+          Crop: 'fill'
+        });
       res.send(get_P);
     }
   } catch (err) {

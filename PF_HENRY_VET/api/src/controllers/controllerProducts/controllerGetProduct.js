@@ -1,5 +1,6 @@
 const axios = require("axios");
 const {Product} = require("../../db.js");
+const cloudinary = require("../../cloudinaryConfig/cloudinaryConfig");
 const {Op} = require("sequelize");
 
 const getProducts = async (nameP) => {
@@ -11,19 +12,26 @@ const getProducts = async (nameP) => {
         const api = await axios.get(
           `https://veterinaria-634d6-default-rtdb.firebaseio.com/productosDB.json`
         );
-        
-        const apiProducts = await api.data.map((p) => {
-            const obj = {            
-            image_url: p.image,
+      
+        await api.data.forEach(async (p) => {
+          const obj = {            
             name: p.nombre,
-            unit_price: p.precio, 
-            breedName:Array.isArray(p.tipo) ? p.tipo.join("-"): p.tipo  
+            unit_price: p.precio,
+            description: p.descripcion,
+            stock: p.stock,
+            petSize: Array.isArray(p.breed) ? p.breed : [p.breed],
+            breedType:Array.isArray(p.tipo) ? p.tipo : [p.tipo]  
           };
-
-          return obj
+          const created = await Product.create(obj)
+          
+          await cloudinary.uploader.upload(
+            p.image, 
+            {public_id: created.image_url}
+          )
+        
         });
-        await Product.bulkCreate(apiProducts);
-    }       
+    }
+    const allProducts = await Product.findAll();   
     //DESPUES DE QUE SE GUARDAN O NO (PORQUE YA EXISTIAN), HACE UNA BUSQUEDA MAS COMPLEJA
     return nameP ? await Product.findAll({
       where: {

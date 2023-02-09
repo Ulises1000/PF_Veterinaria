@@ -3,9 +3,9 @@ const {Router} = require("express");
 const router = Router();
 
 router.put("/update", async (req,res) =>{
-    const {id_favorito} = req.body;
+    const {idFavorite, idUser} = req.body;
     try { 
-        const info = await Favorite.findByPk(id_favorito);
+        const info = await Favorite.findByPk(idFavorite);
         if(!info) res.status(200).json({
             ok: false,
             msg: "No Existe Este Id En La BD.",
@@ -15,13 +15,18 @@ router.put("/update", async (req,res) =>{
             const updated = await Favorite.update({is_favorite: !info.is_favorite},
                 {
                     where:{
-                        id_favorito:id_favorito
+                        id_favorito:idFavorite
                     }
                 }
             )
+            const newFavorites = await Favorite.findAll({
+                where: {
+                    user_favorite: idUser
+                }
+            })
             updated[0] ? res.status(200).json({
                 ok: true,
-                value: "Se Ha Modificado El Favorito."    
+                value: newFavorites    
             })
             :
             res.status(200).json({

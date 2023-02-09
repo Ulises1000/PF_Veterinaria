@@ -12,7 +12,9 @@ import {
     CREATE_PAGINATION_ARRAY,
     SEARCH,
     FILTERED,
-    SORT
+    SORT,
+    GET_FAVORITES,
+    UPDATE_FAVORITE
 } from './constants';
 
 /* ruta + endpoints */
@@ -289,3 +291,51 @@ export function sort(order) {
     }
 }
 
+
+/*  favorites actions */
+
+export function getFavorites(idUser) {
+    return async function(dispatch) {
+        try {
+            const { data } = await axios.get(`${URL + Endpoints.favoritos}get/${idUser}`);
+            dispatch({
+                type: GET_FAVORITES,
+                payload: data,
+            });
+        } catch (error) {
+            if (error.response) {
+                console.log(error.response.data);
+                console.log(error.response.status);
+                console.log(error.response.headers);
+            } else if (error.request) {
+                console.log(error.request);
+            } else {
+                console.log(error.message);
+            }
+            console.log(error.config);
+        }
+    };
+}
+//se necesita el id de favorito y el id de usuario
+export function updateFavorites(values) {
+    return async function(dispatch) {
+        try {
+            const { data } = await axios.put(`${URL + Endpoints.product}update`, values);
+            dispatch({
+                type: UPDATE_PRODUCT,
+                payload: data,
+            });
+        } catch (error) {
+            if (error.response) {
+                console.log(error.response.data);
+                console.log(error.response.status);
+                console.log(error.response.headers);
+            } else if (error.request) {
+                console.log(error.request);
+            } else {
+                console.log(error.message);
+            }
+            console.log(error.config);
+        }
+    };
+}

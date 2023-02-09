@@ -5,12 +5,12 @@ const router = Router();
 router.get("/get/:idUser", async (req, res) => {
     const {idUser} = req.params;
     try { 
-        const favorite  = await Favorite.findOne({
+        const favorite  = await Favorite.findAll({
             where: {
-                id_usuario: idUser
+                user_favorite: idUser
             }
         });
-        favorite ? res.status(404).json({
+        !favorite.length ? res.status(404).json({
             ok: false,
             msg: "No Se Ha Encontrado El Favorito",
             detail: "No Se Encuentra En BD."
@@ -20,7 +20,7 @@ router.get("/get/:idUser", async (req, res) => {
             ok: true,
             value: favorite
         })
-    } catch (error) {
+    } catch (err) {
         res.status(404).send({
             ok: false, 
             msg: "Lo Lamentamos, Ha Ocurrido Un Error.",

@@ -28,6 +28,11 @@ module.exports = (sequelize) => {
             type: DataTypes.STRING,
             allowNull: false
         },
+        image_U: {
+            type: DataTypes.UUID,
+            allowNull: false,
+            defaultValue: DataTypes.UUIDV1
+        },
         unsubscribe_U: {
             type: DataTypes.BOOLEAN,
             allowNull: false,
