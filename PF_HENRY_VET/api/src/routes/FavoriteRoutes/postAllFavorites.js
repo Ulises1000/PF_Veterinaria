@@ -25,7 +25,7 @@ router.post("/post", async (req, res) => {
     }catch(err){
         res.status(404).send({
           ok: false,
-          msg: "Lo Lamentamos, No se pudo postear el producto.",
+          msg: "Lo Lamentamos, No se pudo postear los Favoritos.",
           detail: err.message,
         });
     }
