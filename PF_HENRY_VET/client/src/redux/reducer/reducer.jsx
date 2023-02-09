@@ -253,7 +253,7 @@ export const filters = (state = initialState, action) => {
                 pageHolder.push(page); 
             }
 
-            console.log(pageHolder ,"PAGINATION 2")
+            //console.log(pageHolder ,"PAGINATION 2")
       return {
         ...state,
         paginationArray: pageHolder,
