@@ -14,6 +14,9 @@ import {
   DELETE_USER,
   REGISTER_USER,
   SIGNIN_USER,
+  REGISTER_ERRORS,
+  SIGNIN_ERRORS,
+  CLEAN_MSG_REGISTER_USER,
   POST_USER,
   UPDATE_USER,
 } from "../action/constants";
@@ -29,6 +32,7 @@ const initialState = {
   product: {},
   user: {},
   infoRegistration: {},
+  userMsgErrorRegistrationAndSignin: "",
   favorites: [],
   currentOrder: "Static",
   currentBreed: "breed",
@@ -95,6 +99,21 @@ export const userReducer = (state = initialState.user, action) => {
         ...state,
         user: action.payload,
       };
+    case REGISTER_ERRORS:
+      return {
+        ...state,
+        userMsgErrorRegistrationAndSignin: action.payload,
+      };
+    case SIGNIN_ERRORS:
+      return {
+        ...state,
+        userMsgErrorRegistrationAndSignin: action.payload,
+      };
+    case CLEAN_MSG_REGISTER_USER: 
+      return {
+        ...state,
+        userMsgErrorRegistrationAndSignin: "",
+      }
     case DELETE_USER:
       return {
         ...state,

@@ -10,6 +10,9 @@ import {
     POST_USER,
     REGISTER_USER,
     SIGNIN_USER,
+    REGISTER_ERRORS,
+    SIGNIN_ERRORS,
+    CLEAN_MSG_REGISTER_USER,
     UPDATE_USER,
     CREATE_PAGINATION_ARRAY,
     SEARCH,
@@ -186,7 +189,10 @@ export function registerUser(values){
                 payload: info
             });
         }catch(err){
-
+            dispatch({
+                type: REGISTER_ERRORS,
+                payload: err
+            });
         }
     }
 }
@@ -199,9 +205,17 @@ export function signinUser(values){
                 payload: info
             });
         }catch(err){
-
+            dispatch({
+                type: SIGNIN_ERRORS,
+                payload: err
+            });
         }
     }
+}
+export function cleanMsgRegisterUser(){
+    return (dispatch) => dispatch({
+        type: CLEAN_MSG_REGISTER_USER
+    });
 }
 
 export function deleteUser(userId) {

@@ -142,8 +142,10 @@ export function Registration({ Navset }) {
 //--------------------------------------------------------
   function handleSubmitNewGame(e){
     e.preventDefault();
-    dispatch(registerUser(inputRegistration));
-    dispatch(signinUser(inputLogin));
+    registrationChange === "registration" ? 
+    dispatch(registerUser(inputRegistration))
+    :
+    dispatch(signinUser(inputLogin))
   }
 //--------------------------------------------------------
   function handleChangeLogin(e) {
