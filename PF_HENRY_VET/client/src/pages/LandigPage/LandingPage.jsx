@@ -27,7 +27,7 @@ import { Link } from "react-router-dom";
 
 import "./landingPage.module.css";
 
-export default function LandingPage() {
+export default function LandingPage({Navset}) {
   const modal = document.querySelector("#modal");
   console.log("Esto es Modal ===", modal);
   const openModal = document.querySelector(".bottomIcon");
@@ -48,7 +48,7 @@ export default function LandingPage() {
             id="open-button"
           />
         </div>
-        <div className="flex h-250px w-250px ml-14 -mt-20 md:mt-52 justify-center items-center flex-wrap flex-col md:w-400px md:h-400px">
+        <div className="flex h-250px w-250px ml-14 -mt-20 md:mt-52 md:ml-20 justify-center items-center flex-wrap flex-col md:w-400px md:h-400px">
           <h1 className="font-Fredoka">Ingresar</h1>
 
           <div className="bg-violet-400 border-4 border-black w-200px h-200px hover:bg-violet-200 rounded-full mt-5 transition duration-300 ease-out hover:cursor-pointer">
@@ -56,9 +56,9 @@ export default function LandingPage() {
           </div>
         </div>
         {openForm && (
-          <dialog className="modal bg-transparent mt-80 ml-10 md:mt-44 md:mr-72" id="modal" open>
+          <div className="modal bg-transparent mt-80 ml-10 md:flex md:justify-self-center md:right-80 md:mt-44" id="modal" open>
             <Registration />
-          </dialog>
+          </div>
         )}
       </div>
     </>

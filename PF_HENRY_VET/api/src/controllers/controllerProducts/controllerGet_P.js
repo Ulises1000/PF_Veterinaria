@@ -1,15 +1,12 @@
  const {Product} = require("../../db.js");
 
-async function findProduct(name){
-    try{
-        const buscaProduct = await Product.findOne({
-            where: {name}, 
-        })
-        return buscaProduct;
-    }catch(err){
-        throw new Error(err.message)
-    }
-}
+ async function findProduct(codProduct){
+     try{
+         return await  Product.findByPk(codProduct);
+     }catch(err){
+         throw new Error(err.message)
+     }
+ }
 
  
 

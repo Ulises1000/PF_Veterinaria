@@ -42,7 +42,6 @@
   display: flex;
   column-gap: 100px;
   flex-direction: row;
-  margin: 110px;
 }
 
 .anuncioFelino img {
@@ -54,7 +53,6 @@
   display: flex;
   column-gap: 100px;
   flex-direction: row;
-  margin: 110px;
 }
 
 .ProductoDestacado img {
