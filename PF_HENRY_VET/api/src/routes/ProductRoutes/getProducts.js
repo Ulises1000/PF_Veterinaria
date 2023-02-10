@@ -9,8 +9,8 @@ router.get("/get",async  (req, res) => {
       const getP = name ? await getProducts(name.trim()) : await getProducts(); 
       if(!getP.length) res.status(200).json({
         ok: false,
-        msg: "No Se Ha Encontrado Ningun Producto.",
-        detail: "No Existe Ningun Producto BD Con Ese Nombre O Todavia No Hay Productos.",
+        msg: "No Se Ha Encontrado Ningún Producto.",
+        detail: "No Existe Ningún Producto BD Con Ese Nombre.",
       });
       else {
         const products = await getP.map(el => {
