@@ -213,9 +213,9 @@ export function signinUser(values){
     }
 }
 export function cleanMsgRegisterUser(){
-    return (dispatch) => dispatch({
+    return{
         type: CLEAN_MSG_REGISTER_USER
-    });
+    };
 }
 
 export function deleteUser(userId) {

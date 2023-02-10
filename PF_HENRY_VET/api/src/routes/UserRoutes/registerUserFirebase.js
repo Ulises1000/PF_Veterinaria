@@ -9,7 +9,7 @@ router.post("/register", async (req, res) => {
         const info = await createUserWithEmailAndPassword(auth, email, password)
         res.status(200).json(info);
     }catch(err){
-        res.status(400).json(err)
+        res.json(err)
     }
 });
 

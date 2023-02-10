@@ -138,7 +138,7 @@ export function Registration({ Navset }) {
       )
     );
   }
-  //ACA ESTA LO NUEVO
+  //ACA ESTA LO NUEVO DE REGISTRATION Y SIGNIN
 //--------------------------------------------------------
   function handleSubmitNewGame(e){
     e.preventDefault();
