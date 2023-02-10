@@ -10,6 +10,10 @@ import {
   UPDATE_FAVORITE,
   FILTERED,
   SORT,
+  SEARCH_PRO_DASHBOARD,
+  BY_ORDER,
+  BY_ORDER_PRICE,
+  BY_ORDER_STOCK,
 } from "../action/constants";
 import {
   GET_USER,
@@ -22,6 +26,7 @@ import { ASCENDENTE, DESCENDENTE } from "../../const/orderByName";
 const initialState = {
   products: [],
   product: {},
+  filterProducts:[], 
   user: {},
   favorites: [],
   currentOrder: "Static",
@@ -34,6 +39,18 @@ const initialState = {
   paginationArray: [],
 };
 
+/* export const searchDashb = (state = initialState, action) => {
+  switch (action.type) {
+    case SEARCH_PRO_DASHBOARD:
+      console.log(action.payload)
+    let filterProd = state.filterProducts.filter((us) => us.name.toLowerCase().includes(action.payload.toLowerCase()));
+       return {
+        ...state,
+        products: filterProd,
+      };
+}} */
+
+//no usar da errores xD
 export const productsReducer = (state = initialState.products, action) => {
   switch (action.type) {
     case GET_PRODUCTS:
@@ -41,6 +58,7 @@ export const productsReducer = (state = initialState.products, action) => {
         ...state,
         products: action.payload,
       };
+      
     case GET_PRODUCT:
       return {
         ...state,
@@ -99,14 +117,24 @@ export const userReducer = (state = initialState.user, action) => {
   }
 };
 
+//usar esta 
 export const filters = (state = initialState, action) => {
   switch (action.type) {
     case GET_PRODUCTS:{
       return {
         ...state,
-        products: action.payload,
+        products: action.payload,        
+        filterProducts: action.payload,
+        OrdeProductsDashb: action.payload
       };
     }
+    case SEARCH_PRO_DASHBOARD:
+      let filterProd = state.filterProducts.filter((us) => us.name.toLowerCase().includes(action.payload.toLowerCase()));
+       return {
+        ...state,
+        products: filterProd,
+      };
+
     case FILTERED:
       let filteredProducts = state.orderedProducts;
 
@@ -234,7 +262,6 @@ export const filters = (state = initialState, action) => {
             return 0;
           });
         }
-
         return {
           ...state,
           orderedProducts: orderedByNameProducts,
@@ -252,12 +279,44 @@ export const filters = (state = initialState, action) => {
                 const page = state.orderedProducts;
                 pageHolder.push(page); 
             }
-
-            //console.log(pageHolder ,"PAGINATION 2")
       return {
         ...state,
         paginationArray: pageHolder,
       };
+
+      case BY_ORDER:
+        console.log(action.payload)
+      const orderProducts = action.payload === "Asc"
+          ? state.products.sort((a, b) => (a.name > b.name ? 1 : -1))
+          : state.products.sort((a, b) => (a.name > b.name ? -1 : 1));
+          console.log(state.products)
+      return {
+        ...state,
+        products: orderProducts,      
+      };
+
+      case BY_ORDER_PRICE:
+        console.log(action.payload)
+      const orderPrice = action.payload === "AscPrice"
+          ? state.products.sort((a, b) => (a.unit_price > b.unit_price ? 1 : -1))
+          : state.products.sort((a, b) => (a.unit_price > b.unit_price ? -1 : 1));          
+      return {
+        ...state,
+        products: orderPrice,      
+      };
+
+      case BY_ORDER_STOCK:
+        console.log(action.payload)
+      const orderStock = action.payload === "AscStock"
+          ? state.products.sort((a, b) => (a.stock > b.stock ? 1 : -1))
+          : state.products.sort((a, b) => (a.stock > b.stock ? -1 : 1));          
+      return {
+        ...state,
+        products: orderStock,      
+      };
+
+
+
     default:
       return state;
   }
