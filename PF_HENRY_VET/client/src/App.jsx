@@ -7,6 +7,7 @@ import { Route, Routes } from "react-router-dom";
 import LandingPage from "./pages/LandigPage/LandingPage.jsx";
 import Details from "./pages/Details/Details.jsx";
 import DashBoard from "./pages/Dashboard/DashBoard";
+import ShoppingCart from "./pages/ShoppingCart/ShoppingCart";
 
 function App() {
   return (
@@ -17,7 +18,8 @@ function App() {
         <Route exact path="/market" element={<Mercado />} />
         <Route exact path="/details/:id" element={<Details />} />
         <Route exact path="/profile" element={<UserProfile />} />
-        <Route exact path="/dashboard" element={<DashBoard/>} />
+        <Route exact path="/dashboard" element={<DashBoard />} />
+        <Route exact path="/shoppingCart" element={<ShoppingCart />} />
         <Route path="*" element={<NotFound />} />
       </Routes>
     </div>

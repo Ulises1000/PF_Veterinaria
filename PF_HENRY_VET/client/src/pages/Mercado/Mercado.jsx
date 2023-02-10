@@ -7,28 +7,26 @@ import { useDispatch, useSelector } from "react-redux";
 import { getAllProducts } from "../../redux/action/index.jsx";
 import loader from "../../style-assets/paw_icon.png";
 
-
 function Mercado() {
   const dispatch = useDispatch();
-  const paginationArray = useSelector(state => state.filters.paginationArray)
-  const realState = useSelector((state => state))
+  const paginationArray = useSelector((state) => state.filters.paginationArray);
+  const realState = useSelector((state) => state);
   const [state, setState] = useState({
     loading: false,
-    page: 1
+    page: 1,
   });
-  
-  
+
   useEffect(() => {
     async function fetchData() {
-      console.log(realState)
-      console.log(paginationArray)
+      console.log(realState);
+      console.log(paginationArray);
       setState({ loading: true });
       dispatch(getAllProducts());
+
       setState({ loading: false });
     }
     fetchData();
   }, [state.page]);
-
 
   const [loading, setLoading] = useState(false);
   useEffect(() => {
@@ -41,36 +39,35 @@ function Mercado() {
   if (loading) {
     return (
       <div className="flex items-center justify-center bg-patas flex-col h-screen w-screen absolute">
-        <img src={loader} className="imgLoader" alt='loader image'/>
+        <img src={loader} className="imgLoader" alt="loader image" />
         <p className="loadingTxt">Loading...</p>
       </div>
     );
   }
-  
   // if (loading === false && paginationArray[0]){
-    return (
-        <div>
-          <div className="h-14">
-            <Nav />
-            <Searchbar />
-          </div>
-          <div className="mt-36">
-            <div className={styles.center}>
-              {Object.values(paginationArray).map((product) => 
-              ( product.map((p, i) => (
-                      <Card
-                          key={i}
-                          id={p.codProduct}
-                          image_url={p.image_url}
-                          name={p.name}
-                          unit_price={p.unit_price}
-                      />
-                  ))
-              ))}
-            </div>
-          </div>
+  return (
+    <div>
+      <div className="h-14">
+        <Nav />
+        <Searchbar />
+      </div>
+      <div className="mt-36">
+        <div className={styles.center}>
+          {Object.values(paginationArray).map((product) =>
+            product.map((p, i) => (
+              <Card
+                key={i}
+                id={p.codProduct}
+                url={p.url}
+                name={p.name}
+                unit_price={p.unit_price}
+              />
+            ))
+          )}
         </div>
-    );
+      </div>
+    </div>
+  );
   // }
 }
 
