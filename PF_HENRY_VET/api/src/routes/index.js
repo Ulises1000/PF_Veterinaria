@@ -8,6 +8,7 @@ const getUserRouter = require("./UserRoutes/getUser");
 const postUserRouter = require("./UserRoutes/postUser");
 const deleteUserRouter = require("./UserRoutes/deleteUser");
 const registerUserRouter = require("./UserRoutes/registerUserFirebase");
+const signoutUserRouter = require("./UserRoutes/signoutUserFirebase");
 const signinUserRouter = require("./UserRoutes/signinUserFirebase");
 const updateUserRouter = require("./UserRoutes/updateUser");
 const getShoppingCart = require("./ShoppingCartRoutes/getShoppingCart");
@@ -27,7 +28,7 @@ const router = Router();
 // Configurar los routers
 // Ejemplo: router.use('/auth', authRouter);
 router.use("/products", getProductRouter, postProductRouter,updateProductRouter, deleteProductRouter,getAProductRouter);
-router.use("/users", getUserRouter, postUserRouter, signinUserRouter, registerUserRouter, deleteUserRouter, updateUserRouter);
+router.use("/users", getUserRouter, postUserRouter, signoutUserRouter, signinUserRouter, registerUserRouter, deleteUserRouter, updateUserRouter);
 router.use("/shoppingCart", getShoppingCart);
 router.use("/shoppingCartDetail", getShoppingCartDtail, updateShoppingCartDtail, deleteShoppingCartDtail, postShoppingCartDtail)
 router.use("/favorite",getFavoriteRouter, postFavoriteRouter, updateFavoriteRouter);

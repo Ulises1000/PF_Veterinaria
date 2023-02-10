@@ -10,6 +10,7 @@ import {
     POST_USER,
     REGISTER_USER,
     SIGNIN_USER,
+    SIGNOUT_USER,
     REGISTER_ERRORS,
     SIGNIN_ERRORS,
     CLEAN_MSG_REGISTER_USER,
@@ -202,6 +203,22 @@ export function signinUser(values){
             const info = await axios.post(`${URL + Endpoints.user}signin`, values);
             dispatch({
                 type: SIGNIN_USER,
+                payload: info
+            });
+        }catch(err){
+            dispatch({
+                type: SIGNIN_ERRORS,
+                payload: err
+            });
+        }
+    }
+}
+export function signoutUser(){
+    return async (dispatch) => {
+        try{
+            const info = await axios.post(`${URL + Endpoints.user}signout`);
+            dispatch({
+                type: SIGNOUT_USER,
                 payload: info
             });
         }catch(err){

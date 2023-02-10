@@ -14,6 +14,7 @@ import {
   DELETE_USER,
   REGISTER_USER,
   SIGNIN_USER,
+  SIGNOUT_USER,
   REGISTER_ERRORS,
   SIGNIN_ERRORS,
   CLEAN_MSG_REGISTER_USER,
@@ -99,15 +100,46 @@ export const userReducer = (state = initialState.user, action) => {
         ...state,
         user: action.payload,
       };
-    case REGISTER_ERRORS:
+    case REGISTER_ERRORS:{
+      let msg;
+      
+      switch(action.payload){
+        case "auth/email-already-in-use": msg = "Este Email Ya Esta En Uso.";
+          break;
+        case "auth/invalid-email": msg = "Este Email Es Invalido.";
+          break;
+        case "auth/weak-password": msg = "Esta Contraseña Es Muy Débil.";
+          break;
+        default: msg = "Hubo Un Error.";
+      }
+
       return {
         ...state,
-        userMsgErrorRegistrationAndSignin: action.payload,
+        userMsgErrorRegistrationAndSignin: msg,
       };
-    case SIGNIN_ERRORS:
+    }
+    case SIGNIN_ERRORS:{
+      let msg;
+      
+      switch(action.payload){
+        case "auth/email-already-in-use": msg = "Este Email Ya Esta En Uso.";
+          break;
+        case "auth/invalid-email": msg = "Este Email Es Invalido.";
+          break;
+        case "auth/weak-password": msg = "Esta Contraseña Es Muy Débil.";
+          break;
+        default: msg = "Hubo Un Error.";
+      }
+
       return {
         ...state,
-        userMsgErrorRegistrationAndSignin: action.payload,
+        userMsgErrorRegistrationAndSignin: msg,
+      };
+    }
+    //PORAHORA EL SIGNOUT SOLO DEVUELVE EL STATE PERO SI DESLOGUEA AL USUARIO EN FIREBASE
+    case SIGNOUT_USER:
+      return {
+        ...state
       };
     case CLEAN_MSG_REGISTER_USER: 
       return {
