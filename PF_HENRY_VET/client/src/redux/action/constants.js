@@ -16,7 +16,13 @@ export const SORT = "SORT";
 export const SEARCH = "SEARCH";
 
 
+
 export const SEARCH_PRO_DASHBOARD = "SEARCH_PRO_DASHBOARD";
 export const  BY_ORDER = "BY_ORDER";
 export const BY_ORDER_PRICE = "BY_ORDER_PRICE"
 export const BY_ORDER_STOCK = "BY_ORDER_STOCK"
+
+
+export const GET_FAVORITES = 'GET_FAVORITES';
+export const UPDATE_FAVORITE = 'UPDATE_FAVORITE';
+

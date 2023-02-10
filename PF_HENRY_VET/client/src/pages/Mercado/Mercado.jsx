@@ -41,7 +41,7 @@ function Mercado() {
   if (loading) {
     return (
       <div className="flex items-center justify-center bg-patas flex-col h-screen w-screen absolute">
-        <img src={loader} className="imgLoader" />
+        <img src={loader} className="imgLoader" alt='loader image'/>
         <p className="loadingTxt">Loading...</p>
       </div>
     );
@@ -60,6 +60,7 @@ function Mercado() {
               ( product.map((p, i) => (
                       <Card
                           key={i}
+                          id={p.codProduct}
                           image_url={p.image_url}
                           name={p.name}
                           unit_price={p.unit_price}

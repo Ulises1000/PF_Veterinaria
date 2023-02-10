@@ -1,18 +1,29 @@
 const {Router} = require("express");
-const axios = require("axios");
+const cloudinary = require("../../cloudinaryConfig/cloudinaryConfig");
 const {getProducts} = require("../../controllers/controllerProducts/controllerGetProduct")
 const router = Router();
 
 router.get("/get",async  (req, res) => {
-    const {name} = req.query;
+    const {name} = req.query; 
     try{
-      const getP = name ? await getProducts(name.trim()) : await getProducts();
+      const getP = name ? await getProducts(name.trim()) : await getProducts(); 
       if(!getP.length) res.status(200).json({
         ok: false,
-        msg: "No Se Ha Encontrado Ningun Producto.",
-        detail: "No Existe Ningun Producto BD Con Ese Nombre.",
+        msg: "No Se Ha Encontrado Ningún Producto.",
+        detail: "No Existe Ningún Producto BD Con Ese Nombre.",
       });
-      else res.status(200).json(getP);
+      else {
+        const products = await getP.map(el => {
+          const obj = {...el.dataValues};
+          obj.url = cloudinary.url(el.image_url, {
+            width: 100,
+            height: 150,
+            Crop: 'fill'
+          });
+          return obj;
+        })
+        res.status(200).json(products);
+      } 
     }catch(err){
       res.status(404).send({
          ok: false,

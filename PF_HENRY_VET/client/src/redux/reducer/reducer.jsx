@@ -6,6 +6,8 @@ import {
   UPDATE_PRODUCT,
   SEARCH,
   CREATE_PAGINATION_ARRAY,
+  GET_FAVORITES,
+  UPDATE_FAVORITE,
   FILTERED,
   SORT,
   SEARCH_PRO_DASHBOARD,
@@ -26,6 +28,7 @@ const initialState = {
   product: {},
   filterProducts:[], 
   user: {},
+  favorites: [],
   currentOrder: "Static",
   currentBreed: "breed",
   currentSearch: "",
@@ -71,7 +74,7 @@ export const productsReducer = (state = initialState.products, action) => {
     case POST_PRODUCT:
       return {
         ...state,
-        products: [...state.products, action.payload],
+        products: action.payload.value,
       };
     case UPDATE_PRODUCT:
       return {
@@ -274,7 +277,7 @@ export const filters = (state = initialState, action) => {
         }  
         else {
                 const page = state.orderedProducts;
-                pageHolder.push(page);
+                pageHolder.push(page); 
             }
       return {
         ...state,
@@ -318,3 +321,21 @@ export const filters = (state = initialState, action) => {
       return state;
   }
 };
+
+export const favoriteReducer = (state = initialState, action) => {
+  switch (action.type) {
+    case GET_FAVORITES:
+      return {
+        ...state,
+        favorites: action.payload,
+      };
+    case UPDATE_FAVORITE:
+      return {
+        ...state,
+        favorites: action.payload,
+      };
+    default:
+      return state;
+  }
+};
+
