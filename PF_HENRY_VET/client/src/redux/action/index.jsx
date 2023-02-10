@@ -11,7 +11,8 @@ import {
     UPDATE_USER,
     CREATE_PAGINATION_ARRAY,
     SEARCH,
-    FILTERED,
+    FILTEREDBREED,
+    FILTEREDSIZE,
     SORT,
     GET_FAVORITES,
     UPDATE_FAVORITE
@@ -41,7 +42,6 @@ export function getAllProducts(name) {
                 type: GET_PRODUCTS,
                 payload: data,
             });
-            dispatch(filtered())
             dispatch(createPaginationArray())
             //---------------------------------
         } catch (error) {
@@ -255,7 +255,6 @@ export function searchByName(name){
                 type: SEARCH,
                 payload: data,
             });
-            dispatch(filtered())
             dispatch(createPaginationArray())
             //---------------------------------
         } catch (error) {
@@ -278,9 +277,15 @@ export function createPaginationArray(payload){
         payload,
     }
 }
-export function filtered(payload) {
+export function filteredBreed(payload) {
     return {
-        type: FILTERED,
+        type: FILTEREDBREED,
+        payload
+    }
+}
+export function filteredSize(payload) {
+    return {
+        type: FILTEREDSIZE,
         payload
     }
 }

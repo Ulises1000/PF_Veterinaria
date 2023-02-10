@@ -1,80 +1,71 @@
 // import { useSelector } from "react-redux";
 import { useDispatch, useSelector } from "react-redux";
 import { ASCENDENTE, DESCENDENTE } from "../const/orderByName";
-import { createPaginationArray, filtered, sort } from "../redux/action";
+import { createPaginationArray, filteredBreed, filteredSize, sort } from "../redux/action";
 
 export default function Characteristic() {
   let dispatch = useDispatch();
   // let currentGenre = useSelector((state) => state.currentGenre)
-  let realState = useSelector((state) => state)
+  let realState = useSelector((state) => state);
 
-
- 
   // let loadingCheck = useSelector((state) => state.loading)
-
 
   function onChangeOrder(event) {
     dispatch(sort(event.target.value));
-    dispatch(filtered())
-    dispatch(createPaginationArray())
+    console.log(realState.filters.currentSize)
+    dispatch(createPaginationArray());
   }
 
-  function onChangeBreed (){
-    dispatch(filtered())
-    dispatch(createPaginationArray())
+  function onChangeBreed(event) {
+    dispatch(filteredBreed(event.target.value));
+    dispatch(createPaginationArray());
+  }
+
+  function onChangeSize(event) {
+    dispatch(filteredSize(event.target.value));
+    dispatch(createPaginationArray());
   }
 
   return (
     <div className="flex flex-col justify-center items-center -mt-4">
       <div className="pl-4 space-x-4 space-y-2">
-        {/* <select
+        <select
           id="dropdown"
           className="bg-violet-200 rounded-md px-4 py-2 text-sm text-gray-700 hover:font-semibold"
-          onChange={onChange}
-          value={"Objetos"}
+          onChange={onChangeSize}
+          value={realState.filters.currentSize}
         >
-          <option value="Objetos" hidden>
+          <option value="petSize" hidden>
             {" "}
-            Objetos
+            Tamaño
           </option>
-          <option value="Comedero" className="hover:bg-gray-100">Comedero</option>
-          <option value="Alimentos">Alimentos</option>
-          <option value="Correas">Correas</option>
-          <option value="Rascadores">Rascadores</option>
-          <option value="Areneros">Areneros</option>
-          <option value="Jugetes">Jugetes</option>
-
-        </select> */}
+          <option value="todos">Para todos los tamaños</option>
+          <option value="pequeña">Pequeño</option>
+          <option value="mediana">Mediano</option>
+          <option value="grande">Grande</option>
+        </select>
         <select
           id="dropdown"
           className="bg-violet-200 rounded-md  px-4 py-2 text-sm text-gray-700 hover:font-semibold"
           onChange={onChangeBreed}
           value={realState.filters.currentBreed}
         >
-          <option value="breed" hidden>
+          <option value="breedType" hidden>
             {" "}
             Animal
           </option>
-          <option value="Gato">Gato</option>
-          <option value="Perro">Perro</option>
-          <option value="Caballo">Caballo</option>
-
+          <option value="gato">Gato</option>
+          <option value="perro">Perro</option>
         </select>
-        {/* <select
-          id="dropdown"
-          className="bg-violet-200 rounded-md  px-4 py-2 text-sm text-gray-700 hover:font-semibold"
-          onChange={onChange}
-          value={"A-Z"}
-        >
-
-        </select> */}
         <select
           id="dropdown"
           className="bg-violet-200 rounded-md  px-4 py-2 text-sm text-gray-700 hover:font-semibold"
           onChange={onChangeOrder}
           value={realState.filters.currentOrder}
         >
-          <option value={"Static"} hidden>Order</option>
+          <option value={"Static"} hidden>
+            Order
+          </option>
           <option value={ASCENDENTE}> A-Z</option>
           <option value={DESCENDENTE}>Z-A</option>
           <option value="HighToLow">Mayor a Menor</option>

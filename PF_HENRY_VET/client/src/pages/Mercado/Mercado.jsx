@@ -20,8 +20,8 @@ function Mercado() {
   
   useEffect(() => {
     async function fetchData() {
-      console.log(realState)
       console.log(paginationArray)
+      console.log(realState)
       setState({ loading: true });
       dispatch(getAllProducts());
       setState({ loading: false });
@@ -63,6 +63,8 @@ function Mercado() {
                           image_url={p.url}
                           name={p.name}
                           unit_price={p.unit_price}
+                          breedType={p.breedType}
+                          petSize={p.petSize}
                       />
                   ))
               ))}

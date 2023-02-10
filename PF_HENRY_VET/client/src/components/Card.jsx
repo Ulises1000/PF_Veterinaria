@@ -1,6 +1,6 @@
 import React from 'react'
 
-const Card = ({ image_url, name, unit_price }) => {
+const Card = ({ image_url, name, unit_price, breedType, petSize }) => {
 
     return (
         <div className="flex flex-col bg-white p-6 rounded-lg shadow-lg mr-3 mt-4 cursor-pointer">
@@ -11,6 +11,14 @@ const Card = ({ image_url, name, unit_price }) => {
                 whiteSpace: 'nowrap',
                 width: '200px',
             }} className="text-lg font-semibold mt-2">{name}</h2>
+            <div className="hidden">
+              {breedType.map((breed) => 
+              (breed))}
+              </div>
+              <div className="hidden">
+              {petSize.map((size) => 
+              (size))}
+              </div>
             <p className="text-gray-700 mt-2">${unit_price}</p>
         </div>
 
