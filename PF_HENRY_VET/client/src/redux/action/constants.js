@@ -14,3 +14,9 @@ export const CREATE_PAGINATION_ARRAY= "CREATE_PAGINATION_ARRAY"
 export const FILTERED = "FILTERED";
 export const SORT = "SORT";
 export const SEARCH = "SEARCH";
+
+
+export const SEARCH_PRO_DASHBOARD = "SEARCH_PRO_DASHBOARD";
+export const  BY_ORDER = "BY_ORDER";
+export const BY_ORDER_PRICE = "BY_ORDER_PRICE"
+export const BY_ORDER_STOCK = "BY_ORDER_STOCK"
