@@ -61,7 +61,7 @@ function Mercado() {
                       <Card
                           key={i}
                           id={p.codProduct}
-                          image_url={p.image_url}
+                          image_url={p.url}
                           name={p.name}
                           unit_price={p.unit_price}
                       />

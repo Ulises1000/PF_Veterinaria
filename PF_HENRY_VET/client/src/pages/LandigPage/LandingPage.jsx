@@ -52,7 +52,7 @@ export default function LandingPage({Navset}) {
           <h1 className="font-Fredoka">Ingresar</h1>
 
           <div className="bg-violet-400 border-4 border-black w-200px h-200px hover:bg-violet-200 rounded-full mt-5 transition duration-300 ease-out hover:cursor-pointer">
-            <img src={icon} className="mt-8 ml-8" onClick={showForm} />
+            <img src={icon} className="mt-8 ml-8" onClick={showForm} alt='icon image' />
           </div>
         </div>
         {openForm && (
