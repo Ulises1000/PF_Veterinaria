@@ -8,6 +8,8 @@ import {
     GET_USER,
     DELETE_USER,
     POST_USER,
+    REGISTER_USER,
+    SIGNIN_USER,
     UPDATE_USER,
     CREATE_PAGINATION_ARRAY,
     SEARCH,
@@ -173,6 +175,33 @@ export function getUser(userId) {
             console.log(error.config);
         }
     };
+}
+
+export function registerUser(values){
+    return async (dispatch) => {
+        try{
+            const info = await axios.post(`${URL + Endpoints.user}register`, values);
+            dispatch({
+                type: REGISTER_USER,
+                payload: info
+            });
+        }catch(err){
+
+        }
+    }
+}
+export function signinUser(values){
+    return async (dispatch) => {
+        try{
+            const info = await axios.post(`${URL + Endpoints.user}signin`, values);
+            dispatch({
+                type: SIGNIN_USER,
+                payload: info
+            });
+        }catch(err){
+
+        }
+    }
 }
 
 export function deleteUser(userId) {

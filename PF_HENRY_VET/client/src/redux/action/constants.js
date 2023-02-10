@@ -8,6 +8,8 @@ export const GET_USER = 'GET_USER';
 export const DELETE_USER = 'DELETE_USER';
 export const POST_USER = 'POST_USER';
 export const UPDATE_USER = 'UPDATE_USER';
+export const REGISTER_USER = 'REGISTER_USER';
+export const SIGNIN_USER = 'SIGNIN_USER';
 
 /* filter */
 export const CREATE_PAGINATION_ARRAY= "CREATE_PAGINATION_ARRAY"

@@ -3,6 +3,7 @@ import { Link } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 
 import "./registration.css";
+import { registerUser, signinUser } from "../../redux/action";
 
 function validate(input, userTyped) {
   let errors = {};
@@ -47,6 +48,7 @@ export function Registration({ Navset }) {
   const [registrationChange, setRegistrationChange] = useState(
     Navset ? Navset : "login"
   );
+  const dispatch = useDispatch();
 
   function HandleClickLogin() {
     setRegistrationChange("login");
@@ -136,7 +138,14 @@ export function Registration({ Navset }) {
       )
     );
   }
-
+  //ACA ESTA LO NUEVO
+//--------------------------------------------------------
+  function handleSubmitNewGame(e){
+    e.preventDefault();
+    dispatch(registerUser(inputRegistration));
+    dispatch(signinUser(inputLogin));
+  }
+//--------------------------------------------------------
   function handleChangeLogin(e) {
     console.log(e.target.name);
     setInputLogin({

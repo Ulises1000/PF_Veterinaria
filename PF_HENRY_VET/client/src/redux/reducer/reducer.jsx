@@ -12,6 +12,8 @@ import {
 import {
   GET_USER,
   DELETE_USER,
+  REGISTER_USER,
+  SIGNIN_USER,
   POST_USER,
   UPDATE_USER,
 } from "../action/constants";
@@ -26,6 +28,7 @@ const initialState = {
   products: [],
   product: {},
   user: {},
+  infoRegistration: {},
   favorites: [],
   currentOrder: "Static",
   currentBreed: "breed",
@@ -78,6 +81,16 @@ export const productsReducer = (state = initialState.products, action) => {
 export const userReducer = (state = initialState.user, action) => {
   switch (action.type) {
     case GET_USER:
+      return {
+        ...state,
+        user: action.payload,
+      };
+    case REGISTER_USER:
+      return {
+        ...state,
+        infoRegistration: action.payload,
+      };
+    case SIGNIN_USER:
       return {
         ...state,
         user: action.payload,
@@ -256,7 +269,7 @@ export const filters = (state = initialState, action) => {
                 pageHolder.push(page); 
             }
 
-            console.log(pageHolder ,"PAGINATION 2")
+            //console.log(pageHolder ,"PAGINATION 2")
       return {
         ...state,
         paginationArray: pageHolder,
