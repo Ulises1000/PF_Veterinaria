@@ -1,4 +1,4 @@
-import "./App.css";
+import "./App.module.css";
 import Mercado from "./pages/Mercado/Mercado";
 import NotFound from "./pages/Not Found/NotFound";
 import Home from "./pages/Home/Home";
@@ -9,7 +9,7 @@ import Details from "./pages/Details/Details.jsx";
 
 function App() {
   return (
-    <div className="App bg-patas">
+    <div className="App bg-patas w-full">
       <Routes>
         <Route exact path="/" element={<LandingPage />} />
         <Route exact path="/home" element={<Home />} />

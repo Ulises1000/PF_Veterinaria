@@ -17,7 +17,7 @@ function Nav() {
 
   return (
     // nav aca
-    <nav className="fixed w-full top-0 z-40 bg-violet-400">
+    <nav className="fixed w-screen top-0 z-40 bg-violet-400">
       <div className="max-w-6xl mx-auto px-4">
         <div className="flex justify-between">
           <div className="flex space-x-6">
@@ -35,19 +35,19 @@ function Nav() {
             <div className="hidden md:flex items-center space-x-2">
               <Link
                 to="/Mercado"
-                className="py-4 px-3 text-gray-700 hover:font-medium hover:text-black"
+                className="py-4 px-3 text-gray-700 font-semibold hover:font-medium hover:text-black"
               >
                 Mercado
               </Link>
               <a
                 href="#"
-                className="py-4 px-3 text-gray-700 hover:font-medium hover:text-black"
+                className="py-4 px-3 text-gray-700 font-semibold hover:font-medium hover:text-black"
               >
                 Turnos y Consultas
               </a>
               <a
                 href="#"
-                className="py-4 px-3 text-gray-700 hover:font-medium hover:text-black"
+                className="py-4 px-3 text-gray-700 font-semibold hover:font-medium hover:text-black"
               >
                 Trabajo
               </a>
@@ -58,13 +58,13 @@ function Nav() {
           <div className="hidden md:flex items-center space-x-1">
             <a
               href="#"
-              className="py-5 px-3  text-gray-700 font-mono hover:font-medium hover:text-black"
+              className="py-5 px-3  text-gray-700 font-semibold hover:font-medium hover:text-black"
             >
               Login
             </a>
             <a
               href="#"
-              className="py-2 px-3 bg-slate-50 rounded border-black border-2 text-gray-700 font-medium hover:bg-slate-200 hover:text-violet-500 transition duration-300"
+              className="py-2 px-3  bg-slate-50 rounded border-black border-2 text-gray-700 font-semibold hover:bg-slate-200 hover:text-violet-500 transition duration-300"
             >
               Sign Up
             </a>
