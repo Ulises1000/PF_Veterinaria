@@ -26,3 +26,7 @@ export const BY_ORDER_STOCK = "BY_ORDER_STOCK"
 export const GET_FAVORITES = 'GET_FAVORITES';
 export const UPDATE_FAVORITE = 'UPDATE_FAVORITE';
 
+export const POST_FAVORITES = 'POST_FAVORITES';
+
+
+

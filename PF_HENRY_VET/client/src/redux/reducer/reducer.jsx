@@ -6,8 +6,6 @@ import {
   UPDATE_PRODUCT,
   SEARCH,
   CREATE_PAGINATION_ARRAY,
-  GET_FAVORITES,
-  UPDATE_FAVORITE,
   FILTERED,
   SORT,
   SEARCH_PRO_DASHBOARD,
@@ -20,6 +18,11 @@ import {
   DELETE_USER,
   POST_USER,
   UPDATE_USER,
+} from "../action/constants";
+import {
+  GET_FAVORITES,
+  UPDATE_FAVORITE,
+  POST_FAVORITES
 } from "../action/constants";
 import { ASCENDENTE, DESCENDENTE } from "../../const/orderByName";
 
@@ -334,6 +337,11 @@ export const favoriteReducer = (state = initialState, action) => {
         ...state,
         favorites: action.payload,
       };
+      case POST_FAVORITES: 
+        return {
+          ...state,
+          favorites: action.payload,
+        };
     default:
       return state;
   }
