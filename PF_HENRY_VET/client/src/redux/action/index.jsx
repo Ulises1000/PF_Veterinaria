@@ -8,6 +8,12 @@ import {
     GET_USER,
     DELETE_USER,
     POST_USER,
+    REGISTER_USER,
+    SIGNIN_USER,
+    SIGNOUT_USER,
+    REGISTER_ERRORS,
+    SIGNIN_ERRORS,
+    CLEAN_MSG_REGISTER_USER,
     UPDATE_USER,
     CREATE_PAGINATION_ARRAY,
     SEARCH,
@@ -20,10 +26,8 @@ import {
     BY_ORDER_STOCK,
 
     GET_FAVORITES,
-
     UPDATE_FAVORITE,
     POST_FAVORITES
-
 
 } from './constants';
 
@@ -190,6 +194,60 @@ export function getUser(userId) {
             }
             console.log(error.config);
         }
+    };
+}
+
+export function registerUser(values){
+    return async (dispatch) => {
+        try{
+            const info = await axios.post(`${URL + Endpoints.user}register`, values);
+            dispatch({
+                type: REGISTER_USER,
+                payload: info
+            });
+        }catch(err){
+            dispatch({
+                type: REGISTER_ERRORS,
+                payload: err
+            });
+        }
+    }
+}
+export function signinUser(values){
+    return async (dispatch) => {
+        try{
+            const info = await axios.post(`${URL + Endpoints.user}signin`, values);
+            dispatch({
+                type: SIGNIN_USER,
+                payload: info
+            });
+        }catch(err){
+            dispatch({
+                type: SIGNIN_ERRORS,
+                payload: err
+            });
+        }
+    }
+}
+export function signoutUser(){
+    return async (dispatch) => {
+        try{
+            const info = await axios.post(`${URL + Endpoints.user}signout`);
+            dispatch({
+                type: SIGNOUT_USER,
+                payload: info
+            });
+        }catch(err){
+            dispatch({
+                type: SIGNIN_ERRORS,
+                payload: err
+            });
+        }
+    }
+}
+export function cleanMsgRegisterUser(){
+    return{
+        type: CLEAN_MSG_REGISTER_USER
     };
 }
 

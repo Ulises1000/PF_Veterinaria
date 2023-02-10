@@ -8,6 +8,12 @@ export const GET_USER = 'GET_USER';
 export const DELETE_USER = 'DELETE_USER';
 export const POST_USER = 'POST_USER';
 export const UPDATE_USER = 'UPDATE_USER';
+export const REGISTER_USER = 'REGISTER_USER';
+export const SIGNIN_USER = 'SIGNIN_USER';
+export const SIGNOUT_USER = 'SIGNOUT_USER';
+export const SIGNIN_ERRORS = 'SIGNIN_ERRORS';
+export const REGISTER_ERRORS = 'REGISTER_ERRORS';
+export const CLEAN_MSG_REGISTER_USER = 'CLEAN_MSG_REGISTER_USER';
 
 /* filter */
 export const CREATE_PAGINATION_ARRAY= "CREATE_PAGINATION_ARRAY"
@@ -25,8 +31,4 @@ export const BY_ORDER_STOCK = "BY_ORDER_STOCK"
 
 export const GET_FAVORITES = 'GET_FAVORITES';
 export const UPDATE_FAVORITE = 'UPDATE_FAVORITE';
-
 export const POST_FAVORITES = 'POST_FAVORITES';
-
-
-

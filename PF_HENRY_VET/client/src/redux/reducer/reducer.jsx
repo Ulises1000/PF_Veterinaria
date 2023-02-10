@@ -16,6 +16,12 @@ import {
 import {
   GET_USER,
   DELETE_USER,
+  REGISTER_USER,
+  SIGNIN_USER,
+  SIGNOUT_USER,
+  REGISTER_ERRORS,
+  SIGNIN_ERRORS,
+  CLEAN_MSG_REGISTER_USER,
   POST_USER,
   UPDATE_USER,
 } from "../action/constants";
@@ -31,6 +37,8 @@ const initialState = {
   product: {},
   filterProducts:[], 
   user: {},
+  infoRegistration: {},
+  userMsgErrorRegistrationAndSignin: "",
   favorites: [],
   currentOrder: "Static",
   currentBreed: "breed",
@@ -100,6 +108,62 @@ export const userReducer = (state = initialState.user, action) => {
         ...state,
         user: action.payload,
       };
+    case REGISTER_USER:
+      return {
+        ...state,
+        infoRegistration: action.payload,
+      };
+    case SIGNIN_USER:
+      return {
+        ...state,
+        user: action.payload,
+      };
+    case REGISTER_ERRORS:{
+      let msg;
+      
+      switch(action.payload){
+        case "auth/email-already-in-use": msg = "Este Email Ya Esta En Uso.";
+          break;
+        case "auth/invalid-email": msg = "Este Email Es Invalido.";
+          break;
+        case "auth/weak-password": msg = "Esta Contraseña Es Muy Débil.";
+          break;
+        default: msg = "Hubo Un Error.";
+      }
+
+      return {
+        ...state,
+        userMsgErrorRegistrationAndSignin: msg,
+      };
+    }
+    case SIGNIN_ERRORS:{
+      let msg;
+      
+      switch(action.payload){
+        case "auth/email-already-in-use": msg = "Este Email Ya Esta En Uso.";
+          break;
+        case "auth/invalid-email": msg = "Este Email Es Invalido.";
+          break;
+        case "auth/weak-password": msg = "Esta Contraseña Es Muy Débil.";
+          break;
+        default: msg = "Hubo Un Error.";
+      }
+
+      return {
+        ...state,
+        userMsgErrorRegistrationAndSignin: msg,
+      };
+    }
+    //PORAHORA EL SIGNOUT SOLO DEVUELVE EL STATE PERO SI DESLOGUEA AL USUARIO EN FIREBASE
+    case SIGNOUT_USER:
+      return {
+        ...state
+      };
+    case CLEAN_MSG_REGISTER_USER: 
+      return {
+        ...state,
+        userMsgErrorRegistrationAndSignin: "",
+      }
     case DELETE_USER:
       return {
         ...state,
