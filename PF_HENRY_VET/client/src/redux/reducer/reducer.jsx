@@ -19,6 +19,7 @@ import {
   UPDATE_USER,
 } from "../action/constants";
 import { ASCENDENTE, DESCENDENTE } from "../../const/orderByName";
+import { sort } from "../action";
 
 const initialState = {
   products: [],
@@ -31,6 +32,7 @@ const initialState = {
   currentSearch: "",
   searchedProducts: [],
   filteredProducts: [],
+  filteredProductsBySize: [],
   orderedByNameProducts: [],
   orderedProducts: [],
   paginationArray: [],
@@ -110,59 +112,204 @@ export const filters = (state = initialState, action) => {
       };
     }
     case FILTEREDBREED:
-      let filteredProductsBreed = state.orderedProducts[0] ? state.orderedProducts : state.searchedProducts[0] ? state.searchedProducts : state.filteredProducts[0] ? state.filteredProducts  :  state.products;
       let filtersBreed = {
         breedType: "breedType",
       };
       let productsBreed = []
-
-      if (action.payload === "perro" || "gato-perro" || "gato") {
-        if (filtersBreed.breedType !== "breedType" || filtersBreed.breedType !== undefined) {
-          productsBreed = filteredProductsBreed.filter((product) => {
-            for (let i = 0; i < product.breedType.length; i++) {
-              console.log(product.breedType[i], action.payload)
-              if (product.breedType[i] ===  action.payload) {
-                return productsBreed.push(product);
-              }
-            }
-            console.log(productsBreed)
-            return 0;
-          });
-        }
-      }
-
-      return {
-        ...state,
-        currentBreed: filters.breedType,
-        filteredProducts: productsBreed,
-        // currentPage: 1,
-      };
-
-      case FILTEREDSIZE:
-        console.log(state.filteredProducts[0] ? state.filteredProducts : state.orderedProducts[0] ? state.orderedProducts : state.searchedProducts[0] ? state.searchedProducts : state.products )
-        let filteredProductsSize = state.filteredProducts[0] ? state.filteredProducts : state.orderedProducts[0] ? state.orderedProducts : state.searchedProducts[0] ? state.searchedProducts :  state.products;
-        let filtersSize = {
-          petSize: "petSize",
-        };
-        let productsSize = []
-        if (action.payload === "pequeño" || "todos" || "mediana" || "grande") {
-          filtersSize.petSize = action.payload;
-          if (filtersSize.petSize !== "petSize" || filtersSize.petSize !== undefined) {
-            productsSize = filteredProductsSize.filter((product) => {
-              // console.log(product)
-              for (let i = 0; i < product.petSize.length; i++) {
-                if (product.petSize[i] === action.payload) {
-                  return productsSize.push(product);
+      if(state.orderedProducts.length === 0 && state.filteredProductsBySize.length === 0 && state.searchedProducts.length === 0){
+        let filteredProductsBreed = state.products
+        if (action.payload === "perro" || "gato-perro" || "gato") {
+          filtersBreed.breedType = action.payload;
+          if (filtersBreed.breedType !== "breedType" || filtersBreed.breedType !== undefined) {
+            productsBreed = filteredProductsBreed.filter((product) => {
+              for (let i = 0; i < product.breedType.length; i++) {
+                if (product.breedType[i] ===  action.payload) {
+                  return productsBreed.push(product);
                 }
               }
               return 0;
             });
           }
         }
+      }
+      else if(state.orderedProducts.length > 0 && state.filteredProductsBySize.length === 0 && state.searchedProducts.length > 0){
+        state.currentOrder = "Static"
+        let filteredProductsBreed = state.searchedProducts
+        if (action.payload === "perro" || "gato-perro" || "gato") {
+          filtersBreed.breedType = action.payload;
+          if (filtersBreed.breedType !== "breedType" || filtersBreed.breedType !== undefined) {
+
+            productsBreed = filteredProductsBreed.filter((product) => {
+              for (let i = 0; i < product.breedType.length; i++) {
+                if (product.breedType[i] ===  action.payload) {
+                  return productsBreed.push(product);
+                }
+              }
+              return 0;
+            });
+          }
+        }
+      }
+      else if(state.searchedProducts.length > 0){
+        let filteredProductsBreed = state.searchedProducts
+        if (action.payload === "perro" || "gato-perro" || "gato") {
+          filtersBreed.breedType = action.payload;
+          if (filtersBreed.breedType !== "breedType" || filtersBreed.breedType !== undefined) {
+
+            productsBreed = filteredProductsBreed.filter((product) => {
+              for (let i = 0; i < product.breedType.length; i++) {
+                if (product.breedType[i] ===  action.payload) {
+                  return productsBreed.push(product);
+                }
+              }
+              return 0;
+            });
+          }
+        }
+      }
+      else if(state.filteredProductsBySize.length > 0){
+        let filteredProductsBreed = state.filteredProductsBySize
+        if (action.payload === "perro" || "gato-perro" || "gato") {
+          filtersBreed.breedType = action.payload;
+          if (filtersBreed.breedType !== "breedType" || filtersBreed.breedType !== undefined) {
+
+            productsBreed = filteredProductsBreed.filter((product) => {
+              for (let i = 0; i < product.breedType.length; i++) {
+                if (product.breedType[i] ===  action.payload) {
+                  return productsBreed.push(product);
+                }
+              }
+              return 0;
+            });
+          }
+        }
+      }
+      else if(state.orderedProducts.length > 0){
+        let filteredProductsBreed = state.products
+        state.currentOrder = "Static"
+        if (action.payload === "perro" || "gato-perro" || "gato") {
+          filtersBreed.breedType = action.payload;
+          if (filtersBreed.breedType !== "breedType" || filtersBreed.breedType !== undefined) {
+
+            productsBreed = filteredProductsBreed.filter((product) => {
+              
+              for (let i = 0; i < product.breedType.length; i++) {
+                if (product.breedType[i] ===  action.payload) {
+                  return productsBreed.push(product);
+                }
+              }
+              return 0;
+            });
+          }
+        }
+      }
+      
+      return {
+        ...state,
+        currentBreed: filtersBreed.breedType,
+        filteredProducts: productsBreed,
+        // currentPage: 1,
+      };
+
+      case FILTEREDSIZE:
+        let filtersSize = {
+          petSize: "petSize",
+        };
+        let productsSize = []
+        if(state.orderedProducts.length === 0 && state.filteredProducts.length === 0 && state.searchedProducts.length === 0){
+          let filteredProductsSize = state.products
+          if (action.payload === "pequeño" || "todos " || "mediana" || "grande") {
+            filtersSize.petSize = action.payload;
+            if (filtersSize.petSize !== "petSize" || filtersSize.petSize !== undefined) {
+              productsSize = filteredProductsSize.filter((product) => {
+                for (let i = 0; i < product.petSize.length; i++) {
+                  if (product.petSize[i] ===  action.payload) {
+                    return productsSize.push(product);
+                  }
+                }
+                return 0;
+              });
+            }
+          }
+        }
+        else if(state.orderedProducts.length > 0 && state.filteredProducts.length === 0 && state.searchedProducts.length > 0){
+          state.currentOrder = "Static"
+          let filteredProductsSize = state.searchedProducts
+          if (action.payload === "pequeño" || "todos " || "mediana" || "grande") {
+            filtersSize.petSize = action.payload;
+            if (filtersSize.petSize !== "petSize" || filtersSize.petSize !== undefined) {
+  
+              productsSize = filteredProductsSize.filter((product) => {
+                for (let i = 0; i < product.petSize.length; i++) {
+                  if (product.petSize[i] ===  action.payload) {
+                    return productsSize.push(product);
+                  }
+                }
+                return 0;
+              });
+            }
+          }
+        }
+        else if(state.searchedProducts.length > 0){
+          let filteredProductsSize = state.searchedProducts
+          if (action.payload === "pequeño" || "todos " || "mediana" || "grande") {
+            filtersSize.petSize = action.payload;
+            if (filtersSize.petSize !== "petSize" || filtersSize.petSize !== undefined) {
+  
+              productsSize = filteredProductsSize.filter((product) => {
+                for (let i = 0; i < product.petSize.length; i++) {
+                  if (product.petSize[i] ===  action.payload) {
+                    return productsSize.push(product);
+                  }
+                }
+                return 0;
+              });
+            }
+          }
+        }
+        else if(state.filteredProducts.length > 0){
+        state.currentOrder = "Static"
+          let filteredProductsSize = state.filteredProducts
+          if (action.payload === "pequeño" || "todos " || "mediana" || "grande") {
+            filtersSize.petSize = action.payload;
+            if (filtersSize.petSize !== "petSize" || filtersSize.petSize !== undefined) {
+  
+              productsSize = filteredProductsSize.filter((product) => {
+                for (let i = 0; i < product.petSize.length; i++) {
+                  if (product.petSize[i] ===  action.payload) {
+                    return productsSize.push(product);
+                  }
+                }
+                return 0;
+              });
+            }
+          }
+        }
+        else if(state.orderedProducts.length > 0){
+          let filteredProductsSize = state.products
+          state.currentOrder = "Static"
+          if (action.payload === "pequeño" || "todos " || "mediana" || "grande") {
+            filtersSize.petSize = action.payload;
+            if (filtersSize.petSize !== "petSize" || filtersSize.petSize !== undefined) {
+  
+              productsSize = filteredProductsSize.filter((product) => {
+                
+                for (let i = 0; i < product.petSize.length; i++) {
+                  if (product.petSize[i] ===  action.payload) {
+                    return productsSize.push(product);
+                  }
+                }
+                return 0;
+              });
+            }
+          }
+        }
+        
+
         return {
           ...state,
           currentSize: filtersSize.petSize,
-          filteredProducts: productsSize,
+          filteredProductsBySize: productsSize,
           // currentPage: 1,
         };
 
@@ -172,13 +319,14 @@ export const filters = (state = initialState, action) => {
         orderedProducts: action.payload,
         searchedProducts: action.payload,
         filteredProducts: action.payload,
+        filteredProductsBySize: action.payload,
         currentSearch: action.payload,
         currentOrder: "Static",
         currentBreed: "breedType",
         currentSize: "petSize",
       };
     case SORT:
-      if (state.searchedProducts.length === 0 && state.filteredProducts.length === 0) {
+      if (state.searchedProducts.length === 0 && state.filteredProducts.length === 0 && state.filteredProductsBySize.length === 0) {
         let orderedByNameProducts = [...state.products];
         console.log(orderedByNameProducts);
         if (action.payload === ASCENDENTE) {
@@ -220,9 +368,9 @@ export const filters = (state = initialState, action) => {
           currentOrder: action.payload,
         };
         
-      } else if(state.searchedProducts.length === 0 && state.filteredProducts.length > 0) {
+      } else if(state.searchedProducts.length === 0 && state.filteredProducts.length > 0 && state.filteredProductsBySize.length === 0) {
         let orderedByNameProducts = [...state.filteredProducts];
-
+        console.log(orderedByNameProducts)
         if (action.payload === ASCENDENTE) {
           orderedByNameProducts = orderedByNameProducts.sort((a, b) => {
             if (a.name < b.name) {
@@ -262,8 +410,50 @@ export const filters = (state = initialState, action) => {
           currentOrder: action.payload,
         };
       }
+      else if(state.searchedProducts.length === 0 && state.filteredProductsBySize.length > 0 && state.filteredProducts.length === 0) {
+        let orderedByNameProducts = [...state.filteredProductsBySize];
+        if (action.payload === ASCENDENTE) {
+          orderedByNameProducts = orderedByNameProducts.sort((a, b) => {
+            if (a.name < b.name) {
+              return action.payload === ASCENDENTE ? -1 : 1;
+            }
+            return 0;
+          });
+        }
+        if (action.payload === DESCENDENTE) {
+          orderedByNameProducts = orderedByNameProducts.sort((a, b) => {
+            if (a.name > b.name) {
+              return action.payload === ASCENDENTE ? 1 : -1;
+            }
+            return 0;
+          });
+        }
+        
+        if (action.payload === "LowToHigh") {
+          orderedByNameProducts = orderedByNameProducts.sort(function (a, b) {
+            if (b.unit_price > a.unit_price) return -1;
+            if (a.unit_price > b.unit_price) return 1;
+            return 0;
+          });
+        }
+        
+        if (action.payload === "HighToLow") {
+          orderedByNameProducts = orderedByNameProducts.sort(function (a, b) {
+            if (a.unit_price > b.unit_price) return -1;
+            if (b.unit_price > a.unit_price) return 1;
+            return 0;
+          });
+        }
+        console.log(orderedByNameProducts, "che")
+        
+        return {
+          ...state,
+          orderedProducts: orderedByNameProducts,
+          currentOrder: action.payload,
+        };
+      }
       else {
-        let orderedByNameProducts = [...state.searchedProducts];
+        let orderedByNameProducts = [...state.filteredProducts];
 
         if (action.payload === ASCENDENTE) {
           orderedByNameProducts = orderedByNameProducts.sort((a, b) => {
@@ -307,18 +497,35 @@ export const filters = (state = initialState, action) => {
     case CREATE_PAGINATION_ARRAY:
       const pageSize = 15;
       let pageHolder = [];
-      if (state.searchedProducts.length !== 0){
-        const page = state.searchedProducts
-        pageHolder.push(page);
+      
+      
+      if(state.filteredProducts.length !== 0 && state.currentOrder !== "Static" ){
+        const page = state.orderedProducts;
+        pageHolder.push(page)
+      }
+      else if(state.filteredProductsBySize.length !== 0 && state.currentOrder !== "Static" ){
+        const page = state.orderedProducts;
+        pageHolder.push(page)
+      }
+      
+      else if (state.filteredProductsBySize.length !== 0){
+        const page = state.filteredProductsBySize
+        pageHolder.push(page)
+      }
+      
+      else if (state.filteredProducts.length !== 0){
+        const page = state.filteredProducts
+        pageHolder.push(page)
       }
       else if (state.orderedProducts.length !== 0) {
         const page = state.orderedProducts;
         pageHolder.push(page);
       } 
-      else if (state.filteredProducts.length !== 0){
-        const page = state.filteredProducts
-        pageHolder.push(page)
+      else if (state.searchedProducts.length !== 0){
+        const page = state.searchedProducts
+        pageHolder.push(page);
       }
+     
       else {
         const page = state.products;
         pageHolder.push(page);
