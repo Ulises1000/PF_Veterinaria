@@ -15,35 +15,13 @@ import {
   SEARCH_USERS_DASHBOARD,
   GET_USERS,
 } from "../action/constants";
-import {
-  GET_USER,
-  DELETE_USER,
-  REGISTER_USER,
-  SIGNIN_USER,
-  SIGNOUT_USER,
-  REGISTER_ERRORS,
-  SIGNIN_ERRORS,
-  CLEAN_MSG_REGISTER_USER,
-  POST_USER,
-  UPDATE_USER,
-} from "../action/constants";
-import {
-  GET_FAVORITES,
-  UPDATE_FAVORITE,
-  POST_FAVORITES
-} from "../action/constants";
+
 import { ASCENDENTE, DESCENDENTE } from "../../const/orderByName";
 
 const initialState = {
   products: [],
   product: {},
-  filterProducts:[], 
-  user: {}, 
-  users:[],
-  userDash:[], 
-  infoRegistration: {},
-  userMsgErrorRegistrationAndSignin: "", 
-  favorites: [],
+  filterProducts:[],
   currentOrder: "Static",
   currentBreed: "breed",
   currentSearch: "",
@@ -105,92 +83,6 @@ export const productsReducer = (state = initialState.products, action) => {
   }
 };
 
-export const userReducer = (state = initialState.user, action) => {
-  switch (action.type) {
-    case GET_USER:
-      return {
-        ...state,
-        user: action.payload,
-      };
-    case REGISTER_USER:
-      return {
-        ...state,
-        infoRegistration: action.payload,
-      };
-    case SIGNIN_USER:
-      return {
-        ...state,
-        user: action.payload,
-      };
-    case REGISTER_ERRORS:{
-      let msg;
-      
-      switch(action.payload){
-        case "auth/email-already-in-use": msg = "Este Email Ya Esta En Uso.";
-          break;
-        case "auth/invalid-email": msg = "Este Email Es Invalido.";
-          break;
-        case "auth/weak-password": msg = "Esta Contraseña Es Muy Débil.";
-          break;
-        default: msg = "Hubo Un Error.";
-      }
-
-      return {
-        ...state,
-        userMsgErrorRegistrationAndSignin: msg,
-      };
-    }
-    case SIGNIN_ERRORS:{
-      let msg;
-      
-      switch(action.payload){
-        case "auth/email-already-in-use": msg = "Este Email Ya Esta En Uso.";
-          break;
-        case "auth/invalid-email": msg = "Este Email Es Invalido.";
-          break;
-        case "auth/weak-password": msg = "Esta Contraseña Es Muy Débil.";
-          break;
-        default: msg = "Hubo Un Error.";
-      }
-
-      return {
-        ...state,
-        userMsgErrorRegistrationAndSignin: msg,
-      };
-    }
-    //PORAHORA EL SIGNOUT SOLO DEVUELVE EL STATE PERO SI DESLOGUEA AL USUARIO EN FIREBASE
-    case SIGNOUT_USER:
-      return {
-        ...state
-      };
-    case CLEAN_MSG_REGISTER_USER: 
-      return {
-        ...state,
-        userMsgErrorRegistrationAndSignin: "",
-      }
-    case DELETE_USER:
-      return {
-        ...state,
-        user: {},
-      };
-    case POST_USER:
-      return {
-        ...state,
-        user: action.payload,
-      };
-    case UPDATE_USER:
-      return {
-        ...state,
-        user: { ...state.user, ...action.payload },
-      };
-    default:
-      return state;
-  }
-};
-
-
-
- 
 //usar esta 
 export const filters = (state = initialState, action) => {
   switch (action.type) {
@@ -397,26 +289,3 @@ export const filters = (state = initialState, action) => {
       return state;
   }
 };
-
-export const favoriteReducer = (state = initialState, action) => {
-  switch (action.type) {
-    case GET_FAVORITES:
-      return {
-        ...state,
-        favorites: action.payload,
-      };
-    case UPDATE_FAVORITE:
-      return {
-        ...state,
-        favorites: action.payload,
-      };
-      case POST_FAVORITES: 
-        return {
-          ...state,
-          favorites: action.payload,
-        };
-    default:
-      return state;
-  }
-};
-
