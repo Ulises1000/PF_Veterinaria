@@ -56,11 +56,9 @@ export const userReducer = (state = initialState.user, action) => {
       let msg;
       
       switch(action.payload){
-        case "auth/email-already-in-use": msg = "Este Email Ya Esta En Uso.";
+        case "auth/wrong-password": msg = "Contraseña Incorrecta.";
           break;
-        case "auth/invalid-email": msg = "Este Email Es Invalido.";
-          break;
-        case "auth/weak-password": msg = "Esta Contraseña Es Muy Débil.";
+        case "auth/user-not-found": msg = "No Se Ha Encontrado El Usuario.";
           break;
         default: msg = "Hubo Un Error.";
       }
