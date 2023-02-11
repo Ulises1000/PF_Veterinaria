@@ -8,14 +8,36 @@ import {
     GET_USER,
     DELETE_USER,
     POST_USER,
+    REGISTER_USER,
+    SIGNIN_USER,
+    SIGNOUT_USER,
+    REGISTER_ERRORS,
+    SIGNIN_ERRORS,
+    CLEAN_MSG_REGISTER_USER,
     UPDATE_USER,
     CREATE_PAGINATION_ARRAY,
     SEARCH,
     FILTEREDBREED,
     FILTEREDSIZE,
     SORT,
+    SEARCH_PRO_DASHBOARD,
+    BY_ORDER,
+    BY_ORDER_PRICE,
+    BY_ORDER_STOCK, 
     GET_FAVORITES,
-    UPDATE_FAVORITE
+    UPDATE_FAVORITE,
+    POST_FAVORITES,
+    UPDATE_CARTDTAIL,
+    POST_CARTDTAIL,
+    GET_CARTDTAIL,
+    DELETE_CARTDTAIL,
+    DIFFERENT_OUTCOME,
+    EMPTY_DIFFOUTCOME_OBJ,
+    EMPTY_SHOPPINGCARTDTAIL,
+    EMPTY_SHOPPINGCARTDTAILMSG,
+    SEARCH_USERS_DASHBOARD, 
+    GET_USERS, 
+    POST_FAVORITES
 } from './constants';
 
 /* ruta + endpoints */
@@ -30,6 +52,52 @@ const Endpoints = {
     razas: "breed/",
     favoritos: "favorite/"
 }
+
+ export function searchDashBoard (data){
+    try {
+        return function(dispatch){
+        dispatch({
+           type:SEARCH_PRO_DASHBOARD,
+           payload:data, 
+        })        
+        }
+    } catch (error) {
+        if (error.response) {
+            console.log(error.response.data);
+            console.log(error.response.status);
+            console.log(error.response.headers);
+        } else if (error.request) {
+            console.log(error.request);
+        } else {
+            console.log(error.message);
+        }
+        console.log(error.config);
+    }
+    
+ }
+/*  export function searchDashBoardUsers (data){
+    try {
+        return function(dispatch){
+        dispatch({
+           type:SEARCH_USERS_DASHBOARD,
+           payload:data, 
+        })        
+        }
+    } catch (error) {
+        if (error.response) {
+            console.log(error.response.data);
+            console.log(error.response.status);
+            console.log(error.response.headers);
+        } else if (error.request) {
+            console.log(error.request);
+        } else {
+            console.log(error.message);
+        }
+        console.log(error.config);
+    }
+    
+ } */
+
 
 export function getAllProducts(name) {
     return async function(dispatch) {
@@ -128,6 +196,21 @@ export function updateProduct(productId, productData) {
     };
 }
 
+export function postProductos(payload) {
+    console.log(payload)
+    try {
+      return async function (dispatch) {
+        var post = await axios.post("http://localhost:3001/products/post", payload);
+        return dispatch({
+          type: POST_PRODUCT,
+          payload: post.data,
+        });
+      };
+    } catch (error) {
+      console.log(error + " >>> In actions/ posterRecipes()");
+    }
+  }
+
 export function postProduct(productData) {
     return async function(dispatch) {
         try {
@@ -151,6 +234,8 @@ export function postProduct(productData) {
     };
 }
 
+ 
+
 export function getUser(userId) {
     return async function(dispatch) {
         try {
@@ -171,6 +256,60 @@ export function getUser(userId) {
             }
             console.log(error.config);
         }
+    };
+}
+
+export function registerUser(values){
+    return async (dispatch) => {
+        try{
+            const info = await axios.post(`${URL + Endpoints.user}register`, values);
+            dispatch({
+                type: REGISTER_USER,
+                payload: info
+            });
+        }catch(err){
+            dispatch({
+                type: REGISTER_ERRORS,
+                payload: err
+            });
+        }
+    }
+}
+export function signinUser(values){
+    return async (dispatch) => {
+        try{
+            const info = await axios.post(`${URL + Endpoints.user}signin`, values);
+            dispatch({
+                type: SIGNIN_USER,
+                payload: info
+            });
+        }catch(err){
+            dispatch({
+                type: SIGNIN_ERRORS,
+                payload: err
+            });
+        }
+    }
+}
+export function signoutUser(){
+    return async (dispatch) => {
+        try{
+            const info = await axios.post(`${URL + Endpoints.user}signout`);
+            dispatch({
+                type: SIGNOUT_USER,
+                payload: info
+            });
+        }catch(err){
+            dispatch({
+                type: SIGNIN_ERRORS,
+                payload: err
+            });
+        }
+    }
+}
+export function cleanMsgRegisterUser(){
+    return{
+        type: CLEAN_MSG_REGISTER_USER
     };
 }
 
@@ -297,13 +436,35 @@ export function sort(order) {
 }
 
 
-/*  favorites actions */
+
+//*  DASHBOARD byOrderPrice
+ 
+export const byOrder = (payload) => {   
+    return {
+      type: BY_ORDER,
+      payload,
+    };
+  };
+  export const byOrderPrice = (payload) => {   
+    return {
+      type: BY_ORDER_PRICE,
+      payload,
+    };
+  };
+  export const byOrderStock = (payload) => {   
+    return {
+      type: BY_ORDER_STOCK,
+      payload,
+    };
+  };
+  //*_________________________________
+
 
 export function getFavorites(idUser) {
     return async function(dispatch) {
         try {
             const { data } = await axios.get(`${URL + Endpoints.favoritos}get/${idUser}`);
-            dispatch({
+            if(data.ok) dispatch({
                 type: GET_FAVORITES,
                 payload: data,
             });
@@ -326,8 +487,8 @@ export function updateFavorites(values) {
     return async function(dispatch) {
         try {
             const { data } = await axios.put(`${URL + Endpoints.product}update`, values);
-            dispatch({
-                type: UPDATE_PRODUCT,
+            if(data.ok) dispatch({
+                type: UPDATE_FAVORITE,
                 payload: data,
             });
         } catch (error) {
@@ -343,4 +504,167 @@ export function updateFavorites(values) {
             console.log(error.config);
         }
     };
+}
+export function postFavorite(idProduct, url, name, idUser) {
+    return async function(dispatch) {
+        try {
+            const { data } = await axios.post(`${URL + Endpoints.favoritos}post`, idProduct, url, name, idUser);
+            if(data.ok) dispatch({
+                type: POST_FAVORITES,
+                payload: data,
+            });
+        } catch (error) {
+            if (error.response) {
+                console.log(error.response.data);
+                console.log(error.response.status);
+                console.log(error.response.headers);
+            } else if (error.request) {
+                console.log(error.request);
+            } else {
+                console.log(error.message);
+            }
+            console.log(error.config);
+        }
+    };
+}
+
+/* shoppingDetail */
+/*
+se necesita: 
+idCart
+idProduct
+unit_price
+date_added
+quantity
+*/
+export function postShoppingDetail(values) {
+    return async function(dispatch) {
+        try {
+            const { data } = await axios.post(`${URL + Endpoints.detalleCarrito}post`, values);
+            //RECIBO UN MENSAJE
+            if(data.ok) dispatch({
+                type: POST_CARTDTAIL,
+                payload: data,
+            })
+            else dispatch({
+                type: DIFFERENT_OUTCOME,
+                payload: data,
+            }) 
+        } catch (error) {
+            if (error.response) {
+                console.log(error.response.data);
+                console.log(error.response.status);
+                console.log(error.response.headers);
+            } else if (error.request) {
+                console.log(error.request);
+            } else {
+                console.log(error.message);
+            }
+            console.log(error.config);
+        }
+    };
+}
+export function getShoppingDetail(idCart) {
+    return async function(dispatch) {
+        try {
+            const { data } = await axios.get(`${URL + Endpoints.detalleCarrito}get/${idCart}`);
+            if(data.ok) dispatch({
+                type: GET_CARTDTAIL,
+                payload: data,
+            })
+            else dispatch({
+                type: DIFFERENT_OUTCOME,
+                payload: data,
+            }) 
+        } catch (error) {
+            if (error.response) {
+                console.log(error.response.data);
+                console.log(error.response.status);
+                console.log(error.response.headers);
+            } else if (error.request) {
+                console.log(error.request);
+            } else {
+                console.log(error.message);
+            }
+            console.log(error.config);
+        }
+    };
+}
+/* 
+idCartDtail, 
+productId
+unit_price
+date_added
+quantity
+*/
+export function updateShoppingDetail(values) {
+    return async function(dispatch) {
+        try {
+            const { data } = await axios.put(`${URL + Endpoints.detalleCarrito}update`, values);
+            if(data.ok) dispatch({
+                type: UPDATE_CARTDTAIL,
+                payload: data,
+            })
+            else dispatch({
+                type: DIFFERENT_OUTCOME,
+                payload: data,
+            }) 
+        } catch (error) {
+            if (error.response) {
+                console.log(error.response.data);
+                console.log(error.response.status);
+                console.log(error.response.headers);
+            } else if (error.request) {
+                console.log(error.request);
+            } else {
+                console.log(error.message);
+            }
+            console.log(error.config);
+        }
+    };
+}
+
+export function deleteShoppingDetail(idCartDtail, productId) {
+    return async function(dispatch) {
+        try {
+            const { data } = await axios.delete(`${URL + Endpoints.detalleCarrito}delete/${idCartDtail}/${productId}`);
+            if(data.ok) dispatch({
+                type: DELETE_CARTDTAIL,
+                payload: data,
+            })
+            else dispatch({
+                type: DIFFERENT_OUTCOME,
+                payload: data,
+            }) 
+        } catch (error) {
+            if (error.response) {
+                console.log(error.response.data);
+                console.log(error.response.status);
+                console.log(error.response.headers);
+            } else if (error.request) {
+                console.log(error.request);
+            } else {
+                console.log(error.message);
+            }
+            console.log(error.config);
+        }
+    };
+}
+
+export function EmptyDiffoutcomeObj() {
+    return {
+        type: EMPTY_DIFFOUTCOME_OBJ
+    }
+}
+
+export function EmptyShoppingCartDtail() {
+    return {
+        type: EMPTY_SHOPPINGCARTDTAIL
+    }
+}
+
+export function EmptyShoppingCartDtailMsg() {
+    return {
+        type: EMPTY_SHOPPINGCARTDTAILMSG
+    }
 }

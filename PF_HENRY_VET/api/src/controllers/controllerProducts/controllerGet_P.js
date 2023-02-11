@@ -1,21 +1,24 @@
  const {Product} = require("../../db.js");
- const {Op} = require("sequelize");
 
-async function findProduct(nameP){
+ async function findProduct(codProduct){
+     try{
+         return await  Product.findByPk(codProduct);
+     }catch(err){
+         throw new Error(err.message)
+     }
+ }
+
+ 
+
+ async function findProductos(nameProduct){
     try{
-        const buscaProduct = await Product.findOne({
-            where: {
-                name: {
-                    [Op.iLike]: nameP
-                }
-            }, 
-        })
-        return buscaProduct;
+        return await  Product.findOne({
+            where:{name:nameProduct}
+        });
     }catch(err){
         throw new Error(err.message)
     }
 }
-
  
 
-module.exports = {findProduct};
+module.exports = {findProduct,findProductos};

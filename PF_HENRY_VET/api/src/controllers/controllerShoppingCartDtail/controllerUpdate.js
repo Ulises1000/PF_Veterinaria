@@ -3,7 +3,7 @@ const {ShoppingCartDetail} = require("../../db");
 function objWithNewValues(newValues){
     let obj = {}
     for(let prop in newValues){
-        if(prop !== "idCartDtail" && prop !== "productId" && newValues !== undefined && newValues !== null) obj[prop] = newValues[prop]
+        if(prop !== "idCartDtail" && prop !== "productId" && newValues) obj[prop] = newValues[prop]
     }
     return obj;
 }

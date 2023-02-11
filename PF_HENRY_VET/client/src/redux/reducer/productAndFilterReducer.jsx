@@ -10,22 +10,23 @@ import {
   UPDATE_FAVORITE,
   FILTEREDBREED,
   FILTEREDSIZE,
+  FILTERED,
   SORT,
+  SEARCH_PRO_DASHBOARD,
+  BY_ORDER,
+  BY_ORDER_PRICE,
+  BY_ORDER_STOCK,
+  SEARCH_USERS_DASHBOARD,
+  GET_USERS,
 } from "../action/constants";
-import {
-  GET_USER,
-  DELETE_USER,
-  POST_USER,
-  UPDATE_USER,
-} from "../action/constants";
+
 import { ASCENDENTE, DESCENDENTE } from "../../const/orderByName";
 import { sort } from "../action";
 
 const initialState = {
   products: [],
   product: {},
-  user: {},
-  favorites: [],
+  filterProducts:[],
   currentOrder: "Static",
   currentBreed: "breedType",
   currentSize: "petSize",
@@ -38,6 +39,18 @@ const initialState = {
   paginationArray: [],
 };
 
+ export const searchDashb = (state = initialState, action) => {
+  switch (action.type) {
+    case SEARCH_PRO_DASHBOARD:
+      console.log(action.payload)
+    let filterProd = state.filterProducts.filter((us) => us.name.toLowerCase().includes(action.payload.toLowerCase()));
+       return {
+        ...state,
+        products: filterProd,
+      };
+}}  
+
+//no usar da errores xD
 export const productsReducer = (state = initialState.products, action) => {
   switch (action.type) {
     case GET_PRODUCTS:
@@ -45,6 +58,7 @@ export const productsReducer = (state = initialState.products, action) => {
         ...state,
         products: action.payload,
       };
+      
     case GET_PRODUCT:
       return {
         ...state,
@@ -76,41 +90,29 @@ export const productsReducer = (state = initialState.products, action) => {
   }
 };
 
-export const userReducer = (state = initialState.user, action) => {
-  switch (action.type) {
-    case GET_USER:
-      return {
-        ...state,
-        user: action.payload,
-      };
-    case DELETE_USER:
-      return {
-        ...state,
-        user: {},
-      };
-    case POST_USER:
-      return {
-        ...state,
-        user: action.payload,
-      };
-    case UPDATE_USER:
-      return {
-        ...state,
-        user: { ...state.user, ...action.payload },
-      };
-    default:
-      return state;
-  }
-};
-
+//usar esta 
 export const filters = (state = initialState, action) => {
   switch (action.type) {
     case GET_PRODUCTS: {
       return {
         ...state,
-        products: action.payload,
+        products: action.payload,        
+        filterProducts: action.payload,
+        OrdeProductsDashb: action.payload
       };
     }
+case SEARCH_PRO_DASHBOARD:
+  let filterProd = state.filterProducts.filter((us) => us.name.toLowerCase().includes(action.payload.toLowerCase()));
+   return {
+     ...state,
+     products: filterProd,
+    };
+    case FILTERED:
+      let filteredProducts = state.orderedProducts;
+      let filters = {
+        breed: state.currentBreed,
+    
+      }
     case FILTEREDBREED:
       let filtersBreed = {
         breedType: "breedType",
@@ -487,7 +489,6 @@ export const filters = (state = initialState, action) => {
             return 0;
           });
         }
-
         return {
           ...state,
           orderedProducts: orderedByNameProducts,
@@ -536,23 +537,41 @@ export const filters = (state = initialState, action) => {
         ...state,
         paginationArray: pageHolder,
       };
-    default:
-      return state;
-  }
-};
 
-export const favoriteReducer = (state = initialState, action) => {
-  switch (action.type) {
-    case GET_FAVORITES:
+      //*SORTS DASHBOARD________________
+      case BY_ORDER:
+        console.log(action.payload)
+      const orderProducts = action.payload === "Asc"
+          ? state.products.sort((a, b) => (a.name > b.name ? 1 : -1))
+          : state.products.sort((a, b) => (a.name > b.name ? -1 : 1));
+          console.log(state.products)
       return {
         ...state,
-        favorites: action.payload,
+        products: orderProducts,      
       };
-    case UPDATE_FAVORITE:
+
+      case BY_ORDER_PRICE:
+        console.log(action.payload)
+      const orderPrice = action.payload === "AscPrice"
+          ? state.products.sort((a, b) => (a.unit_price > b.unit_price ? 1 : -1))
+          : state.products.sort((a, b) => (a.unit_price > b.unit_price ? -1 : 1));          
       return {
         ...state,
-        favorites: action.payload,
+        products: orderPrice,      
       };
+
+      case BY_ORDER_STOCK:
+        console.log(action.payload)
+      const orderStock = action.payload === "AscStock"
+          ? state.products.sort((a, b) => (a.stock > b.stock ? 1 : -1))
+          : state.products.sort((a, b) => (a.stock > b.stock ? -1 : 1));          
+      return {
+        ...state,
+        products: orderStock,      
+      };
+    //*_________________________________
+
+
     default:
       return state;
   }

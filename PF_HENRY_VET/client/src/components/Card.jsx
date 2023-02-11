@@ -1,9 +1,11 @@
 import React from 'react'
+import {Link} from "react-router-dom";
 
-const Card = ({ image_url, name, unit_price, breedType, petSize }) => {
+const Card = ({ id,  url, name, unit_price, breedType, petSize }) => {
 
     return (
-        <div className="flex flex-col bg-white p-6 rounded-lg shadow-lg mr-3 mt-4 cursor-pointer">
+        <Link to={`/details/${id}`}>
+            <div className="flex flex-col bg-white p-6 rounded-lg shadow-lg mr-3 mt-4 cursor-pointer">
             <img src={image_url} alt="product" className="w-full h-48 object-cover"/>
             <h2 style={{
                 overflow: 'hidden',
@@ -21,8 +23,7 @@ const Card = ({ image_url, name, unit_price, breedType, petSize }) => {
               </div>
             <p className="text-gray-700 mt-2">${unit_price}</p>
         </div>
-
-
+        </Link>
     )
 }
 
