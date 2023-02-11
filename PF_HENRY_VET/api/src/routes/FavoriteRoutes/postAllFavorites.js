@@ -26,6 +26,8 @@ router.post("/post", async (req, res) => {
         res.status(404).send({
           ok: false,
           msg: "Lo Lamentamos, No se pudo postear el producto.",
+
+
           detail: err.message,
         });
     }

@@ -19,9 +19,16 @@ import {
     SEARCH,
     FILTERED,
     SORT,
+
+    SEARCH_PRO_DASHBOARD,
+    BY_ORDER,
+    BY_ORDER_PRICE,
+    BY_ORDER_STOCK,
+
     GET_FAVORITES,
     UPDATE_FAVORITE,
     POST_FAVORITES
+
 } from './constants';
 
 /* ruta + endpoints */
@@ -36,6 +43,15 @@ const Endpoints = {
     razas: "breed/",
     favoritos: "favorite/"
 }
+
+ export function searchDashBoard (data){
+    return function(dispatch){
+        dispatch({
+           type:SEARCH_PRO_DASHBOARD,
+           payload:data, 
+        })        
+    }
+ }
 
 export function getAllProducts(name) {
     return async function(dispatch) {
@@ -353,7 +369,28 @@ export function sort(order) {
 }
 
 
-/*  favorites actions */
+
+//*ORDENAMIENTOS DASHBOARD byOrderPrice
+export const byOrder = (payload) => {   
+    return {
+      type: BY_ORDER,
+      payload,
+    };
+  };
+  export const byOrderPrice = (payload) => {   
+    return {
+      type: BY_ORDER_PRICE,
+      payload,
+    };
+  };
+  export const byOrderStock = (payload) => {   
+    return {
+      type: BY_ORDER_STOCK,
+      payload,
+    };
+  };
+  
+
 
 export function getFavorites(idUser) {
     return async function(dispatch) {
@@ -422,3 +459,4 @@ export function postFavorite(idProduct, url, name, idUser) {
         }
     };
 }
+
