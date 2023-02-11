@@ -1,10 +1,9 @@
 import React, { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
-import { byOrder, byOrderPrice, byOrderStock, getAllProducts } from '../../redux/action'
-import loader from '../../style-assets/paw_icon.png'
+import { byOrder, byOrderPrice, byOrderStock, getAllProducts } from '../../redux/action' 
 import DataTable from 'react-data-table-component'
 import SearchProTable from './SearchProTable'
-
+import {Link} from 'react-router-dom'
 
 
 const TableProducts = () => {
@@ -15,35 +14,11 @@ const TableProducts = () => {
   const [orderprice, setOrderprice] = useState('');
   const [orderstock, setOrderstock] =useState(''); 
 
-  const [state, setState] = useState({
-    loading: false,
-  })
 
-  useEffect(() => {
-    async function fetchData() {
-      setState({ loading: true })
+  useEffect(() => { 
       dispatch(getAllProducts())   
-      setState({ loading: false })
-    }
-    fetchData()
   }, [])
-
-  const [loading, setLoading] = useState(false)
-  useEffect(() => {
-    setLoading(true)
-    setTimeout(() => {
-      setLoading(false)
-    }, 2000)
-  }, [])
-
-  if (loading) {
-    return (
-      <div className="flex items-center justify-center bg-patas flex-col h-screen w-screen absolute">
-        <img src={loader} className="imgLoader" />
-        <p className="loadingTxt">Loading...</p>
-      </div>
-    )
-  }
+ 
    const columns = [  
     {
       name: "#",
@@ -59,16 +34,16 @@ const TableProducts = () => {
       },
       {
         name: "Imagen",
-        selector: (row) => row.image_url,
+        selector: (row) => row.url,
         grow: 0,
         cell: (row) => (
-          <img height="60px" width="56px"   src={row.image_url? row. image_url:"X"} />
+          <img height="30px" width="50px"   src={row.url? row.url:"X"} />
         ),
       }, 
     {
       name: 'Nombre',
       selector: 'name',
-      grow: 0.5,
+      grow: 0.3,
     },
     {
       name: 'Precio Unitario',
@@ -83,13 +58,13 @@ const TableProducts = () => {
         grow: 0,
     },
     {
-        name: 'Editar',
-        cell: (row) => <button  className="bg-transparent hover:bg-blue-500 text-blue-700 font-semibold hover:text-white py-2 px-4 border border-blue-500 hover:border-transparent rounded" onClick={()=>deleteProduct(row.codProduct)} >Editar</button>,
-        grow: 0.1,
-    },
+      name: 'Editar',
+      cell: (row) => <button  className="bg-transparent hover:bg-blue-500 text-blue-700 font-semibold hover:text-white py-2 px-4 border border-blue-500 hover:border-transparent rounded" /* onClick={()=>deleteProduct(row.codProduct)} */ >Editar</button>,
+      grow: 0.1,
+  },
     {
       name: 'Borrar',
-      cell: (row) => <button  className="bg-transparent hover:bg-blue-500 text-blue-700 font-semibold hover:text-white py-2 px-4 border border-blue-500 hover:border-transparent rounded" onClick={()=>deleteProduct(row.codProduct)} >Borrar</button>,
+      cell: (row) => <button  className="bg-transparent hover:bg-blue-500 text-blue-700 font-semibold hover:text-white py-2 px-4 border border-blue-500 hover:border-transparent rounded" /* onClick={()=>deleteProduct(row.codProduct)} */ >Borrar</button>,
       grow: 0.1,
     },
   ]
@@ -117,11 +92,11 @@ const handleByOrderStock = (e) => {
    
 return (
     <>
-    <h1>Tabla de Productos</h1>
+    <h1 className='bg-gray-600 text-white rounded p-2 mb-1'>Tabla de Productos</h1>
     <div>
     <SearchProTable/>
     </div>
-    <section class="inline-grid grid-cols-3">      
+    <section class="inline-grid grid-cols-4">      
             <div>
                 <select onChange={(e) => handleByOrder(e)} class="bg-gray-50 border border-gray-100 text-gray-900 text-sm rounded-lg focus:ring-blue-100 focus:border-blue-100 block w-full p-1.5 dark:bg-gray-100 dark:border-gray-300 dark:placeholder-gray-400 dark:text-black dark:focus:ring-blue-500 dark:focus:border-blue-500">
                 <option disabled selected>Orden Alfabetico</option>
@@ -138,12 +113,25 @@ return (
             </div>
             <div>
                 <select onChange={(e) => handleByOrderStock(e)} class="bg-gray-50 border border-gray-100 text-gray-900 text-sm rounded-lg focus:ring-blue-100 focus:border-blue-100 block w-full p-1.5 dark:bg-gray-100 dark:border-gray-300 dark:placeholder-gray-400 dark:text-black dark:focus:ring-blue-500 dark:focus:border-blue-500">
-                <option disabled selected> Stock</option>
-                <option value="AscStock">Menor a Mayor</option>
-                <option value="DesStock">Mayor a Menor</option>
+                <option disabled selected>Stock</option>
+                <option value="AscStock">Menor a Mayor stock</option>
+                <option value="DesStock">Mayor a Menor stock</option>
                 </select>
-            </div>         
+            </div> 
+            <div>
+             <button type="button" class="ml-5 mt-1  text-green-700  hover:text-white border border-green-700  hover:bg-green-800  focus:ring-0 focus:outline-none focus:ring-green-300  font-medium rounded-lg text-sm px-4 py-1.5 text-center   dark:border-green-500  dark:text-green-500  dark:hover:text-white dark:hover:bg-green-600  dark:focus:ring-green-800" >  <Link to="/formproduct">Agregar un Producto</Link></button>
+            </div>     
     </section>
+    
+{/*     <section>
+            <div>
+           
+            <button type="button" class="text-red-700    hover:text-white border border-red-700    hover:bg-red-800    focus:ring-1 focus:outline-none focus:ring-red-300    font-medium rounded-lg text-sm px-4 py-1.5 text-center mr-2 mb-2 dark:border-red-500    dark:text-red-500    dark:hover:text-white dark:hover:bg-red-600    dark:focus:ring-red-900"   >Eliminar</button>
+            <button type="button" class="text-yellow-400 hover:text-white border border-yellow-400 hover:bg-yellow-500 focus:ring-1 focus:outline-none focus:ring-yellow-300 font-medium rounded-lg text-sm px-4 py-1.5 text-center mr-2 mb-2 dark:border-yellow-300 dark:text-yellow-300 dark:hover:text-white dark:hover:bg-yellow-400 dark:focus:ring-yellow-900">Yellow</button>
+            <button type="button" class="text-purple-700 hover:text-white border border-purple-700 hover:bg-purple-800 focus:ring-1 focus:outline-none focus:ring-purple-300 font-medium rounded-lg text-sm px-4 py-1.5 text-center mr-2 mb-2 dark:border-purple-400 dark:text-purple-400 dark:hover:text-white dark:hover:bg-purple-500 dark:focus:ring-purple-900">Editar</button>
+            </div> 
+    </section> */}
+
     
     <div >       
       <DataTable
@@ -266,11 +254,4 @@ export default TableProducts
 
 
 
-
-{/*  image_url={p.image_url}
-            name={p.name}
-            unit_price={p.unit_price? p.unit_price:"Agotado"} */}
-
-
-            
-   
+ 

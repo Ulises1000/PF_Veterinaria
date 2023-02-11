@@ -1,15 +1,15 @@
-import React, { useEffect, useState } from 'react'
+/* import React, { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
-import { byOrder, byOrderPrice, getAllProducts  } from '../../redux/action'
+import { byOrder  } from '../../redux/action'
 import loader from '../../style-assets/paw_icon.png'
-import DataTable from 'react-data-table-component'
-import SearchProTable from './SearchProTable'
+import DataTable from 'react-data-table-component' 
+import SearchUsersTable from './SearchUsersTable'
 
 
 
 const TableProducts = () => {
   const dispatch = useDispatch()
-  const getProductos = useSelector((state) => state.filters.products)
+  const getUs = useSelector((state) => state.getusers)
  
   const [order, setOrder] = useState('') 
   const [state, setState] = useState({
@@ -19,7 +19,7 @@ const TableProducts = () => {
   useEffect(() => {
     async function fetchData() {
       setState({ loading: true })
-      dispatch(getAllProducts())   
+      dispatch(getUsers())   
       setState({ loading: false })
     }
     fetchData()
@@ -59,7 +59,7 @@ const TableProducts = () => {
         selector: (row) => row.image_url,
         grow: 0,
         cell: (row) => (
-          <img height="60px" width="56px"   src={row.image_url? row. image_url:"X"} />
+          <img height="30px" width="50px"   src={row.url? row.url:"X"} />
         ),
       }, 
     {
@@ -93,9 +93,9 @@ const handleByOrder = (e) => {
 }    
 return (
     <>
-    <h1>Tabla de Usuarios</h1>
+    <h1 className='bg-gray-600 text-white rounded p-2 mb-1'>Tabla de Usuarios</h1>
     <div>
-    <SearchProTable/>
+    <SearchUsersTable/>
     </div>
 
     <section class="inline-grid grid-cols-2">      
@@ -112,7 +112,7 @@ return (
     <div >       
       <DataTable
         columns={columns}
-        data={getProductos}
+        data={getUs}
         //title="Lista de Productos"       
         paginationComponentOptions={paginationOptions}
         //pagination 
@@ -126,7 +126,7 @@ return (
     </>
     
    
-  )   
+  )    */
 /*    return(
 
    <div>
@@ -222,7 +222,8 @@ return (
       </div>
     </div> 
  ) */  
-}
+/* }
 
 export default TableProducts
 
+ */
