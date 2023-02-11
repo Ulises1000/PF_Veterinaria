@@ -19,16 +19,15 @@ import {
     SEARCH,
     FILTERED,
     SORT,
-
     SEARCH_PRO_DASHBOARD,
     BY_ORDER,
     BY_ORDER_PRICE,
-    BY_ORDER_STOCK,
-
+    BY_ORDER_STOCK, 
     GET_FAVORITES,
     UPDATE_FAVORITE,
+    SEARCH_USERS_DASHBOARD, 
+    GET_USERS, 
     POST_FAVORITES
-
 } from './constants';
 
 /* ruta + endpoints */
@@ -45,13 +44,50 @@ const Endpoints = {
 }
 
  export function searchDashBoard (data){
-    return function(dispatch){
+    try {
+        return function(dispatch){
         dispatch({
            type:SEARCH_PRO_DASHBOARD,
            payload:data, 
         })        
+        }
+    } catch (error) {
+        if (error.response) {
+            console.log(error.response.data);
+            console.log(error.response.status);
+            console.log(error.response.headers);
+        } else if (error.request) {
+            console.log(error.request);
+        } else {
+            console.log(error.message);
+        }
+        console.log(error.config);
     }
+    
  }
+/*  export function searchDashBoardUsers (data){
+    try {
+        return function(dispatch){
+        dispatch({
+           type:SEARCH_USERS_DASHBOARD,
+           payload:data, 
+        })        
+        }
+    } catch (error) {
+        if (error.response) {
+            console.log(error.response.data);
+            console.log(error.response.status);
+            console.log(error.response.headers);
+        } else if (error.request) {
+            console.log(error.request);
+        } else {
+            console.log(error.message);
+        }
+        console.log(error.config);
+    }
+    
+ } */
+
 
 export function getAllProducts(name) {
     return async function(dispatch) {
@@ -151,6 +187,21 @@ export function updateProduct(productId, productData) {
     };
 }
 
+export function postProductos(payload) {
+    console.log(payload)
+    try {
+      return async function (dispatch) {
+        var post = await axios.post("http://localhost:3001/products/post", payload);
+        return dispatch({
+          type: POST_PRODUCT,
+          payload: post.data,
+        });
+      };
+    } catch (error) {
+      console.log(error + " >>> In actions/ posterRecipes()");
+    }
+  }
+
 export function postProduct(productData) {
     return async function(dispatch) {
         try {
@@ -173,6 +224,8 @@ export function postProduct(productData) {
         }
     };
 }
+
+ 
 
 export function getUser(userId) {
     return async function(dispatch) {
@@ -370,7 +423,8 @@ export function sort(order) {
 
 
 
-//*ORDENAMIENTOS DASHBOARD byOrderPrice
+//*  DASHBOARD byOrderPrice
+ 
 export const byOrder = (payload) => {   
     return {
       type: BY_ORDER,
@@ -389,7 +443,7 @@ export const byOrder = (payload) => {
       payload,
     };
   };
-  
+  //*_________________________________
 
 
 export function getFavorites(idUser) {
