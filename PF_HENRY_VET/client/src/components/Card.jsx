@@ -6,7 +6,7 @@ const Card = ({ id,  url, name, unit_price, breedType, petSize }) => {
     return (
         <Link to={`/details/${id}`}>
             <div className="flex flex-col bg-white p-6 rounded-lg shadow-lg mr-3 mt-4 cursor-pointer">
-            <img src={image_url} alt="product" className="w-full h-48 object-cover"/>
+            <img src={url} alt="product" className="w-full h-48 object-cover"/>
             <h2 style={{
                 overflow: 'hidden',
                 textOverflow: 'ellipsis',

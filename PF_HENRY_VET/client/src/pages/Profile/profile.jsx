@@ -2,7 +2,7 @@ import React from "react";
 import { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import { Link } from "react-router-dom";
-import Nav from "../../components/nav";
+import Nav from "../../components/Nav.jsx";
 import loader from "../../style-assets/paw_icon.png";
 
 export default function UserProfile() {
@@ -57,7 +57,7 @@ export default function UserProfile() {
   }
   return (
     <div className="flex absolute top-0 left-0 -z-10 items-center justify-center w-screen h-screen bg-patas">
-      <Nav/>
+    <Nav/>
       <div className="flex p-8 border rounded-xl border-black">
         <div className="space-y-3 pr-3">
           <div className="flex w-72">

@@ -6,6 +6,7 @@ import styles from "./Mercado.module.css";
 import { useDispatch, useSelector } from "react-redux";
 import { getAllProducts } from "../../redux/action/index.jsx";
 import loader from "../../style-assets/paw_icon.png";
+import Footer from "../../components/Footer.jsx";
 
 
 function Mercado() {
@@ -71,6 +72,7 @@ function Mercado() {
               ))}
             </div>
           </div>
+        <Footer/>
         </div>
     );
   // }

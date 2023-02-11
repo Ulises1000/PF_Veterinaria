@@ -22,7 +22,7 @@ export const FILTEREDBREED = "FILTEREDBREED";
 export const FILTEREDSIZE = "FILTEREDSIZE"
 export const SORT = "SORT";
 export const SEARCH = "SEARCH";
-
+export const FILTERED = "FILTERED"
 /* ShoppingCart */
 
 export const POST_CARTDTAIL = 'POST_CARTDTAIL';
