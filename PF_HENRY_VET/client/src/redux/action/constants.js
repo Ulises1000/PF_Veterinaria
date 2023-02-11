@@ -4,6 +4,7 @@ export const DELETE_PRODUCT = "DELETE_PRODUCT";
 export const UPDATE_PRODUCT = "UPDATE_PRODUCT";
 export const POST_PRODUCT = "POST_PRODUCT";
 /* User */
+export const GET_USERS = "GET_USERS";
 export const GET_USER = "GET_USER";
 export const DELETE_USER = "DELETE_USER";
 export const POST_USER = "POST_USER";
@@ -21,17 +22,27 @@ export const FILTERED = "FILTERED";
 export const SORT = "SORT";
 export const SEARCH = "SEARCH";
 
+/* ShoppingCart */
+
+export const POST_CARTDTAIL = "POST_CARTDTAIL";
+export const GET_CARTDTAIL = "GET_CARTDTAIL";
+export const UPDATE_CARTDTAIL = "UPDATE_CARTDTAIL";
+export const DELETE_CARTDTAIL = "DELETE_CARTDTAIL";
+export const DIFFERENT_OUTCOME = "DIFFERENT_OUTCOME";
+export const EMPTY_DIFFOUTCOME_OBJ = "EMPTY_DIFFOUTCOME_OBJ";
+export const EMPTY_SHOPPINGCARTDTAIL = "EMPTY_SHOPPINGCARTDTAIL";
+export const EMPTY_SHOPPINGCARTDTAILMSG = "EMPTY_SHOPPINGCARTDTAILMSG";
+
+/* Dashboard */
 export const SEARCH_PRO_DASHBOARD = "SEARCH_PRO_DASHBOARD";
 export const BY_ORDER = "BY_ORDER";
 export const BY_ORDER_PRICE = "BY_ORDER_PRICE";
 export const BY_ORDER_STOCK = "BY_ORDER_STOCK";
 
+/* Favorites */
 export const GET_FAVORITES = "GET_FAVORITES";
 export const UPDATE_FAVORITE = "UPDATE_FAVORITE";
-export const POST_FAVORITES = "POST_FAVORITES";
 
-//CARRITO ACTIONS
-export const ADD_TO_CART = "ADD_TO_CART";
-export const REMOVE_ONE_FROM_CART = "REMOVE_ONE_FROM_CART";
-export const REMOVE_ALL_FROM_CART = "REMOVE_ALL_FROM_CART";
-export const CLEAR_CART = "CLEAR_CART";
+export const SEARCH_USERS_DASHBOARD = "SEARCH_USERS_DASHBOARD";
+
+export const POST_FAVORITES = "POST_FAVORITES";

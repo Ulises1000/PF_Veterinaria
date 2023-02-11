@@ -1,4 +1,5 @@
 // Import the functions you need from the SDKs you need
+require("dotenv").config();
 const { initializeApp } = require("firebase/app");
 // TODO: Add SDKs for Firebase products that you want to use
 // https://firebase.google.com/docs/web/setup#available-libraries
@@ -11,7 +12,7 @@ const firebaseConfig = {
   projectId: "fir-b6c39",
   storageBucket: "fir-b6c39.appspot.com",
   messagingSenderId: "393174659446",
-  appId: "1:393174659446:web:d16bfc866a686c06478a57"
+  appId: "1:393174659446:web:d16bfc866a686c06478a57",
 };
 
 // Initialize Firebase
@@ -20,5 +21,5 @@ const auth = getAuth(firebaseApp);
 
 module.exports = {
   firebaseApp,
-  auth
+  auth,
 };

@@ -12,6 +12,7 @@ import {
   BY_ORDER,
   BY_ORDER_PRICE,
   BY_ORDER_STOCK,
+<<<<<<< HEAD:PF_HENRY_VET/client/src/redux/reducer/reducer.jsx
 } from "../action/constants";
 import {
   GET_USER,
@@ -30,6 +31,12 @@ import {
   UPDATE_FAVORITE,
   POST_FAVORITES,
 } from "../action/constants";
+=======
+  SEARCH_USERS_DASHBOARD,
+  GET_USERS,
+} from "../action/constants";
+
+>>>>>>> 201a9482652d0229340a5df111c7fee2d24a1ca9:PF_HENRY_VET/client/src/redux/reducer/productAndFilterReducer.jsx
 import { ASCENDENTE, DESCENDENTE } from "../../const/orderByName";
 import {
   ADD_TO_CART,
@@ -41,11 +48,15 @@ import {
 const initialState = {
   products: [],
   product: {},
+<<<<<<< HEAD:PF_HENRY_VET/client/src/redux/reducer/reducer.jsx
   filterProducts: [],
   user: {},
   infoRegistration: {},
   userMsgErrorRegistrationAndSignin: "",
   favorites: [],
+=======
+  filterProducts:[],
+>>>>>>> 201a9482652d0229340a5df111c7fee2d24a1ca9:PF_HENRY_VET/client/src/redux/reducer/productAndFilterReducer.jsx
   currentOrder: "Static",
   currentBreed: "breed",
   currentSearch: "",
@@ -57,7 +68,11 @@ const initialState = {
   shoppingCart: [],
 };
 
+<<<<<<< HEAD:PF_HENRY_VET/client/src/redux/reducer/reducer.jsx
 /* export const searchDashb = (state = initialState, action) => {
+=======
+ export const searchDashb = (state = initialState, action) => {
+>>>>>>> 201a9482652d0229340a5df111c7fee2d24a1ca9:PF_HENRY_VET/client/src/redux/reducer/productAndFilterReducer.jsx
   switch (action.type) {
     case SEARCH_PRO_DASHBOARD:
       console.log(action.payload)
@@ -66,7 +81,11 @@ const initialState = {
         ...state,
         products: filterProd,
       };
+<<<<<<< HEAD:PF_HENRY_VET/client/src/redux/reducer/reducer.jsx
 }} */
+=======
+}}  
+>>>>>>> 201a9482652d0229340a5df111c7fee2d24a1ca9:PF_HENRY_VET/client/src/redux/reducer/productAndFilterReducer.jsx
 
 //no usar da errores xD
 export const productsReducer = (state = initialState.products, action) => {
@@ -76,7 +95,11 @@ export const productsReducer = (state = initialState.products, action) => {
         ...state,
         products: action.payload,
       };
+<<<<<<< HEAD:PF_HENRY_VET/client/src/redux/reducer/reducer.jsx
 
+=======
+      
+>>>>>>> 201a9482652d0229340a5df111c7fee2d24a1ca9:PF_HENRY_VET/client/src/redux/reducer/productAndFilterReducer.jsx
     case GET_PRODUCT:
       return {
         ...state,
@@ -108,6 +131,7 @@ export const productsReducer = (state = initialState.products, action) => {
   }
 };
 
+<<<<<<< HEAD:PF_HENRY_VET/client/src/redux/reducer/reducer.jsx
 export const userReducer = (state = initialState.user, action) => {
   switch (action.type) {
     case GET_USER:
@@ -200,11 +224,15 @@ export const userReducer = (state = initialState.user, action) => {
 };
 
 //usar esta
+=======
+//usar esta 
+>>>>>>> 201a9482652d0229340a5df111c7fee2d24a1ca9:PF_HENRY_VET/client/src/redux/reducer/productAndFilterReducer.jsx
 export const filters = (state = initialState, action) => {
   switch (action.type) {
     case GET_PRODUCTS: {
       return {
         ...state,
+<<<<<<< HEAD:PF_HENRY_VET/client/src/redux/reducer/reducer.jsx
         products: action.payload,
         filterProducts: action.payload,
         OrdeProductsDashb: action.payload,
@@ -218,6 +246,20 @@ export const filters = (state = initialState, action) => {
         ...state,
         products: filterProd,
       };
+=======
+        products: action.payload,        
+        filterProducts: action.payload,
+        OrdeProductsDashb: action.payload
+      };
+    }
+    case SEARCH_PRO_DASHBOARD:
+      let filterProd = state.filterProducts.filter((us) => us.name.toLowerCase().includes(action.payload.toLowerCase()));
+       return {
+        ...state,
+        products: filterProd,
+      };
+      
+>>>>>>> 201a9482652d0229340a5df111c7fee2d24a1ca9:PF_HENRY_VET/client/src/redux/reducer/productAndFilterReducer.jsx
 
     case FILTERED:
       let filteredProducts = state.orderedProducts;
@@ -355,6 +397,7 @@ export const filters = (state = initialState, action) => {
     case CREATE_PAGINATION_ARRAY:
       const pageSize = 15;
       let pageHolder = [];
+<<<<<<< HEAD:PF_HENRY_VET/client/src/redux/reducer/reducer.jsx
       if (state.orderedProducts.length === 0) {
         const page = state.products;
         pageHolder.push(page);
@@ -362,11 +405,22 @@ export const filters = (state = initialState, action) => {
         const page = state.orderedProducts;
         pageHolder.push(page);
       }
+=======
+      if (state.orderedProducts.length === 0){
+          const page = state.products
+          pageHolder.push(page);
+        }  
+        else {
+                const page = state.orderedProducts;
+                pageHolder.push(page); 
+            }
+>>>>>>> 201a9482652d0229340a5df111c7fee2d24a1ca9:PF_HENRY_VET/client/src/redux/reducer/productAndFilterReducer.jsx
       return {
         ...state,
         paginationArray: pageHolder,
       };
 
+<<<<<<< HEAD:PF_HENRY_VET/client/src/redux/reducer/reducer.jsx
     case BY_ORDER:
       console.log(action.payload);
       const orderProducts =
@@ -404,10 +458,46 @@ export const filters = (state = initialState, action) => {
         ...state,
         products: orderStock,
       };
+=======
+      //*SORTS DASHBOARD________________
+      case BY_ORDER:
+        console.log(action.payload)
+      const orderProducts = action.payload === "Asc"
+          ? state.products.sort((a, b) => (a.name > b.name ? 1 : -1))
+          : state.products.sort((a, b) => (a.name > b.name ? -1 : 1));
+          console.log(state.products)
+      return {
+        ...state,
+        products: orderProducts,      
+      };
+
+      case BY_ORDER_PRICE:
+        console.log(action.payload)
+      const orderPrice = action.payload === "AscPrice"
+          ? state.products.sort((a, b) => (a.unit_price > b.unit_price ? 1 : -1))
+          : state.products.sort((a, b) => (a.unit_price > b.unit_price ? -1 : 1));          
+      return {
+        ...state,
+        products: orderPrice,      
+      };
+
+      case BY_ORDER_STOCK:
+        console.log(action.payload)
+      const orderStock = action.payload === "AscStock"
+          ? state.products.sort((a, b) => (a.stock > b.stock ? 1 : -1))
+          : state.products.sort((a, b) => (a.stock > b.stock ? -1 : 1));          
+      return {
+        ...state,
+        products: orderStock,      
+      };
+    //*_________________________________
+
+>>>>>>> 201a9482652d0229340a5df111c7fee2d24a1ca9:PF_HENRY_VET/client/src/redux/reducer/productAndFilterReducer.jsx
 
     default:
       return state;
   }
+<<<<<<< HEAD:PF_HENRY_VET/client/src/redux/reducer/reducer.jsx
 };
 
 export const favoriteReducer = (state = initialState, action) => {
@@ -452,3 +542,6 @@ export const shoppingCartReducer = (
       return state;
   }
 };
+=======
+};
+>>>>>>> 201a9482652d0229340a5df111c7fee2d24a1ca9:PF_HENRY_VET/client/src/redux/reducer/productAndFilterReducer.jsx

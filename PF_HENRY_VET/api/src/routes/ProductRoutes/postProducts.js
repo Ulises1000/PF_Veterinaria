@@ -1,6 +1,6 @@
 const { Router } = require("express");
 const {
-  findProduct,
+  findProductos,
 } = require("../../controllers/controllerProducts/controllerGet_P.js");
 const cloudinary = require("../../cloudinaryConfig/cloudinaryConfig");
 const { Product } = require("../../db.js");
@@ -11,7 +11,7 @@ router.post("/post", async (req, res) => {
   try {
     const { name, description, unit_price, stock, image_url, petSize, breedType } = req.body;
 
-    const buscaProducto = await findProduct(name);
+    const buscaProducto = await findProductos(name);
 
     if (!name || !description || !unit_price || !stock || !image_url || !petSize || !breedType) {
       return res.status(200).json({

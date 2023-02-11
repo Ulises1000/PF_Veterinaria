@@ -1,15 +1,28 @@
+<<<<<<< HEAD
 import React, { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { byOrder, byOrderPrice, getAllProducts  } from '../../redux/action'
 import loader from '../../style-assets/paw_icon.png'
 import DataTable from 'react-data-table-component'
 import SearchProTable from './SearchProTable'
+=======
+/* import React, { useEffect, useState } from 'react'
+import { useDispatch, useSelector } from 'react-redux'
+import { byOrder  } from '../../redux/action'
+import loader from '../../style-assets/paw_icon.png'
+import DataTable from 'react-data-table-component' 
+import SearchUsersTable from './SearchUsersTable'
+>>>>>>> 201a9482652d0229340a5df111c7fee2d24a1ca9
 
 
 
 const TableProducts = () => {
   const dispatch = useDispatch()
+<<<<<<< HEAD
   const getProductos = useSelector((state) => state.filters.products)
+=======
+  const getUs = useSelector((state) => state.getusers)
+>>>>>>> 201a9482652d0229340a5df111c7fee2d24a1ca9
  
   const [order, setOrder] = useState('') 
   const [state, setState] = useState({
@@ -19,7 +32,11 @@ const TableProducts = () => {
   useEffect(() => {
     async function fetchData() {
       setState({ loading: true })
+<<<<<<< HEAD
       dispatch(getAllProducts())   
+=======
+      dispatch(getUsers())   
+>>>>>>> 201a9482652d0229340a5df111c7fee2d24a1ca9
       setState({ loading: false })
     }
     fetchData()
@@ -59,7 +76,11 @@ const TableProducts = () => {
         selector: (row) => row.image_url,
         grow: 0,
         cell: (row) => (
+<<<<<<< HEAD
           <img height="60px" width="56px"   src={row.image_url? row. image_url:"X"} />
+=======
+          <img height="30px" width="50px"   src={row.url? row.url:"X"} />
+>>>>>>> 201a9482652d0229340a5df111c7fee2d24a1ca9
         ),
       }, 
     {
@@ -93,6 +114,7 @@ const handleByOrder = (e) => {
 }    
 return (
     <>
+<<<<<<< HEAD
     <h1>Tabla de Usuarios</h1>
     <div>
     <SearchProTable/>
@@ -226,3 +248,139 @@ return (
 
 export default TableProducts
 
+=======
+    <h1 className='bg-gray-600 text-white rounded p-2 mb-1'>Tabla de Usuarios</h1>
+    <div>
+    <SearchUsersTable/>
+    </div>
+
+    <section class="inline-grid grid-cols-2">      
+            <div>
+                <select onChange={(e) => handleByOrder(e)} class="bg-gray-50 border border-gray-100 text-gray-900 text-sm rounded-lg focus:ring-blue-100 focus:border-blue-100 block w-full p-1.5 dark:bg-gray-100 dark:border-gray-300 dark:placeholder-gray-400 dark:text-black dark:focus:ring-blue-500 dark:focus:border-blue-500">
+                <option disabled selected>Orden Alfabetico</option>
+                <option value="Asc">A-Z</option>
+                <option value="Des">Z-A</option>
+                </select>
+            </div>      
+    </section>
+   
+    
+    <div >       
+      <DataTable
+        columns={columns}
+        data={getUs}
+        //title="Lista de Productos"       
+        paginationComponentOptions={paginationOptions}
+        //pagination 
+        selectableRows
+        fixedHeader
+        fixedHeaderScrollHeight="400px" 
+        highlightOnHover 
+      />   
+    </div>
+    
+    </>
+    
+   
+  )    */
+/*    return(
+
+   <div>
+
+    <SearchProTable/>
+    <div>
+    <select onChange={(e) => handleByOrder(e)}>
+      <option disabled selected>Order</option>
+      <option value="Asc">A-Z</option>
+      <option value="Des">Z-A</option>
+    </select>
+    </div>
+
+      <div className="flex flex-col">
+        <div className="overflow-x-auto sm:-mx-6 lg:-mx-8">
+          <div className="py-4 inline-block min-w-full sm:px-6 lg:px-8">
+            <div className="overflow-hidden">
+              <table className="min-w-full text-center">
+                <thead className="border-b bg-gray-800">
+                  <tr>
+                    <th
+                      scope="col"
+                      className="text-sm font-medium text-white px-6 py-4"
+                    >
+                      #
+                    </th>
+                    <th
+                      scope="col"
+                      className="text-sm font-medium text-white px-6 py-4"
+                    >
+                      Nombre
+                    </th>
+                    <th
+                      scope="col"
+                      className="text-sm font-medium text-white px-6 py-4"
+                    >
+                      Precio
+                    </th>
+                    <th
+                      scope="col"
+                      className="text-sm font-medium text-white px-6 py-4"
+                    >
+                      Editar
+                    </th>
+                    <th
+                      scope="col"
+                      className="text-sm font-medium text-white px-6 py-4"
+                    >
+                      Eliminar
+                    </th>
+                    <th
+                      scope="col"
+                      className="text-sm font-medium text-white px-6 py-4"
+                    >
+                      Stock
+                    </th>
+                  </tr>
+                </thead>
+
+                {getProductos &&
+                  getProductos?.map((p,i) => {
+                    return (
+                      <tbody>
+                        <tr className="bg-white border-b">
+                          <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">
+                            {i+1}
+                          </td>
+                          <td className="text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap">
+                            {p.name}
+                          </td>
+                          <td className="text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap">
+                            {p.unit_price}
+                          </td>
+                          <td className="text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap">
+                            {p.stock}
+                          </td>
+                          <td className="text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap">
+                          <button  className="bg-transparent hover:bg-blue-500 text-blue-700 font-semibold hover:text-white py-2 px-4 border border-blue-500 hover:border-transparent rounded" onClick={(e)=>editProduct(e)} >Editar</button>
+                          </td>
+                          <td className="text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap">
+                          <button  className="bg-transparent hover:bg-blue-500 text-blue-700 font-semibold hover:text-white py-2 px-4 border border-blue-500 hover:border-transparent rounded" onClick={(e)=>deleteProduct(e)} >Borrar</button>
+                          </td>
+                        </tr>
+                         
+                       
+                      </tbody>
+                    )
+                  })}
+              </table>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div> 
+ ) */  
+/* }
+
+export default TableProducts
+
+ */
+>>>>>>> 201a9482652d0229340a5df111c7fee2d24a1ca9

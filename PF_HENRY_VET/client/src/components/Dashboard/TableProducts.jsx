@@ -1,10 +1,17 @@
 import React, { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
+<<<<<<< HEAD
 import { byOrder, byOrderPrice, byOrderStock, getAllProducts } from '../../redux/action'
 import loader from '../../style-assets/paw_icon.png'
 import DataTable from 'react-data-table-component'
 import SearchProTable from './SearchProTable'
 
+=======
+import { byOrder, byOrderPrice, byOrderStock, getAllProducts } from '../../redux/action' 
+import DataTable from 'react-data-table-component'
+import SearchProTable from './SearchProTable'
+import {Link} from 'react-router-dom'
+>>>>>>> 201a9482652d0229340a5df111c7fee2d24a1ca9
 
 
 const TableProducts = () => {
@@ -15,6 +22,7 @@ const TableProducts = () => {
   const [orderprice, setOrderprice] = useState('');
   const [orderstock, setOrderstock] =useState(''); 
 
+<<<<<<< HEAD
   const [state, setState] = useState({
     loading: false,
   })
@@ -44,6 +52,13 @@ const TableProducts = () => {
       </div>
     )
   }
+=======
+
+  useEffect(() => { 
+      dispatch(getAllProducts())   
+  }, [])
+ 
+>>>>>>> 201a9482652d0229340a5df111c7fee2d24a1ca9
    const columns = [  
     {
       name: "#",
@@ -59,16 +74,24 @@ const TableProducts = () => {
       },
       {
         name: "Imagen",
+<<<<<<< HEAD
         selector: (row) => row.image_url,
+=======
+        selector: (row) => row.url,
+>>>>>>> 201a9482652d0229340a5df111c7fee2d24a1ca9
         grow: 0,
         cell: (row) => (
-          <img height="60px" width="56px"   src={row.image_url? row. image_url:"X"} />
+          <img height="30px" width="50px"   src={row.url? row.url:"X"} />
         ),
       }, 
     {
       name: 'Nombre',
       selector: 'name',
+<<<<<<< HEAD
       grow: 0.5,
+=======
+      grow: 0.3,
+>>>>>>> 201a9482652d0229340a5df111c7fee2d24a1ca9
     },
     {
       name: 'Precio Unitario',
@@ -83,6 +106,7 @@ const TableProducts = () => {
         grow: 0,
     },
     {
+<<<<<<< HEAD
         name: 'Editar',
         cell: (row) => <button  className="bg-transparent hover:bg-blue-500 text-blue-700 font-semibold hover:text-white py-2 px-4 border border-blue-500 hover:border-transparent rounded" onClick={()=>deleteProduct(row.codProduct)} >Editar</button>,
         grow: 0.1,
@@ -90,6 +114,15 @@ const TableProducts = () => {
     {
       name: 'Borrar',
       cell: (row) => <button  className="bg-transparent hover:bg-blue-500 text-blue-700 font-semibold hover:text-white py-2 px-4 border border-blue-500 hover:border-transparent rounded" onClick={()=>deleteProduct(row.codProduct)} >Borrar</button>,
+=======
+      name: 'Editar',
+      cell: (row) => <button  className="bg-transparent hover:bg-blue-500 text-blue-700 font-semibold hover:text-white py-2 px-4 border border-blue-500 hover:border-transparent rounded" /* onClick={()=>deleteProduct(row.codProduct)} */ >Editar</button>,
+      grow: 0.1,
+  },
+    {
+      name: 'Borrar',
+      cell: (row) => <button  className="bg-transparent hover:bg-blue-500 text-blue-700 font-semibold hover:text-white py-2 px-4 border border-blue-500 hover:border-transparent rounded" /* onClick={()=>deleteProduct(row.codProduct)} */ >Borrar</button>,
+>>>>>>> 201a9482652d0229340a5df111c7fee2d24a1ca9
       grow: 0.1,
     },
   ]
@@ -117,11 +150,19 @@ const handleByOrderStock = (e) => {
    
 return (
     <>
+<<<<<<< HEAD
     <h1>Tabla de Productos</h1>
     <div>
     <SearchProTable/>
     </div>
     <section class="inline-grid grid-cols-3">      
+=======
+    <h1 className='bg-gray-600 text-white rounded p-2 mb-1'>Tabla de Productos</h1>
+    <div>
+    <SearchProTable/>
+    </div>
+    <section class="inline-grid grid-cols-4">      
+>>>>>>> 201a9482652d0229340a5df111c7fee2d24a1ca9
             <div>
                 <select onChange={(e) => handleByOrder(e)} class="bg-gray-50 border border-gray-100 text-gray-900 text-sm rounded-lg focus:ring-blue-100 focus:border-blue-100 block w-full p-1.5 dark:bg-gray-100 dark:border-gray-300 dark:placeholder-gray-400 dark:text-black dark:focus:ring-blue-500 dark:focus:border-blue-500">
                 <option disabled selected>Orden Alfabetico</option>
@@ -138,6 +179,7 @@ return (
             </div>
             <div>
                 <select onChange={(e) => handleByOrderStock(e)} class="bg-gray-50 border border-gray-100 text-gray-900 text-sm rounded-lg focus:ring-blue-100 focus:border-blue-100 block w-full p-1.5 dark:bg-gray-100 dark:border-gray-300 dark:placeholder-gray-400 dark:text-black dark:focus:ring-blue-500 dark:focus:border-blue-500">
+<<<<<<< HEAD
                 <option disabled selected> Stock</option>
                 <option value="AscStock">Menor a Mayor</option>
                 <option value="DesStock">Mayor a Menor</option>
@@ -145,6 +187,28 @@ return (
             </div>         
     </section>
     
+=======
+                <option disabled selected>Stock</option>
+                <option value="AscStock">Menor a Mayor stock</option>
+                <option value="DesStock">Mayor a Menor stock</option>
+                </select>
+            </div> 
+            <div>
+             <button type="button" class="ml-5 mt-1  text-green-700  hover:text-white border border-green-700  hover:bg-green-800  focus:ring-0 focus:outline-none focus:ring-green-300  font-medium rounded-lg text-sm px-4 py-1.5 text-center   dark:border-green-500  dark:text-green-500  dark:hover:text-white dark:hover:bg-green-600  dark:focus:ring-green-800" >  <Link to="/formproduct">Agregar un Producto</Link></button>
+            </div>     
+    </section>
+    
+{/*     <section>
+            <div>
+           
+            <button type="button" class="text-red-700    hover:text-white border border-red-700    hover:bg-red-800    focus:ring-1 focus:outline-none focus:ring-red-300    font-medium rounded-lg text-sm px-4 py-1.5 text-center mr-2 mb-2 dark:border-red-500    dark:text-red-500    dark:hover:text-white dark:hover:bg-red-600    dark:focus:ring-red-900"   >Eliminar</button>
+            <button type="button" class="text-yellow-400 hover:text-white border border-yellow-400 hover:bg-yellow-500 focus:ring-1 focus:outline-none focus:ring-yellow-300 font-medium rounded-lg text-sm px-4 py-1.5 text-center mr-2 mb-2 dark:border-yellow-300 dark:text-yellow-300 dark:hover:text-white dark:hover:bg-yellow-400 dark:focus:ring-yellow-900">Yellow</button>
+            <button type="button" class="text-purple-700 hover:text-white border border-purple-700 hover:bg-purple-800 focus:ring-1 focus:outline-none focus:ring-purple-300 font-medium rounded-lg text-sm px-4 py-1.5 text-center mr-2 mb-2 dark:border-purple-400 dark:text-purple-400 dark:hover:text-white dark:hover:bg-purple-500 dark:focus:ring-purple-900">Editar</button>
+            </div> 
+    </section> */}
+
+    
+>>>>>>> 201a9482652d0229340a5df111c7fee2d24a1ca9
     <div >       
       <DataTable
         columns={columns}
@@ -262,6 +326,7 @@ return (
 }
 
 export default TableProducts
+<<<<<<< HEAD
 
 
 
@@ -274,3 +339,10 @@ export default TableProducts
 
             
    
+=======
+
+
+
+
+ 
+>>>>>>> 201a9482652d0229340a5df111c7fee2d24a1ca9
