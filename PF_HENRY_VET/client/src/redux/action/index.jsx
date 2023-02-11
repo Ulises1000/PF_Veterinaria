@@ -8,6 +8,12 @@ import {
     GET_USER,
     DELETE_USER,
     POST_USER,
+    REGISTER_USER,
+    SIGNIN_USER,
+    SIGNOUT_USER,
+    REGISTER_ERRORS,
+    SIGNIN_ERRORS,
+    CLEAN_MSG_REGISTER_USER,
     UPDATE_USER,
     CREATE_PAGINATION_ARRAY,
     SEARCH,
@@ -16,12 +22,12 @@ import {
     SEARCH_PRO_DASHBOARD,
     BY_ORDER,
     BY_ORDER_PRICE,
-    BY_ORDER_STOCK,
+    BY_ORDER_STOCK, 
     GET_FAVORITES,
     UPDATE_FAVORITE,
     SEARCH_USERS_DASHBOARD, 
-    GET_USERS
-
+    GET_USERS, 
+    POST_FAVORITES
 } from './constants';
 
 /* ruta + endpoints */
@@ -244,6 +250,60 @@ export function getUser(userId) {
     };
 }
 
+export function registerUser(values){
+    return async (dispatch) => {
+        try{
+            const info = await axios.post(`${URL + Endpoints.user}register`, values);
+            dispatch({
+                type: REGISTER_USER,
+                payload: info
+            });
+        }catch(err){
+            dispatch({
+                type: REGISTER_ERRORS,
+                payload: err
+            });
+        }
+    }
+}
+export function signinUser(values){
+    return async (dispatch) => {
+        try{
+            const info = await axios.post(`${URL + Endpoints.user}signin`, values);
+            dispatch({
+                type: SIGNIN_USER,
+                payload: info
+            });
+        }catch(err){
+            dispatch({
+                type: SIGNIN_ERRORS,
+                payload: err
+            });
+        }
+    }
+}
+export function signoutUser(){
+    return async (dispatch) => {
+        try{
+            const info = await axios.post(`${URL + Endpoints.user}signout`);
+            dispatch({
+                type: SIGNOUT_USER,
+                payload: info
+            });
+        }catch(err){
+            dispatch({
+                type: SIGNIN_ERRORS,
+                payload: err
+            });
+        }
+    }
+}
+export function cleanMsgRegisterUser(){
+    return{
+        type: CLEAN_MSG_REGISTER_USER
+    };
+}
+
 export function deleteUser(userId) {
     return async function(dispatch) {
         try {
@@ -390,7 +450,7 @@ export function getFavorites(idUser) {
     return async function(dispatch) {
         try {
             const { data } = await axios.get(`${URL + Endpoints.favoritos}get/${idUser}`);
-            dispatch({
+            if(data.ok) dispatch({
                 type: GET_FAVORITES,
                 payload: data,
             });
@@ -413,8 +473,30 @@ export function updateFavorites(values) {
     return async function(dispatch) {
         try {
             const { data } = await axios.put(`${URL + Endpoints.product}update`, values);
-            dispatch({
-                type: UPDATE_PRODUCT,
+            if(data.ok) dispatch({
+                type: UPDATE_FAVORITE,
+                payload: data,
+            });
+        } catch (error) {
+            if (error.response) {
+                console.log(error.response.data);
+                console.log(error.response.status);
+                console.log(error.response.headers);
+            } else if (error.request) {
+                console.log(error.request);
+            } else {
+                console.log(error.message);
+            }
+            console.log(error.config);
+        }
+    };
+}
+export function postFavorite(idProduct, url, name, idUser) {
+    return async function(dispatch) {
+        try {
+            const { data } = await axios.post(`${URL + Endpoints.favoritos}post`, idProduct, url, name, idUser);
+            if(data.ok) dispatch({
+                type: POST_FAVORITES,
                 payload: data,
             });
         } catch (error) {
