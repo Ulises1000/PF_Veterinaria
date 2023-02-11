@@ -32,7 +32,7 @@ const Details = () => {
             <div className="text-center flex justify-center items-center ">
                 <div className="w-300 bg-white p-6 rounded-lg shadow-xl border-gray-700 flex items-center flex-col">
                     <h3 className="text-purple-500 font-bold">{product.name}</h3>
-                    <img src={product.image_url} alt='img not found' />
+                    <img src={product.url} alt='img not found' />
                     <p>Stock 1</p>
                     <p>Info: <br />
                         Lorem ipsum dolor sit amet,<br />

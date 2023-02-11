@@ -14,6 +14,8 @@ import {
   BY_ORDER,
   BY_ORDER_PRICE,
   BY_ORDER_STOCK,
+  SEARCH_USERS_DASHBOARD,
+  GET_USERS,
 } from "../action/constants";
 import {
   GET_USER,
@@ -28,6 +30,8 @@ const initialState = {
   product: {},
   filterProducts:[], 
   user: {},
+  users:[],
+  userDash:[],
   favorites: [],
   currentOrder: "Static",
   currentBreed: "breed",
@@ -39,7 +43,7 @@ const initialState = {
   paginationArray: [],
 };
 
-/* export const searchDashb = (state = initialState, action) => {
+ export const searchDashb = (state = initialState, action) => {
   switch (action.type) {
     case SEARCH_PRO_DASHBOARD:
       console.log(action.payload)
@@ -48,7 +52,7 @@ const initialState = {
         ...state,
         products: filterProd,
       };
-}} */
+}}  
 
 //no usar da errores xD
 export const productsReducer = (state = initialState.products, action) => {
@@ -117,6 +121,9 @@ export const userReducer = (state = initialState.user, action) => {
   }
 };
 
+
+
+ 
 //usar esta 
 export const filters = (state = initialState, action) => {
   switch (action.type) {
@@ -134,6 +141,7 @@ export const filters = (state = initialState, action) => {
         ...state,
         products: filterProd,
       };
+      
 
     case FILTERED:
       let filteredProducts = state.orderedProducts;
@@ -284,6 +292,7 @@ export const filters = (state = initialState, action) => {
         paginationArray: pageHolder,
       };
 
+      //*SORTS DASHBOARD________________
       case BY_ORDER:
         console.log(action.payload)
       const orderProducts = action.payload === "Asc"
@@ -314,7 +323,7 @@ export const filters = (state = initialState, action) => {
         ...state,
         products: orderStock,      
       };
-
+    //*_________________________________
 
 
     default:

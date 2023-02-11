@@ -4,6 +4,7 @@ export const DELETE_PRODUCT = 'DELETE_PRODUCT';
 export const UPDATE_PRODUCT = 'UPDATE_PRODUCT';
 export const POST_PRODUCT = 'POST_PRODUCT';
 /* User */
+export const GET_USERS = "GET_USERS";
 export const GET_USER = 'GET_USER';
 export const DELETE_USER = 'DELETE_USER';
 export const POST_USER = 'POST_USER';
@@ -25,4 +26,4 @@ export const BY_ORDER_STOCK = "BY_ORDER_STOCK"
 
 export const GET_FAVORITES = 'GET_FAVORITES';
 export const UPDATE_FAVORITE = 'UPDATE_FAVORITE';
-
+export const SEARCH_USERS_DASHBOARD = "SEARCH_USERS_DASHBOARD";
