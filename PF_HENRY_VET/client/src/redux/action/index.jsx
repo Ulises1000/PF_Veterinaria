@@ -27,7 +27,16 @@ import {
 
     GET_FAVORITES,
     UPDATE_FAVORITE,
-    POST_FAVORITES
+    POST_FAVORITES,
+
+    UPDATE_CARTDTAIL,
+    POST_CARTDTAIL,
+    GET_CARTDTAIL,
+    DELETE_CARTDTAIL,
+    DIFFERENT_OUTCOME,
+    EMPTY_DIFFOUTCOME_OBJ,
+    EMPTY_SHOPPINGCARTDTAIL,
+    EMPTY_SHOPPINGCARTDTAILMSG
 
 } from './constants';
 
@@ -460,3 +469,143 @@ export function postFavorite(idProduct, url, name, idUser) {
     };
 }
 
+/* shoppingDetail */
+/*
+se necesita: 
+idCart
+idProduct
+unit_price
+date_added
+quantity
+*/
+export function postShoppingDetail(values) {
+    return async function(dispatch) {
+        try {
+            const { data } = await axios.post(`${URL + Endpoints.detalleCarrito}post`, values);
+            //RECIBO UN MENSAJE
+            if(data.ok) dispatch({
+                type: POST_CARTDTAIL,
+                payload: data,
+            })
+            else dispatch({
+                type: DIFFERENT_OUTCOME,
+                payload: data,
+            }) 
+        } catch (error) {
+            if (error.response) {
+                console.log(error.response.data);
+                console.log(error.response.status);
+                console.log(error.response.headers);
+            } else if (error.request) {
+                console.log(error.request);
+            } else {
+                console.log(error.message);
+            }
+            console.log(error.config);
+        }
+    };
+}
+export function getShoppingDetail(idCart) {
+    return async function(dispatch) {
+        try {
+            const { data } = await axios.get(`${URL + Endpoints.detalleCarrito}get/${idCart}`);
+            if(data.ok) dispatch({
+                type: GET_CARTDTAIL,
+                payload: data,
+            })
+            else dispatch({
+                type: DIFFERENT_OUTCOME,
+                payload: data,
+            }) 
+        } catch (error) {
+            if (error.response) {
+                console.log(error.response.data);
+                console.log(error.response.status);
+                console.log(error.response.headers);
+            } else if (error.request) {
+                console.log(error.request);
+            } else {
+                console.log(error.message);
+            }
+            console.log(error.config);
+        }
+    };
+}
+/* 
+idCartDtail, 
+productId
+unit_price
+date_added
+quantity
+*/
+export function updateShoppingDetail(values) {
+    return async function(dispatch) {
+        try {
+            const { data } = await axios.put(`${URL + Endpoints.detalleCarrito}update`, values);
+            if(data.ok) dispatch({
+                type: UPDATE_CARTDTAIL,
+                payload: data,
+            })
+            else dispatch({
+                type: DIFFERENT_OUTCOME,
+                payload: data,
+            }) 
+        } catch (error) {
+            if (error.response) {
+                console.log(error.response.data);
+                console.log(error.response.status);
+                console.log(error.response.headers);
+            } else if (error.request) {
+                console.log(error.request);
+            } else {
+                console.log(error.message);
+            }
+            console.log(error.config);
+        }
+    };
+}
+
+export function deleteShoppingDetail(idCartDtail, productId) {
+    return async function(dispatch) {
+        try {
+            const { data } = await axios.delete(`${URL + Endpoints.detalleCarrito}delete/${idCartDtail}/${productId}`);
+            if(data.ok) dispatch({
+                type: DELETE_CARTDTAIL,
+                payload: data,
+            })
+            else dispatch({
+                type: DIFFERENT_OUTCOME,
+                payload: data,
+            }) 
+        } catch (error) {
+            if (error.response) {
+                console.log(error.response.data);
+                console.log(error.response.status);
+                console.log(error.response.headers);
+            } else if (error.request) {
+                console.log(error.request);
+            } else {
+                console.log(error.message);
+            }
+            console.log(error.config);
+        }
+    };
+}
+
+export function EmptyDiffoutcomeObj() {
+    return {
+        type: EMPTY_DIFFOUTCOME_OBJ
+    }
+}
+
+export function EmptyShoppingCartDtail() {
+    return {
+        type: EMPTY_SHOPPINGCARTDTAIL
+    }
+}
+
+export function EmptyShoppingCartDtailMsg() {
+    return {
+        type: EMPTY_SHOPPINGCARTDTAILMSG
+    }
+}
