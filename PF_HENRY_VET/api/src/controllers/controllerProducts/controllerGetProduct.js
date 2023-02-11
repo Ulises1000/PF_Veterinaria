@@ -12,7 +12,7 @@ const getProducts = async (nameP) => {
         const api = await axios.get(
           `https://veterinaria-634d6-default-rtdb.firebaseio.com/productosDB.json`
         );
-      
+        console.log(api.data)
         await api.data.forEach(async (p) => {
           const obj = {            
             name: p.nombre,
@@ -23,32 +23,38 @@ const getProducts = async (nameP) => {
             breedType:Array.isArray(p.tipo) ? p.tipo : [p.tipo]  
           };
           const created = await Product.create(obj)
-          
           await cloudinary.uploader.upload(
             p.image, 
             {public_id: created.image_url}
-          )
-        
-        });
-    }
-    const allProducts = await Product.findAll();   
-    //DESPUES DE QUE SE GUARDAN O NO (PORQUE YA EXISTIAN), HACE UNA BUSQUEDA MAS COMPLEJA
-    return nameP ? await Product.findAll({
-      where: {
-        name: {
-          [Op.or]: [
-            { [Op.iLike]: nameP + "%" },
-            { [Op.substring]: nameP },
-            { [Op.endsWith]: nameP }
-          ] 
+            )
+            
+          });
         }
+        let allProducts; 
+        if(nameP){ 
+        allProducts = await Product.findAll({
+          where: {
+            name: {
+              [Op.or]: [
+                { [Op.iLike]: nameP + "%" },
+                { [Op.substring]: nameP },
+                { [Op.endsWith]: nameP }
+              ] 
+            }
+          }
+        })  
       }
-    }) 
-    :
-    await Product.findAll();
+      else {
+        allProducts = await Product.findAll()
+        console.log(allProducts)
+        allProducts = await Product.findAll()
+        console.log("llego hasta aca")
+      };
+        //DESPUES DE QUE SE GUARDAN O NO (PORQUE YA EXISTIAN), HACE UNA BUSQUEDA MAS COMPLEJA
+    return allProducts;
      
   } catch (err) {
-    throw new Error(err.message)
+    throw new Error(err.message);
   }
 };
 
