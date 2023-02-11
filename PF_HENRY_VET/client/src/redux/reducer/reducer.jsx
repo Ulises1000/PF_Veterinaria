@@ -6,23 +6,45 @@ import {
   UPDATE_PRODUCT,
   SEARCH,
   CREATE_PAGINATION_ARRAY,
-  GET_FAVORITES,
-  UPDATE_FAVORITE,
   FILTERED,
   SORT,
+  SEARCH_PRO_DASHBOARD,
+  BY_ORDER,
+  BY_ORDER_PRICE,
+  BY_ORDER_STOCK,
 } from "../action/constants";
 import {
   GET_USER,
   DELETE_USER,
+  REGISTER_USER,
+  SIGNIN_USER,
+  SIGNOUT_USER,
+  REGISTER_ERRORS,
+  SIGNIN_ERRORS,
+  CLEAN_MSG_REGISTER_USER,
   POST_USER,
   UPDATE_USER,
 } from "../action/constants";
+import {
+  GET_FAVORITES,
+  UPDATE_FAVORITE,
+  POST_FAVORITES,
+} from "../action/constants";
 import { ASCENDENTE, DESCENDENTE } from "../../const/orderByName";
+import {
+  ADD_TO_CART,
+  REMOVE_ALL_FROM_CART,
+  REMOVE_ONE_FROM_CART,
+  CLEAR_CART,
+} from "../action/constants";
 
 const initialState = {
   products: [],
   product: {},
+  filterProducts: [],
   user: {},
+  infoRegistration: {},
+  userMsgErrorRegistrationAndSignin: "",
   favorites: [],
   currentOrder: "Static",
   currentBreed: "breed",
@@ -32,8 +54,21 @@ const initialState = {
   orderedByNameProducts: [],
   orderedProducts: [],
   paginationArray: [],
+  shoppingCart: [],
 };
 
+/* export const searchDashb = (state = initialState, action) => {
+  switch (action.type) {
+    case SEARCH_PRO_DASHBOARD:
+      console.log(action.payload)
+    let filterProd = state.filterProducts.filter((us) => us.name.toLowerCase().includes(action.payload.toLowerCase()));
+       return {
+        ...state,
+        products: filterProd,
+      };
+}} */
+
+//no usar da errores xD
 export const productsReducer = (state = initialState.products, action) => {
   switch (action.type) {
     case GET_PRODUCTS:
@@ -41,6 +76,7 @@ export const productsReducer = (state = initialState.products, action) => {
         ...state,
         products: action.payload,
       };
+
     case GET_PRODUCT:
       return {
         ...state,
@@ -79,6 +115,70 @@ export const userReducer = (state = initialState.user, action) => {
         ...state,
         user: action.payload,
       };
+    case REGISTER_USER:
+      return {
+        ...state,
+        infoRegistration: action.payload,
+      };
+    case SIGNIN_USER:
+      return {
+        ...state,
+        user: action.payload,
+      };
+    case REGISTER_ERRORS: {
+      let msg;
+
+      switch (action.payload) {
+        case "auth/email-already-in-use":
+          msg = "Este Email Ya Esta En Uso.";
+          break;
+        case "auth/invalid-email":
+          msg = "Este Email Es Invalido.";
+          break;
+        case "auth/weak-password":
+          msg = "Esta Contraseña Es Muy Débil.";
+          break;
+        default:
+          msg = "Hubo Un Error.";
+      }
+
+      return {
+        ...state,
+        userMsgErrorRegistrationAndSignin: msg,
+      };
+    }
+    case SIGNIN_ERRORS: {
+      let msg;
+
+      switch (action.payload) {
+        case "auth/email-already-in-use":
+          msg = "Este Email Ya Esta En Uso.";
+          break;
+        case "auth/invalid-email":
+          msg = "Este Email Es Invalido.";
+          break;
+        case "auth/weak-password":
+          msg = "Esta Contraseña Es Muy Débil.";
+          break;
+        default:
+          msg = "Hubo Un Error.";
+      }
+
+      return {
+        ...state,
+        userMsgErrorRegistrationAndSignin: msg,
+      };
+    }
+    //PORAHORA EL SIGNOUT SOLO DEVUELVE EL STATE PERO SI DESLOGUEA AL USUARIO EN FIREBASE
+    case SIGNOUT_USER:
+      return {
+        ...state,
+      };
+    case CLEAN_MSG_REGISTER_USER:
+      return {
+        ...state,
+        userMsgErrorRegistrationAndSignin: "",
+      };
     case DELETE_USER:
       return {
         ...state,
@@ -99,14 +199,26 @@ export const userReducer = (state = initialState.user, action) => {
   }
 };
 
+//usar esta
 export const filters = (state = initialState, action) => {
   switch (action.type) {
-    case GET_PRODUCTS:{
+    case GET_PRODUCTS: {
       return {
         ...state,
         products: action.payload,
+        filterProducts: action.payload,
+        OrdeProductsDashb: action.payload,
       };
     }
+    case SEARCH_PRO_DASHBOARD:
+      let filterProd = state.filterProducts.filter((us) =>
+        us.name.toLowerCase().includes(action.payload.toLowerCase())
+      );
+      return {
+        ...state,
+        products: filterProd,
+      };
+
     case FILTERED:
       let filteredProducts = state.orderedProducts;
 
@@ -160,7 +272,7 @@ export const filters = (state = initialState, action) => {
     case SORT:
       if (state.searchedProducts.length === 0) {
         let orderedByNameProducts = [...state.products];
-        console.log(orderedByNameProducts)
+        console.log(orderedByNameProducts);
         if (action.payload === ASCENDENTE) {
           orderedByNameProducts = orderedByNameProducts.sort((a, b) => {
             if (a.name.toLowerCase() < b.name.toLowerCase()) {
@@ -234,7 +346,6 @@ export const filters = (state = initialState, action) => {
             return 0;
           });
         }
-
         return {
           ...state,
           orderedProducts: orderedByNameProducts,
@@ -244,20 +355,56 @@ export const filters = (state = initialState, action) => {
     case CREATE_PAGINATION_ARRAY:
       const pageSize = 15;
       let pageHolder = [];
-      if (state.orderedProducts.length === 0){
-          const page = state.products
-          pageHolder.push(page);
-        }  
-        else {
-                const page = state.orderedProducts;
-                pageHolder.push(page); 
-            }
-
-            //console.log(pageHolder ,"PAGINATION 2")
+      if (state.orderedProducts.length === 0) {
+        const page = state.products;
+        pageHolder.push(page);
+      } else {
+        const page = state.orderedProducts;
+        pageHolder.push(page);
+      }
       return {
         ...state,
         paginationArray: pageHolder,
       };
+
+    case BY_ORDER:
+      console.log(action.payload);
+      const orderProducts =
+        action.payload === "Asc"
+          ? state.products.sort((a, b) => (a.name > b.name ? 1 : -1))
+          : state.products.sort((a, b) => (a.name > b.name ? -1 : 1));
+      console.log(state.products);
+      return {
+        ...state,
+        products: orderProducts,
+      };
+
+    case BY_ORDER_PRICE:
+      console.log(action.payload);
+      const orderPrice =
+        action.payload === "AscPrice"
+          ? state.products.sort((a, b) =>
+              a.unit_price > b.unit_price ? 1 : -1
+            )
+          : state.products.sort((a, b) =>
+              a.unit_price > b.unit_price ? -1 : 1
+            );
+      return {
+        ...state,
+        products: orderPrice,
+      };
+
+    case BY_ORDER_STOCK:
+      console.log(action.payload);
+      const orderStock =
+        action.payload === "AscStock"
+          ? state.products.sort((a, b) => (a.stock > b.stock ? 1 : -1))
+          : state.products.sort((a, b) => (a.stock > b.stock ? -1 : 1));
+      return {
+        ...state,
+        products: orderStock,
+      };
+
     default:
       return state;
   }
@@ -275,8 +422,33 @@ export const favoriteReducer = (state = initialState, action) => {
         ...state,
         favorites: action.payload,
       };
+    case POST_FAVORITES:
+      return {
+        ...state,
+        favorites: action.payload,
+      };
     default:
       return state;
   }
 };
 
+export const shoppingCartReducer = (
+  state = initialState.shoppingCart,
+  action
+) => {
+  switch (action.type) {
+    case ADD_TO_CART:
+      return {
+        ...state,
+        shoppingCart: action.payload,
+      };
+    case REMOVE_ONE_FROM_CART:
+      return {};
+    case REMOVE_ALL_FROM_CART:
+      return {};
+    case CLEAR_CART:
+      return {};
+    default:
+      return state;
+  }
+};
