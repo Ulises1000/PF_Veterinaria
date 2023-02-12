@@ -21,13 +21,11 @@ import {
     FILTEREDSIZE,
     SORT,
     SEARCH_PRO_DASHBOARD,
-    SEARCH_USERS_DASHBOARD,
     BY_ORDER,
     BY_ORDER_PRICE,
     BY_ORDER_STOCK, 
     GET_FAVORITES,
     UPDATE_FAVORITE,
-    UPDATE_CARTDTAIL,
     POST_CARTDTAIL,
     UPDATE_CARTDTAIL,
     GET_CARTDTAIL,
@@ -123,7 +121,7 @@ export function getAllProducts(name) {
             } else if (error.request) {
                 console.log(error.request);
             } else {
-                console.log(error.message);
+                console.log(error.message); 
             }
             console.log(error.config);
         }
@@ -134,6 +132,7 @@ export function getProduct(productName) {
     return async function(dispatch) {
         try {
             const { data } = await axios.get(`${URL + Endpoints.product}getp/${productName}`);
+            console.log(data, "MAESTROOOOOOOOOOOOO")
             dispatch({
                 type: GET_PRODUCT,
                 payload: data,
@@ -240,10 +239,11 @@ export function postProduct(productData) {
 
  
 
-export function getUser(userId) {
+export function getUser(email, password) {
     return async function(dispatch) {
         try {
-            const { data } = await axios.get(`${URL + Endpoints.user}get/${userId}`);
+            const { data } = await axios.get(`${URL + Endpoints.user}get?email=${email}&password=${password}`);
+            console.log(data, "meu deus")
             dispatch({
                 type: GET_USER,
                 payload: data,
@@ -267,12 +267,12 @@ export function registerUser(values){
     return async (dispatch) => {
         try{
             const info = await axios.post(`${URL + Endpoints.user}register`, values);
-            /* 
+             
             dispatch({
                 type: REGISTER_USER,
                 payload: info
             });
-            */
+            
         }catch(err){
             dispatch({
                 type: REGISTER_ERRORS,

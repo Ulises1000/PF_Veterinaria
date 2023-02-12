@@ -28,8 +28,8 @@ export const userReducer = (state = initialState.user, action) => {
       };
     case REGISTER_USER:
       return {
-        ...state,
-        infoRegistration: action.payload,
+        ...state
+        // infoRegistration: action.payload,
       };
     case SIGNIN_USER:
       return {

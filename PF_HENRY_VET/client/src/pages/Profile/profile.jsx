@@ -1,13 +1,15 @@
 import React from "react";
 import { useEffect, useState } from "react";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { Link, redirect } from "react-router-dom";
 import Nav from "../../components/Nav.jsx";
+import { signoutUser } from "../../redux/action/index.jsx";
 import loader from "../../style-assets/paw_icon.png";
 
 export default function UserProfile({hayUser}) {
-  // const dispatch = useDispatch()
+  const dispatch = useDispatch()
   // const handleLogout = () => {
+    console.log(hayUser, "ACAAAAAAAAAAAAAAAAAAA")
   //     if (user.category) {
   //         localStorage.clear();
   //         dispatch(logout());
@@ -46,17 +48,19 @@ export default function UserProfile({hayUser}) {
       setLoading(false);
     }, 2000);
   console.log(localStorage)
-  console.log(hayUser)
   }, [localStorage]);
   let userLocal = ""
   if(localStorage.userPetShop){
-    console.log(JSON.parse(localStorage.userPetShop).data, "userPetShop en NAVV");
+    console.log(JSON.parse(localStorage.userPetShop), "userPetShop en NAVV");
     userLocal = JSON.parse(localStorage.userPetShop).data;
   }
   function HandleLogout() {
     localStorage.removeItem("userPetShop")
-    hayUser= ""
-    
+    dispatch(signoutUser())
+    window.location.reload(true)
+    hayUser = ""
+    userLocal= ""
+    // console.log(localStorage, "esto")
   }
 
   if (loading) {
@@ -69,16 +73,20 @@ export default function UserProfile({hayUser}) {
   }
   return (
     <div className="flex absolute top-0 left-0 -z-10 items-center justify-center w-screen h-screen bg-patas">
-    <Nav hayUser={hayUser}/>
+    <Nav user={hayUser}/>
       <div className="flex p-8 border rounded-xl border-black">
         <div className="space-y-3 pr-3">
           <div className="flex w-72">
             <h1 className="pr-2 font-semibold">Username:</h1>
-            <p className="w-80"></p>
+            <p className="w-80">{hayUser.name_U}</p>
           </div>
           <div className="flex">
             <h1 className="pr-2 font-semibold">Email: </h1>
-            <p className="flex">{userLocal.email}</p>
+            <p className="flex">{hayUser.email_U}</p>
+          </div>
+          <div className="flex">
+            <h1 className="pr-2 font-semibold">Direccion:</h1>
+            <p className="w-80">{hayUser.direction_U}</p>
           </div>
           <div className="flex items-end justify-end w-72 h-36">
             <button onClick={() => HandleLogout()} className="bg-white h-10 duration-300 hover:bg-red-100 p-2 rounded-lg border border-black ">
@@ -87,7 +95,7 @@ export default function UserProfile({hayUser}) {
           </div>
         </div>
         <div className="grid justify-items-center">
-          {<img className="z-30 h-52 w-52 rounded-xl " src={loader} alt="" />}
+          {<img className="z-30 h-52 w-52 rounded-xl " src={hayUser.url} alt="" />}
           <div className="absolute opacity-0  hover:opacity-100 font-bold text-black  grid duration-300 justify-items-center content-center z-40 hover:bg-slate-50 hover:bg-opacity-40 h-52 w-52">
             Change Image
           </div>

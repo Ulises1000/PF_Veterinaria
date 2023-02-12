@@ -5,7 +5,7 @@ import { getProduct } from "../../redux/action";
 import Nav from "../../components/Nav.jsx";
 import loader from "../../style-assets/paw_icon.png";
 
-const Details = () => {
+const Details = ({hayUser}) => {
   const dispatch = useDispatch();
   const product = useSelector((state) => state.products.product);
   const { id } = useParams();
@@ -22,19 +22,20 @@ const Details = () => {
       </div>
     );
   }
+  console.log(product, "irmao")
 
   return (
     <div className="bg-patas">
       <div className="h-14">
-        <Nav />
+        <Nav user = {hayUser}/>
       </div>
       <h1 className="font-bold text-center mt-20">DETALLES</h1>
-      <div className="text-center flex justify-center items-center ">
+      <div className="text-center flex justify-center items-center bg-patas">
         <div className="w-300 bg-white p-6 rounded-lg shadow-xl border-gray-700 flex items-center">
-          <img src={loader} alt="img not found" />
+          <img src={product.url} alt="img not found" />
         <div className="flex flex-col ml-20">
           <h3 className="text-purple-500 font-bold">{product.name}</h3>
-          <p>
+          <div>
             <p className="text-lg font-Fredoka font-bold">Acerca de este producto:</p>
             <p>
               Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed{" "}
@@ -43,7 +44,7 @@ const Details = () => {
               labore et dolore magna aliqua.
             </p>
           <p>Para: {product.breedType}</p>
-          </p>
+          </div>
           <div className="flex flex-row justify-around items-center space-y-20">
           <p className="mt-20">Stock: {product.stock}</p>
           <p>Precio: ${product.unit_price}</p>

@@ -10,7 +10,7 @@ import Footer from "../../components/Footer.jsx";
 import NotFound from "../Not Found/NotFound.jsx";
 
 
-function Mercado() {
+function Mercado({hayUser}) {
   const dispatch = useDispatch();
   const paginationArray = useSelector(state => state.filters.paginationArray)
   const pagArrayArray = paginationArray[0]
@@ -57,7 +57,7 @@ function Mercado() {
       return (
           <div>
             <div className="h-14">
-              <Nav />
+              <Nav user={hayUser} />
               <Searchbar />
             </div>
             <div className="mt-36">

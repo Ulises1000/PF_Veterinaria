@@ -15,7 +15,7 @@ let corsOptions = {
   optionsSuccessStatus: 200 // For legacy browser support
 }
 
-server.use(cors(corsOptions));
+server.use(cors());
 
 server.name = 'API';
 

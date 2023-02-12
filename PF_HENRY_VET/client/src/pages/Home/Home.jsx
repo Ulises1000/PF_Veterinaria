@@ -5,8 +5,12 @@ import Nav from "../../components/Nav";
 import loader from "../../style-assets/paw_icon.png";
 import "./Home.module.css";
 import bannerDog from "../../media/bannerDog.png"
+import { useSelector } from "react-redux";
 
 const Home = ({hayUser}) => {
+
+  let user = useSelector((state) => state.user.user)
+  console.log(user, "USER DE HOME")
   const [loading, setLoading] = useState(false);
   useEffect(() => {
     setLoading(true);
@@ -30,7 +34,7 @@ const Home = ({hayUser}) => {
   return (
 
       <div className="h-auto w-full bg-patas -mt-20 overflow-x-hidden">
-        <Nav user = {hayUser}/>
+        <Nav user={hayUser}/>
 
         <div className="flex flex-row  w-full space-y-36 md:space-y-5 md:mr-28 mt-10 md:mt-40  space-x-3 items-center justify-around">
           <div className="sm:mt-40 md:mt-10 hidden md:flex flex-col md:visible">

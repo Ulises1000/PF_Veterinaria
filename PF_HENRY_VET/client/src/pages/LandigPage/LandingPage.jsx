@@ -26,12 +26,13 @@ import { useState } from "react";
 import { Link } from "react-router-dom";
 
 import "./landingPage.module.css";
+import { useSelector } from "react-redux";
 
 export default function LandingPage({ hayUser }) {
+  let user = useSelector((state) => state.user.user)
+  console.log(user, "USER DE LANDING")
   const modal = document.querySelector("#modal");
-  console.log("Esto es Modal ===", modal);
   const openModal = document.querySelector(".bottomIcon");
-  console.log("Esto es OpenModal ===", openModal);
   const [openForm, setOpenForm] = useState(false);
 
   const showForm = () => {

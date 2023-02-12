@@ -5,15 +5,15 @@ import { useDispatch } from "react-redux";
 import { signoutUser } from "../redux/action";
 // import logo_user from "../media/avatar.png";
 
-function Nav({ hayUser }) {
+function Nav({ user }) {
   const dispatch = useDispatch()
   const [burgerbutton, setBurgerbutton] = useState(false);
   const [visibilidad, setVisibilidad] = useState(false);
-
-  let userLocal = ""
-  if(localStorage.userPetShop){
-    userLocal = JSON.parse(localStorage.userPetShop).data;
-  }
+  
+  // let userLocal = user
+  // if(localStorage.userPetShop){
+  //   userLocal = JSON.parse(localStorage.userPetShop).data;
+  // }
   // useEffect(() =>{
   //     const btn = document.querySelector("button.mobile-menu-button")
   //     const menu = document.querySelector(".mobile-menu")
@@ -22,14 +22,6 @@ function Nav({ hayUser }) {
   //     menu.classList.toggle("hidden")
   //         })
   // },[]);
-
-  function populateStorage() {
-    localStorage.setItem('bgcolor', 'red');
-    localStorage.setItem('font', 'Helvetica');
-    localStorage.setItem('userPetShop', '');
-  
-    localStorage.removeItem('image');
-  }
 
   function HandleLogout() {
     localStorage.removeItem("userPetShop")
@@ -74,27 +66,28 @@ function Nav({ hayUser }) {
           </div>
 
           {/* nav secundario */}
-          {userLocal || hayUser ? (
+          {console.log(user, "cheeeeeeeeeeeeeee") }
+          {user ? (
             <div className="hidden md:flex justify-center">
-              {userLocal || localStorage.userPetShop ? (
-                <div className="relative inline-block">
+              {user ? (
+                <div className="flex flex-row relative ">
+                  <img src={user.url} className="h-16 mt-5"/>
                   <button onClick={() => {
-                    console.log(userLocal, hayUser, localStorage)
-                      setVisibilidad(!visibilidad);
-                    }} className="bg-Dark-Violet mt-5 text-white  p-4 text-base border-0">
-                    {userLocal.email}
+                    setVisibilidad(!visibilidad);
+                  }} className="bg-Dark-Violet mt-5 text-white  p-4 text-base border-0">
+                    {user.email_U}
                   <div
                     
                     className={`${
                       visibilidad === false ? "hidden" : "show"
-                    } absolute right-0.5 top-16 bg-violet-300  w-full h-46 `}
+                    } absolute right-0.5 mt-4 ml-3 bg-violet-300  w-full h-46 `}
                   >
-                    <div className="flex flex-col ">
+                    <div className="flex flex-col">
                     <Link to="/profile" className="text-black p-2 hover:text-gray-300 block">
                       Perfil
                     </Link>
                     <div className="hover:text-red-400">
-                    <p className="p-2 bg-red-700" onClick={() => populateStorage()}>Logout</p>
+                    <p className="p-2 bg-red-700" onClick={() => HandleLogout()}>Logout</p>
                     </div>
                     </div>
                   </div>

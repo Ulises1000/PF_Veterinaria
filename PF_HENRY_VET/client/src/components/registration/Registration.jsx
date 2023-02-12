@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 
 import "./registration.Module.css";
-import { GetUser, registerUser, signinUser } from "../../redux/action";
+import { getUser, GetUser, postUser, registerUser, signinUser } from "../../redux/action";
 
 function validate(input, userTyped) {
   let errors = {};
@@ -50,18 +50,22 @@ export function Registration({ Navset }) {
   );
   const dispatch = useDispatch();
 
+
+
   function HandleClickLogin() {
     setRegistrationChange("login");
     setInputLogin({
       name: "",
       email: "",
       password: "",
+      direction: "",
       confirmedPassword: "",
     });
     setInputRegistration({
       name: "",
       email: "",
       password: "",
+      direction: "",
       confirmedPassword: "",
     });
     reset()
@@ -73,12 +77,14 @@ export function Registration({ Navset }) {
       name: "",
       email: "",
       password: "",
+      direction: "",
       confirmedPassword: "",
     });
     setInputRegistration({
       name: "",
       email: "",
       password: "",
+      direction: "",
       confirmedPassword: "",
     });
     reset()
@@ -89,6 +95,7 @@ export function Registration({ Navset }) {
     setUserTyped({ name: false,
       email: false,
       password: false,
+      direction: false, 
       confirmedPassword: false,})
   }
 
@@ -98,6 +105,7 @@ export function Registration({ Navset }) {
     name: false,
     email: false,
     password: false,
+    direction: false,
     confirmedPassword: false,
   });
 
@@ -106,6 +114,7 @@ export function Registration({ Navset }) {
     name: "",
     email: "",
     password: "",
+    direction: "",
     confirmedPassword: "",
   });
 
@@ -113,6 +122,7 @@ export function Registration({ Navset }) {
     name: "",
     email: "",
     password: "",
+    direction: "",
     confirmedPassword: "",
   });
 
@@ -148,10 +158,12 @@ useEffect(() =>{
     e.preventDefault();
     if(registrationChange === "registration"){
       dispatch(registerUser(inputRegistration))
-      dispatch()
+      console.log(inputRegistration)
+      dispatch(postUser(inputRegistration))
     }  
     else {
       dispatch(signinUser(inputLogin))
+      dispatch(getUser(inputLogin.email, inputLogin.password))
     }
   }
 //--------------------------------------------------------
@@ -180,9 +192,8 @@ useEffect(() =>{
   }
 
   dispatch(GetUser(userTyped.email, userTyped.password))
-  const user = useSelector((state) => state.user)
-  console.log(user)
-
+  const user = useSelector((state) => state.user.user)
+  console.log(JSON.parse, "USER DE PORDIOS")
   
   if (registrationChange === "registration") {
     return (
@@ -236,9 +247,19 @@ useEffect(() =>{
             </p>
           )}
           <div className="inputRegistration font-Fredoka rounded-lg text-md font-bold text-gray-200">
-            <label>Contraseña:</label> <br />
+            <label>Direccion:</label> <br />
             <input
               type={"text"}
+              className="text-gray-700 font-normal"
+              value={inputRegistration.direction}
+              name="direction"
+              onChange={(e) => handleChangeRegistration(e)}
+            />
+          </div>
+          <div className="inputRegistration font-Fredoka rounded-lg text-md font-bold text-gray-200">
+            <label>Contraseña:</label> <br />
+            <input
+              type={"password"}
               className="text-gray-700 font-normal"
               value={inputRegistration.password}
               name="password"
@@ -254,7 +275,7 @@ useEffect(() =>{
             <label>Confirmar Contraseña:</label> <br />
             <input
               className="text-gray-700 font-normal"
-              type={"text"}
+              type={"password"}
               value={inputRegistration.confirmedPassword}
               name="confirmedPassword"
               onChange={(e) => handleChangeRegistration(e)}
@@ -321,7 +342,7 @@ useEffect(() =>{
           <div className="inputRegistration font-Fredoka rounded-lg text-md font-bold text-gray-200">
             <label>Contraseña:</label> <br />
             <input
-              type={"text"}
+              type={"password"}
               className="text-gray-700 font-normal"
               value={inputLogin.password}
               name="password"
