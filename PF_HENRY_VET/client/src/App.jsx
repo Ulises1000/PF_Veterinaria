@@ -8,6 +8,7 @@ import LandingPage from "./pages/LandigPage/LandingPage.jsx";
 import Details from "./pages/Details/Details.jsx";
 import DashBoard from "./pages/Dashboard/DashBoard";
 import FormProduct from "./components/Dashboard/FormProduct";
+import ShoppingCart from "./pages/ShoppingCart/ShoppingCart";
 
 function App() {
   return (
@@ -20,6 +21,7 @@ function App() {
         <Route exact path="/profile" element={<UserProfile />} />
         <Route exact path="/dashboard" element={<DashBoard />} />
         <Route exact path="/formproduct" element={<FormProduct />} />
+        <Route exact path="/cart" element={<ShoppingCart />} />
         <Route path="*" element={<NotFound />} />
       </Routes>
     </div>

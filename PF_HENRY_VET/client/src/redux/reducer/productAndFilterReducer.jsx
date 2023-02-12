@@ -210,6 +210,11 @@ export const filters = (state = initialState, action) => {
         OrdeProductsDashb: action.payload,
       };
     }
+    case POST_PRODUCT:
+      return {
+        ...state,
+        products: action.payload.value,
+      };
     case SEARCH_PRO_DASHBOARD:
       let filterProd = state.filterProducts.filter((us) =>
         us.name.toLowerCase().includes(action.payload.toLowerCase())
