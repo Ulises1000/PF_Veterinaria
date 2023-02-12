@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { getProduct } from "../../redux/action";
@@ -7,12 +7,19 @@ import loader from "../../style-assets/paw_icon.png";
 
 const Details = () => {
   const dispatch = useDispatch();
+  const [pedido, setPedido] = useState({
+    unit_price: "",
+    date_added: "",
+    quantity: "",
+  });
   const product = useSelector((state) => state.products.product);
   const { id } = useParams();
   console.log(product);
   useEffect(() => {
     dispatch(getProduct(id));
   }, [dispatch, id]);
+
+  function handleClick() {}
 
   if (!product) {
     return (
