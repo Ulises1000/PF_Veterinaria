@@ -28,6 +28,6 @@ router.use("/users", getUserRouter, postUserRouter, deleteUserRouter, updateUser
 router.use("/shoppingCart", getShoppingCart);
 router.use("/shoppingCartDetail", getShoppingCartDtail, updateShoppingCartDtail, deleteShoppingCartDtail, postShoppingCartDtail)
 router.use("/favorite",getFavoriteRouter, updateFavoriteRouter);
-router.use("/pagos",MPRouter)
+router.use("/payment",MPRouter)
 
 module.exports = router;

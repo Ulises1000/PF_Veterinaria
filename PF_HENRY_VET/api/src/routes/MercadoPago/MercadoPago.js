@@ -1,9 +1,11 @@
 const { Router } = require("express");
 const mercadopago = require("mercadopago");
+const { getPayment } = require("../../controllers/MercadoPago/MercadPago");
+const { ACCESS_TOKEN }=process.env;
 const MPRouter = Router();
 
 mercadopago.configure({
-	access_token:"TEST-2054331423312634-020815-2195f7c09367f79a284b254e4a715ff2-359823826",
+access_token: ACCESS_TOKEN
 });
 MPRouter.post("",(req,res) => {
 
@@ -16,9 +18,9 @@ MPRouter.post("",(req,res) => {
             }
           ],
           back_urls: {
-            "success": "http://localhost:3001/pagos/feedback",
-            "failure": "http://localhost:3001/pagos/feedback",
-            "pending": "http://localhost:3001/pagos/feedback"
+            "success": "http://localhost:3001/payment/feedback",
+            "failure": "http://localhost:3001/payment/feedback",
+            "pending": "http://localhost:3001/payment/feedback"
           },
           auto_return: "approved",
         };
@@ -34,12 +36,33 @@ MPRouter.post("",(req,res) => {
       });
     
 
-MPRouter.get('/feedback',(req, res) => {
+MPRouter.get("/feedback",(req,res) => {
         res.json({
           Payment: req.query.payment_id,
           Status: req.query.status,
           MerchantOrder: req.query.merchant_order_id
         });
       });
+
+MPRouter.get("/getpayment/:id",(req,res)=>{
+try {
+  const {id}=req.params
+  if(!id){
+    res.status(400).send("No se ha detectado su identificacion de factura")
+  }
+  else{
+    getPayment(id)
+    .then(response=>{
+      res.send(response)
+    })
+
+  }
+} catch (error) {
+  res.status(404).send({
+    ok: false, 
+    msg: "Lo Lamentamos, Ha Ocurrido Un Error.",
+    detail: err.message 
+})
+}})
 
 module.exports=MPRouter;
