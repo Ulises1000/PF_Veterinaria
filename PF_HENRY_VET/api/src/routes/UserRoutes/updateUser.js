@@ -4,8 +4,8 @@ const {findUser, addNewValuesToAnObj} = require("../../controllers/controllerUse
 const axios = require("axios");
 const router = Router();
 
-router.put("/update", async (req, res) => {
-    const {idUser} = req.body;
+router.put("/update/:idUser", async (req, res) => {
+    const {idUser} = req.params;
     try{
         const info = await findUser(idUser);
         if(!info) res.status(200).json({
