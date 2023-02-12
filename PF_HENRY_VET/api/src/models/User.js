@@ -20,10 +20,6 @@ module.exports = (sequelize) => {
             type: DataTypes.STRING,
             allowNull: false
         },
-        creditCard_U: {
-            type: DataTypes.INTEGER,
-            allowNull: false
-        },
         direction_U: {
             type: DataTypes.STRING,
             allowNull: false

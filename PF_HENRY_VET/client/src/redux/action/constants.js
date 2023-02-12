@@ -15,13 +15,15 @@ export const SIGNOUT_USER = 'SIGNOUT_USER';
 export const SIGNIN_ERRORS = 'SIGNIN_ERRORS';
 export const REGISTER_ERRORS = 'REGISTER_ERRORS';
 export const CLEAN_MSG_REGISTER_USER = 'CLEAN_MSG_REGISTER_USER';
+export const SET_USER = "SET_USER";
 
 /* filter */
 export const CREATE_PAGINATION_ARRAY= "CREATE_PAGINATION_ARRAY"
-export const FILTERED = "FILTERED";
+export const FILTEREDBREED = "FILTEREDBREED";
+export const FILTEREDSIZE = "FILTEREDSIZE"
 export const SORT = "SORT";
 export const SEARCH = "SEARCH";
-
+export const FILTERED = "FILTERED"
 /* ShoppingCart */
 
 export const POST_CARTDTAIL = 'POST_CARTDTAIL';

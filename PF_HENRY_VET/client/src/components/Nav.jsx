@@ -1,11 +1,19 @@
 import React, { useState } from "react";
 import logo_only from "../media/OnlyPetsLogo.jpg";
 import { Link } from "react-router-dom";
+import { useDispatch } from "react-redux";
+import { signoutUser } from "../redux/action";
 // import logo_user from "../media/avatar.png";
 
-function Nav() {
+function Nav({ user }) {
+  const dispatch = useDispatch()
   const [burgerbutton, setBurgerbutton] = useState(false);
-
+  const [visibilidad, setVisibilidad] = useState(false);
+  
+  // let userLocal = user
+  // if(localStorage.userPetShop){
+  //   userLocal = JSON.parse(localStorage.userPetShop).data;
+  // }
   // useEffect(() =>{
   //     const btn = document.querySelector("button.mobile-menu-button")
   //     const menu = document.querySelector(".mobile-menu")
@@ -14,6 +22,15 @@ function Nav() {
   //     menu.classList.toggle("hidden")
   //         })
   // },[]);
+
+  function HandleLogout() {
+    localStorage.removeItem("userPetShop")
+    dispatch(signoutUser())
+    window.location.reload(true)
+    hayUser = ""
+    userLocal= ""
+    // console.log(localStorage, "esto")
+  }
 
   return (
     // nav aca
@@ -40,27 +57,76 @@ function Nav() {
                 Mercado
               </Link>
               <Link
-                to="#"
+                to="/consulta"
                 className="py-4 px-3 text-gray-700 font-semibold hover:font-medium hover:text-black"
               >
-                Turnos y Consultas
-              </Link>
-              <Link
-                to="#"
-                className="py-4 px-3 text-gray-700 font-semibold hover:font-medium hover:text-black"
-              >
-                Trabajo
-              </Link>
-              <Link
-                to="/profile"
-                className="py-4 px-3 text-gray-700 hover:font-medium hover:text-black"
-              >Perfil
+                Consultas
               </Link>
             </div>
           </div>
 
           {/* nav secundario */}
-          <div className="hidden md:flex items-center space-x-1">
+          {console.log(user, "cheeeeeeeeeeeeeee") }
+          {user ? (
+            <div className="hidden md:flex justify-center">
+              {user ? (
+                <div className="flex flex-row relative ">
+                  <img src={user.url} className="h-16 mt-5"/>
+                  <button onClick={() => {
+                    setVisibilidad(!visibilidad);
+                  }} className="bg-Dark-Violet mt-5 text-white  p-4 text-base border-0">
+                    {user.email_U}
+                  <div
+                    
+                    className={`${
+                      visibilidad === false ? "hidden" : "show"
+                    } absolute right-0.5 mt-4 ml-3 bg-violet-300  w-full h-46 `}
+                  >
+                    <div className="flex flex-col">
+                    <Link to="/profile" className="text-black p-2 hover:text-gray-300 block">
+                      Perfil
+                    </Link>
+                    <div className="hover:text-red-400">
+                    <p className="p-2 bg-red-700" onClick={() => HandleLogout()}>Logout</p>
+                    </div>
+                    </div>
+                  </div>
+                  </button>
+                </div>
+              ) : (
+                <div className="hidden md:flex items-center space-x-1">
+              <Link
+                to="/"
+                className="py-5 px-3  text-gray-700 font-semibold hover:text-white"
+              >
+                Login
+              </Link>
+              <Link
+                to="/"
+                className="py-2 px-3  bg-slate-50 rounded border-black border-2 text-gray-700 font-semibold hover:bg-slate-200 hover:text-violet-500 transition duration-300"
+              >
+                Sign Up
+              </Link>
+            </div>
+              )}
+            </div>
+          ) : (
+            <div className="hidden md:flex items-center space-x-1">
+              <Link
+                to="/"
+                className="py-5 px-3  text-gray-700 font-semibold hover:text-white"
+              >
+                Login
+              </Link>
+              <Link
+                to="/"
+                className="py-2 px-3  bg-slate-50 rounded border-black border-2 text-gray-700 font-semibold hover:bg-slate-200 hover:text-violet-500 transition duration-300"
+              >
+                Sign Up
+              </Link>
+            </div>
+          )}
+          {/* <div className="hidden md:flex items-center space-x-1">
             <Link
               to="/"
               className="py-5 px-3  text-gray-700 font-semibold hover:font-medium hover:text-black"
@@ -73,7 +139,7 @@ function Nav() {
             >
               Sign Up
             </Link>
-          </div>
+          </div> */}
           {/* botón de telefono */}
           <div className="md:hidden flex items-center">
             <button
@@ -146,27 +212,7 @@ function Nav() {
             />
           </svg>
 
-          <span className="pl-2">Turnos y Consultas</span>
-        </Link>
-        <Link
-          to="/work"
-          className="flex py-2 px-4 text-sm items-center bg-violet-200 hover:bg-violet-300 group hover:font-medium text-gray-700 hover:text-black transition duration-300"
-        >
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            fill="none"
-            viewBox="0 0 24 24"
-            strokeWidth="1.5"
-            stroke="currentColor"
-            className="w-6 h-6 text-gray-700  group-hover:text-black group-hover:bg-violet-300 group-hover:transition group-hover:duration-300 group-hover:font-medium "
-          >
-            <path
-              strokeLinecap="round"
-              strokeLinejoin="round"
-              d="M20.25 14.15v4.25c0 1.094-.787 2.036-1.872 2.18-2.087.277-4.216.42-6.378.42s-4.291-.143-6.378-.42c-1.085-.144-1.872-1.086-1.872-2.18v-4.25m16.5 0a2.18 2.18 0 00.75-1.661V8.706c0-1.081-.768-2.015-1.837-2.175a48.114 48.114 0 00-3.413-.387m4.5 8.006c-.194.165-.42.295-.673.38A23.978 23.978 0 0112 15.75c-2.648 0-5.195-.429-7.577-1.22a2.016 2.016 0 01-.673-.38m0 0A2.18 2.18 0 013 12.489V8.706c0-1.081.768-2.015 1.837-2.175a48.111 48.111 0 013.413-.387m7.5 0V5.25A2.25 2.25 0 0013.5 3h-3a2.25 2.25 0 00-2.25 2.25v.894m7.5 0a48.667 48.667 0 00-7.5 0M12 12.75h.008v.008H12v-.008z"
-            />
-          </svg>
-          <span className="pl-2">Trabajo</span>
+          <span className="pl-2">Consultas</span>
         </Link>
         <Link
           to="/"
