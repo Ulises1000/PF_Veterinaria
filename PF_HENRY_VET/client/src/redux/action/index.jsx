@@ -25,9 +25,9 @@ import {
     BY_ORDER_PRICE,
     BY_ORDER_STOCK, 
     GET_FAVORITES,
-    UPDATE_FAVORITE,
+    UPDATE_FAVORITE, 
     POST_FAVORITES,
-    
+    UPDATE_CARTDTAIL,
     POST_CARTDTAIL,
     UPDATE_CARTDTAIL,
     GET_CARTDTAIL,
@@ -35,7 +35,8 @@ import {
     DIFFERENT_OUTCOME,
     EMPTY_DIFFOUTCOME_OBJ,
     EMPTY_SHOPPINGCARTDTAIL,
-    EMPTY_SHOPPINGCARTDTAILMSG
+    EMPTY_SHOPPINGCARTDTAILMSG, 
+
 
 } from './constants';
 
@@ -195,21 +196,22 @@ export function updateProduct(productId, productData) {
         }
     };
 }
+/* export async function puebaconection(data){
+    console.log(data)
+    const prueb =  await axios.post("http://localhost:3001/products/prueba",data)
+} */
 
-export function postProductos(payload) {
-    console.log(payload)
-    try {
-      return async function (dispatch) {
-        var post = await axios.post("http://localhost:3001/products/post", payload);
-        return dispatch({
-          type: POST_PRODUCT,
-          payload: post.data,
+export function postProductos(data) {
+    console.log(data)     
+    return async (dispatch)=>{
+        const post = await axios.post("http://localhost:3001/products/post",data);
+        dispatch({
+            type: POST_PRODUCT,
+            payload: data,
         });
-      };
-    } catch (error) {
-      console.log(error + " >>> In actions/ posterRecipes()");
     }
-  }
+    
+}
 
 export function postProduct(productData) {
     return async function(dispatch) {
