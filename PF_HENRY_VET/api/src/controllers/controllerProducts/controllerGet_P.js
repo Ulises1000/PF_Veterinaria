@@ -10,4 +10,15 @@
 
  
 
-module.exports = {findProduct};
+ async function findProductos(nameProduct){
+    try{
+        return await  Product.findOne({
+            where:{name:nameProduct}
+        });
+    }catch(err){
+        throw new Error(err.message)
+    }
+}
+ 
+
+module.exports = {findProduct,findProductos};

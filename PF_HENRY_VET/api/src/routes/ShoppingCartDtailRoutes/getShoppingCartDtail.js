@@ -13,8 +13,9 @@ router.get("/get/:idCart", async (req, res) => {
         else {
             const info = await findAllDetailCartDetails(idCart);
             if(!info.length) res.status(200).json({
-                ok: true,
-                value: "No Hay Productos En El Carrito Todavia."    
+                ok: false,
+                msg: "No Hay Productos En El Carrito Todavia.",
+                detail: "No Se Encontraron Detalles De Carritos En La BD."    
             })
             else res.status(200).json({
                 ok: true,
