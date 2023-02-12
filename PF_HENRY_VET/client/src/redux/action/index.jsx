@@ -36,7 +36,8 @@ import {
     EMPTY_SHOPPINGCARTDTAIL,
     EMPTY_SHOPPINGCARTDTAILMSG,
     SEARCH_USERS_DASHBOARD, 
-    GET_USERS, 
+    GET_USERS,
+    SET_USER,
     POST_FAVORITES
 } from './constants';
 
@@ -666,5 +667,36 @@ export function EmptyShoppingCartDtail() {
 export function EmptyShoppingCartDtailMsg() {
     return {
         type: EMPTY_SHOPPINGCARTDTAILMSG
+    }
+}
+
+export function GetUser(name, password){
+    return async function() {
+        try {
+            const { data } = await axios.get(`${URL + Endpoints.user}get?name=${name}?password=${password}`);
+            return{
+                type: GET_USER,
+                payload: data,
+            }
+           
+        } catch (error) {
+            if (error.response) {
+                console.log(error.response.data);
+                console.log(error.response.status);
+                console.log(error.response.headers);
+            } else if (error.request) {
+                console.log(error.request);
+            } else {
+                console.log(error.message);
+            }
+            console.log(error.config);
+        }
+}
+}
+
+export function setUser(data){
+    return{
+        type: SET_USER,
+        payload:data,
     }
 }

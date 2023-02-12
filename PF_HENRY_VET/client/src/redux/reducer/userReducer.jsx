@@ -9,6 +9,7 @@ import {
     CLEAN_MSG_REGISTER_USER,
     POST_USER,
     UPDATE_USER,
+    SET_USER,
 } from "../action/constants";
 
 const initialState = {
@@ -71,7 +72,8 @@ export const userReducer = (state = initialState.user, action) => {
     //PORAHORA EL SIGNOUT SOLO DEVUELVE EL STATE PERO SI DESLOGUEA AL USUARIO EN FIREBASE
     case SIGNOUT_USER:
       return {
-        ...state
+        ...state,
+        user: {},
       };
     case CLEAN_MSG_REGISTER_USER: 
       return {
@@ -93,6 +95,11 @@ export const userReducer = (state = initialState.user, action) => {
         ...state,
         user: { ...state.user, ...action.payload },
       };
+      case SET_USER:
+        return{
+          ...state,
+          user:action.payload
+        }
     default:
       return state;
   }

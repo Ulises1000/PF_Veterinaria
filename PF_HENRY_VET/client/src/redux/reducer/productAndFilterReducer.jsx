@@ -32,6 +32,7 @@ const initialState = {
   currentSize: "petSize",
   currentSearch: "",
   searchedProducts: [],
+  currentFilter: "",
   filteredProducts: [],
   filteredProductsBySize: [],
   orderedByNameProducts: [],
@@ -42,7 +43,6 @@ const initialState = {
  export const searchDashb = (state = initialState, action) => {
   switch (action.type) {
     case SEARCH_PRO_DASHBOARD:
-      console.log(action.payload)
     let filterProd = state.filterProducts.filter((us) => us.name.toLowerCase().includes(action.payload.toLowerCase()));
        return {
         ...state,
@@ -118,7 +118,7 @@ case SEARCH_PRO_DASHBOARD:
         breedType: "breedType",
       };
       let productsBreed = []
-      if(state.orderedProducts.length === 0 && state.filteredProductsBySize.length === 0 && state.searchedProducts.length === 0){
+      if(state.orderedProducts.length === 0 && state.filteredProductsBySize.length === 0 && state.searchedProducts.length === 0 && state.currentFilter === 0 || state.currentFilter === ""){
         let filteredProductsBreed = state.products
         if (action.payload === "perro" || "gato-perro" || "gato") {
           filtersBreed.breedType = action.payload;
@@ -169,7 +169,28 @@ case SEARCH_PRO_DASHBOARD:
           }
         }
       }
-      else if(state.filteredProductsBySize.length > 0){
+      else if(state.filteredProducts.length > 0 && state.currentFilter === 0){
+        let filteredProductsBreed = state.filteredProducts
+        console.log(filteredProductsBreed, "CHE QUE ONDA")
+        if (action.payload === "perro" || "gato-perro" || "gato") {
+          filtersBreed.breedType = action.payload;
+          if (filtersBreed.breedType !== "breedType" || filtersBreed.breedType !== undefined) {
+
+            productsBreed = filteredProductsBreed.filter((product) => {
+              for (let i = 0; i < product.breedType.length; i++) {
+                if (product.breedType[i] ===  action.payload) {
+                  return productsBreed.push(product);
+                }
+              }
+              return 0;
+            });
+            if(productsBreed.length === 0){
+              productsBreed.push("Nada")
+            }
+          }
+        }
+      }
+      else if(state.filteredProductsBySize.length > 0 && state.currentFilter === 1){
         let filteredProductsBreed = state.filteredProductsBySize
         if (action.payload === "perro" || "gato-perro" || "gato") {
           filtersBreed.breedType = action.payload;
@@ -183,6 +204,9 @@ case SEARCH_PRO_DASHBOARD:
               }
               return 0;
             });
+            if(productsBreed.length === 0){
+              productsBreed.push("Nada")
+            }
           }
         }
       }
@@ -205,18 +229,22 @@ case SEARCH_PRO_DASHBOARD:
           }
         }
       }
-      
+      console.log(productsBreed, state.currentFilter, "EL PRODU")
       return {
         ...state,
+        currentFilter: 0,
         currentBreed: filtersBreed.breedType,
         filteredProducts: productsBreed,
         // currentPage: 1,
       };
 
       case FILTEREDSIZE:
+        let stateCurrentFilter = state.currentFilter 
+        let currentFilterSize = 1;
         let filtersSize = {
           petSize: "petSize",
         };
+
         let productsSize = []
         if(state.orderedProducts.length === 0 && state.filteredProducts.length === 0 && state.searchedProducts.length === 0){
           let filteredProductsSize = state.products
@@ -269,7 +297,7 @@ case SEARCH_PRO_DASHBOARD:
             }
           }
         }
-        else if(state.filteredProducts.length > 0){
+        else if(state.filteredProducts.length > 0 && state.currentFilter === 0){
         state.currentOrder = "Static"
           let filteredProductsSize = state.filteredProducts
           if (action.payload === "pequeño" || "todos " || "mediana" || "grande") {
@@ -310,6 +338,7 @@ case SEARCH_PRO_DASHBOARD:
 
         return {
           ...state,
+          currentFilter: currentFilterSize,
           currentSize: filtersSize.petSize,
           filteredProductsBySize: productsSize,
           // currentPage: 1,
@@ -499,6 +528,11 @@ case SEARCH_PRO_DASHBOARD:
       const pageSize = 15;
       let pageHolder = [];
       
+      if (state.currentFilter === 1 || state.currentFilter === 0 && state.filteredProductsBySize.length === 0 || state.filteredProducts.length === 0 ){
+        console.log("PAGE ES []")
+        const page = []
+        pageHolder.push(page)
+      }
       
       if(state.filteredProducts.length !== 0 && state.currentOrder !== "Static" ){
         const page = state.orderedProducts;
@@ -509,12 +543,12 @@ case SEARCH_PRO_DASHBOARD:
         pageHolder.push(page)
       }
       
-      else if (state.filteredProductsBySize.length !== 0){
+      else if (state.filteredProductsBySize.length !== 0 && state.currentFilter === 1){
         const page = state.filteredProductsBySize
         pageHolder.push(page)
       }
       
-      else if (state.filteredProducts.length !== 0){
+      else if (state.filteredProducts.length !== 0 && state.currentFilter === 0){
         const page = state.filteredProducts
         pageHolder.push(page)
       }

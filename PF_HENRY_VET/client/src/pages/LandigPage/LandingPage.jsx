@@ -17,7 +17,7 @@
 
 // export default LandingPage;
 
-import React from "react";
+import React, { useEffect } from "react";
 import logo from "../../style-assets/logo-sin-fondo.png";
 import icon from "../../style-assets/paw_icon.png";
 import { Registration } from "../../components/registration/Registration";
@@ -27,7 +27,7 @@ import { Link } from "react-router-dom";
 
 import "./landingPage.module.css";
 
-export default function LandingPage({ Navset }) {
+export default function LandingPage({ hayUser }) {
   const modal = document.querySelector("#modal");
   console.log("Esto es Modal ===", modal);
   const openModal = document.querySelector(".bottomIcon");

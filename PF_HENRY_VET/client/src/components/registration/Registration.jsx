@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 
 import "./registration.Module.css";
-import { registerUser, signinUser } from "../../redux/action";
+import { GetUser, registerUser, signinUser } from "../../redux/action";
 
 function validate(input, userTyped) {
   let errors = {};
@@ -116,6 +116,10 @@ export function Registration({ Navset }) {
     confirmedPassword: "",
   });
 
+useEffect(() =>{
+  localStorage
+},[localStorage])
+
   function handleChangeRegistration(e) {
     setInputRegistration({
       ...inputRegistration,
@@ -142,10 +146,13 @@ export function Registration({ Navset }) {
 //--------------------------------------------------------
   function handleSubmitNewGame(e){
     e.preventDefault();
-    registrationChange === "registration" ? 
-    dispatch(registerUser(inputRegistration))
-    :
-    dispatch(signinUser(inputLogin))
+    if(registrationChange === "registration"){
+      dispatch(registerUser(inputRegistration))
+      dispatch()
+    }  
+    else {
+      dispatch(signinUser(inputLogin))
+    }
   }
 //--------------------------------------------------------
   function handleChangeLogin(e) {
@@ -172,6 +179,11 @@ export function Registration({ Navset }) {
     );
   }
 
+  dispatch(GetUser(userTyped.email, userTyped.password))
+  const user = useSelector((state) => state.user)
+  console.log(user)
+
+  
   if (registrationChange === "registration") {
     return (
       <div className="flex flex-1 flex-col justify-center items-center sm:w-72 md:w-450px md:h-450px -ml-10 md:-ml-0 bg-Dark-Violet2 rounded-xl">

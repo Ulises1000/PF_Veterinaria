@@ -1,11 +1,19 @@
 import React, { useState } from "react";
 import logo_only from "../media/OnlyPetsLogo.jpg";
 import { Link } from "react-router-dom";
+import { useDispatch } from "react-redux";
+import { signoutUser } from "../redux/action";
 // import logo_user from "../media/avatar.png";
 
-function Nav() {
+function Nav({ hayUser }) {
+  const dispatch = useDispatch()
   const [burgerbutton, setBurgerbutton] = useState(false);
+  const [visibilidad, setVisibilidad] = useState(false);
 
+  let userLocal = ""
+  if(localStorage.userPetShop){
+    userLocal = JSON.parse(localStorage.userPetShop).data;
+  }
   // useEffect(() =>{
   //     const btn = document.querySelector("button.mobile-menu-button")
   //     const menu = document.querySelector(".mobile-menu")
@@ -14,6 +22,23 @@ function Nav() {
   //     menu.classList.toggle("hidden")
   //         })
   // },[]);
+
+  function populateStorage() {
+    localStorage.setItem('bgcolor', 'red');
+    localStorage.setItem('font', 'Helvetica');
+    localStorage.setItem('userPetShop', '');
+  
+    localStorage.removeItem('image');
+  }
+
+  function HandleLogout() {
+    localStorage.removeItem("userPetShop")
+    dispatch(signoutUser())
+    window.location.reload(true)
+    hayUser = ""
+    userLocal= ""
+    // console.log(localStorage, "esto")
+  }
 
   return (
     // nav aca
@@ -45,16 +70,70 @@ function Nav() {
               >
                 Consultas
               </Link>
-              <Link
-                to="/profile"
-                className="py-4 px-3 text-gray-700 hover:font-medium hover:text-black"
-              >Perfil
-              </Link>
             </div>
           </div>
 
           {/* nav secundario */}
-          <div className="hidden md:flex items-center space-x-1">
+          {userLocal || hayUser ? (
+            <div className="hidden md:flex justify-center">
+              {userLocal || localStorage.userPetShop ? (
+                <div className="relative inline-block">
+                  <button onClick={() => {
+                    console.log(userLocal, hayUser, localStorage)
+                      setVisibilidad(!visibilidad);
+                    }} className="bg-Dark-Violet mt-5 text-white  p-4 text-base border-0">
+                    {userLocal.email}
+                  <div
+                    
+                    className={`${
+                      visibilidad === false ? "hidden" : "show"
+                    } absolute right-0.5 top-16 bg-violet-300  w-full h-46 `}
+                  >
+                    <div className="flex flex-col ">
+                    <Link to="/profile" className="text-black p-2 hover:text-gray-300 block">
+                      Perfil
+                    </Link>
+                    <div className="hover:text-red-400">
+                    <p className="p-2 bg-red-700" onClick={() => populateStorage()}>Logout</p>
+                    </div>
+                    </div>
+                  </div>
+                  </button>
+                </div>
+              ) : (
+                <div className="hidden md:flex items-center space-x-1">
+              <Link
+                to="/"
+                className="py-5 px-3  text-gray-700 font-semibold hover:text-white"
+              >
+                Login
+              </Link>
+              <Link
+                to="/"
+                className="py-2 px-3  bg-slate-50 rounded border-black border-2 text-gray-700 font-semibold hover:bg-slate-200 hover:text-violet-500 transition duration-300"
+              >
+                Sign Up
+              </Link>
+            </div>
+              )}
+            </div>
+          ) : (
+            <div className="hidden md:flex items-center space-x-1">
+              <Link
+                to="/"
+                className="py-5 px-3  text-gray-700 font-semibold hover:text-white"
+              >
+                Login
+              </Link>
+              <Link
+                to="/"
+                className="py-2 px-3  bg-slate-50 rounded border-black border-2 text-gray-700 font-semibold hover:bg-slate-200 hover:text-violet-500 transition duration-300"
+              >
+                Sign Up
+              </Link>
+            </div>
+          )}
+          {/* <div className="hidden md:flex items-center space-x-1">
             <Link
               to="/"
               className="py-5 px-3  text-gray-700 font-semibold hover:font-medium hover:text-black"
@@ -67,7 +146,7 @@ function Nav() {
             >
               Sign Up
             </Link>
-          </div>
+          </div> */}
           {/* botón de telefono */}
           <div className="md:hidden flex items-center">
             <button

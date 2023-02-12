@@ -6,13 +6,16 @@ import loader from "../../style-assets/paw_icon.png";
 import "./Home.module.css";
 import bannerDog from "../../media/bannerDog.png"
 
-const Home = () => {
+const Home = ({hayUser}) => {
   const [loading, setLoading] = useState(false);
   useEffect(() => {
     setLoading(true);
     setTimeout(() => {
       setLoading(false);
     }, 2000);
+    console.log(localStorage, "Woah")
+    console.log(hayUser, "Woah 2")
+
   }, []);
 
   if (loading) {
@@ -27,7 +30,7 @@ const Home = () => {
   return (
 
       <div className="h-auto w-full bg-patas -mt-20 overflow-x-hidden">
-        <Nav />
+        <Nav user = {hayUser}/>
 
         <div className="flex flex-row  w-full space-y-36 md:space-y-5 md:mr-28 mt-10 md:mt-40  space-x-3 items-center justify-around">
           <div className="sm:mt-40 md:mt-10 hidden md:flex flex-col md:visible">

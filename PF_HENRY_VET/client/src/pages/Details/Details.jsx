@@ -9,18 +9,11 @@ const Details = () => {
   const dispatch = useDispatch();
   const product = useSelector((state) => state.products.product);
   const { id } = useParams();
-  console.log(product);
   useEffect(() => {
     dispatch(getProduct(id));
   }, [dispatch, id]);
 
-  console.log(product);
-
-  const str = product.breedType[1]
-    ? product.breedType[0] && product.breedType[1]
-    : product.breedType[0];
-  const str2 = str.charAt(0).toUpperCase() + str.slice(1);
-
+  console.log(localStorage.userPetShop, "here user === undefined") 
   if (!product) {
     return (
       <div className="flex items-center justify-center bg-patas flex-col h-screen w-screen absolute">
@@ -31,7 +24,7 @@ const Details = () => {
   }
 
   return (
-    <div>
+    <div className="bg-patas">
       <div className="h-14">
         <Nav />
       </div>
@@ -49,7 +42,7 @@ const Details = () => {
               do eiusmod tempor incididunt ut <br />
               labore et dolore magna aliqua.
             </p>
-          <p>Para: {str2}</p>
+          <p>Para: {product.breedType}</p>
           </p>
           <div className="flex flex-row justify-around items-center space-y-20">
           <p className="mt-20">Stock: {product.stock}</p>
