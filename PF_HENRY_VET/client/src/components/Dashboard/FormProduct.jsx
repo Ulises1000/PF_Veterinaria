@@ -37,7 +37,20 @@ function FormProduct(){
         }))  
   
     } 
+
+    
+    function handleSelect(e){
+        console.log(e.target.name)
+        const newValue = {value:e.target.value}
+        setInputProducto((previnput)=>{
+            return{
+                ...previnput,
+                [e.target.name]:[...new Set([...previnput[e.target.name],e.target.value])]
+            }
+        })
+    }
  
+    
     const handleSubmit = (e) => {
         e.preventDefault()
         if (!inputProductos.name) {
@@ -104,20 +117,27 @@ function FormProduct(){
                     {(errors.stock && <p className="error">{errors.stock}</p>)} 
                 </div> 
 
-                {/* <label className="labels">Tamaño</label>
-                <div className="inputsForm">
-                    <input placeholder="Tamaño" type="text" name="petSize" value={inputProductos.petSize} onChange={(e) => handleChange(e)} className="bg-gray-200 appearance-none border-2 border-gray-200 rounded w-full py-2 px-4 text-gray-700 leading-tight focus:outline-none focus:bg-white focus:border-purple-500"/> <br/> 
-                 
-                </div>  
+                
+                <label>Tamaño</label>
+                <div>
+                  <select name="petSize" onChange={(e)=> handleSelect(e)}>
+                    <option>Todos</option>
+                    <option>Pequena</option>
+                    <option>Mediana</option>
+                    <option>Grande</option>
+                  </select>                    
+                </div>   
 
-                <label className="labels">Raza </label>
-                <div className="inputsForm">
-                    <input placeholder="Raza" type="text" name="breedType" value={inputProductos.breedType} onChange={(e) => handleChange(e)} className="bg-gray-200 appearance-none border-2 border-gray-200 rounded w-full py-2 px-4 text-gray-700 leading-tight focus:outline-none focus:bg-white focus:border-purple-500"/> <br/> 
-                    <select>
-                        <option>perro</option>
-                        <option>gato</option>
-                    </select>
-                </div>      */}
+                <label>Raza</label>
+                <div>
+                  <select name="breedType" onChange={(e)=> handleSelect(e)}>
+                    <option>Todos</option>
+                    <option>Perro</option>
+                    <option>Gato</option>
+                  </select>
+                    
+                </div>    
+              
               
                  
         
