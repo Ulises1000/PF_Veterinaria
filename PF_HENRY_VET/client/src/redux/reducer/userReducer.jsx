@@ -14,6 +14,7 @@ import {
 
 const initialState = {
     user: {},
+    msgDeletedUser: "",
     infoRegistration: {},
     userMsgErrorRegistrationAndSignin: "",
 }
@@ -23,7 +24,7 @@ export const userReducer = (state = initialState.user, action) => {
     case GET_USER:
       return {
         ...state,
-        user: action.payload,
+        user: action.payload.value,
       };
     case REGISTER_USER:
       return {
@@ -83,7 +84,7 @@ export const userReducer = (state = initialState.user, action) => {
     case DELETE_USER:
       return {
         ...state,
-        user: {},
+        msgDeletedUser: action.payload
       };
     case POST_USER:
       return {
@@ -93,7 +94,7 @@ export const userReducer = (state = initialState.user, action) => {
     case UPDATE_USER:
       return {
         ...state,
-        user: { ...state.user, ...action.payload },
+        user: action.payload,
       };
       case SET_USER:
         return{

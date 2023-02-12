@@ -21,6 +21,7 @@ import {
     FILTEREDSIZE,
     SORT,
     SEARCH_PRO_DASHBOARD,
+    SEARCH_USERS_DASHBOARD,
     BY_ORDER,
     BY_ORDER_PRICE,
     BY_ORDER_STOCK, 
@@ -28,6 +29,7 @@ import {
     UPDATE_FAVORITE,
     UPDATE_CARTDTAIL,
     POST_CARTDTAIL,
+    UPDATE_CARTDTAIL,
     GET_CARTDTAIL,
     DELETE_CARTDTAIL,
     DIFFERENT_OUTCOME,
@@ -196,21 +198,22 @@ export function updateProduct(productId, productData) {
         }
     };
 }
+/* export async function puebaconection(data){
+    console.log(data)
+    const prueb =  await axios.post("http://localhost:3001/products/prueba",data)
+} */
 
-export function postProductos(payload) {
-    console.log(payload)
-    try {
-      return async function (dispatch) {
-        var post = await axios.post("http://localhost:3001/products/post", payload);
-        return dispatch({
-          type: POST_PRODUCT,
-          payload: post.data,
+export function postProductos(data) {
+    console.log(data)     
+    return async (dispatch)=>{
+        const post = await axios.post("http://localhost:3001/products/post",data);
+        dispatch({
+            type: POST_PRODUCT,
+            payload: data,
         });
-      };
-    } catch (error) {
-      console.log(error + " >>> In actions/ posterRecipes()");
     }
-  }
+    
+}
 
 export function postProduct(productData) {
     return async function(dispatch) {
@@ -264,10 +267,12 @@ export function registerUser(values){
     return async (dispatch) => {
         try{
             const info = await axios.post(`${URL + Endpoints.user}register`, values);
+            /* 
             dispatch({
                 type: REGISTER_USER,
                 payload: info
             });
+            */
         }catch(err){
             dispatch({
                 type: REGISTER_ERRORS,
@@ -280,10 +285,31 @@ export function signinUser(values){
     return async (dispatch) => {
         try{
             const info = await axios.post(`${URL + Endpoints.user}signin`, values);
+            /*
             dispatch({
                 type: SIGNIN_USER,
                 payload: info
             });
+            */
+        }catch(err){
+            dispatch({
+                type: SIGNIN_ERRORS,
+                payload: err
+            });
+        }
+    }
+}
+export function signinUserWithGoogle(values){
+    return async (dispatch) => {
+        try{
+            const info = await axios.post(`${URL + Endpoints.user}signinGoogle`, values);
+            window.alert(info);
+            /*
+            dispatch({
+                type: SIGNIN_USER,
+                payload: info
+            });
+            */
         }catch(err){
             dispatch({
                 type: SIGNIN_ERRORS,
@@ -296,10 +322,12 @@ export function signoutUser(){
     return async (dispatch) => {
         try{
             const info = await axios.post(`${URL + Endpoints.user}signout`);
+            /*
             dispatch({
                 type: SIGNOUT_USER,
                 payload: info
             });
+            */
         }catch(err){
             dispatch({
                 type: SIGNIN_ERRORS,
@@ -317,10 +345,10 @@ export function cleanMsgRegisterUser(){
 export function deleteUser(userId) {
     return async function(dispatch) {
         try {
-            await axios.delete(`${URL + Endpoints.user}unsubscribe/${userId}`);
-            dispatch({
+            const {data} = await axios.delete(`${URL + Endpoints.user}unsubscribe/${userId}`);
+            if(data.ok) dispatch({
                 type: DELETE_USER,
-                payload: userId,
+                payload: data.value,
             });
         } catch (error) {
             if (error.response) {
@@ -343,7 +371,7 @@ export function postUser(userData) {
             const { data } = await axios.post(`${URL + Endpoints.user}post`, userData);
             dispatch({
                 type: POST_USER,
-                payload: data,
+                payload: data.value,
             });
         } catch (error) {
             if (error.response) {
@@ -364,9 +392,9 @@ export function updateUser(userId, userData) {
     return async function(dispatch) {
         try {
             const { data } = await axios.put(`${URL + Endpoints.user}update/${userId}`, userData);
-            dispatch({
+            if(data.ok) dispatch({
                 type: UPDATE_USER,
-                payload: data,
+                payload: data.value,
             });
         } catch (error) {
             if (error.response) {

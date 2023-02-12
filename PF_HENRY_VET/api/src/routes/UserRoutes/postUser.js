@@ -52,9 +52,11 @@ router.post("/post", async (req, res) => {
                 {public_id: createdUser.image_U}
             )
 
+            const user = await axios.get(`http://localhost:3001/users/get?email=${email}&password=${password}`);
+
             res.status(200).json({
                 ok: true,
-                value: "Se ha Agregado El Usuario."
+                value: user
             });
         }
     }catch(err){

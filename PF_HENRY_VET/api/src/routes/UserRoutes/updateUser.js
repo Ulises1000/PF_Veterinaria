@@ -1,6 +1,7 @@
 const {Router} = require("express");
 const {User} = require("../../db");
 const {findUser, addNewValuesToAnObj} = require("../../controllers/controllerUsers/controllerUpdate");
+const axios = require("axios");
 const router = Router();
 
 router.put("/update", async (req, res) => {
@@ -22,9 +23,11 @@ router.put("/update", async (req, res) => {
                 }
             })
     
+            const newUser = await axios.get(`http://localhost:3001/users/get?email=${email}&password=${password}`);
+
             res.status(200).json({
                 ok: true,
-                value: "Se ha Modificado El Usuario."
+                value: newUser
             });
         }
     }catch(err){
