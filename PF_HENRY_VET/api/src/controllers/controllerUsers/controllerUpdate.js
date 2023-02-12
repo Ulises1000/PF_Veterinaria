@@ -13,7 +13,7 @@ async function findUser(idUser){
 function addNewValuesToAnObj(newValues){
     let newObj = {};
     for(let prop in newValues){
-        if(newValues[prop]) newObj[prop] = newValues[prop];
+        if(prop !== "email_U" && prop !== "idUser" && newValues[prop]) newObj[prop] = newValues[prop];
     }
     return newObj;
 }
