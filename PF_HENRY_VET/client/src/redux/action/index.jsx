@@ -20,16 +20,16 @@ import {
     FILTERED,
     SORT,
     SEARCH_PRO_DASHBOARD,
+    SEARCH_USERS_DASHBOARD,
     BY_ORDER,
     BY_ORDER_PRICE,
     BY_ORDER_STOCK, 
     GET_FAVORITES,
     UPDATE_FAVORITE,
-<<<<<<< HEAD
     POST_FAVORITES,
-
-    UPDATE_CARTDTAIL,
+    
     POST_CARTDTAIL,
+    UPDATE_CARTDTAIL,
     GET_CARTDTAIL,
     DELETE_CARTDTAIL,
     DIFFERENT_OUTCOME,
@@ -37,11 +37,6 @@ import {
     EMPTY_SHOPPINGCARTDTAIL,
     EMPTY_SHOPPINGCARTDTAILMSG
 
-=======
-    SEARCH_USERS_DASHBOARD, 
-    GET_USERS, 
-    POST_FAVORITES
->>>>>>> 914e1cd4aa7724f1d772a5099cdb0b14539a599f
 } from './constants';
 
 /* ruta + endpoints */
@@ -268,10 +263,12 @@ export function registerUser(values){
     return async (dispatch) => {
         try{
             const info = await axios.post(`${URL + Endpoints.user}register`, values);
+            /* 
             dispatch({
                 type: REGISTER_USER,
                 payload: info
             });
+            */
         }catch(err){
             dispatch({
                 type: REGISTER_ERRORS,
@@ -284,10 +281,31 @@ export function signinUser(values){
     return async (dispatch) => {
         try{
             const info = await axios.post(`${URL + Endpoints.user}signin`, values);
+            /*
             dispatch({
                 type: SIGNIN_USER,
                 payload: info
             });
+            */
+        }catch(err){
+            dispatch({
+                type: SIGNIN_ERRORS,
+                payload: err
+            });
+        }
+    }
+}
+export function signinUserWithGoogle(values){
+    return async (dispatch) => {
+        try{
+            const info = await axios.post(`${URL + Endpoints.user}signinGoogle`, values);
+            window.alert(info);
+            /*
+            dispatch({
+                type: SIGNIN_USER,
+                payload: info
+            });
+            */
         }catch(err){
             dispatch({
                 type: SIGNIN_ERRORS,
@@ -300,10 +318,12 @@ export function signoutUser(){
     return async (dispatch) => {
         try{
             const info = await axios.post(`${URL + Endpoints.user}signout`);
+            /*
             dispatch({
                 type: SIGNOUT_USER,
                 payload: info
             });
+            */
         }catch(err){
             dispatch({
                 type: SIGNIN_ERRORS,
@@ -321,10 +341,10 @@ export function cleanMsgRegisterUser(){
 export function deleteUser(userId) {
     return async function(dispatch) {
         try {
-            await axios.delete(`${URL + Endpoints.user}unsubscribe/${userId}`);
-            dispatch({
+            const {data} = await axios.delete(`${URL + Endpoints.user}unsubscribe/${userId}`);
+            if(data.ok) dispatch({
                 type: DELETE_USER,
-                payload: userId,
+                payload: data.value,
             });
         } catch (error) {
             if (error.response) {
@@ -347,7 +367,7 @@ export function postUser(userData) {
             const { data } = await axios.post(`${URL + Endpoints.user}post`, userData);
             dispatch({
                 type: POST_USER,
-                payload: data,
+                payload: data.value,
             });
         } catch (error) {
             if (error.response) {
@@ -368,9 +388,9 @@ export function updateUser(userId, userData) {
     return async function(dispatch) {
         try {
             const { data } = await axios.put(`${URL + Endpoints.user}update/${userId}`, userData);
-            dispatch({
+            if(data.ok) dispatch({
                 type: UPDATE_USER,
-                payload: data,
+                payload: data.value,
             });
         } catch (error) {
             if (error.response) {

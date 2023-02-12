@@ -4,10 +4,10 @@ const cloudinary = require("../../cloudinaryConfig/cloudinaryConfig");
 const {findUser} = require("../../controllers/controllerUsers/controllerGet");
 
 router.get("/get", async (req, res) => {
-    const {name, password} = req.query;
+    const {email, password} = req.query;
     try{
-        if(name && password){
-            const info = await findUser(name, password);
+        if(email && password){
+            const info = await findUser(email, password);
             if(!info.length) res.status(200).json({
                 ok: false,
                 msg: "No Se Ha Encontrado El Usuario.",
@@ -26,7 +26,7 @@ router.get("/get", async (req, res) => {
                     value: user
                 })
             }
-        }else if(name) {
+        }else if(email) {
             res.status(200).json({
                 ok: false,
                 msg: "Se Tienen Que Ingresar Todos Los Datos.",
@@ -35,7 +35,7 @@ router.get("/get", async (req, res) => {
         }else res.status(200).json({
             ok: false,
             msg: "Se Tienen Que Ingresar Todos Los Datos.",
-            detail: "Falta El Nombre."    
+            detail: "Falta El Mail."    
         })
     }catch(err){
         res.status(404).send({
