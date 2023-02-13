@@ -155,7 +155,7 @@ export default function UserProfile({ hayUser }) {
   return (
     <div className="flex absolute top-0 left-0 -z-10 items-center justify-center w-screen h-screen bg-patas">
       <Nav user={usuarioLocal} />
-      <div className="flex p-8 border rounded-xl border-black">
+      <div className="flex flex-col md:flex-row w-72 md:p-8 border rounded-xl border-black">
         <div className="space-y-3 pr-3">
           <div className="flex w-72">
             <h1 className="pr-2 font-semibold">Username:</h1>

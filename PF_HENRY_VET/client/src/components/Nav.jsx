@@ -258,7 +258,31 @@ function Nav({ user }) {
 
           <span className="pl-2">Consultas</span>
         </Link>
+
+        {usuarioLocal ? <div>
+         
         <Link
+          to="/profile"
+          className="flex py-2 px-4 text-sm items-center bg-violet-200  hover:bg-violet-500 text-gray-700 group hover:text-white transition duration-300"
+        >
+         <img 
+           className="logo_only w-6 h-6 rounded-xl"
+           src={usuarioLocal.url}
+           alt=""/>
+          <span className="pl-2">Profile: {usuarioLocal.name_U}</span>
+        </Link>
+        <Link
+          to="/"
+          onClick={() => HandleLogout()}
+          className="flex py-2 px-4 text-sm items-center bg-violet-200 hover:bg-violet-300 group hover:font-medium text-gray-700 hover:text-black transition duration-300"
+        >      
+          <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-6 h-6">
+  <path strokeLinecap="round" strokeLinejoin="round" d="M15.75 9V5.25A2.25 2.25 0 0013.5 3h-6a2.25 2.25 0 00-2.25 2.25v13.5A2.25 2.25 0 007.5 21h6a2.25 2.25 0 002.25-2.25V15M12 9l-3 3m0 0l3 3m-3-3h12.75" />
+</svg>
+
+          <span className="pl-2">Logout</span>
+        </Link>
+        </div> : <div><Link
           to="/"
           className="flex py-2 px-4 text-sm items-center bg-violet-200 hover:bg-violet-300 group hover:font-medium text-gray-700 hover:text-black transition duration-300"
         >
@@ -299,7 +323,8 @@ function Nav({ user }) {
           </svg>{" "}
           <span className="pl-2">Sign Up</span>
         </Link>
-      </div>
+      </div>}
+       </div>
     </nav>
   );
 }
