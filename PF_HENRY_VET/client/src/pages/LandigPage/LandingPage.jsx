@@ -23,7 +23,7 @@ import icon from "../../style-assets/paw_icon.png";
 import { Registration } from "../../components/registration/Registration";
 import { useState } from "react";
 
-import { Link } from "react-router-dom";
+import { Link, NavLink } from "react-router-dom";
 
 import "./landingPage.module.css";
 import { useSelector } from "react-redux";

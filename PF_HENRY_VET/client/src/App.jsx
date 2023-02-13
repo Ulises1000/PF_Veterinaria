@@ -30,7 +30,7 @@ function App() {
       //:
       <div className="App bg-patas w-full">
         <Routes>
-        <Route exact path="/" element={localStorage.userPetShop || user ? <Navigate to="/home"/> :  <LandingPage />} />
+        <Route exact path="/" element={localStorage.userPetShop || user ? <Navigate to="/home"/> : <LandingPage />} />
           
         {console.log(user, "esto es el user diomeo")}
         {/* <Route path="/hayUserProfile" element={hayUser.name || hayUser.emails ? <hayUserProfile hayUser={hayUser}/>:<Navigate to="/login" />}/> */}
