@@ -9,6 +9,7 @@ import {
     CLEAN_MSG_REGISTER_USER,
     POST_USER,
     UPDATE_USER,
+    SET_USER,
 } from "../action/constants";
 
 const initialState = {
@@ -27,8 +28,8 @@ export const userReducer = (state = initialState.user, action) => {
       };
     case REGISTER_USER:
       return {
-        ...state,
-        infoRegistration: action.payload,
+        ...state
+        // infoRegistration: action.payload,
       };
     case SIGNIN_USER:
       return {
@@ -73,7 +74,7 @@ export const userReducer = (state = initialState.user, action) => {
     case SIGNOUT_USER:
       return {
         ...state,
-        user: {}
+        user: {},
       };
     case CLEAN_MSG_REGISTER_USER: 
       return {
@@ -95,6 +96,11 @@ export const userReducer = (state = initialState.user, action) => {
         ...state,
         user: action.payload,
       };
+      case SET_USER:
+        return{
+          ...state,
+          user:action.payload
+        }
     default:
       return state;
   }
