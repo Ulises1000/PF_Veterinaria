@@ -67,6 +67,12 @@ function Nav({ user }) {
               >
                 Consultas
               </Link>
+              <Link
+                to="/dashboard"
+                className="py-4 px-3 text-gray-700 font-semibold hover:font-medium hover:text-black"
+              >
+                Dashboard
+              </Link>
             </div>
           </div>
 

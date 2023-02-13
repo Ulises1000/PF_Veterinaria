@@ -27,7 +27,6 @@ import {
   GET_FAVORITES,
   UPDATE_FAVORITE,
   POST_CARTDTAIL,
-  UPDATE_CARTDTAIL,
   GET_CARTDTAIL,
   DELETE_CARTDTAIL,
   DIFFERENT_OUTCOME,
@@ -181,6 +180,7 @@ export function deleteProduct(codProduct) {
 }
 
 export function updateProduct(productId, productData) {
+  console.log(productId, productData);
   return async function (dispatch) {
     try {
       const { data } = await axios.put(
@@ -211,7 +211,6 @@ export function updateProduct(productId, productData) {
 } */
 
 export function postProductos(data) {
-  console.log(data);
   return async (dispatch) => {
     const post = await axios.post("http://localhost:3001/products/post", data);
     dispatch({

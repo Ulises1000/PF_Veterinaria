@@ -37,10 +37,7 @@ import { sort } from "../action";
 const initialState = {
   products: [],
   product: {},
-  user: {},
-  infoRegistration: {},
-  userMsgErrorRegistrationAndSignin: "",
-  favorites: [],
+  productosedit: {},
   filterProducts: [],
   currentOrder: "Static",
   currentBreed: "breedType",
@@ -212,6 +209,16 @@ export const filters = (state = initialState, action) => {
         OrdeProductsDashb: action.payload,
       };
     }
+    case GET_PRODUCT:
+      return {
+        ...state,
+        product: action.payload,
+      };
+    case POST_PRODUCT:
+      return {
+        ...state,
+        products: action.payload.value,
+      };
     case SEARCH_PRO_DASHBOARD:
       let filterProd = state.filterProducts.filter((us) =>
         us.name.toLowerCase().includes(action.payload.toLowerCase())
@@ -220,6 +227,7 @@ export const filters = (state = initialState, action) => {
         ...state,
         products: filterProd,
       };
+
     case FILTERED:
       let filteredProducts = state.orderedProducts;
       let filters = {

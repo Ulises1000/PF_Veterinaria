@@ -27,7 +27,7 @@ function App() {
     }
   }, [user, hayUser]);
 
-  console.log(parserStorage, "parserStorage");
+  console.log(localStorage.userPetShop, "localStorage.userPetShop");
   return (
     //:
     <div className="App bg-patas w-full">
@@ -36,13 +36,13 @@ function App() {
           exact
           path="/"
           element={
-            // localStorage.userPetShop.isAdmin === false || user ? (
-            //   <Navigate to="/home" />
-            // ) : localStorage.userPetShop.isAdmin === true || user ? (
-            //   <Navigate to="/dashboard" />
-            // ) : (
-            <LandingPage />
-            // )
+            localStorage.userPetShop || user ? (
+              <Navigate to="/home" />
+            ) : localStorage.userPetShop || user ? (
+              <Navigate to="/dashboard" />
+            ) : (
+              <LandingPage />
+            )
           }
         />
 
@@ -54,7 +54,7 @@ function App() {
           exact
           path="/details/:id"
           element={
-            localStorage.userPetShop.isAdmin === false || user ? (
+            localStorage.userPetShop || user ? (
               <Details hayUser={hayUser} />
             ) : (
               <Navigate to="/" />
@@ -65,7 +65,7 @@ function App() {
           exact
           path="/profile"
           element={
-            localStorage.userPetShop.isAdmin === false || user ? (
+            localStorage.userPetShop || user ? (
               <UserProfile hayUser={hayUser} />
             ) : (
               <Navigate to="/" />
@@ -88,7 +88,7 @@ function App() {
           exact
           path="/dashboard"
           element={
-            localStorage.userPetShop.isAdmin === true ? (
+            localStorage.userPetShop || user ? (
               <DashBoard hayUser={hayUser} />
             ) : (
               <Navigate to="/" />
@@ -99,7 +99,7 @@ function App() {
           exact
           path="/formproduct"
           element={
-            localStorage.userPetShop.isAdmin === true ? (
+            localStorage.userPetShop || user ? (
               <FormProduct hayUser={hayUser} />
             ) : (
               <Navigate to="/" />
