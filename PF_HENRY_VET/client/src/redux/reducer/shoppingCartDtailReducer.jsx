@@ -15,7 +15,10 @@ export const shoppingInitialState = {
   differentOutcome: {},
 };
 
-export const shoppingCartDtailReducer = (state = initialState, action) => {
+export const shoppingCartDtailReducer = (
+  state = shoppingInitialState,
+  action
+) => {
   switch (action.type) {
     case POST_CARTDTAIL:
       return {

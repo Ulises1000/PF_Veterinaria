@@ -17,25 +17,28 @@ import {
   UPDATE_USER,
   CREATE_PAGINATION_ARRAY,
   SEARCH,
-  FILTERED,
+  FILTEREDBREED,
+  FILTEREDSIZE,
   SORT,
   SEARCH_PRO_DASHBOARD,
-  SEARCH_USERS_DASHBOARD,
   BY_ORDER,
   BY_ORDER_PRICE,
   BY_ORDER_STOCK,
   GET_FAVORITES,
   UPDATE_FAVORITE,
-  POST_FAVORITES,
-  UPDATE_CARTDTAIL,
   POST_CARTDTAIL,
   UPDATE_CARTDTAIL,
   GET_CARTDTAIL,
   DELETE_CARTDTAIL,
   DIFFERENT_OUTCOME,
+  FILTERED,
   EMPTY_DIFFOUTCOME_OBJ,
   EMPTY_SHOPPINGCARTDTAIL,
   EMPTY_SHOPPINGCARTDTAILMSG,
+  SEARCH_USERS_DASHBOARD,
+  GET_USERS,
+  SET_USER,
+  POST_FAVORITES,
 } from "./constants";
 
 /* ruta + endpoints */
@@ -106,11 +109,11 @@ export function getAllProducts(name) {
           ? `${URL + Endpoints.product}get?name=${name}`
           : `${URL + Endpoints.product}get`
       );
+      console.log("Estuvo aca");
       dispatch({
         type: GET_PRODUCTS,
         payload: data,
       });
-      dispatch(filtered());
       dispatch(createPaginationArray());
       //---------------------------------
     } catch (error) {
@@ -119,11 +122,11 @@ export function getAllProducts(name) {
         console.log(error.response.status);
         console.log(error.response.headers);
       } else if (error.request) {
-        console.log(error.request);
+        console.log("Error en linea 124", error.request);
       } else {
         console.log(error.message);
       }
-      console.log(error.config);
+      console.log("Error en Linea 128", error.config);
     }
   };
 }
@@ -134,6 +137,7 @@ export function getProduct(productName) {
       const { data } = await axios.get(
         `${URL + Endpoints.product}getp/${productName}`
       );
+      console.log(data, "MAESTROOOOOOOOOOOOO");
       dispatch({
         type: GET_PRODUCT,
         payload: data,
@@ -243,10 +247,13 @@ export function postProduct(productData) {
   };
 }
 
-export function getUser(userId) {
+export function getUser(email, password) {
   return async function (dispatch) {
     try {
-      const { data } = await axios.get(`${URL + Endpoints.user}get/${userId}`);
+      const { data } = await axios.get(
+        `${URL + Endpoints.user}get?email=${email}&password=${password}`
+      );
+      console.log(data, "meu deus");
       dispatch({
         type: GET_USER,
         payload: data,
@@ -270,12 +277,11 @@ export function registerUser(values) {
   return async (dispatch) => {
     try {
       const info = await axios.post(`${URL + Endpoints.user}register`, values);
-      /* 
-            dispatch({
-                type: REGISTER_USER,
-                payload: info
-            });
-            */
+
+      dispatch({
+        type: REGISTER_USER,
+        payload: info,
+      });
     } catch (err) {
       dispatch({
         type: REGISTER_ERRORS,
@@ -444,7 +450,6 @@ export function searchByName(name) {
         type: SEARCH,
         payload: data,
       });
-      dispatch(filtered());
       dispatch(createPaginationArray());
       //---------------------------------
     } catch (error) {
@@ -461,15 +466,22 @@ export function searchByName(name) {
     }
   };
 }
+
 export function createPaginationArray(payload) {
   return {
     type: CREATE_PAGINATION_ARRAY,
     payload,
   };
 }
-export function filtered(payload) {
+export function filteredBreed(payload) {
   return {
-    type: FILTERED,
+    type: FILTEREDBREED,
+    payload,
+  };
+}
+export function filteredSize(payload) {
+  return {
+    type: FILTEREDSIZE,
     payload,
   };
 }
@@ -740,5 +752,37 @@ export function EmptyShoppingCartDtail() {
 export function EmptyShoppingCartDtailMsg() {
   return {
     type: EMPTY_SHOPPINGCARTDTAILMSG,
+  };
+}
+
+export function GetUser(name, password) {
+  return async function () {
+    try {
+      const { data } = await axios.get(
+        `${URL + Endpoints.user}get?name=${name}?password=${password}`
+      );
+      return {
+        type: GET_USER,
+        payload: data,
+      };
+    } catch (error) {
+      if (error.response) {
+        console.log(error.response.data);
+        console.log(error.response.status);
+        console.log(error.response.headers);
+      } else if (error.request) {
+        console.log(error.request);
+      } else {
+        console.log(error.message);
+      }
+      console.log(error.config);
+    }
+  };
+}
+
+export function setUser(data) {
+  return {
+    type: SET_USER,
+    payload: data,
   };
 }

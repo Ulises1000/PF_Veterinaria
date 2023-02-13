@@ -1,7 +1,7 @@
 import React from "react";
 import { Link } from "react-router-dom";
 
-const Card = ({ id, url, name, unit_price }) => {
+const Card = ({ id, url, name, unit_price, breedType, petSize }) => {
   return (
     <Link to={`/details/${id}`}>
       <div className="flex flex-col bg-white p-6 rounded-lg shadow-lg mr-3 mt-4 cursor-pointer">
@@ -17,6 +17,8 @@ const Card = ({ id, url, name, unit_price }) => {
         >
           {name}
         </h2>
+        <div className="hidden">{breedType.map((breed) => breed)}</div>
+        <div className="hidden">{petSize.map((size) => size)}</div>
         <p className="text-gray-700 mt-2">${unit_price}</p>
       </div>
     </Link>
