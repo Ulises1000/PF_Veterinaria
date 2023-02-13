@@ -21,11 +21,6 @@ function Mercado({ hayUser }) {
 
   useEffect(() => {
     async function fetchData() {
-<<<<<<< HEAD
-      console.log(paginationArray);
-      console.log(realState);
-=======
->>>>>>> a381489eebe61d42de12e3f249524491cc58687f
       setState({ loading: true });
       dispatch(getAllProducts());
 
@@ -43,7 +38,7 @@ function Mercado({ hayUser }) {
   // }, []);
 
   if (loading) {
-    console.log(loading, "DENTRO DEL LOADING")
+    console.log(loading, "DENTRO DEL LOADING");
     return (
       <div className="flex items-center justify-center bg-patas flex-col h-screen w-screen absolute">
         <img src={loader} className="imgLoader" alt="loader image" />
@@ -51,44 +46,34 @@ function Mercado({ hayUser }) {
       </div>
     );
   }
-<<<<<<< HEAD
 
   if (loading === false && paginationArray[0]) {
     if (paginationArray !== [] && pagArrayArray[0] !== "Nada") {
-      console.log(pagArrayArray ? pagArrayArray : "hehsaz");
-      console.log(
-        pagArrayArray ? pagArrayArray[0] === "Nada" : "heh",
-        "???????????????????????????????????"
-=======
-  
-  if (loading === false && paginationArray[0]){
-    if (paginationArray !== [] && pagArrayArray[0] !== "Nada"){
       return (
-          <div>
-            <div className="h-14">
-              <Nav user={hayUser} />
-              <Searchbar />
-            </div>
-            <div className="mt-36">
-              <div className={styles.center}>
-                {Object.values(paginationArray).map((product) => 
-                ( product.map((p, i) => (
-                        <Card
-                            key={i}
-                            id={p.codProduct}
-                            url={p.url}
-                            name={p.name}
-                            unit_price={p.unit_price}
-                            breedType={p.breedType}
-                            petSize={p.petSize}
-                        />
-                    ))
-                ))}
-              </div>
-            </div>
-          <Footer/>
+        <div>
+          <div className="h-14">
+            <Nav user={hayUser} />
+            <Searchbar />
           </div>
->>>>>>> a381489eebe61d42de12e3f249524491cc58687f
+          <div className="mt-36">
+            <div className={styles.center}>
+              {Object.values(paginationArray).map((product) =>
+                product.map((p, i) => (
+                  <Card
+                    key={i}
+                    id={p.codProduct}
+                    url={p.url}
+                    name={p.name}
+                    unit_price={p.unit_price}
+                    breedType={p.breedType}
+                    petSize={p.petSize}
+                  />
+                ))
+              )}
+            </div>
+          </div>
+          <Footer />
+        </div>
       );
       return (
         <div>

@@ -16,20 +16,17 @@ const Details = ({ hayUser }) => {
     dispatch(getProduct(id));
   }, [dispatch, id]);
 
-  function handleClick() {
-    dispatch(
-      postShoppingDetail({
-        unit_price: product.unit_price,
-        quantity: unit_price,
-        date_added: new Date(),
-        idCard: user.shoppingCartCodCart,
-        idProduct: product.codProduct,
-      })
-    );
+  let userDetail = hayUser;
+
+  if (hayUser === undefined) {
+    userDetail = JSON.parse(localStorage.userPetShop);
   }
+  console.log("USERDETAIL ==>", userDetail);
+  console.log("Product ===", product);
 
   console.log(localStorage.userPetShop, "here user === undefined");
-  if (!product) {
+
+  if (product === undefined) {
     return (
       <div className="flex items-center justify-center bg-patas flex-col h-screen w-screen absolute">
         <img src={loader} className="imgLoader" alt="loader" />
@@ -37,7 +34,18 @@ const Details = ({ hayUser }) => {
       </div>
     );
   }
-  console.log(product, "irmao");
+
+  function handleClick() {
+    dispatch(
+      postShoppingDetail({
+        unit_price: product.unit_price,
+        quantity: quantity,
+        date_added: new Date(),
+        idCard: userDetail.shoppingCartCodCart,
+        idProduct: product.codProduct,
+      })
+    );
+  }
 
   return (
     <div className="h-auto w-full bg-patas -mt-20 overflow-x-hidden">
@@ -68,7 +76,7 @@ const Details = ({ hayUser }) => {
                   min={0}
                   max={product.stock}
                   onKeyDown="return false"
-                  value={unit_price}
+                  value={product.unit_price}
                   onChange={(e) => setQuantity(e.target.value)}
                 ></input>
                 <p>Precio: ${product.unit_price}</p>

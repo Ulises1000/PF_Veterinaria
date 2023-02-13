@@ -12,6 +12,14 @@ export default function ShoppingCart() {
   );
 
   const [items, setItems] = useState([]);
+
+  function handleDeleteItem(element) {
+    setItems({
+      ...items,
+      items: items.filter((codProduct) => codProduct !== element),
+    });
+  }
+
   return (
     <>
       <Nav />
@@ -22,7 +30,10 @@ export default function ShoppingCart() {
         <h3>Articulos en el Carrito</h3>
         <article className="box">
           {items.map((e) => (
-            <CardItem />
+            <>
+              <button>Eliminar Item del Carrito</button>
+              <CardItem />
+            </>
           ))}{" "}
         </article>
       </div>

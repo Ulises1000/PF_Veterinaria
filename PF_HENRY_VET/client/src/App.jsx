@@ -16,16 +16,18 @@ import Nav from "./components/Nav";
 function App() {
   let user = useSelector((state) => state.user.user);
   let hayUser = user;
+  let parserStorage;
   console.log(hayUser, "ESTOOOOOOOOOOO ES USER");
   useEffect(() => {
     if (user !== undefined) {
       localStorage.setItem("userPetShop", JSON.stringify(user));
     }
+    if (localStorage.userPetShop) {
+      parserStorage = JSON.parse(localStorage.userPetShop);
+    }
   }, [user, hayUser]);
-  // hayUser =  JSON.parse(localStorage.userPetShop)
-<<<<<<< HEAD
 
-  console.log(user, "2da");
+  console.log(parserStorage, "parserStorage");
   return (
     //:
     <div className="App bg-patas w-full">
@@ -34,25 +36,16 @@ function App() {
           exact
           path="/"
           element={
-            localStorage.userPetShop || user ? (
-              <Navigate to="/home" />
-            ) : (
-              <LandingPage />
-            )
+            // localStorage.userPetShop.isAdmin === false || user ? (
+            //   <Navigate to="/home" />
+            // ) : localStorage.userPetShop.isAdmin === true || user ? (
+            //   <Navigate to="/dashboard" />
+            // ) : (
+            <LandingPage />
+            // )
           }
         />
 
-=======
-    
-    console.log(user, "2da")
-    return (
-      
-      //:
-      <div className="App bg-patas w-full">
-        <Routes>
-        <Route exact path="/" element={localStorage.userPetShop || user ? <Navigate to="/home"/> : <LandingPage />} />
-          
->>>>>>> a381489eebe61d42de12e3f249524491cc58687f
         {console.log(user, "esto es el user diomeo")}
         {/* <Route path="/hayUserProfile" element={hayUser.name || hayUser.emails ? <hayUserProfile hayUser={hayUser}/>:<Navigate to="/login" />}/> */}
         <Route exact path="/home" element={<Home hayUser={hayUser} />} />
@@ -61,7 +54,7 @@ function App() {
           exact
           path="/details/:id"
           element={
-            localStorage.userPetShop || user ? (
+            localStorage.userPetShop.isAdmin === false || user ? (
               <Details hayUser={hayUser} />
             ) : (
               <Navigate to="/" />
@@ -72,7 +65,7 @@ function App() {
           exact
           path="/profile"
           element={
-            localStorage.userPetShop || user ? (
+            localStorage.userPetShop.isAdmin === false || user ? (
               <UserProfile hayUser={hayUser} />
             ) : (
               <Navigate to="/" />
@@ -95,7 +88,7 @@ function App() {
           exact
           path="/dashboard"
           element={
-            localStorage.userPetShop ? (
+            localStorage.userPetShop.isAdmin === true ? (
               <DashBoard hayUser={hayUser} />
             ) : (
               <Navigate to="/" />
@@ -106,7 +99,7 @@ function App() {
           exact
           path="/formproduct"
           element={
-            localStorage.userPetShop ? (
+            localStorage.userPetShop.isAdmin === true ? (
               <FormProduct hayUser={hayUser} />
             ) : (
               <Navigate to="/" />
