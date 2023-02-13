@@ -23,8 +23,6 @@ function Mercado({hayUser}) {
   
   useEffect(() => {
     async function fetchData() {
-      console.log(paginationArray)
-      console.log(realState)
       setState({ loading: true });
       dispatch(getAllProducts());
       setState({ loading: false });
@@ -34,14 +32,15 @@ function Mercado({hayUser}) {
 
 
   const [loading, setLoading] = useState(false);
-  useEffect(() => {
-    setLoading(true);
-    setTimeout(() => {
-      setLoading(false);
-    }, 2000);
-  }, []);
+  // useEffect(() => {
+  //   setLoading(true);
+  //   setTimeout(() => {
+  //     setLoading(false);
+  //   }, 2000);
+  // }, []);
 
   if (loading) {
+    console.log(loading, "DENTRO DEL LOADING")
     return (
       <div className="flex items-center justify-center bg-patas flex-col h-screen w-screen absolute">
         <img src={loader} className="imgLoader" alt='loader image'/>
@@ -52,8 +51,6 @@ function Mercado({hayUser}) {
   
   if (loading === false && paginationArray[0]){
     if (paginationArray !== [] && pagArrayArray[0] !== "Nada"){
-      console.log(pagArrayArray ? pagArrayArray : "hehsaz")
-      console.log(pagArrayArray ? pagArrayArray[0] === "Nada" : "heh","???????????????????????????????????")
       return (
           <div>
             <div className="h-14">
