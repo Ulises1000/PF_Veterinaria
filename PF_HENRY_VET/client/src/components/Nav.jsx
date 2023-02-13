@@ -6,15 +6,15 @@ import { signoutUser } from "../redux/action";
 // import logo_user from "../media/avatar.png";
 
 function Nav({ user }) {
-  const dispatch = useDispatch()
+  const dispatch = useDispatch();
   const [burgerbutton, setBurgerbutton] = useState(false);
   const [visibilidad, setVisibilidad] = useState(false);
-  
-  let usuarioLocal =user
-  if(localStorage.userPetShop){
-    usuarioLocal = JSON.parse(localStorage.userPetShop)
+
+  let usuarioLocal = user;
+  if (localStorage.userPetShop) {
+    usuarioLocal = JSON.parse(localStorage.userPetShop);
   }
-  console.log(usuarioLocal)
+  console.log(usuarioLocal);
   // let userLocal = user
   // if(localStorage.userPetShop){
   //   userLocal = JSON.parse(localStorage.userPetShop).data;
@@ -29,11 +29,11 @@ function Nav({ user }) {
   // },[]);
 
   function HandleLogout() {
-    localStorage.removeItem("userPetShop")
-    dispatch(signoutUser())
-    window.location.reload(true)
-    hayUser = ""
-    userLocal= ""
+    localStorage.removeItem("userPetShop");
+    dispatch(signoutUser());
+    window.location.reload(true);
+    hayUser = "";
+    userLocal = "";
     // console.log(localStorage, "esto")
   }
 
@@ -67,6 +67,12 @@ function Nav({ user }) {
               >
                 Consultas
               </Link>
+              <Link
+                to="/dashboard"
+                className="py-4 px-3 text-gray-700 font-semibold hover:font-medium hover:text-black"
+              >
+                Dashboard
+              </Link>
             </div>
           </div>
 
@@ -75,44 +81,77 @@ function Nav({ user }) {
             <div className="hidden md:flex justify-center">
               {usuarioLocal ? (
                 <div className="flex flex-row relative ">
-                  <img src={usuarioLocal.url} className="h-16 mt-5"/>
-                  <button onClick={() => {
-                    setVisibilidad(!visibilidad);
-                  }} className="bg-Dark-Violet mt-5 text-white  p-4 text-base border-0">
-                    {usuarioLocal.email_U}
-                  <div
-                    
-                    className={`${
-                      visibilidad === false ? "hidden" : "show"
-                    } absolute right-0.5 mt-4 ml-3 bg-violet-300  w-full h-46 `}
+                  <img src={usuarioLocal.url} className="h-16 mt-5" />
+                  <button
+                    onClick={() => {
+                      setVisibilidad(!visibilidad);
+                    }}
+                    className="bg-Dark-Violet mt-5 text-white  p-4 text-base border-0"
                   >
-                    <div className="flex flex-col">
-                    <Link to="/profile" className="text-black p-2 hover:text-gray-300 block">
-                      Perfil
-                    </Link>
-                    <div className="hover:text-red-400">
-                    <p className="p-2 bg-red-700" onClick={() => HandleLogout()}>Logout</p>
+                    {usuarioLocal.email_U}
+                    <div
+                      className={`${
+                        visibilidad === false ? "hidden" : "show"
+                      } absolute right-0.5 mt-4 ml-3 bg-violet-300  w-full h-46 `}
+                    >
+                      {/* {user.email_U} */}
+                      <div
+                        className={`${
+                          visibilidad === false ? "hidden" : "show"
+                        } absolute right-0.5 mt-4 ml-3 bg-violet-300  w-full h-46 `}
+                      >
+                        <div className="flex flex-col">
+                          <Link
+                            to="/profile"
+                            className="text-black p-2 hover:text-gray-300 block"
+                          >
+                            Perfil
+                          </Link>
+                          <div className="hover:text-red-400">
+                            <p
+                              className="p-2 bg-red-700"
+                              onClick={() => HandleLogout()}
+                            >
+                              Logout
+                            </p>
+                          </div>
+                        </div>
+                      </div>
                     </div>
-                    </div>
-                  </div>
                   </button>
+                  <Link to="/shoppingCart">
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      fill="none"
+                      viewBox="0 0 24 24"
+                      stroke-width="1.5"
+                      stroke="currentColor"
+                      class="w-6 h-6 mt-10 "
+                    >
+                      <path
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                        d="M2.25 3h1.386c.51 0 .955.343 1.087.835l.383 1.437M7.5 14.25a3 3 0 00-3 3h15.75m-12.75-3h11.218c1.121-2.3 2.1-4.684 2.924-7.138a60.114 60.114 0 00-16.536-1.84M7.5 14.25L5.106 5.272M6 20.25a.75.75 0 11-1.5 0 .75.75 0 011.5 0zm12.75 0a.75.75 0 11-1.5 0 .75.75 0 011.5 0z"
+                      />
+                    </svg>
+                  </Link>
                 </div>
               ) : (
                 <div className="hidden md:flex items-center space-x-1">
-              <Link
-                onClick={() => HandleLogout()}
-                to="/"
-                className="py-5 px-3  text-gray-700 font-semibold hover:text-white"
-              >
-                Login
-              </Link>
-              <Link
-                to="/"
-                className="py-2 px-3  bg-slate-50 rounded border-black border-2 text-gray-700 font-semibold hover:bg-slate-200 hover:text-violet-500 transition duration-300"
-              >
-                Sign Up
-              </Link>
-            </div>
+                  <Link
+                    onClick={() => HandleLogout()}
+                    to="/"
+                    className="py-5 px-3  text-gray-700 font-semibold hover:text-white"
+                  >
+                    Login
+                  </Link>
+                  <Link
+                    to="/"
+                    className="py-2 px-3  bg-slate-50 rounded border-black border-2 text-gray-700 font-semibold hover:bg-slate-200 hover:text-violet-500 transition duration-300"
+                  >
+                    Sign Up
+                  </Link>
+                </div>
               )}
             </div>
           ) : (
