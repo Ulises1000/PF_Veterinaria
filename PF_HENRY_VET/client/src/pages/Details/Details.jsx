@@ -4,6 +4,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { getProduct, postShoppingDetail } from "../../redux/action";
 import Nav from "../../components/Nav.jsx";
 import loader from "../../style-assets/paw_icon.png";
+import Footer from "../../components/Footer";
 
 const Details = ({ hayUser }) => {
   const dispatch = useDispatch();
@@ -39,49 +40,50 @@ const Details = ({ hayUser }) => {
   console.log(product, "irmao");
 
   return (
-    <div className="bg-patas">
-      <div className="h-14">
-        <Nav user={hayUser} />
-      </div>
-      <h1 className="font-bold text-center mt-20">DETALLES</h1>
-      <div className="text-center flex justify-center items-center bg-patas">
-        <div className="w-300 bg-white p-6 rounded-lg shadow-xl border-gray-700 flex items-center">
-          <img src={product.url} alt="img not found" />
-          <div className="flex flex-col ml-20">
-            <h3 className="text-purple-500 font-bold">{product.name}</h3>
-            <div>
-              <p className="text-lg font-Fredoka font-bold">
-                Acerca de este producto:
-              </p>
-              <p>
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed{" "}
-                <br />
-                do eiusmod tempor incididunt ut <br />
-                labore et dolore magna aliqua.
-              </p>
-              <p>Para: {product.breedType}</p>
+    <div className="h-auto w-full bg-patas -mt-20 overflow-x-hidden">
+      <Nav user={hayUser} />
+      <div className="flex flex-col  w-full mb-56 space-y-36 md:space-y-5 md:mr-28 mt-10 md:mt-40  space-x-3 items-center justify-around">
+        <h1 className="font-bold text-center mt-20">DETALLES</h1>
+        <div className="text-center flex justify-center items-center bg-patas">
+          <div className="w-300 bg-white p-6 rounded-lg shadow-xl border-gray-700 flex items-center">
+            <img src={product.url} alt="img not found" />
+            <div className="flex flex-col ml-20">
+              <h3 className="text-purple-500 font-bold">{product.name}</h3>
+              <div>
+                <p className="text-lg font-Fredoka font-bold">
+                  Acerca de este producto:
+                </p>
+                <p>
+                  Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed{" "}
+                  <br />
+                  do eiusmod tempor incididunt ut <br />
+                  labore et dolore magna aliqua.
+                </p>
+                <p>Para: {product.breedType}</p>
+              </div>
+              <div className="flex flex-row justify-around items-center space-y-20">
+                <p className="mt-20">Stock: {product.stock}</p>
+                <input
+                  type="number"
+                  min={0}
+                  max={product.stock}
+                  onKeyDown="return false"
+                  value={unit_price}
+                  onChange={(e) => setQuantity(e.target.value)}
+                ></input>
+                <p>Precio: ${product.unit_price}</p>
+              </div>
+              <button
+                className="bg-violet-200 rounded-lg p-4"
+                onClick={handleClick()}
+              >
+                Añadir a Carrito
+              </button>
             </div>
-            <div className="flex flex-row justify-around items-center space-y-20">
-              <p className="mt-20">Stock: {product.stock}</p>
-              <input
-                type="number"
-                min={0}
-                max={product.stock}
-                onKeyDown="return false"
-                value={unit_price}
-                onChange={(e) => setQuantity(e.target.value)}
-              ></input>
-              <p>Precio: ${product.unit_price}</p>
-            </div>
-            <button
-              className="bg-violet-200 rounded-lg p-4"
-              onClick={handleClick()}
-            >
-              Añadir a Carrito
-            </button>
           </div>
         </div>
       </div>
+      <Footer />
     </div>
   );
 };

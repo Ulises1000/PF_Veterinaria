@@ -9,7 +9,16 @@ function Nav({ user }) {
   const dispatch = useDispatch();
   const [burgerbutton, setBurgerbutton] = useState(false);
   const [visibilidad, setVisibilidad] = useState(false);
+<<<<<<< HEAD
 
+=======
+  
+  let usuarioLocal =user
+  if(localStorage.userPetShop){
+    usuarioLocal = JSON.parse(localStorage.userPetShop)
+  }
+  console.log(usuarioLocal)
+>>>>>>> a381489eebe61d42de12e3f249524491cc58687f
   // let userLocal = user
   // if(localStorage.userPetShop){
   //   userLocal = JSON.parse(localStorage.userPetShop).data;
@@ -66,11 +75,16 @@ function Nav({ user }) {
           </div>
 
           {/* nav secundario */}
+<<<<<<< HEAD
           {console.log(user, "cheeeeeeeeeeeeeee")}
           {user ? (
+=======
+          {usuarioLocal ? (
+>>>>>>> a381489eebe61d42de12e3f249524491cc58687f
             <div className="hidden md:flex justify-center">
-              {user ? (
+              {usuarioLocal ? (
                 <div className="flex flex-row relative ">
+<<<<<<< HEAD
                   <img src={user.url} className="h-16 mt-5" />
 
                   <button
@@ -78,6 +92,18 @@ function Nav({ user }) {
                       setVisibilidad(!visibilidad);
                     }}
                     className="bg-Dark-Violet mt-5 text-white  p-4 text-base border-0"
+=======
+                  <img src={usuarioLocal.url} className="h-16 mt-5"/>
+                  <button onClick={() => {
+                    setVisibilidad(!visibilidad);
+                  }} className="bg-Dark-Violet mt-5 text-white  p-4 text-base border-0">
+                    {usuarioLocal.email_U}
+                  <div
+                    
+                    className={`${
+                      visibilidad === false ? "hidden" : "show"
+                    } absolute right-0.5 mt-4 ml-3 bg-violet-300  w-full h-46 `}
+>>>>>>> a381489eebe61d42de12e3f249524491cc58687f
                   >
                     {user.email_U}
                     <div
@@ -122,6 +148,7 @@ function Nav({ user }) {
                 </div>
               ) : (
                 <div className="hidden md:flex items-center space-x-1">
+<<<<<<< HEAD
                   <Link
                     to="/"
                     className="py-5 px-3  text-gray-700 font-semibold hover:text-white"
@@ -135,6 +162,22 @@ function Nav({ user }) {
                     Sign Up
                   </Link>
                 </div>
+=======
+              <Link
+                onClick={() => HandleLogout()}
+                to="/"
+                className="py-5 px-3  text-gray-700 font-semibold hover:text-white"
+              >
+                Login
+              </Link>
+              <Link
+                to="/"
+                className="py-2 px-3  bg-slate-50 rounded border-black border-2 text-gray-700 font-semibold hover:bg-slate-200 hover:text-violet-500 transition duration-300"
+              >
+                Sign Up
+              </Link>
+            </div>
+>>>>>>> a381489eebe61d42de12e3f249524491cc58687f
               )}
             </div>
           ) : (

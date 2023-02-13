@@ -23,6 +23,7 @@ function App() {
     }
   }, [user, hayUser]);
   // hayUser =  JSON.parse(localStorage.userPetShop)
+<<<<<<< HEAD
 
   console.log(user, "2da");
   return (
@@ -41,6 +42,17 @@ function App() {
           }
         />
 
+=======
+    
+    console.log(user, "2da")
+    return (
+      
+      //:
+      <div className="App bg-patas w-full">
+        <Routes>
+        <Route exact path="/" element={localStorage.userPetShop || user ? <Navigate to="/home"/> : <LandingPage />} />
+          
+>>>>>>> a381489eebe61d42de12e3f249524491cc58687f
         {console.log(user, "esto es el user diomeo")}
         {/* <Route path="/hayUserProfile" element={hayUser.name || hayUser.emails ? <hayUserProfile hayUser={hayUser}/>:<Navigate to="/login" />}/> */}
         <Route exact path="/home" element={<Home hayUser={hayUser} />} />
