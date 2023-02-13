@@ -5,12 +5,12 @@ import { Link, redirect } from "react-router-dom";
 import Nav from "../../components/Nav.jsx";
 import { signoutUser } from "../../redux/action/index.jsx";
 import loader from "../../style-assets/paw_icon.png";
-import {updateUser} from "../../redux/action/index.jsx"
+import { updateUser } from "../../redux/action/index.jsx";
 
 export default function UserProfile({hayUser}) {
   const dispatch = useDispatch()
   // const handleLogout = () => {
-    console.log(hayUser.cod_User, "ACAAAAAAAAAAAAAAAAAAA")
+    //console.log(hayUser.cod_User, "ACAAAAAAAAAAAAAAAAAAA")
   //     if (user.category) {
   //         localStorage.clear();
   //         dispatch(logout());
@@ -26,7 +26,7 @@ export default function UserProfile({hayUser}) {
   // let userImage = ""
 
 
-
+  
   const [uploading, setUploading] = useState(false);
   const [fileInputState, setFileInputState] = useState("");
   const [previewSource, setPreviewSource] = useState("");
@@ -65,7 +65,9 @@ export default function UserProfile({hayUser}) {
       setPreviewSource(reader.result);
     };
   };
-
+useEffect(()=> {
+  console.log(hayUser, "ESTO PASA CUANDO SE MODIFICA EL USUARIO")
+}, [hayUser])
   const handleSubmitFile = (e) => {
     e.preventDefault();
     const reader = new FileReader();
@@ -73,12 +75,16 @@ export default function UserProfile({hayUser}) {
     reader.readAsDataURL(selectedFile);
     reader.onloadend = async () => {
       setUploading(true);
-     console.log(reader.result, "QUE ES ESTO")
-      // updateUser(hayUser.cod_User, )
+     const img = reader.result;
+    dispatch(updateUser(hayUser.cod_User, {data:{
+      img,
+      codImg: hayUser.image_U,
+      password_U: hayUser.password_U,
+      email_U: hayUser.email_U
+    } }));
       // await axios.post(`${window.location.origin}/api/cloudinaryUpload`, {
       //   data: reader.result,
       // });
-        
       setUploading(false);
       setFileInputState("");
       setPreviewSource("");
@@ -87,8 +93,6 @@ export default function UserProfile({hayUser}) {
       console.error(error);
     };
   };
-
-
 
   //   const users = useSelector((state) => state.users.allUsers);
   //   const saveImage = useSelector((state) => state.cloudinaryImage.image);

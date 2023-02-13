@@ -125,11 +125,11 @@ export function Registration({ Navset }) {
     direction: "",
     confirmedPassword: "",
   });
-
+/*
 useEffect(() =>{
   localStorage
 },[localStorage])
-
+*/
   function handleChangeRegistration(e) {
     setInputRegistration({
       ...inputRegistration,

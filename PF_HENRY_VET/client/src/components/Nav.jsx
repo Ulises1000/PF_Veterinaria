@@ -66,7 +66,6 @@ function Nav({ user }) {
           </div>
 
           {/* nav secundario */}
-          {console.log(user, "cheeeeeeeeeeeeeee") }
           {user ? (
             <div className="hidden md:flex justify-center">
               {user ? (
@@ -96,6 +95,7 @@ function Nav({ user }) {
               ) : (
                 <div className="hidden md:flex items-center space-x-1">
               <Link
+                onClick={() => HandleLogout()}
                 to="/"
                 className="py-5 px-3  text-gray-700 font-semibold hover:text-white"
               >

@@ -1,6 +1,8 @@
 const {Router} = require("express");
+require("dotenv").config();
 const {User} = require("../../db");
 const {findUser, addNewValuesToAnObj} = require("../../controllers/controllerUsers/controllerUpdate");
+const cloudinary = require("../../cloudinaryConfig/cloudinaryConfig");
 const axios = require("axios");
 const router = Router();
 
@@ -15,19 +17,34 @@ router.put("/update/:idUser", async (req, res) => {
         }) 
         else{
             //NECESITO QUE SE ME ENVIE LA DATA CON EL _U. EJ: name_U
-            const newData = addNewValuesToAnObj(req.body);
+            let url;
+            if(req.body.data.img){
+                console.log("PASSSSSSSSSSSSSSSSSS")
+                url = await cloudinary.uploader.upload(req.body.data.img, {
+                    invalidate: true,
+                    public_id: req.body.data.codImg
+                })    
+            }
+            
+            else{
+                console.log("NO PASSSSSSSSSSSSSSSSSS")
+                const newData = addNewValuesToAnObj(req.body); 
+                await User.update(newData,{
+                    where: {
+                        cod_User: idUser
+                    }
+                })
+            }
+            
+            const {data} = await axios.get(`http://localhost:3001/users/get?email=${req.body.data.email_U}&password=${req.body.data.password_U}`)
            
-            await User.update(newData,{
-                where: {
-                    cod_User: idUser
-                }
-            })
-    
-            const newUser = await axios.get(`http://localhost:3001/users/get?email=${email}&password=${password}`);
+            const obj = {...data.value};
+            
+            obj.url = url.url;
 
             res.status(200).json({
                 ok: true,
-                value: newUser
+                value: obj
             });
         }
     }catch(err){
