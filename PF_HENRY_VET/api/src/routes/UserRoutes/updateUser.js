@@ -17,30 +17,27 @@ router.put("/update/:idUser", async (req, res) => {
         }) 
         else{
             //NECESITO QUE SE ME ENVIE LA DATA CON EL _U. EJ: name_U
-            let url;
+            let url, newData;
             if(req.body.data.img){
-                console.log("PASSSSSSSSSSSSSSSSSS")
                 url = await cloudinary.uploader.upload(req.body.data.img, {
                     invalidate: true,
                     public_id: req.body.data.codImg
                 })    
             }
+            else {
+                newData = addNewValuesToAnObj(req.body);
+            } 
             
-            else{
-                console.log("NO PASSSSSSSSSSSSSSSSSS")
-                const newData = addNewValuesToAnObj(req.body); 
-                await User.update(newData,{
-                    where: {
-                        cod_User: idUser
-                    }
-                })
-            }
+
+            await User.update(newData || {url: url.url},{
+                where: {
+                    cod_User: idUser
+                }
+            })
             
             const {data} = await axios.get(`http://localhost:3001/users/get?email=${req.body.data.email_U}&password=${req.body.data.password_U}`)
            
             const obj = {...data.value};
-            
-            obj.url = url.url;
 
             res.status(200).json({
                 ok: true,

@@ -29,6 +29,11 @@ module.exports = (sequelize) => {
             allowNull: false,
             defaultValue: DataTypes.UUIDV1
         },
+        url: {
+            type: DataTypes.STRING,
+            allowFalse: false,
+            defaultValue: "https://www.pngkey.com/png/detail/202-2024792_user-profile-icon-png-download-fa-user-circle.png"
+        },
         unsubscribe_U: {
             type: DataTypes.BOOLEAN,
             allowNull: false,

@@ -12,7 +12,6 @@ const getProducts = async (nameP) => {
         const api = await axios.get(
           `https://veterinaria-634d6-default-rtdb.firebaseio.com/productosDB.json`
         );
-        console.log(api.data)
         await api.data.forEach(async (p) => {
           const obj = {            
             name: p.nombre,
@@ -46,9 +45,7 @@ const getProducts = async (nameP) => {
       }
       else {
         allProducts = await Product.findAll()
-        console.log(allProducts)
         allProducts = await Product.findAll()
-        console.log("llego hasta aca")
       };
         //DESPUES DE QUE SE GUARDAN O NO (PORQUE YA EXISTIAN), HACE UNA BUSQUEDA MAS COMPLEJA
     return allProducts;
