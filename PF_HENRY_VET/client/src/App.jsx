@@ -8,6 +8,7 @@ import LandingPage from "./pages/LandigPage/LandingPage.jsx";
 import Details from "./pages/Details/Details.jsx";
 import DashBoard from "./pages/Dashboard/DashBoard";
 import FormProduct from "./components/Dashboard/FormProduct";
+import FormEditProduct from "./components/Dashboard/FormEditProduct"; 
 import { useSelector } from "react-redux";
 import { useEffect } from "react";
 import Nav from "./components/Nav";
@@ -39,8 +40,10 @@ function App() {
         <Route exact path="/details/:id" element={localStorage.userPetShop || user ? <Details hayUser={hayUser}/> : <Navigate to="/"/>}/>
         <Route exact path="/profile" element={localStorage.userPetShop || user ? <UserProfile hayUser={hayUser}/> : <Navigate to="/"/>} />
         <Route exact path="/dashboard" element={localStorage.userPetShop ? <DashBoard hayUser={hayUser}/> : <Navigate to="/"/>} />
-        <Route exact path="/formproduct" element={localStorage.userPetShop ? <FormProduct hayUser={hayUser}/> : <Navigate to="/"/>} />  
+        <Route exact path="/formproduct" element={localStorage.userPetShop ? <FormProduct hayUser={hayUser}/> : <Navigate to="/"/>} />
+        <Route exact path="/editpro/:id" element={<FormEditProduct/>} /> 
         <Route path="*" element={<NotFound hayUser={hayUser}/>} />
+ 
       </Routes>
     </div>
   );

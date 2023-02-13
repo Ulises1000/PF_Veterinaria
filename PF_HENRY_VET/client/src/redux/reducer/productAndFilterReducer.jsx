@@ -26,6 +26,7 @@ import { sort } from "../action";
 const initialState = {
   products: [],
   product: {},
+  productosedit:{},
   filterProducts:[],
   currentOrder: "Static",
   currentBreed: "breedType",
@@ -50,6 +51,7 @@ const initialState = {
       };
 }}  
 
+
 //no usar da errores xD
 export const productsReducer = (state = initialState.products, action) => {
   switch (action.type) {
@@ -63,7 +65,7 @@ export const productsReducer = (state = initialState.products, action) => {
       return {
         ...state,
         product: action.payload,
-      };
+    };
     case DELETE_PRODUCT:
       return {
         ...state,
@@ -101,12 +103,23 @@ export const filters = (state = initialState, action) => {
         OrdeProductsDashb: action.payload
       };
     }
-case SEARCH_PRO_DASHBOARD:
-  let filterProd = state.filterProducts.filter((us) => us.name.toLowerCase().includes(action.payload.toLowerCase()));
-   return {
-     ...state,
-     products: filterProd,
+    case GET_PRODUCT:
+      return {
+        ...state,
+        product: action.payload,
     };
+    case POST_PRODUCT:
+      return {
+        ...state,
+        products: action.payload.value,
+      };
+    case SEARCH_PRO_DASHBOARD:
+      let filterProd = state.filterProducts.filter((us) => us.name.toLowerCase().includes(action.payload.toLowerCase()));
+       return {
+        ...state,
+        products: filterProd,
+      };   
+
     case FILTERED:
       let filteredProducts = state.orderedProducts;
       let filters = {
