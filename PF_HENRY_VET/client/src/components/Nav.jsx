@@ -10,6 +10,11 @@ function Nav({ user }) {
   const [burgerbutton, setBurgerbutton] = useState(false);
   const [visibilidad, setVisibilidad] = useState(false);
   
+  let usuarioLocal =user
+  if(localStorage.userPetShop){
+    usuarioLocal = JSON.parse(localStorage.userPetShop)
+  }
+  console.log(usuarioLocal)
   // let userLocal = user
   // if(localStorage.userPetShop){
   //   userLocal = JSON.parse(localStorage.userPetShop).data;
@@ -66,15 +71,15 @@ function Nav({ user }) {
           </div>
 
           {/* nav secundario */}
-          {user ? (
+          {usuarioLocal ? (
             <div className="hidden md:flex justify-center">
-              {user ? (
+              {usuarioLocal ? (
                 <div className="flex flex-row relative ">
-                  <img src={user.url} className="h-16 mt-5"/>
+                  <img src={usuarioLocal.url} className="h-16 mt-5"/>
                   <button onClick={() => {
                     setVisibilidad(!visibilidad);
                   }} className="bg-Dark-Violet mt-5 text-white  p-4 text-base border-0">
-                    {user.email_U}
+                    {usuarioLocal.email_U}
                   <div
                     
                     className={`${

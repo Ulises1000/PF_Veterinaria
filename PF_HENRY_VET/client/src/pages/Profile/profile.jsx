@@ -110,7 +110,11 @@ useEffect(()=> {
   //      userValidate = users.find((e) => e.email === user.emails[0].value);
   //      userImage = user.photos[0].value
   //   }
-  
+  let usuarioLocal = hayUser
+  if(localStorage.userPetShop){
+    usuarioLocal = JSON.parse(localStorage.userPetShop)
+  }
+
   const [loading, setLoading] = useState(false);
   useEffect(() => {
     setLoading(true);
@@ -119,6 +123,14 @@ useEffect(()=> {
     }, 2000);
   console.log(localStorage)
   }, [localStorage]);
+  if (loading) {
+    return (
+      <div className="flex items-center justify-center bg-patas flex-col h-screen w-screen absolute">
+        <img src={loader} className="imgLoader" />
+        <p className="loadingTxt">Loading...</p>
+      </div>
+    );
+  }
   let userLocal = ""
   if(localStorage.userPetShop){
     console.log(JSON.parse(localStorage.userPetShop), "userPetShop en NAVV");
@@ -133,35 +145,22 @@ useEffect(()=> {
     // console.log(localStorage, "esto")
   }
 
-  if (loading) {
-    return (
-      <div className="flex items-center justify-center bg-patas flex-col h-screen w-screen absolute">
-        <img src={loader} className="imgLoader" />
-        <p className="loadingTxt">Loading...</p>
-      </div>
-    );
-  }
   return (
     <div className="flex absolute top-0 left-0 -z-10 items-center justify-center w-screen h-screen bg-patas">
-    <Nav user={hayUser}/>
-      <div className="flex p-16 border rounded-xl border-black">
+    <Nav user={usuarioLocal}/>
+      <div className="flex p-8 border rounded-xl border-black">
         <div className="space-y-3 pr-3">
           <div className="flex w-72">
             <h1 className="pr-2 font-semibold">Username:</h1>
-            <p className="w-80">{hayUser.name_U}</p>
+            <p className="w-80">{usuarioLocal.name_U}</p>
           </div>
           <div className="flex">
             <h1 className="pr-2 font-semibold">Email: </h1>
-            <p className="flex">{hayUser.email_U}</p>
+            <p className="flex">{usuarioLocal.email_U}</p>
           </div>
           <div className="flex">
             <h1 className="pr-2 font-semibold">Direccion:</h1>
-            <p className="w-80">{hayUser.direction_U}</p>
-          </div>
-          <div className="flex items-end justify-end w-72 h-36">
-            <button onClick={() => HandleLogout()} className="bg-white h-10 duration-300 hover:bg-red-100 p-2 rounded-lg border border-black ">
-              Logout
-            </button>
+            <p className="w-80">{usuarioLocal.direction_U}</p>
           </div>
         </div>
         <div className="grid justify-items-center">
@@ -190,6 +189,9 @@ useEffect(()=> {
                   Submit
                 </button>
               </form>
+          {<img className="z-30 h-52 w-52 rounded-xl " src={usuarioLocal.url} alt="" />}
+          <div className="absolute opacity-0  hover:opacity-100 font-bold text-black  grid duration-300 justify-items-center content-center z-40 hover:bg-slate-50 hover:bg-opacity-40 h-52 w-52">
+            Change Image
           </div>
         </div>
 
@@ -227,6 +229,7 @@ useEffect(()=> {
         )} */}
         {/* {user.emails === undefined ? <button><Link to="/userProfile/uploadImage">Change Image</Link></button> : ""} */}
       </div>
+    </div>
     </div>
   );
 }
