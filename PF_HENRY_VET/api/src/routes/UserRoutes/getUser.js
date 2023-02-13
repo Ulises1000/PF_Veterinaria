@@ -11,16 +11,16 @@ router.get("/get", async (req, res) => {
             if(!info.length) res.status(200).json({
                 ok: false,
                 msg: "No Se Ha Encontrado El Usuario.",
-                detail: "No Existe El Usuario En BD."
+                detail: "No Existe El Usuario En BD." 
             })
             else {
                 const user = {...info[0].dataValues} 
-                user.url = cloudinary.url(info[0].image_U, {
+                user.url = cloudinary.url(info[0].image_U, { 
                     width: 100,
                     height: 150,
                     Crop: 'fill'
                 });
-                
+                console.log(user)
                 res.status(200).json({
                     ok: true,
                     value: user

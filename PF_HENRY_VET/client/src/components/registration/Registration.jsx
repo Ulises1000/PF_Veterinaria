@@ -2,8 +2,8 @@ import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 
-import "./registration.css";
-import { registerUser, signinUser } from "../../redux/action";
+import "./registration.Module.css";
+import { getUser, GetUser, postUser, registerUser, signinUser } from "../../redux/action";
 
 function validate(input, userTyped) {
   let errors = {};
@@ -50,18 +50,22 @@ export function Registration({ Navset }) {
   );
   const dispatch = useDispatch();
 
+
+
   function HandleClickLogin() {
     setRegistrationChange("login");
     setInputLogin({
       name: "",
       email: "",
       password: "",
+      direction: "",
       confirmedPassword: "",
     });
     setInputRegistration({
       name: "",
       email: "",
       password: "",
+      direction: "",
       confirmedPassword: "",
     });
     reset()
@@ -73,12 +77,14 @@ export function Registration({ Navset }) {
       name: "",
       email: "",
       password: "",
+      direction: "",
       confirmedPassword: "",
     });
     setInputRegistration({
       name: "",
       email: "",
       password: "",
+      direction: "",
       confirmedPassword: "",
     });
     reset()
@@ -89,6 +95,7 @@ export function Registration({ Navset }) {
     setUserTyped({ name: false,
       email: false,
       password: false,
+      direction: false, 
       confirmedPassword: false,})
   }
 
@@ -98,6 +105,7 @@ export function Registration({ Navset }) {
     name: false,
     email: false,
     password: false,
+    direction: false,
     confirmedPassword: false,
   });
 
@@ -106,6 +114,7 @@ export function Registration({ Navset }) {
     name: "",
     email: "",
     password: "",
+    direction: "",
     confirmedPassword: "",
   });
 
@@ -113,9 +122,14 @@ export function Registration({ Navset }) {
     name: "",
     email: "",
     password: "",
+    direction: "",
     confirmedPassword: "",
   });
-
+/*
+useEffect(() =>{
+  localStorage
+},[localStorage])
+*/
   function handleChangeRegistration(e) {
     setInputRegistration({
       ...inputRegistration,
@@ -142,10 +156,15 @@ export function Registration({ Navset }) {
 //--------------------------------------------------------
   function handleSubmitNewGame(e){
     e.preventDefault();
-    registrationChange === "registration" ? 
-    dispatch(registerUser(inputRegistration))
-    :
-    dispatch(signinUser(inputLogin))
+    if(registrationChange === "registration"){
+      dispatch(registerUser(inputRegistration))
+      console.log(inputRegistration)
+      dispatch(postUser(inputRegistration))
+    }  
+    else {
+      dispatch(signinUser(inputLogin))
+      dispatch(getUser(inputLogin.email, inputLogin.password))
+    }
   }
 //--------------------------------------------------------
   function handleChangeLogin(e) {
@@ -172,6 +191,10 @@ export function Registration({ Navset }) {
     );
   }
 
+  dispatch(GetUser(userTyped.email, userTyped.password))
+  const user = useSelector((state) => state.user.user)
+  console.log(JSON.parse, "USER DE PORDIOS")
+  
   if (registrationChange === "registration") {
     return (
       <div className="flex flex-1 flex-col justify-center items-center sm:w-72 md:w-450px md:h-450px -ml-10 md:-ml-0 bg-Dark-Violet2 rounded-xl">
@@ -224,9 +247,19 @@ export function Registration({ Navset }) {
             </p>
           )}
           <div className="inputRegistration font-Fredoka rounded-lg text-md font-bold text-gray-200">
-            <label>Contraseña:</label> <br />
+            <label>Direccion:</label> <br />
             <input
               type={"text"}
+              className="text-gray-700 font-normal"
+              value={inputRegistration.direction}
+              name="direction"
+              onChange={(e) => handleChangeRegistration(e)}
+            />
+          </div>
+          <div className="inputRegistration font-Fredoka rounded-lg text-md font-bold text-gray-200">
+            <label>Contraseña:</label> <br />
+            <input
+              type={"password"}
               className="text-gray-700 font-normal"
               value={inputRegistration.password}
               name="password"
@@ -242,7 +275,7 @@ export function Registration({ Navset }) {
             <label>Confirmar Contraseña:</label> <br />
             <input
               className="text-gray-700 font-normal"
-              type={"text"}
+              type={"password"}
               value={inputRegistration.confirmedPassword}
               name="confirmedPassword"
               onChange={(e) => handleChangeRegistration(e)}
@@ -309,7 +342,7 @@ export function Registration({ Navset }) {
           <div className="inputRegistration font-Fredoka rounded-lg text-md font-bold text-gray-200">
             <label>Contraseña:</label> <br />
             <input
-              type={"text"}
+              type={"password"}
               className="text-gray-700 font-normal"
               value={inputLogin.password}
               name="password"
