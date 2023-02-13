@@ -9,7 +9,7 @@ import {Link} from 'react-router-dom'
 const TableProducts = () => {
   const dispatch = useDispatch()
   const getProductos = useSelector((state) => state.filters.products)
- 
+
   const [order, setOrder] = useState('');
   const [orderprice, setOrderprice] = useState('');
   const [orderstock, setOrderstock] =useState(''); 
@@ -17,7 +17,7 @@ const TableProducts = () => {
 
   useEffect(() => { 
       dispatch(getAllProducts())   
-  }, [])
+  }, []) 
  
    const columns = [  
     {
@@ -59,12 +59,12 @@ const TableProducts = () => {
     },
     {
       name: 'Editar',
-      cell: (row) => <button  className="bg-transparent hover:bg-blue-500 text-blue-700 font-semibold hover:text-white py-2 px-4 border border-blue-500 hover:border-transparent rounded" /* onClick={()=>deleteProduct(row.codProduct)} */ >Editar</button>,
+      cell: (row) => <button   class="focus:outline-none text-white bg-yellow-400 hover:bg-yellow-300 focus:ring-4 focus:ring-yellow-300 font-medium rounded-lg text-sm px-2.5 py-2 mr-2 dark:focus:ring-yellow-900"><Link to={`/editpro/${row.codProduct}`}>Editar</Link></button>,
       grow: 0.1,
-  },
+   },
     {
       name: 'Borrar',
-      cell: (row) => <button  className="bg-transparent hover:bg-blue-500 text-blue-700 font-semibold hover:text-white py-2 px-4 border border-blue-500 hover:border-transparent rounded" /* onClick={()=>deleteProduct(row.codProduct)} */ >Borrar</button>,
+      cell: (row) => <button  className="text-red-700    hover:text-white border border-red-700    hover:bg-red-800    focus:ring-1 focus:outline-none focus:ring-red-300    font-medium rounded-lg text-sm px-3 py-1.5 text-center mr-2 mb-2 dark:border-red-500    dark:text-red-500    dark:hover:text-white dark:hover:bg-red-600    dark:focus:ring-red-900" /* onClick={()=>deleteProduct(row.codProduct)} */ >Borrar</button>,
       grow: 0.1,
     },
   ]
@@ -119,16 +119,16 @@ return (
                 </select>
             </div> 
             <div>
-             <button type="button" class="ml-5 mt-1  text-green-700  hover:text-white border border-green-700  hover:bg-green-800  focus:ring-0 focus:outline-none focus:ring-green-300  font-medium rounded-lg text-sm px-4 py-1.5 text-center   dark:border-green-500  dark:text-green-500  dark:hover:text-white dark:hover:bg-green-600  dark:focus:ring-green-800" >  <Link to="/formproduct">Agregar un Producto</Link></button>
+             <button type="button" class="ml-2 border border-purple-700 hover:bg-purple-800 focus:ring-1 focus:outline-none focus:ring-purple-300 font-medium rounded-lg text-sm px-4 py-1 text-center mr-2 mb-2 dark:border-purple-400 dark:text-white dark:hover:text-purple-600 dark:hover:bg-purple-300 dark:bg-purple-500 dark:focus:ring-purple-900">  <Link to="/formproduct">Crear un Producto</Link></button>
             </div>     
     </section>
     
 {/*     <section>
             <div>
            
-            <button type="button" class="text-red-700    hover:text-white border border-red-700    hover:bg-red-800    focus:ring-1 focus:outline-none focus:ring-red-300    font-medium rounded-lg text-sm px-4 py-1.5 text-center mr-2 mb-2 dark:border-red-500    dark:text-red-500    dark:hover:text-white dark:hover:bg-red-600    dark:focus:ring-red-900"   >Eliminar</button>
-            <button type="button" class="text-yellow-400 hover:text-white border border-yellow-400 hover:bg-yellow-500 focus:ring-1 focus:outline-none focus:ring-yellow-300 font-medium rounded-lg text-sm px-4 py-1.5 text-center mr-2 mb-2 dark:border-yellow-300 dark:text-yellow-300 dark:hover:text-white dark:hover:bg-yellow-400 dark:focus:ring-yellow-900">Yellow</button>
-            <button type="button" class="text-purple-700 hover:text-white border border-purple-700 hover:bg-purple-800 focus:ring-1 focus:outline-none focus:ring-purple-300 font-medium rounded-lg text-sm px-4 py-1.5 text-center mr-2 mb-2 dark:border-purple-400 dark:text-purple-400 dark:hover:text-white dark:hover:bg-purple-500 dark:focus:ring-purple-900">Editar</button>
+            <button type="button" className="text-red-700    hover:text-white border border-red-700    hover:bg-red-800    focus:ring-1 focus:outline-none focus:ring-red-300    font-medium rounded-lg text-sm px-4 py-1.5 text-center mr-2 mb-2 dark:border-red-500    dark:text-red-500    dark:hover:text-white dark:hover:bg-red-600    dark:focus:ring-red-900"   >Eliminar</button>
+            <button type="button" className="text-yellow-400 hover:text-white border border-yellow-400 hover:bg-yellow-500 focus:ring-1 focus:outline-none focus:ring-yellow-300 font-medium rounded-lg text-sm px-4 py-1.5 text-center mr-2 mb-2 dark:border-yellow-300 dark:text-yellow-300 dark:hover:text-white dark:hover:bg-yellow-400 dark:focus:ring-yellow-900">Yellow</button>
+            <button type="button" className="text-purple-700 hover:text-white border border-purple-700 hover:bg-purple-800 focus:ring-1 focus:outline-none focus:ring-purple-300 font-medium rounded-lg text-sm px-4 py-1.5 text-center mr-2 mb-2 dark:border-purple-400 dark:text-purple-400 dark:hover:text-white dark:hover:bg-purple-500 dark:focus:ring-purple-900">Editar</button>
             </div> 
     </section> */}
 

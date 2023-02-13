@@ -21,6 +21,7 @@ import { ASCENDENTE, DESCENDENTE } from "../../const/orderByName";
 const initialState = {
   products: [],
   product: {},
+  productosedit:{},
   filterProducts:[],
   currentOrder: "Static",
   currentBreed: "breed",
@@ -43,6 +44,7 @@ const initialState = {
       };
 }}  
 
+
 //no usar da errores xD
 export const productsReducer = (state = initialState.products, action) => {
   switch (action.type) {
@@ -56,7 +58,7 @@ export const productsReducer = (state = initialState.products, action) => {
       return {
         ...state,
         product: action.payload,
-      };
+    };
     case DELETE_PRODUCT:
       return {
         ...state,
@@ -94,6 +96,11 @@ export const filters = (state = initialState, action) => {
         OrdeProductsDashb: action.payload
       };
     }
+    case GET_PRODUCT:
+      return {
+        ...state,
+        product: action.payload,
+    };
     case POST_PRODUCT:
       return {
         ...state,

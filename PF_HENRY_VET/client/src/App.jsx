@@ -8,6 +8,7 @@ import LandingPage from "./pages/LandigPage/LandingPage.jsx";
 import Details from "./pages/Details/Details.jsx";
 import DashBoard from "./pages/Dashboard/DashBoard";
 import FormProduct from "./components/Dashboard/FormProduct";
+import FormEditProduct from "./components/Dashboard/FormEditProduct";
 
 function App() {
   return (
@@ -19,7 +20,8 @@ function App() {
         <Route exact path="/details/:id" element={<Details />} />
         <Route exact path="/profile" element={<UserProfile />} />
         <Route exact path="/dashboard" element={<DashBoard/>} />
-        <Route exact path="/formproduct" element={<FormProduct/>} />  
+        <Route exact path="/formproduct" element={<FormProduct/>} />
+        <Route exact path="/editpro/:id" element={<FormEditProduct/>} />  
         <Route path="*" element={<NotFound />} />
       </Routes>
     </div>

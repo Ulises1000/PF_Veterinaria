@@ -29,15 +29,12 @@ import {
     POST_FAVORITES,
     UPDATE_CARTDTAIL,
     POST_CARTDTAIL,
-    UPDATE_CARTDTAIL,
     GET_CARTDTAIL,
     DELETE_CARTDTAIL,
     DIFFERENT_OUTCOME,
     EMPTY_DIFFOUTCOME_OBJ,
     EMPTY_SHOPPINGCARTDTAIL,
-    EMPTY_SHOPPINGCARTDTAILMSG, 
-
-
+    EMPTY_SHOPPINGCARTDTAILMSG
 } from './constants';
 
 /* ruta + endpoints */
@@ -175,6 +172,7 @@ export function deleteProduct(codProduct) {
 }
 
 export function updateProduct(productId, productData) {
+    console.log(productId,productData)
     return async function(dispatch) {
         try {
             const { data } = await axios.put(`${URL + Endpoints.product}update/${productId}`, productData);
@@ -201,8 +199,7 @@ export function updateProduct(productId, productData) {
     const prueb =  await axios.post("http://localhost:3001/products/prueba",data)
 } */
 
-export function postProductos(data) {
-    console.log(data)     
+export function postProductos(data) {     
     return async (dispatch)=>{
         const post = await axios.post("http://localhost:3001/products/post",data);
         dispatch({
