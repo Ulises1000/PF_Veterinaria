@@ -9,27 +9,25 @@ import loader from "../../style-assets/paw_icon.png";
 import Footer from "../../components/Footer.jsx";
 import NotFound from "../Not Found/NotFound.jsx";
 
-
-function Mercado({hayUser}) {
+function Mercado({ hayUser }) {
   const dispatch = useDispatch();
-  const paginationArray = useSelector(state => state.filters.paginationArray)
-  const pagArrayArray = paginationArray[0]
-  const realState = useSelector((state => state))
+  const paginationArray = useSelector((state) => state.filters.paginationArray);
+  const pagArrayArray = paginationArray[0];
+  const realState = useSelector((state) => state);
   const [state, setState] = useState({
     loading: false,
-    page: 1
+    page: 1,
   });
-  
-  
+
   useEffect(() => {
     async function fetchData() {
       setState({ loading: true });
       dispatch(getAllProducts());
+
       setState({ loading: false });
     }
     fetchData();
   }, [state.page]);
-
 
   const [loading, setLoading] = useState(false);
   // useEffect(() => {
@@ -40,47 +38,72 @@ function Mercado({hayUser}) {
   // }, []);
 
   if (loading) {
-    console.log(loading, "DENTRO DEL LOADING")
+    console.log(loading, "DENTRO DEL LOADING");
     return (
       <div className="flex items-center justify-center bg-patas flex-col h-screen w-screen absolute">
-        <img src={loader} className="imgLoader" alt='loader image'/>
+        <img src={loader} className="imgLoader" alt="loader image" />
         <p className="loadingTxt">Loading...</p>
       </div>
     );
   }
-  
-  if (loading === false && paginationArray[0]){
-    if (paginationArray !== [] && pagArrayArray[0] !== "Nada"){
+
+  if (loading === false && paginationArray[0]) {
+    if (paginationArray !== [] && pagArrayArray[0] !== "Nada") {
       return (
-          <div>
-            <div className="h-14">
-              <Nav user={hayUser} />
-              <Searchbar />
-            </div>
-            <div className="mt-36">
-              <div className={styles.center}>
-                {Object.values(paginationArray).map((product) => 
-                ( product.map((p, i) => (
-                        <Card
-                            key={i}
-                            id={p.codProduct}
-                            url={p.url}
-                            name={p.name}
-                            unit_price={p.unit_price}
-                            breedType={p.breedType}
-                            petSize={p.petSize}
-                        />
-                    ))
-                ))}
-              </div>
-            </div>
-          <Footer/>
+        <div>
+          <div className="h-14">
+            <Nav user={hayUser} />
+            <Searchbar />
           </div>
+          <div className="mt-36">
+            <div className={styles.center}>
+              {Object.values(paginationArray).map((product) =>
+                product.map((p, i) => (
+                  <Card
+                    key={i}
+                    id={p.codProduct}
+                    url={p.url}
+                    name={p.name}
+                    unit_price={p.unit_price}
+                    breedType={p.breedType}
+                    petSize={p.petSize}
+                  />
+                ))
+              )}
+            </div>
+          </div>
+          <Footer />
+        </div>
       );
-    // }
-  }
-  else if (pagArrayArray[0] === "Nada"){
-    return (
+      return (
+        <div>
+          <div className="h-14">
+            <Nav user={hayUser} />
+            <Searchbar />
+          </div>
+          <div className="mt-36">
+            <div className={styles.center}>
+              {Object.values(paginationArray).map((product) =>
+                product.map((p, i) => (
+                  <Card
+                    key={i}
+                    id={p.codProduct}
+                    url={p.url}
+                    name={p.name}
+                    unit_price={p.unit_price}
+                    breedType={p.breedType}
+                    petSize={p.petSize}
+                  />
+                ))
+              )}
+            </div>
+          </div>
+          <Footer />
+        </div>
+      );
+      // }
+    } else if (pagArrayArray[0] === "Nada") {
+      return (
         <div>
           <div className="h-14">
             <Nav />
@@ -88,16 +111,14 @@ function Mercado({hayUser}) {
           </div>
           <div className="mt-36">
             <div className={styles.center}>
-              <NotFound/>
+              <NotFound />
             </div>
           </div>
-        <Footer/>
+          <Footer />
         </div>
-    );
+      );
+    }
   }
 }
-    }
-
-    
 
 export default Mercado;
