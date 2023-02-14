@@ -14,7 +14,6 @@ function Nav({ user }) {
   if (localStorage.userPetShop) {
     usuarioLocal = JSON.parse(localStorage.userPetShop);
   }
-  console.log(usuarioLocal);
   // let userLocal = user
   // if(localStorage.userPetShop){
   //   userLocal = JSON.parse(localStorage.userPetShop).data;
@@ -67,12 +66,20 @@ function Nav({ user }) {
               >
                 Consultas
               </Link>
-              <Link
-                to="/dashboard"
-                className="py-4 px-3 text-gray-700 font-semibold hover:font-medium hover:text-black"
-              >
-                Dashboard
-              </Link>
+              {usuarioLocal ? (
+                usuarioLocal.isAdmin === true ? (
+                  <Link
+                    to="/dashboard"
+                    className="py-4 px-3 text-gray-700 font-semibold hover:font-medium hover:text-black"
+                  >
+                    Dashboard
+                  </Link>
+                ) : (
+                  ""
+                )
+              ) : (
+                ""
+              )}
             </div>
           </div>
 
@@ -124,13 +131,13 @@ function Nav({ user }) {
                       xmlns="http://www.w3.org/2000/svg"
                       fill="none"
                       viewBox="0 0 24 24"
-                      stroke-width="1.5"
+                      strokeWidth="1.5"
                       stroke="currentColor"
-                      class="w-6 h-6 mt-10 "
+                      className="w-6 h-6 mt-10 "
                     >
                       <path
-                        stroke-linecap="round"
-                        stroke-linejoin="round"
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
                         d="M2.25 3h1.386c.51 0 .955.343 1.087.835l.383 1.437M7.5 14.25a3 3 0 00-3 3h15.75m-12.75-3h11.218c1.121-2.3 2.1-4.684 2.924-7.138a60.114 60.114 0 00-16.536-1.84M7.5 14.25L5.106 5.272M6 20.25a.75.75 0 11-1.5 0 .75.75 0 011.5 0zm12.75 0a.75.75 0 11-1.5 0 .75.75 0 011.5 0z"
                       />
                     </svg>
@@ -259,72 +266,111 @@ function Nav({ user }) {
           <span className="pl-2">Consultas</span>
         </Link>
 
-        {usuarioLocal ? <div>
-         
-        <Link
-          to="/profile"
-          className="flex py-2 px-4 text-sm items-center bg-violet-200  hover:bg-violet-500 text-gray-700 group hover:text-white transition duration-300"
-        >
-         <img 
-           className="logo_only w-6 h-6 rounded-xl"
-           src={usuarioLocal.url}
-           alt=""/>
-          <span className="pl-2">Profile: {usuarioLocal.name_U}</span>
-        </Link>
-        <Link
-          to="/"
-          onClick={() => HandleLogout()}
-          className="flex py-2 px-4 text-sm items-center bg-violet-200 hover:bg-violet-300 group hover:font-medium text-gray-700 hover:text-black transition duration-300"
-        >      
-          <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-6 h-6">
-  <path strokeLinecap="round" strokeLinejoin="round" d="M15.75 9V5.25A2.25 2.25 0 0013.5 3h-6a2.25 2.25 0 00-2.25 2.25v13.5A2.25 2.25 0 007.5 21h6a2.25 2.25 0 002.25-2.25V15M12 9l-3 3m0 0l3 3m-3-3h12.75" />
-</svg>
+        {usuarioLocal ? (
+          <div>
+            {usuarioLocal.isAdmin === true ? 
+            <Link
+              to="/dashboard"
+              className="flex py-2 px-4 text-sm border border-violet-300 items-center bg-violet-200  hover:bg-violet-500 text-gray-700 group hover:text-white transition duration-300"
+            >
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                fill="none"
+                viewBox="0 0 24 24"
+                strokeWidth={1.5}
+                stroke="currentColor"
+                className="w-6 h-6"
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  d="M6.429 9.75L2.25 12l4.179 2.25m0-4.5l5.571 3 5.571-3m-11.142 0L2.25 7.5 12 2.25l9.75 5.25-4.179 2.25m0 0L21.75 12l-4.179 2.25m0 0l4.179 2.25L12 21.75 2.25 16.5l4.179-2.25m11.142 0l-5.571 3-5.571-3"
+                />
+              </svg>
 
-          <span className="pl-2">Logout</span>
-        </Link>
-        </div> : <div><Link
-          to="/"
-          className="flex py-2 px-4 text-sm items-center bg-violet-200 hover:bg-violet-300 group hover:font-medium text-gray-700 hover:text-black transition duration-300"
-        >
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            fill="none"
-            viewBox="0 0 24 24"
-            strokeWidth="1.5"
-            stroke="currentColor"
-            className="w-6 h-6 text-gray-700 group-hover:text-black group-hover:bg-violet-300 group-hover:transition group-hover:duration-300 group-hover:font-medium "
-          >
-            <path
-              strokeLinecap="round"
-              strokeLinejoin="round"
-              d="M15.75 9V5.25A2.25 2.25 0 0013.5 3h-6a2.25 2.25 0 00-2.25 2.25v13.5A2.25 2.25 0 007.5 21h6a2.25 2.25 0 002.25-2.25V15m3 0l3-3m0 0l-3-3m3 3H9"
-            />
-          </svg>
+              <span className="pl-2">Dashboard</span>
+            </Link> : ""}
 
-          <span className="pl-2">Login</span>
-        </Link>
-        <Link
-          to="/"
-          className="flex py-2 px-4 text-sm font-bold items-center bg-violet-200  hover:bg-violet-500 hover:border-black border-violet-500 border-2 text-gray-700 group hover:text-white transition duration-300"
-        >
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            fill="none"
-            viewBox="0 0 24 24"
-            strokeWidth="1.5"
-            stroke="currentColor"
-            className="w-6 h-6 text-violet-400 group-hover:text-white group-hover:transition group-hover:duration-300"
-          >
-            <path
-              strokeLinecap="round"
-              strokeLinejoin="round"
-              d="M17.982 18.725A7.488 7.488 0 0012 15.75a7.488 7.488 0 00-5.982 2.975m11.963 0a9 9 0 10-11.963 0m11.963 0A8.966 8.966 0 0112 21a8.966 8.966 0 01-5.982-2.275M15 9.75a3 3 0 11-6 0 3 3 0 016 0z"
-            />
-          </svg>{" "}
-          <span className="pl-2">Sign Up</span>
-        </Link>
-      </div>}
-       </div>
+            <Link
+              to="/profile"
+              className="flex py-2 px-4 text-sm items-center border border-violet-300 bg-violet-200  hover:bg-violet-500 text-gray-700 group hover:text-white transition duration-300"
+            >
+              <img
+                className="logo_only w-6 h-6 rounded-xl"
+                src={usuarioLocal.url}
+                alt=""
+              />
+              <span className="pl-2">Profile: {usuarioLocal.name_U}</span>
+            </Link>
+            <Link
+              to="/"
+              onClick={() => HandleLogout()}
+              className="flex py-2 px-4 text-sm items-center border border-violet-300 bg-violet-200 hover:bg-violet-300 group hover:font-medium text-gray-700 hover:text-black transition duration-300"
+            >
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                fill="none"
+                viewBox="0 0 24 24"
+                strokeWidth={1.5}
+                stroke="currentColor"
+                className="w-6 h-6"
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  d="M15.75 9V5.25A2.25 2.25 0 0013.5 3h-6a2.25 2.25 0 00-2.25 2.25v13.5A2.25 2.25 0 007.5 21h6a2.25 2.25 0 002.25-2.25V15M12 9l-3 3m0 0l3 3m-3-3h12.75"
+                />
+              </svg>
+
+              <span className="pl-2">Logout</span>
+            </Link>
+          </div>
+        ) : (
+          <div>
+            <Link
+              to="/"
+              className="flex py-2 px-4 text-sm items-center bg-violet-200 hover:bg-violet-300 group hover:font-medium text-gray-700 hover:text-black transition duration-300"
+            >
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                fill="none"
+                viewBox="0 0 24 24"
+                strokeWidth="1.5"
+                stroke="currentColor"
+                className="w-6 h-6 text-gray-700 group-hover:text-black group-hover:bg-violet-300 group-hover:transition group-hover:duration-300 group-hover:font-medium "
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  d="M15.75 9V5.25A2.25 2.25 0 0013.5 3h-6a2.25 2.25 0 00-2.25 2.25v13.5A2.25 2.25 0 007.5 21h6a2.25 2.25 0 002.25-2.25V15m3 0l3-3m0 0l-3-3m3 3H9"
+                />
+              </svg>
+
+              <span className="pl-2">Login</span>
+            </Link>
+            <Link
+              to="/"
+              className="flex py-2 px-4 text-sm font-bold items-center bg-violet-200  hover:bg-violet-500 hover:border-black border-violet-500 border-2 text-gray-700 group hover:text-white transition duration-300"
+            >
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                fill="none"
+                viewBox="0 0 24 24"
+                strokeWidth="1.5"
+                stroke="currentColor"
+                className="w-6 h-6 text-violet-400 group-hover:text-white group-hover:transition group-hover:duration-300"
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  d="M17.982 18.725A7.488 7.488 0 0012 15.75a7.488 7.488 0 00-5.982 2.975m11.963 0a9 9 0 10-11.963 0m11.963 0A8.966 8.966 0 0112 21a8.966 8.966 0 01-5.982-2.275M15 9.75a3 3 0 11-6 0 3 3 0 016 0z"
+                />
+              </svg>{" "}
+              <span className="pl-2">Sign Up</span>
+            </Link>
+          </div>
+        )}
+      </div>
     </nav>
   );
 }

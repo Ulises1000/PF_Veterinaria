@@ -16,18 +16,13 @@ import Nav from "./components/Nav";
 function App() {
   let user = useSelector((state) => state.user.user);
   let hayUser = user;
-  let parserStorage;
-  console.log(hayUser, "ESTOOOOOOOOOOO ES USER");
   useEffect(() => {
     if (user !== undefined) {
       localStorage.setItem("userPetShop", JSON.stringify(user));
     }
-    if (localStorage.userPetShop) {
-      parserStorage = JSON.parse(localStorage.userPetShop);
-    }
   }, [user, hayUser]);
 
-  console.log(localStorage.userPetShop, "localStorage.userPetShop");
+  // console.log(localStorage.userPetShop, "localStorage.userPetShop");
   return (
     //:
     <div className="App bg-patas w-full">
@@ -36,13 +31,20 @@ function App() {
           exact
           path="/"
           element={
-            localStorage.userPetShop || user ? (
-              <Navigate to="/home" />
-            ) : localStorage.userPetShop || user ? (
-              <Navigate to="/dashboard" />
-            ) : (
-              <LandingPage />
-            )
+            user ? user ? user.isAdmin === true ? (
+                <Navigate to="/dashboard" />
+              ) : (
+                  <Navigate to="/home" />
+                ) : (
+                    <LandingPage />
+                  ) :
+                  localStorage.userPetShop !== undefined ? JSON.parse(localStorage.userPetShop).isAdmin === true ? (
+                    <Navigate to="/dashboard" />
+                  ) : (
+                    <Navigate to="/home" />
+                  ) : (
+                    <LandingPage />
+                  ) 
           }
         />
 
@@ -88,22 +90,48 @@ function App() {
           exact
           path="/dashboard"
           element={
-            localStorage.userPetShop || user ? (
+            user ? user ? user.isAdmin === true ? (
               <DashBoard hayUser={hayUser} />
             ) : (
-              <Navigate to="/" />
-            )
+                <Navigate to="/home" />
+              ) : (
+                <Navigate to="/home" />
+                ) :
+                localStorage.userPetShop !== undefined ? JSON.parse(localStorage.userPetShop).isAdmin === true ? (
+                  <DashBoard hayUser={hayUser} />
+                ) : (
+                  <Navigate to="/home" />
+                  ) : (
+                    <Navigate to="/home" />
+                ) 
           }
         />
         <Route
           exact
           path="/formproduct"
           element={
-            localStorage.userPetShop || user ? (
+
+            user ? user ? user.isAdmin === true ? (
               <FormProduct hayUser={hayUser} />
             ) : (
-              <Navigate to="/" />
-            )
+                <Navigate to="/home" />
+              ) : (
+                <Navigate to="/home" />
+                ) :
+                localStorage.userPetShop !== undefined ? JSON.parse(localStorage.userPetShop).isAdmin === true ? (
+                  <FormProduct hayUser={hayUser} />
+                ) : (
+                  <Navigate to="/home" />
+                  ) : (
+                    <Navigate to="/home" />
+                ) 
+
+
+            // localStorage.userPetShop || user ? (
+            //   <FormProduct hayUser={hayUser} />
+            // ) : (
+            //   <Navigate to="/" />
+            // )
           }
         />
         <Route path="*" element={<NotFound hayUser={hayUser} />} />
