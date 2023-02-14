@@ -26,7 +26,7 @@ module.exports = {
         bermuda: "#78dcca",
       },
       backgroundImage: {
-        patas: "url('./src/style-assets/bg-patas.png')",
+        patas: "url('/public/bg-patas.png')",
       },
       fontFamily: {
         Fredoka: ['"Fredoka"', '"sans-serif"'],
