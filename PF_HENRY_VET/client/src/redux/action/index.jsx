@@ -17,8 +17,8 @@ import {
   UPDATE_USER,
   CREATE_PAGINATION_ARRAY,
   SEARCH,
-  FILTEREDBREED,
-  FILTEREDSIZE,
+  // FILTEREDBREED,
+  // FILTEREDSIZE,
   SORT,
   SEARCH_PRO_DASHBOARD,
   BY_ORDER,
@@ -31,6 +31,7 @@ import {
   DELETE_CARTDTAIL,
   DIFFERENT_OUTCOME,
   FILTERED,
+  FILTEREDPRODUCTS,
   EMPTY_DIFFOUTCOME_OBJ,
   EMPTY_SHOPPINGCARTDTAIL,
   EMPTY_SHOPPINGCARTDTAILMSG,
@@ -472,18 +473,25 @@ export function createPaginationArray(payload) {
     payload,
   };
 }
-export function filteredBreed(payload) {
+// export function filteredBreed(payload) {
+//   return {
+//     type: FILTEREDBREED,
+//     payload,
+//   };
+// }
+// export function filteredSize(payload) {
+//   return {
+//     type: FILTEREDSIZE,
+//     payload,
+//   };
+// }
+export function filterProducts(payload) {
   return {
-    type: FILTEREDBREED,
+    type: FILTEREDPRODUCTS,
     payload,
   };
 }
-export function filteredSize(payload) {
-  return {
-    type: FILTEREDSIZE,
-    payload,
-  };
-}
+
 export function sort(order) {
   return {
     type: SORT,

@@ -1,7 +1,7 @@
 // import { useSelector } from "react-redux";
 import { useDispatch, useSelector } from "react-redux";
 import { ASCENDENTE, DESCENDENTE } from "../const/orderByName";
-import { createPaginationArray, filteredBreed, filteredSize, sort } from "../redux/action";
+import { createPaginationArray, filterProducts, sort } from "../redux/action";
 
 export default function Characteristic() {
   let dispatch = useDispatch();
@@ -17,14 +17,31 @@ export default function Characteristic() {
   }
 
   function onChangeBreed(event) {
-    dispatch(filteredBreed(event.target.value));
+    dispatch(filterProducts({
+      breed: event.target.value,
+      size: realState.filters.currentSize
+    }));
     dispatch(createPaginationArray());
   }
 
   function onChangeSize(event) {
-    dispatch(filteredSize(event.target.value));
+    dispatch(filterProducts({
+      size: event.target.value,
+      breed: realState.filters.currentBreed
+    }));
     dispatch(createPaginationArray());
   }
+
+
+  // function onChangeBreed(event) {
+  //   dispatch(filteredBreed(event.target.value));
+  //   dispatch(createPaginationArray());
+  // }
+
+  // function onChangeSize(event) {
+  //   dispatch(filteredSize(event.target.value));
+  //   dispatch(createPaginationArray());
+  // }
 
   return (
     <div className="flex flex-col justify-center items-center -mt-4">
