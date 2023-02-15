@@ -19,11 +19,12 @@ export const SET_USER = "SET_USER";
 
 /* filter */
 export const CREATE_PAGINATION_ARRAY = "CREATE_PAGINATION_ARRAY";
-export const FILTEREDBREED = "FILTEREDBREED";
-export const FILTEREDSIZE = "FILTEREDSIZE";
+// export const FILTEREDBREED = "FILTEREDBREED";
+// export const FILTEREDSIZE = "FILTEREDSIZE";
 export const SORT = "SORT";
 export const SEARCH = "SEARCH";
 export const FILTERED = "FILTERED";
+export const FILTEREDPRODUCTS = "FILTEREDPRODUCTS";
 /* ShoppingCart */
 
 export const POST_CARTDTAIL = "POST_CARTDTAIL";
