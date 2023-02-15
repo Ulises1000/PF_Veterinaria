@@ -1,16 +1,17 @@
 import React from "react";
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { Link, redirect } from "react-router-dom";
+import { Link, redirect, useNavigate } from "react-router-dom";
 import Nav from "../../components/Nav.jsx";
 import { signoutUser } from "../../redux/action/index.jsx";
 import loader from "../../style-assets/paw_icon.png";
 import { updateUser } from "../../redux/action/index.jsx";
 
-export default function UserProfile({hayUser}) {
-  const dispatch = useDispatch()
+export default function UserProfile({ hayUser }) {
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
   // const handleLogout = () => {
-    //console.log(hayUser.cod_User, "ACAAAAAAAAAAAAAAAAAAA")
+  //console.log(hayUser.cod_User, "ACAAAAAAAAAAAAAAAAAAA")
   //     if (user.category) {
   //         localStorage.clear();
   //         dispatch(logout());
@@ -25,8 +26,6 @@ export default function UserProfile({hayUser}) {
   // let userValidate = ""
   // let userImage = ""
 
-
-  
   const [uploading, setUploading] = useState(false);
   const [fileInputState, setFileInputState] = useState("");
   const [previewSource, setPreviewSource] = useState("");
@@ -65,9 +64,12 @@ export default function UserProfile({hayUser}) {
       setPreviewSource(reader.result);
     };
   };
-useEffect(()=> {
-  console.log(hayUser, "ESTO PASA CUANDO SE MODIFICA EL USUARIO")
-}, [hayUser])
+  let usuarioLocal = hayUser;
+  if (localStorage.userPetShop) {
+    usuarioLocal = JSON.parse(localStorage.userPetShop);
+  }
+
+
   const handleSubmitFile = (e) => {
     e.preventDefault();
     const reader = new FileReader();
@@ -75,19 +77,25 @@ useEffect(()=> {
     reader.readAsDataURL(selectedFile);
     reader.onloadend = async () => {
       setUploading(true);
-     const img = reader.result;
-    dispatch(updateUser(hayUser.cod_User, {data:{
-      img,
-      codImg: hayUser.image_U,
-      password_U: hayUser.password_U,
-      email_U: hayUser.email_U
-    } }));
+      const img = reader.result;
+      dispatch(
+        updateUser(usuarioLocal.cod_User, {
+          data: {
+            img,
+            codImg: usuarioLocal.image_U,
+            password_U: usuarioLocal.password_U,
+            email_U: usuarioLocal.email_U,
+          },
+        })
+      );
       // await axios.post(`${window.location.origin}/api/cloudinaryUpload`, {
       //   data: reader.result,
       // });
+
       setUploading(false);
       setFileInputState("");
       setPreviewSource("");
+      navigate("/home");
     };
     reader.onerror = (error) => {
       console.error(error);
@@ -110,10 +118,10 @@ useEffect(()=> {
   //      userValidate = users.find((e) => e.email === user.emails[0].value);
   //      userImage = user.photos[0].value
   //   }
-  let usuarioLocal = hayUser
-  if(localStorage.userPetShop){
-    usuarioLocal = JSON.parse(localStorage.userPetShop)
-  }
+
+  useEffect(() => {
+    console.log("Se actualizao el usuario");
+  }, [usuarioLocal.url]);
 
   const [loading, setLoading] = useState(false);
   useEffect(() => {
@@ -121,7 +129,7 @@ useEffect(()=> {
     setTimeout(() => {
       setLoading(false);
     }, 2000);
-  console.log(localStorage)
+    console.log(localStorage);
   }, [localStorage]);
   if (loading) {
     return (
@@ -131,24 +139,17 @@ useEffect(()=> {
       </div>
     );
   }
-  let userLocal = ""
-  if(localStorage.userPetShop){
-    console.log(JSON.parse(localStorage.userPetShop), "userPetShop en NAVV");
+  let userLocal = "";
+  if (localStorage.userPetShop) {
+    console.log(usuarioLocal, "userPetShop en NAVV");
     userLocal = JSON.parse(localStorage.userPetShop).data;
   }
-  function HandleLogout() {
-    localStorage.removeItem("userPetShop")
-    dispatch(signoutUser())
-    window.location.reload(true)
-    hayUser = ""
-    userLocal= ""
-    // console.log(localStorage, "esto")
-  }
+
 
   return (
     <div className="flex absolute top-0 left-0 -z-10 items-center justify-center w-screen h-screen bg-patas">
-    <Nav user={usuarioLocal}/>
-      <div className="flex p-8 border rounded-xl border-black">
+      <Nav user={usuarioLocal} />
+      <div className="flex flex-col md:flex-row sm:w-72 md:w-fit md:p-8 border rounded-xl border-black">
         <div className="space-y-3 pr-3">
           <div className="flex w-72">
             <h1 className="pr-2 font-semibold">Username:</h1>
@@ -164,39 +165,40 @@ useEffect(()=> {
           </div>
         </div>
         <div className="grid justify-items-center">
-          {<img className="z-30 h-52 w-52 rounded-xl " src={hayUser.url} alt="" />}
+          {
+            <img
+              className="z-30 h-52 w-52 rounded-xl "
+              src={usuarioLocal.url}
+              alt=""
+            />
+          }
           <div className="absolute opacity-0  hover:opacity-100 font-bold text-black  grid duration-300 justify-items-center content-center z-40 hover:bg-opacity-40">
-          <div>
-          {previewSource && (
+            <div>
+              {previewSource && (
                 <img
-                  className="rounded-xl h-52 w-52"
+                  className="rounded-xl h-52 w-52 "
                   src={previewSource}
                   alt="chosen"
                 />
               )}
+            </div>
+            <form className="flex flex-col" onSubmit={handleSubmitFile}>
+              <input 
+                className="justify-center self-center  z-50"
+                id="fileInput"
+                type="file"
+                name="image"
+                accept=".img,.png,.jpg,.ico,.jpeg"
+                onChange={handleFileInputChange}
+                defaultValue=""
+              />
+              <button className="bg-violet-500  w-20 self-center" type="submit">
+                Submit
+              </button>
+            </form>
           </div>
-          <form className="flex flex-col" onSubmit={handleSubmitFile}>
-                 <input
-                 className="justify-center self-center"
-                  id="fileInput"
-                  type="file"
-                  name="image"
-                  accept=".img,.png,.jpg,.ico,.jpeg"
-                  onChange={handleFileInputChange}
-                  defaultValue=""
-                />
-                <button className="bg-violet-500  w-20 self-center" type="submit">
-                  Submit
-                </button>
-              </form>
-          {<img className="z-30 h-52 w-52 rounded-xl " src={usuarioLocal.url} alt="" />}
-          <div className="absolute opacity-0  hover:opacity-100 font-bold text-black  grid duration-300 justify-items-center content-center z-40 hover:bg-slate-50 hover:bg-opacity-40 h-52 w-52">
-            Change Image
-          </div>
-        </div>
 
-
-        {/* {uploading === false ? (
+          {/* {uploading === false ? (
           <div>
             <h1 >Upload an Image</h1>
             <div>
@@ -227,9 +229,9 @@ useEffect(()=> {
         ) : (
           <div className={styles.title}>Uploading...</div>
         )} */}
-        {/* {user.emails === undefined ? <button><Link to="/userProfile/uploadImage">Change Image</Link></button> : ""} */}
+          {/* {user.emails === undefined ? <button><Link to="/userProfile/uploadImage">Change Image</Link></button> : ""} */}
+        </div>
       </div>
-    </div>
     </div>
   );
 }
