@@ -13,16 +13,7 @@ router.get("/get", async (req, res) => {
         detail: "No Existe Ningún Producto BD Con Ese Nombre.",
       });
       else {
-        const products = await getP.map(el => {
-          const obj = {...el.dataValues};
-          obj.url = cloudinary.url(el.image_url, {
-            width: 100,
-            height: 150,
-            Crop: 'fill'
-          });
-          return obj;
-        })
-        res.status(200).json(products);
+        res.status(200).json(getP);
       } 
     }catch(err){
       res.status(404).send({
