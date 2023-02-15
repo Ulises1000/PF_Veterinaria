@@ -74,14 +74,12 @@ export default function UserProfile({ hayUser }) {
       setUploading(true);
       const img = reader.result;
       dispatch(
-        updateUser(hayUser.cod_User, {
-          data: {
-            img,
-            codImg: hayUser.image_U,
-            password_U: hayUser.password_U,
-            email_U: hayUser.email_U,
-          },
-        })
+        updateUser(hayUser.cod_User,{
+          url: img,
+          image_U: hayUser.image_U,
+          password_U: hayUser.password_U,
+          email_U: hayUser.email_U
+        }) 
       );
       // await axios.post(`${window.location.origin}/api/cloudinaryUpload`, {
       //   data: reader.result,

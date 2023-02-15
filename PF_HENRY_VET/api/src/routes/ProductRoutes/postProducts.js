@@ -32,6 +32,7 @@ router.post("/post", async (req, res) => {
         description,
         unit_price,
         stock,
+        url: image_url,
         petSize,
         breedType 
       });

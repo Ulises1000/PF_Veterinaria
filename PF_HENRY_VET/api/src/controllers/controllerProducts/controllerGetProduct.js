@@ -18,6 +18,7 @@ const getProducts = async (nameP) => {
             unit_price: p.precio,
             description: p.descripcion,
             stock: p.stock,
+            url: p.image, 
             petSize: Array.isArray(p.breed) ? p.breed : [p.breed],
             breedType:Array.isArray(p.tipo) ? p.tipo : [p.tipo]  
           };

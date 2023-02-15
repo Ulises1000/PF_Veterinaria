@@ -18,14 +18,6 @@ router.get("/getp/:id", async (req, res) => {
         detail: "No Existe el producto en la BD.",
       });
     else {
-      /*
-      const obj = {...get_P.dataValues}
-      obj.url = cloudinary.url(obj.image_url, {
-          width: 100,
-          height: 150,
-          Crop: 'fill'
-        });
-        */
       res.send(get_P);
     }
   } catch (err) {
