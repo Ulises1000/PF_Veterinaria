@@ -64,6 +64,11 @@ export default function UserProfile({ hayUser }) {
       setPreviewSource(reader.result);
     };
   };
+  let usuarioLocal = hayUser;
+  if (localStorage.userPetShop) {
+    usuarioLocal = JSON.parse(localStorage.userPetShop);
+  }
+
 
   const handleSubmitFile = (e) => {
     e.preventDefault();
@@ -111,10 +116,6 @@ export default function UserProfile({ hayUser }) {
   //      userValidate = users.find((e) => e.email === user.emails[0].value);
   //      userImage = user.photos[0].value
   //   }
-  let usuarioLocal = hayUser;
-  if (localStorage.userPetShop) {
-    usuarioLocal = JSON.parse(localStorage.userPetShop);
-  }
 
   useEffect(() => {
     console.log("Se actualizao el usuario");
@@ -138,22 +139,15 @@ export default function UserProfile({ hayUser }) {
   }
   let userLocal = "";
   if (localStorage.userPetShop) {
-    console.log(JSON.parse(localStorage.userPetShop), "userPetShop en NAVV");
+    console.log(usuarioLocal, "userPetShop en NAVV");
     userLocal = JSON.parse(localStorage.userPetShop).data;
   }
-  function HandleLogout() {
-    localStorage.removeItem("userPetShop");
-    dispatch(signoutUser());
-    window.location.reload(true);
-    hayUser = "";
-    userLocal = "";
-    // console.log(localStorage, "esto")
-  }
+
 
   return (
     <div className="flex absolute top-0 left-0 -z-10 items-center justify-center w-screen h-screen bg-patas">
       <Nav user={usuarioLocal} />
-      <div className="flex flex-col md:flex-row w-72 md:p-8 border rounded-xl border-black">
+      <div className="flex flex-col md:flex-row sm:w-72 md:w-fit md:p-8 border rounded-xl border-black">
         <div className="space-y-3 pr-3">
           <div className="flex w-72">
             <h1 className="pr-2 font-semibold">Username:</h1>
@@ -180,15 +174,15 @@ export default function UserProfile({ hayUser }) {
             <div>
               {previewSource && (
                 <img
-                  className="rounded-xl h-52 w-52"
+                  className="rounded-xl h-52 w-52 "
                   src={previewSource}
                   alt="chosen"
                 />
               )}
             </div>
             <form className="flex flex-col" onSubmit={handleSubmitFile}>
-              <input
-                className="justify-center self-center"
+              <input 
+                className="justify-center self-center  z-50"
                 id="fileInput"
                 type="file"
                 name="image"
@@ -200,10 +194,6 @@ export default function UserProfile({ hayUser }) {
                 Submit
               </button>
             </form>
-
-            <div className="absolute opacity-0  hover:opacity-100 font-bold text-black  grid duration-300 justify-items-center content-center z-40 hover:bg-slate-50 hover:bg-opacity-40 h-52 w-52">
-              Change Image
-            </div>
           </div>
 
           {/* {uploading === false ? (
