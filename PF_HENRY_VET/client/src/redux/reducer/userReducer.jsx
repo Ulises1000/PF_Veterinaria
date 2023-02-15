@@ -6,6 +6,7 @@ import {
     SIGNOUT_USER,
     REGISTER_ERRORS,
     SIGNIN_ERRORS,
+    SIGNIN_GOOGLE,
     CLEAN_MSG_REGISTER_USER,
     POST_USER,
     UPDATE_USER,
@@ -15,6 +16,7 @@ import {
 const initialState = {
     user: {},
     msgDeletedUser: "",
+    authGoogle: {},
     infoRegistration: {},
     userMsgErrorRegistrationAndSignin: "",
 }
@@ -35,6 +37,11 @@ export const userReducer = (state = initialState.user, action) => {
       return {
         ...state,
         user: action.payload,
+      };
+    case SIGNIN_GOOGLE:
+      return {
+        ...state,
+        authGoogle: action.payload,
       };
     case REGISTER_ERRORS:{
       let msg;

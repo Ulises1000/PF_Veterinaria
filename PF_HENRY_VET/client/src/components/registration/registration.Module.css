@@ -21,6 +21,14 @@
   color: #dcdde1;
   background-color: rgba(119, 140, 163, 0.5);
 }
+.noParametreGoogleButton{
+  font-family: "Fredoka", sans-serif;
+  width: 120px;
+  font-size: large;
+  border-radius: 20px;
+  color: #000;
+  background-color: #778ca3;
+}
 
 .errorRegister {
   text-shadow: -1px -1px 0 violet, 1px -1px 0 violet, -1px 1px 0 violet,
