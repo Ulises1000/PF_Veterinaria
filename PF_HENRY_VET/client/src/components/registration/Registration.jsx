@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 
 import "./registration.Module.css";
-import { getUser, GetUser, postUser, registerUser, signinUser } from "../../redux/action";
+import { getUser, GetUser, postUser, registerUser, signinUser } from "../../redux/action/index.jsx";
 
 function validate(input, userTyped) {
   let errors = {};
