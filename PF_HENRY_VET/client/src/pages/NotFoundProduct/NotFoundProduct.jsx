@@ -2,7 +2,7 @@ import React from "react";
 import { Link } from "react-router-dom";
 import Nav from "../../components/Nav";
 
-const NotFound = () => {
+const NotFoundProduct = () => {
   return (
     <div className="flex w-screen items-center justify-center h-screen">
       <Nav />
@@ -23,18 +23,17 @@ const NotFound = () => {
             />
           </svg>
 
-          <h1 className="font-Fredoka font-extrabold text-9xl mt-5">404</h1>
         </div>
-        <h1 className="font-Fredoka mb-2 font-bold text-7xl">Pagina no encotrada</h1>
+        <h1 className="font-Fredoka mb-2 font-bold text-7xl">Producto no encontrado</h1>
         <p className="font-Fredoka mb-5 text-3xl">
-        Lo sentimos, la página no existe.
+          No se encontro ningun producto.
         </p>
         <p className="font-Fredoka mb-5 text-2xl">
-          Por favor regresa a la pagina principal
+         Intenta otra combinación
         </p>
         <Link to="/home">
         <button className="bg-violet-200 hover:bg-violet-100 font-medium rounded-lg p-2">
-          Inicio
+        Inicio
         </button>
         </Link>
       </div>
@@ -42,4 +41,4 @@ const NotFound = () => {
   );
 };
 
-export default NotFound;
+export default NotFoundProduct;
