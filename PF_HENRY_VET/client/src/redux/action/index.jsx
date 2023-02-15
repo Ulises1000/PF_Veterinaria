@@ -25,7 +25,7 @@ import {
   BY_ORDER_PRICE,
   BY_ORDER_STOCK,
   GET_FAVORITES,
-  UPDATE_FAVORITE,
+  UPDATE_FAVORITE, 
   POST_CARTDTAIL,
   GET_CARTDTAIL,
   DELETE_CARTDTAIL,
@@ -384,6 +384,7 @@ export function deleteUser(userId) {
 }
 
 export function postUser(userData) {
+    console.log("entré")
   return async function (dispatch) {
     try {
       const { data } = await axios.post(
