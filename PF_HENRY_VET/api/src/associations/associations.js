@@ -14,6 +14,9 @@ function makeAssociations(sequelize){
     //Associations Usuario-Favorito
     User.hasMany(Favorite, {foreignKey:"user_favorite"})
     Favorite.belongsTo(User, {foreignKey:"user_favorite"})
+    //Associations Producto-Favorito
+    Product.hasMany(Favorite, {foreignKey:"user_favorite"})
+    Favorite.belongTo(User, {foreignKey:"user_favorite"})
 
 }
 
