@@ -25,7 +25,7 @@ import {
   BY_ORDER_PRICE,
   BY_ORDER_STOCK,
   GET_FAVORITES,
-  UPDATE_FAVORITE, 
+  UPDATE_FAVORITE,
   POST_CARTDTAIL,
   GET_CARTDTAIL,
   DELETE_CARTDTAIL,
@@ -126,7 +126,7 @@ export function getAllProducts(name) {
       } else {
         console.log(error.message);
       }
-      console.log("Error en Linea 128", error.config);
+      console.log("Error en Linea 129", error.config);
     }
   };
 }
@@ -384,7 +384,7 @@ export function deleteUser(userId) {
 }
 
 export function postUser(userData) {
-    console.log("entré")
+  console.log("entré");
   return async function (dispatch) {
     try {
       const { data } = await axios.post(

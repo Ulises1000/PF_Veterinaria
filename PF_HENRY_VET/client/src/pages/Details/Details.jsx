@@ -8,7 +8,7 @@ import Footer from "../../components/Footer";
 
 const Details = ({ hayUser }) => {
   const dispatch = useDispatch();
-  const [quantity, setQuantity] = useState("");
+  const [quantity, setQuantity] = useState(0);
   const product = useSelector((state) => state.products.product);
   const user = useSelector((state) => state.user.user);
   const { id } = useParams();
@@ -21,8 +21,9 @@ const Details = ({ hayUser }) => {
   if (hayUser === undefined) {
     userDetail = JSON.parse(localStorage.userPetShop);
   }
-  console.log("USERDETAIL ==>", userDetail);
+  console.log("USERDETAIL ==>", userDetail.shoppingCartCodCart);
   console.log("Product ===", product);
+  console.log("USUARIO ===", user);
 
   console.log(localStorage.userPetShop, "here user === undefined");
 
@@ -36,15 +37,23 @@ const Details = ({ hayUser }) => {
   }
 
   function handleClick() {
+    console.log("Entro");
+    console.log(product.unit_price);
+    console.log(userDetail.shoppingCartCodCart);
+    console.log(product.codProduct);
+    console.log(quantity);
     dispatch(
       postShoppingDetail({
         unit_price: product.unit_price,
         quantity: quantity,
         date_added: new Date(),
-        idCard: userDetail.shoppingCartCodCart,
+        idCart: userDetail?.shoppingCartCodCart,
         idProduct: product.codProduct,
+        productName: product.name,
       })
     );
+    //debe afectar el product.stock en base a la cantidad del pedido solicitado
+    //Deberia enviar el monto total en base a la cantidad del pedido2
   }
 
   return (
@@ -71,19 +80,21 @@ const Details = ({ hayUser }) => {
               </div>
               <div className="flex flex-row justify-around items-center space-y-20">
                 <p className="mt-20">Stock: {product.stock}</p>
+                <label>Cantidad:</label>
                 <input
+                  className="bg-indigo-400 rounded border-gray-900"
                   type="number"
                   min={0}
                   max={product.stock}
                   onKeyDown="return false"
-                  value={product.unit_price}
-                  onChange={(e) => setQuantity(e.target.value)}
+                  onChange={(e) => setQuantity(parseFloat(e.target.value))}
                 ></input>
+
                 <p>Precio: ${product.unit_price}</p>
               </div>
               <button
                 className="bg-violet-200 rounded-lg p-4"
-                onClick={handleClick()}
+                onClick={() => handleClick()}
               >
                 Añadir a Carrito
               </button>
