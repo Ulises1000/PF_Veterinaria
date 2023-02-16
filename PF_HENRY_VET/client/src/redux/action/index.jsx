@@ -1,5 +1,5 @@
 import axios from "axios";
-import {GoogleAuthProvider, signInWithPopup} from "firebase/auth";
+import { GoogleAuthProvider, signInWithPopup } from "firebase/auth";
 import {
   GET_PRODUCTS,
   GET_PRODUCT,
@@ -317,7 +317,7 @@ export function signinUserWithGoogle() {
       const auth = await axios.get(`${URL + Endpoints.user}signinGoogle`);
       dispatch({
         type: SIGNIN_GOOGLE,
-        payload: auth.data
+        payload: auth.data,
       });
     } catch (err) {
       dispatch({
@@ -383,7 +383,7 @@ export function postUser(userData) {
   console.log("entré");
   return async function (dispatch) {
     try {
-      console.log("ACA ESTA EL USER EN EL INDEX MANNN",userData);
+      console.log("ACA ESTA EL USER EN EL INDEX MANNN", userData);
       const { data } = await axios.post(
         `${URL + Endpoints.user}post`,
         userData
