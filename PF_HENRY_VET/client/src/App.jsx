@@ -12,6 +12,8 @@ import ShoppingCart from "./pages/ShoppingCart/ShoppingCart";
 import { useSelector } from "react-redux";
 import { useEffect } from "react";
 import Nav from "./components/Nav";
+import TableProducts from "./components/Dashboard/TableProducts";
+import TableUsers from "./components/Dashboard/TableUsers";
 
 function App() {
   let user = useSelector((state) => state.user.user);
@@ -135,6 +137,7 @@ function App() {
           }
         />
         <Route path="*" element={<NotFound hayUser={hayUser} />} />
+
       </Routes>
     </div>
   );
