@@ -57,7 +57,7 @@ export default function ShoppingCart() {
       },
       render: {
         container: "#button-checkout", // Class name where the payment button will be displayed
-        label: "Pagar", // Change the payment button text (optional)
+        label: "Pagar", //   Change the payment button text
       },
     });
   }
@@ -99,7 +99,6 @@ export default function ShoppingCart() {
   return (
     <>
       <Nav />
-
       {!paymentCoso && (
         <div className=" h-screen flex justify-center">
           <script src="https://sdk.mercadopago.com/js/v2"></script>
