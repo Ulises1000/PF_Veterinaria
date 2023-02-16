@@ -11,6 +11,7 @@ export const POST_USER = "POST_USER";
 export const UPDATE_USER = "UPDATE_USER";
 export const REGISTER_USER = "REGISTER_USER";
 export const SIGNIN_USER = "SIGNIN_USER";
+export const SIGNIN_GOOGLE = "SIGNIN_GOOGLE";
 export const SIGNOUT_USER = "SIGNOUT_USER";
 export const SIGNIN_ERRORS = "SIGNIN_ERRORS";
 export const REGISTER_ERRORS = "REGISTER_ERRORS";
