@@ -12,6 +12,8 @@ import FormEditProduct from "./components/Dashboard/FormEditProduct";
 import { useSelector } from "react-redux";
 import { useEffect } from "react";
 import Nav from "./components/Nav";
+import TableProducts from "./components/Dashboard/TableProducts";
+import TableUsers from "./components/Dashboard/TableUsers";
 
 function App() {
 
@@ -42,6 +44,8 @@ function App() {
         <Route exact path="/dashboard" element={localStorage.userPetShop ? <DashBoard hayUser={hayUser}/> : <Navigate to="/"/>} />
         <Route exact path="/formproduct" element={localStorage.userPetShop ? <FormProduct hayUser={hayUser}/> : <Navigate to="/"/>} />
         <Route exact path="/editpro/:id" element={<FormEditProduct/>} /> 
+        <Route exact path="/dashboard/tableproducts" element={<TableProducts/>} /> 
+        <Route exact path="/dashboard/tableusers" element={<TableUsers/>} /> 
         <Route path="*" element={<NotFound hayUser={hayUser}/>} />
  
       </Routes>

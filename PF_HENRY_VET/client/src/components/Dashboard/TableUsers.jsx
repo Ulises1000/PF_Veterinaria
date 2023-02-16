@@ -1,46 +1,25 @@
-/* import React, { useEffect, useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
-import { byOrder  } from '../../redux/action'
-import loader from '../../style-assets/paw_icon.png'
-import DataTable from 'react-data-table-component' 
-import SearchUsersTable from './SearchUsersTable'
+import { byOrder, byOrderPrice, byOrderStock, getAllProducts } from '../../redux/action' 
+import DataTable from 'react-data-table-component'
+import SearchProTable from './SearchProTable'
+import {Link} from 'react-router-dom'
+import Menu from './Menu'
 
 
-
-const TableProducts = () => {
+const TableUsers = () => {
   const dispatch = useDispatch()
-  const getUs = useSelector((state) => state.getusers)
- 
-  const [order, setOrder] = useState('') 
-  const [state, setState] = useState({
-    loading: false,
-  })
- 
-  useEffect(() => {
-    async function fetchData() {
-      setState({ loading: true })
-      dispatch(getUsers())   
-      setState({ loading: false })
-    }
-    fetchData()
-  }, [])
+  const getProductos = useSelector((state) => state.filters.products)
 
-  const [loading, setLoading] = useState(false)
-  useEffect(() => {
-    setLoading(true)
-    setTimeout(() => {
-      setLoading(false)
-    }, 2000)
-  }, [])
+  const [order, setOrder] = useState('');
+  const [orderprice, setOrderprice] = useState('');
+  const [orderstock, setOrderstock] =useState(''); 
 
-  if (loading) {
-    return (
-      <div className="flex items-center justify-center bg-patas flex-col h-screen w-screen absolute">
-        <img src={loader} className="imgLoader" />
-        <p className="loadingTxt">Loading...</p>
-      </div>
-    )
-  }
+
+  useEffect(() => { 
+      dispatch(getAllProducts())   
+  }, []) 
+ 
    const columns = [  
     {
       name: "#",
@@ -56,7 +35,7 @@ const TableProducts = () => {
       },
       {
         name: "Imagen",
-        selector: (row) => row.image_url,
+        selector: (row) => row.url,
         grow: 0,
         cell: (row) => (
           <img height="30px" width="50px"   src={row.url? row.url:"X"} />
@@ -65,16 +44,28 @@ const TableProducts = () => {
     {
       name: 'Nombre',
       selector: 'name',
-      grow: 0.5,
-    },   
-    {
-        name: 'Editar',
-        cell: (row) => <button  className="bg-transparent hover:bg-blue-500 text-blue-700 font-semibold hover:text-white py-2 px-4 border border-blue-500 hover:border-transparent rounded" onClick={()=>deleteProduct(row.codProduct)} >Editar</button>,
-        grow: 0.1,
+      grow: 0.3,
     },
     {
+      name: 'Precio Unitario',
+      selector:  (row) => row.unit_price,
+      type: 'numeric',
+      grow: 0.1,
+    },
+    {
+        name: 'Stock',
+        selector:  (row) => row.stock,
+        type: 'numeric',
+        grow: 0,
+    },
+    {
+      name: 'Editar',
+      cell: (row) => <button   class="focus:outline-none text-white bg-yellow-400 hover:bg-yellow-300 focus:ring-4 focus:ring-yellow-300 font-medium rounded-lg text-sm px-2.5 py-2 mr-2 dark:focus:ring-yellow-900"><Link to={`/editpro/${row.codProduct}`}>Editar</Link></button>,
+      grow: 0.1,
+   },
+    {
       name: 'Borrar',
-      cell: (row) => <button  className="bg-transparent hover:bg-blue-500 text-blue-700 font-semibold hover:text-white py-2 px-4 border border-blue-500 hover:border-transparent rounded" onClick={()=>deleteProduct(row.codProduct)} >Borrar</button>,
+      cell: (row) => <button  className="text-red-700    hover:text-white border border-red-700    hover:bg-red-800    focus:ring-1 focus:outline-none focus:ring-red-300    font-medium rounded-lg text-sm px-3 py-1.5 text-center mr-2 mb-2 dark:border-red-500    dark:text-red-500    dark:hover:text-white dark:hover:bg-red-600    dark:focus:ring-red-900" /* onClick={()=>deleteProduct(row.codProduct)} */ >Borrar</button>,
       grow: 0.1,
     },
   ]
@@ -90,43 +81,83 @@ const paginationOptions ={
 const handleByOrder = (e) => { 
     setOrder(e.target.value) 
     dispatch(byOrder(e.target.value)) 
-}    
+}  
+const handleByOrderPrice = (e) => { 
+  setOrderprice(e.target.value) 
+  dispatch(byOrderPrice(e.target.value)) 
+} 
+const handleByOrderStock = (e) => { 
+  setOrderstock(e.target.value) 
+  dispatch(byOrderStock(e.target.value)) 
+} 
+   
 return (
-    <>
+    <> 
+    <div>
     <h1 className='bg-gray-600 text-white rounded p-2 mb-1'>Tabla de Usuarios</h1>
     <div>
-    <SearchUsersTable/>
+    <SearchProTable/>
     </div>
-
-    <section class="inline-grid grid-cols-2">      
+    <section class="inline-grid grid-cols-4">      
             <div>
                 <select onChange={(e) => handleByOrder(e)} class="bg-gray-50 border border-gray-100 text-gray-900 text-sm rounded-lg focus:ring-blue-100 focus:border-blue-100 block w-full p-1.5 dark:bg-gray-100 dark:border-gray-300 dark:placeholder-gray-400 dark:text-black dark:focus:ring-blue-500 dark:focus:border-blue-500">
                 <option disabled selected>Orden Alfabetico</option>
                 <option value="Asc">A-Z</option>
                 <option value="Des">Z-A</option>
                 </select>
-            </div>      
+            </div>
+            <div>
+                <select onChange={(e) => handleByOrderPrice(e)} class="bg-gray-50 border border-gray-100 text-gray-900 text-sm rounded-lg focus:ring-blue-100 focus:border-blue-100 block w-full p-1.5 dark:bg-gray-100 dark:border-gray-300 dark:placeholder-gray-400 dark:text-black dark:focus:ring-blue-500 dark:focus:border-blue-500">
+                <option disabled selected>Orden Precios</option>
+                <option value="AscPrice">Menor a Mayor precio</option>
+                <option value="DesPrice">Mayor a Menor Precio</option>
+                </select>
+            </div>
+            <div>
+                <select onChange={(e) => handleByOrderStock(e)} class="bg-gray-50 border border-gray-100 text-gray-900 text-sm rounded-lg focus:ring-blue-100 focus:border-blue-100 block w-full p-1.5 dark:bg-gray-100 dark:border-gray-300 dark:placeholder-gray-400 dark:text-black dark:focus:ring-blue-500 dark:focus:border-blue-500">
+                <option disabled selected>Stock</option>
+                <option value="AscStock">Menor a Mayor stock</option>
+                <option value="DesStock">Mayor a Menor stock</option>
+                </select>
+            </div> 
+            <div>
+              <Link to="/formproduct">
+             <button type="button" class="ml-2 border border-purple-700 hover:bg-purple-800 focus:ring-1 focus:outline-none focus:ring-purple-300 font-medium rounded-lg text-sm px-4 py-1 text-center mr-2 mb-2 dark:border-purple-400 dark:text-white dark:hover:text-purple-600 dark:hover:bg-purple-300 dark:bg-purple-500 dark:focus:ring-purple-900"> Crear un Producto </button>
+             </Link>
+            </div>     
     </section>
-   
+    
+{/*     <section>
+            <div>
+           
+            <button type="button" className="text-red-700    hover:text-white border border-red-700    hover:bg-red-800    focus:ring-1 focus:outline-none focus:ring-red-300    font-medium rounded-lg text-sm px-4 py-1.5 text-center mr-2 mb-2 dark:border-red-500    dark:text-red-500    dark:hover:text-white dark:hover:bg-red-600    dark:focus:ring-red-900"   >Eliminar</button>
+            <button type="button" className="text-yellow-400 hover:text-white border border-yellow-400 hover:bg-yellow-500 focus:ring-1 focus:outline-none focus:ring-yellow-300 font-medium rounded-lg text-sm px-4 py-1.5 text-center mr-2 mb-2 dark:border-yellow-300 dark:text-yellow-300 dark:hover:text-white dark:hover:bg-yellow-400 dark:focus:ring-yellow-900">Yellow</button>
+            <button type="button" className="text-purple-700 hover:text-white border border-purple-700 hover:bg-purple-800 focus:ring-1 focus:outline-none focus:ring-purple-300 font-medium rounded-lg text-sm px-4 py-1.5 text-center mr-2 mb-2 dark:border-purple-400 dark:text-purple-400 dark:hover:text-white dark:hover:bg-purple-500 dark:focus:ring-purple-900">Editar</button>
+            </div> 
+    </section> */}
+
     
     <div >       
       <DataTable
         columns={columns}
-        data={getUs}
+        data={getProductos}
         //title="Lista de Productos"       
         paginationComponentOptions={paginationOptions}
         //pagination 
         selectableRows
         fixedHeader
-        fixedHeaderScrollHeight="400px" 
-        highlightOnHover 
+        fixedHeaderScrollHeight="600px" 
+        highlightOnHover
+       
       />   
     </div>
     
+
+    </div>
     </>
     
    
-  )    */
+  )   
 /*    return(
 
    <div>
@@ -222,8 +253,11 @@ return (
       </div>
     </div> 
  ) */  
-/* }
+}
 
-export default TableProducts
+export default TableUsers;
 
- */
+
+
+
+ 

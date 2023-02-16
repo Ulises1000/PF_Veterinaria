@@ -18,6 +18,12 @@ import {
   BY_ORDER_STOCK,
   SEARCH_USERS_DASHBOARD,
   GET_USERS,
+  CLEARFORM,
+  GET_PRODUCTS_BANEADOS,
+  SEARCH_PRO_DASHBOARD_DELETED,
+  BY_ORDER_BAN,
+  BY_ORDER_PRICE_BAN,
+  BY_ORDER_STOCK_BAN,
 } from "../action/constants";
 
 import { ASCENDENTE, DESCENDENTE } from "../../const/orderByName";
@@ -27,6 +33,8 @@ const initialState = {
   products: [],
   product: {},
   productosedit:{},
+  productBaneados:[],
+  ProductsBanSearch:[],
   filterProducts:[],
   currentOrder: "Static",
   currentBreed: "breedType",
@@ -95,30 +103,7 @@ export const productsReducer = (state = initialState.products, action) => {
 //usar esta 
 export const filters = (state = initialState, action) => {
   switch (action.type) {
-    case GET_PRODUCTS: {
-      return {
-        ...state,
-        products: action.payload,        
-        filterProducts: action.payload,
-        OrdeProductsDashb: action.payload
-      };
-    }
-    case GET_PRODUCT:
-      return {
-        ...state,
-        product: action.payload,
-    };
-    case POST_PRODUCT:
-      return {
-        ...state,
-        products: action.payload.value,
-      };
-    case SEARCH_PRO_DASHBOARD:
-      let filterProd = state.filterProducts.filter((us) => us.name.toLowerCase().includes(action.payload.toLowerCase()));
-       return {
-        ...state,
-        products: filterProd,
-      };   
+     
 
     case FILTERED:
       let filteredProducts = state.orderedProducts;
@@ -585,20 +570,69 @@ export const filters = (state = initialState, action) => {
         paginationArray: pageHolder,
       };
 
-      //*SORTS DASHBOARD________________
-      case BY_ORDER:
-        console.log(action.payload)
+      //*DASHBOARD____________________________________________________________________
+      case GET_PRODUCTS: {       
+        return {
+          ...state,
+          products: action.payload,        
+          filterProducts: action.payload,
+          ProductsDashb: action.payload
+        };
+      }
+      case GET_PRODUCT:
+        return {
+          ...state,
+          product: action.payload,
+      };
+      case POST_PRODUCT:
+        return {
+          ...state,
+          products: action.payload.value,
+        };
+        case GET_PRODUCTS_BANEADOS:       
+          return{
+            ...state,
+            productBaneados:action.payload,
+            ProductsBanSearch:action.payload
+          }
+          
+        case DELETE_PRODUCT: 
+        return {
+          ...state,
+          products: state.products.filter(p => p.codProduct !== action.payload)
+        };
+      case SEARCH_PRO_DASHBOARD:
+        let filterProd = state.filterProducts.filter((us) => us.name.toLowerCase().includes(action.payload.toLowerCase()));
+         return {
+          ...state,
+          products: filterProd,
+        };
+        case SEARCH_PRO_DASHBOARD_DELETED:
+        let filterProdDEL = state.ProductsBanSearch.filter((us) => us.name.toLowerCase().includes(action.payload.toLowerCase()));
+         return {
+          ...state,
+          productBaneados: filterProdDEL,
+        }; 
+        
+        
+      case BY_ORDER: 
       const orderProducts = action.payload === "Asc"
           ? state.products.sort((a, b) => (a.name > b.name ? 1 : -1))
-          : state.products.sort((a, b) => (a.name > b.name ? -1 : 1));
-          console.log(state.products)
+          : state.products.sort((a, b) => (a.name > b.name ? -1 : 1)); 
       return {
         ...state,
         products: orderProducts,      
       };
 
-      case BY_ORDER_PRICE:
-        console.log(action.payload)
+      case BY_ORDER_BAN: 
+      const orderProductsBan = action.payload === "Asc"
+          ? state.productBaneados.sort((a, b) => (a.name > b.name ? 1 : -1))
+          : state.productBaneados.sort((a, b) => (a.name > b.name ? -1 : 1)); 
+      return {
+        ...state,
+        productBaneados: orderProductsBan,      
+      };
+      case BY_ORDER_PRICE: 
       const orderPrice = action.payload === "AscPrice"
           ? state.products.sort((a, b) => (a.unit_price > b.unit_price ? 1 : -1))
           : state.products.sort((a, b) => (a.unit_price > b.unit_price ? -1 : 1));          
@@ -606,9 +640,16 @@ export const filters = (state = initialState, action) => {
         ...state,
         products: orderPrice,      
       };
+      case BY_ORDER_PRICE_BAN: 
+      const orderPriceBan = action.payload === "AscPrice"
+          ? state.productBaneados.sort((a, b) => (a.unit_price > b.unit_price ? 1 : -1))
+          : state.productBaneados.sort((a, b) => (a.unit_price > b.unit_price ? -1 : 1));          
+      return {
+        ...state,
+        productBaneados: orderPriceBan,      
+      };
 
-      case BY_ORDER_STOCK:
-        console.log(action.payload)
+      case BY_ORDER_STOCK: 
       const orderStock = action.payload === "AscStock"
           ? state.products.sort((a, b) => (a.stock > b.stock ? 1 : -1))
           : state.products.sort((a, b) => (a.stock > b.stock ? -1 : 1));          
@@ -616,10 +657,27 @@ export const filters = (state = initialState, action) => {
         ...state,
         products: orderStock,      
       };
-    //*_________________________________
+      case BY_ORDER_STOCK_BAN: 
+      const orderStockBan = action.payload === "AscStock"
+          ? state.productBaneados.sort((a, b) => (a.stock > b.stock ? 1 : -1))
+          : state.productBaneados.sort((a, b) => (a.stock > b.stock ? -1 : 1));          
+      return {
+        ...state,
+        productBaneados: orderStockBan,      
+      };
+
+      case CLEARFORM:
+        return{
+          ...state,
+          product: {}
+        }
+      
+    //*___________________________________________________________________________________
 
 
     default:
       return state;
   }
+
+
 };
