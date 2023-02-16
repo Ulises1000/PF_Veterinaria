@@ -1,4 +1,4 @@
-const {DataTypes} = require("sequelize");
+const { DataTypes } = require("sequelize");
 
 module.exports = (sequelize) => {
     sequelize.define("user", {
@@ -28,6 +28,16 @@ module.exports = (sequelize) => {
             type: DataTypes.UUID,
             allowNull: false,
             defaultValue: DataTypes.UUIDV1
+        },
+        isAdmin: {
+          type: DataTypes.BOOLEAN,
+          allowNull: false,
+          defaultValue: false,
+        },
+        url: {
+            type: DataTypes.STRING,
+            allowFalse: false,
+            defaultValue: "https://www.pngkey.com/png/detail/202-2024792_user-profile-icon-png-download-fa-user-circle.png"
         },
         unsubscribe_U: {
             type: DataTypes.BOOLEAN,

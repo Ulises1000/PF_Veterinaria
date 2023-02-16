@@ -72,9 +72,7 @@ const Menu = () => {
                </div>  
                <div className="p-4 sm:ml-64" id='TableProducts'>    
                   <p className="text-2xl text-gray-400 dark:text-gray-500"><TableProductsBaneados/></p>        
-               </div>  
-               
-          
+               </div>                  
           
                
                
@@ -86,3 +84,4 @@ const Menu = () => {
 }
 
 export default Menu;
+

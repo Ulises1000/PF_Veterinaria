@@ -1,5 +1,5 @@
 const {Router} = require("express");
-const {User, ShoppingCart, Product} = require("../../db");
+const {User, ShoppingCart} = require("../../db");
 const cloudinary = require("../../cloudinaryConfig/cloudinaryConfig");
 const axios = require("axios");
 const {postFavorite} = require("../FavoriteRoutes/postFavorite");
@@ -11,12 +11,12 @@ router.post("/post", async (req, res) => {
         name,
         email,
         password,
-        direction,
+        direction
     } = req.body;
     try{
-        const info = await findUser(name, password);
+        const info = await findUser(email);
 
-        if(!name || !email || !password || !direction) res.status(200).json({
+        if(!name || !email || !direction) res.status(200).json({
             ok: false,
             msg: "Faltan Datos",
             detail: "Faltan Datos"
@@ -30,12 +30,12 @@ router.post("/post", async (req, res) => {
             //CREA TANTO EL CARRITO COMO EL USER AL MISMO TIEMPO
             const createShoppingCart = await ShoppingCart.create();
             
-            let createdUser = await User.create({
+            const createdUser = await User.create({
                 shoppingCartCodCart: createShoppingCart.cod_Cart,    
                 name_U: name,
                 email_U: email,
                 password_U: password,
-                direction_U: direction,
+                direction_U: direction 
             })
             //--------------------------------
 
@@ -48,17 +48,19 @@ router.post("/post", async (req, res) => {
                 "https://www.pngkey.com/png/detail/202-2024792_user-profile-icon-png-download-fa-user-circle.png",
                 {public_id: createdUser.image_U}
             )
+            /* 
             const obj = {...createdUser.dataValues}
             obj.url = cloudinary.url(obj.image_U, {
                 width: 100,
                 height: 150,
                 Crop: 'fill'
             });
+            */
             // createdUser = await axios.get(`http://localhost:3001/users/get?email=${email}&password=${password}`);
-
+            
             res.status(200).json({
                 ok: true,
-                value:obj
+                value: createdUser
             });
         }
     }catch(err){

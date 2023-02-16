@@ -6,7 +6,7 @@ const {findUser} = require("../../controllers/controllerUsers/controllerGet");
 router.get("/get", async (req, res) => {
     const {email, password} = req.query;
     try{
-        if(email && password){
+        if(email && password!==undefined){
             const info = await findUser(email, password);
             if(!info.length) res.status(200).json({
                 ok: false,

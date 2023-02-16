@@ -22,7 +22,7 @@ import logo from "../../style-assets/logo-sin-fondo.png";
 import icon from "../../style-assets/paw_icon.png";
 import { Registration } from "../../components/registration/Registration";
 import { useState } from "react";
-
+import GoogleRegis from "../../components/registration/GoogleRegis";
 import { Link, NavLink } from "react-router-dom";
 
 import "./landingPage.module.css";
@@ -34,6 +34,13 @@ export default function LandingPage({ hayUser }) {
   const modal = document.querySelector("#modal");
   const openModal = document.querySelector(".bottomIcon");
   const [openForm, setOpenForm] = useState(false);
+  const [google, setGoogle] = useState({
+    active: false,
+    name: "",
+    email: "",
+    password: "",
+    direction: ""
+  });
 
   const showForm = () => {
     setOpenForm(!openForm);
@@ -62,7 +69,12 @@ export default function LandingPage({ hayUser }) {
               id="modal"
               open
             >
-              <Registration />
+              {
+                google.active ?
+                <GoogleRegis google={google} setGoogle={setGoogle}/>
+                :
+                <Registration setGoogle={setGoogle}/>
+              }
             </div>
           )}
         </div>

@@ -1,6 +1,6 @@
 function makeAssociations(sequelize){
 
-    const {User, ShoppingCart, ShoppingCartDetail, Product, Favorite, Invoice, InvoiceDetail} = sequelize.models;
+    const {User, ShoppingCart, ShoppingCartDetail, Product, Favorite, Invoice} = sequelize.models;
     
     //Associations Carrito-Usuario
     ShoppingCart.hasOne(User);
@@ -17,12 +17,9 @@ function makeAssociations(sequelize){
     //Associations Producto-Favorito
     Product.hasMany(Favorite, {foreignKey:"product_id"});
     Favorite.belongsTo(Product, {foreignKey:"product_id"});
-    //Associations Detalles de Factura-Factura
-    Invoice.hasMany(InvoiceDetail,{foreignKey:"invoice_detail"});
-    InvoiceDetail.belongsTo(Invoice,{foreignKey:"invoice_detail"});
-    //Associations Detalles de Factura-Productos
-    InvoiceDetail.belongsTo(Product);
-    Product.hasOne(InvoiceDetail);
+    //Associations Producto-Favorito
+    Product.hasMany(Favorite, {foreignKey:"user_favorite"})
+    Favorite.belongTo(User, {foreignKey:"user_favorite"})
 
 }
 

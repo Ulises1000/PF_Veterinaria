@@ -44,6 +44,10 @@ module.exports = (sequelize) => {
       allowNull: false,
       defaultValue: DataTypes.UUIDV4
     },
+    url: {
+        type: DataTypes.STRING,
+        allowFalse: false
+    },
     unsubscribe: {
       type: DataTypes.BOOLEAN,
       allowNull: false,
