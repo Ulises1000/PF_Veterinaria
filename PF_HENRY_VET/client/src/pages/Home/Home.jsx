@@ -6,6 +6,7 @@ import loader from "../../style-assets/paw_icon.png";
 import "./Home.module.css";
 import bannerDog from "../../media/bannerDog.png";
 import { useSelector } from "react-redux";
+import Modal from "../../components/Modal/Modal";
 
 const Home = ({ hayUser }) => {
   let user = useSelector((state) => state.user.user);
@@ -42,7 +43,7 @@ const Home = ({ hayUser }) => {
             className="rounded-lg shadow-2xl md:w-96 md:h-52"
             src="https://static2.lasprovincias.es/www/multimedia/202202/11/media/cortadas/carne-cruda-perro-kpfD-U120779372723zjH-1248x770@RC-RYAvnS4qTEYaL2HT7k6yvDI-624x385@Las%20Provincias.jpeg"
           />
-          <h1>Leer Mas</h1>
+          <Modal  title={"Dietas y Consejos"}/>
         </div>
         <div className="hidden md:flex flex-col md:visible">
           <h1 className="text-gray-500 font-Fredoka font-semibold mt- underline underline-offset-8 mb-2">
@@ -52,9 +53,9 @@ const Home = ({ hayUser }) => {
             className="rounded-lg shadow-2xl w-10 md:w-96 md:h-52"
             src="https://ateuves.es/wp-content/uploads/2022/05/some-vitamins-for-small-puppy_pv2.jpg"
           />
-          <h1>Leer Mas</h1>
+          <Modal  title={"No olvides desparasitar a tus mascotas!"}/>
         </div>
-        <div className="">
+        <div className="flex flex-col">
           <h1 className="text-gray-500 font-Fredoka font-semibold mt- underline underline-offset-8 mb-2">
             Adiestramiento 101
           </h1>
@@ -62,7 +63,7 @@ const Home = ({ hayUser }) => {
             className="rounded-lg shadow-2xl sm:w-30 md:w-96 md:h-52"
             src="https://adiestramientocanino.org/wp-content/uploads/2016/04/adiestramiento-canino.jpg"
           />
-          <h1>Leer Mas</h1>
+          <Modal title={"Adiestramiento 101"}/>
         </div>
       </div>
       <div className="h-fit md:h-48 overflow-hidden w-full">
@@ -78,7 +79,7 @@ const Home = ({ hayUser }) => {
               className="rounded-lg shadow-2xl w-96 h-52"
               src="https://media.npr.org/assets/img/2021/08/11/gettyimages-1279899488_wide-f3860ceb0ef19643c335cb34df3fa1de166e2761-s1100-c50.jpg"
             />
-            <h1>Leer Mas</h1>
+             <Modal title={"Manten a tu gato entretenido y ejercitado!"}/>
           </div>
           <div className="md:flex flex-col hidden md:visible">
             <h1 className="text-gray-500 font-Fredoka font-semibold mt- underline underline-offset-8 mb-2">
@@ -88,7 +89,7 @@ const Home = ({ hayUser }) => {
               className="rounded-lg shadow-2xl md:w-96 md:h-52"
               src="https://www.purina.co.uk/sites/default/files/2020-12/What%20Human%20Foods%20Can%20Cats%20EatTEASER.jpg"
             />
-            <h2>Leer mas</h2>
+            <Modal title={"Consejos nutricionales para Felinos"}/>
           </div>
           <div className="flex flex-col">
             <h1 className="text-gray-500 font-Fredoka mb-5 md:mb-1 font-semibold underline sm:underline-offset-8 md:underline-offset-0">
@@ -98,7 +99,7 @@ const Home = ({ hayUser }) => {
               className="rounded-lg shadow-2xl md:w-96 md:h-52"
               src="https://cdn.shopify.com/s/files/1/0070/4990/4194/articles/Cat_School_Photos_1600x.png"
             />
-            <h2>Leer mas</h2>
+              <Modal title={"Adiestramiento para Felinos"}/>
           </div>
         </div>
         <div>
