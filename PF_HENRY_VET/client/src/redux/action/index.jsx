@@ -18,8 +18,9 @@ import {
     UPDATE_USER,
     CREATE_PAGINATION_ARRAY,
     SEARCH,
-    FILTEREDBREED,
-    FILTEREDSIZE,
+    // FILTEREDBREED,
+    // FILTEREDSIZE,
+    FILTEREDPRODUCTS,
     SORT,
     SEARCH_PRO_DASHBOARD,
     BY_ORDER,
@@ -825,10 +826,10 @@ export function GetUser(name, password) {
 }
 
 
-export function setUser(data) {
-  return {
-    type: SET_USER,
-    payload: data,
-  };
-}
+// export function setUser(data) {
+//   return {
+//     type: SET_USER,
+//     payload: data,
+//   };
+// }
 

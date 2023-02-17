@@ -39,7 +39,7 @@ import {
   UPDATE_USER,
 } from "../action/constants";
 import { UPDATE_FAVORITE, POST_FAVORITES } from "../action/constants";
-import { SEARCH_USERS_DASHBOARD, GET_USERS } from "../action/constants";
+// import { SEARCH_USERS_DASHBOARD, GET_USERS } from "../action/constants";
 
 import { ASCENDENTE, DESCENDENTE } from "../../const/orderByName";
 import { sort } from "../action";
@@ -214,17 +214,17 @@ export const userReducer = (state = initialState.user, action) => {
 //usar esta
 export const filters = (state = initialState, action) => {
   switch (action.type) {
-    case FILTERED:
-      let filteredProducts = state.orderedProducts;
-      let filters = {
-        breed: state.currentBreed,
+    // case FILTERED:
+    //   let filteredProducts = state.orderedProducts;
+    //   let filters = {
+    //     breed: state.currentBreed,
     
-      }
-    case FILTEREDBREED:
-      let filtersBreed = {
-        breedType: "breedType",
+    //   }
+    // case FILTEREDBREED:
+    //   let filtersBreed = {
+    //     breedType: "breedType",
 
-      };
+    //   };
 
       case FILTEREDPRODUCTS: 
       /*
