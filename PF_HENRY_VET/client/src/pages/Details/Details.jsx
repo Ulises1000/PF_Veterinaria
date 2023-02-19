@@ -1,7 +1,8 @@
 import React, { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
+import { useParams, useNavigate} from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { getProduct, postShoppingDetail } from "../../redux/action";
+import swal from 'sweetalert';
 import Nav from "../../components/Nav.jsx";
 import loader from "../../style-assets/paw_icon.png";
 import Footer from "../../components/Footer";
@@ -15,7 +16,7 @@ const Details = ({ hayUser }) => {
   useEffect(() => {
     dispatch(getProduct(id));
   }, [dispatch, id]);
-
+  const navigate = useNavigate()
   let userDetail = hayUser;
 
   if (hayUser === undefined) {
@@ -50,7 +51,9 @@ const Details = ({ hayUser }) => {
         idCart: userDetail?.shoppingCartCodCart,
         idProduct: product.codProduct,
         productName: product.name,
-      })
+      }),
+      swal("Producto añadido!","", "success")
+      
     );
     //debe afectar el product.stock en base a la cantidad del pedido solicitado
     //Deberia enviar el monto total en base a la cantidad del pedido2

@@ -14,11 +14,12 @@ async function verifyProductInCart(values) {
         shoppingCartCodCart: idCart,
         unit_Price_CD: unit_price,
         date_Added_CD: date_added,
-        quantity_CD: quantity,
-      },
+        quantity_CD: quantity
+      }
     });
     return created;
   } catch (err) {
+    console.log("error ===", err.message)
     throw new Error(err);
   }
 }

@@ -23,8 +23,8 @@ export const validate = (inputProductos) => {
     if( inputProductos.name.length < 2 ){
         errors.name = 'El nombre debe tener mas de 3 caracteres'
     }    
-    if(inputProductos.name.length > 50 ){
-        errors.name = 'El nombre debe tener menos de 50 caracteres'
+    if(inputProductos.name.length > 100 ){
+        errors.name = 'El nombre debe tener menos de 100 caracteres'
     } 
     //*-----------------------------------
    if(inputProductos.stock < 1 ){
@@ -44,7 +44,7 @@ export const validate = (inputProductos) => {
         errors.description = 'El resumen debe tener menos de 50 caracteres'
     } 
     //*-----------------------------------
-    if(!inputProductos.petSize){
+   /*  if(!inputProductos.petSize){
         errors.petSize = 'Se requiere los petSize';
     }
     if(inputProductos.petSize.length < 2 ){
@@ -52,9 +52,9 @@ export const validate = (inputProductos) => {
     }
     if( inputProductos.petSize.length > 15 ){
         errors.petSize = "La petSize  de los pasos debe tener menos de 15 caracteres"
-    }
+    } */
      //*-----------------------------------
-     if(!inputProductos.breedType){
+   /*   if(!inputProductos.breedType){
         errors.breedType = 'Se requiere los breedType';
     }
     if(inputProductos.breedType.length < 3 ){
@@ -62,7 +62,7 @@ export const validate = (inputProductos) => {
     }
     if( inputProductos.breedType.length > 15 ){
         errors.breedType = "La breedType  de los pasos debe tener menos de 15 caracteres"
-    } 
+    }  */
  
     return errors;
 } 

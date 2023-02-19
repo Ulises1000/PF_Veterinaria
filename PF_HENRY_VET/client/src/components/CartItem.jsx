@@ -7,11 +7,11 @@ export default function CardItem({
   console.log("LLEGUEE");
   return (
     <div>
-      <h1>{productName}</h1>
-      <img src={productImg} alt="" />
+      <h1 className="font-Fredoka">Nombre: {productName}</h1>
+      <img className="" src={productImg} alt="" />
       <div>
-        <h2>${unit_price}</h2>
-        <h2>{quantity}</h2>
+        <h2 className="font-Fredoka">Precio: ${unit_price}</h2>
+        <h2 className="font-Fredoka"> Cantidad: {quantity}</h2>
       </div>
     </div>
   );

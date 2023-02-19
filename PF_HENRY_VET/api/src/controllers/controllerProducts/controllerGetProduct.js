@@ -13,8 +13,8 @@ const getProducts = async (nameP) => {
       const api = await axios.get(
         `https://veterinaria-634d6-default-rtdb.firebaseio.com/productosDB.json`
       );
+
       await api.data.forEach(async (p) => {
-        console.log(p, "p en el BACK");
         const obj = {
           name: p.nombre,
           unit_price: p.precio,

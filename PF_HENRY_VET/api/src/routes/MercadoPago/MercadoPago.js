@@ -10,14 +10,16 @@ mercadopago.configure({
 });
 MPRouter.post("", (req, res) => {
   console.log(req.body[0], "reqbody");
+  let arr = req.body
   let preference = {
-    items: [
-      {
-        title: req.body[0].description,
-        unit_price: Number(req.body[0].price),
-        quantity: Number(req.body[0].quantity),
-      },
-    ],
+    items: arr,
+    // items: [
+    //   {
+    //     title: req.body.description,
+    //     unit_price: Number(req.body.price),
+    //     quantity: Number(req.body.quantity),
+    //   },
+    // ],
     back_urls: {
       success: "http://localhost:3001/payment/feedback",
       failure: "http://localhost:3001/payment/feedback",

@@ -6,24 +6,24 @@ module.exports = (sequelize) => {
       type: DataTypes.UUID,
       primaryKey: true,
       allowNull: false,
-      defaultValue: DataTypes.UUIDV4,
+      defaultValue: DataTypes.UUIDV4
     },
     unit_Price_CD: {
       type: DataTypes.FLOAT,
-      allowNull: false,
+      allowNull: false
     },
 
     date_Added_CD: {
       type: DataTypes.DATE,
-      allowNull: false,
+      allowNull: false
     },
     quantity_CD: {
       type: DataTypes.FLOAT,
       allowNull: false,
       validate: {
         min: 0,
-        max: 100,
-      },
-    },
+        max: 100
+      }
+    }
   });
 };

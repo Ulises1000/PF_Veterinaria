@@ -3,14 +3,39 @@ import { useReducer, useState, useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { shoppingCartDtailReducer } from "../../redux/reducer/shoppingCartDtailReducer";
 import { shoppingInitialState } from "../../redux/reducer/shoppingCartDtailReducer";
-import { getShoppingDetail } from "../../redux/action/index.jsx";
+import { getAllProducts, getShoppingDetail, deleteShoppingDetail } from "../../redux/action/index.jsx";
+import loader from "../../style-assets/bg-patas.png"
 import axios from "axios";
 import Nav from "../../components/Nav";
 import CardItem from "../../components/CartItem";
 import "./shoppingcart.module.css";
+import { Link } from "react-router-dom";
+
 
 export default function ShoppingCart() {
+  const dispatch = useDispatch();
+  const [state, setState] = useState({
+    loading: false});
+    const detalles = useSelector(
+      (state) => state.shoppingCartDtail.shoppingCartDtail
+    );
+
+    
+  useEffect(() => {
+    function fetchData() {
+      setState({ loading: true });
+      dispatch(getAllProducts());
+
+      setState({ loading: false });
+    }
+    fetchData()
+    dispatch(getShoppingDetail(!user? user.user.shoppingCartCodCart : userDetail.shoppingCartCodCart));
+    return () => {getAllProducts()} 
+  }, [state.loading]);
+
   const [paymentCoso, setPaymentCoso] = useState(false);
+  const product = useSelector((state) => state.products);
+  console.log("este el product state", product.products)
   const mercadopago = new MercadoPago(
     "TEST-c96ffcd7-4853-4106-8f80-8bc4520dea40",
     {
@@ -20,33 +45,56 @@ export default function ShoppingCart() {
   const user = useSelector((state) => state.user);
 
   let userDetail;
+ if(localStorage.userPetShop && localStorage.userPetShop ){console.log("OK")}
+  // if (Object.keys(user).length === 0) {
+    userDetail = JSON.parse(localStorage?.userPetShop);
+  // }
 
-  if (Object.keys(user).length === 0) {
-    userDetail = JSON.parse(localStorage.userPetShop);
+  console.log(user, " USER");
+
+  const [cartProducts, setCartProducts] = useState({
+    name:"",
+    quantity: "",
+    unitPrice: 0,
+    productImg: "",
+
+  })
+
+
+  
+  
+  
+let ahoraSiFiltrados = []
+  if(product.length !==0){
+  for (let i = 0; i < detalles.length; i++) {
+    let productCarrito = product.products?.filter( (p) => p.codProduct === detalles[i].productCodProduct)
+   
+    let arr1 = detalles.filter((e)=> e.productCodProduct === productCarrito[0].codProduct)
+    
+    ahoraSiFiltrados.push(productCarrito[0])
+    ahoraSiFiltrados[i].quantity_CD = arr1[0].quantity_CD
+    ahoraSiFiltrados[i].cod_CartDetail= arr1[0].cod_CartDetail
+    
   }
+}
 
-  console.log(userDetail, " USER");
-  const dispatch = useDispatch();
+ useEffect(()=>{
+  console.log("Ahora si ahora no")
+  },[ahoraSiFiltrados])
 
-  useEffect(() => {
-    dispatch(getShoppingDetail(userDetail.shoppingCartCodCart));
-  }, []);
+  
+  
+  
 
-  const detalles = useSelector(
-    (state) => state.shoppingCartDtail.shoppingCartDtail
-  );
-  // const [state, dispatch] = useReducer(
-  //   shoppingCartDtailReducer,
-  //   shoppingInitialState
-  // );
-  console.log("Detalles en el carrito", detalles);
-  const [items, setItems] = useState([]);
-
-  function handleDeleteItem(element) {
-    setItems({
-      ...items,
-      items: items.filter((codProduct) => codProduct !== element),
-    });
+  function handleDeleteItem(e) {
+   
+    dispatch(deleteShoppingDetail( e.cod_CartDetail ,e.codProduct))
+     setState({
+       loading: true
+     })
+     
+     location.reload()
+     swal ( "Eliminado del Carrito" ,  "" ,  "error" )
   }
 
   function createCheckoutButton(preferenceId) {
@@ -63,13 +111,13 @@ export default function ShoppingCart() {
   }
 
   function handleClick() {
-    const newArr = detalles.map((e) => {
+    const newArr = ahoraSiFiltrados.map((e) => {
       setPaymentCoso(true);
       return {
-        description: e.cod_CartDetail,
-        price: e.unit_Price_CD,
+        title: e.name,
+        unit_price: e.unit_price,
         quantity: e.quantity_CD,
-        img: e.url,
+        picture_url: e.url,
       };
     });
     console.log("NEW ARRAY ===>", newArr);
@@ -94,11 +142,19 @@ export default function ShoppingCart() {
         console.log(err);
         alert("Unexpected error");
       });
-  }
+    }
+    
 
+    
+     
   return (
     <>
+
+
+
+
       <Nav />
+      
       {!paymentCoso && (
         <div className=" h-screen flex justify-center">
           <script src="https://sdk.mercadopago.com/js/v2"></script>
@@ -110,17 +166,17 @@ export default function ShoppingCart() {
             <article className="box"></article>
             <h3 className="font-Fredoka">Articulos en el Carrito</h3>
             <article className="box">
-              {detalles.length ? (
-                detalles.map((e) => (
+              {ahoraSiFiltrados.length !== 0 ? (
+                ahoraSiFiltrados.map((e) => (
                   <>
                     <CardItem
-                      productName={e.cod_CartDetail}
-                      unit_price={e.unit_Price_CD}
+                      productName={e.name}
+                      unit_price={e.unit_price}
                       quantity={e.quantity_CD}
                       productImg={e.url}
                       key={e.cod_CartDetail}
                     />
-                    <button className="text-red-600 w-28 hover:text-red-400 rounded self-center font-sans ">
+                    <button onClick={()=> handleDeleteItem(e)} className="bg-red-600 text-white-600 w-28 hover:bg-red-400 rounded self-center font-sans mb-24 ">
                       Eliminar Item
                     </button>
                   </>
@@ -130,36 +186,44 @@ export default function ShoppingCart() {
               )}
             </article>
 
-            <button
+           { ahoraSiFiltrados.length !== 0 ? ( <button
               onClick={handleClick}
               className="bg-violet-400 w-24 hover:bg-violet-300 rounded self-center font-sans p-2 "
             >
               Comprar
             </button>
+           ) : <Link to={"/market"}><h4 className="text-blue-600">  Volver al mercado</h4></Link>
+    }
           </div>
         </div>
       )}
 
       {paymentCoso && (
-        <section className="payment-form dark">
+        <section className="mt-52 flex justify-center" >
           <FadeIn transitionDuration="900">
-            <div className="container_payment">
+            <div className=" flex-col ">
               <div className="block-heading">
-                <h2>Checkout Payment</h2>
+                <h2>Finaliza tu Compra</h2>
               </div>
               <div className="form-payment">
                 <div className="products">
-                  <h2 className="title">Summary</h2>
+                  <h2 className="title">Resumen</h2>
                   <div className="item">
                     <span className="price" id="summary-price"></span>
-                    <p className="item-name">
-                      Alimento Canino x <span id="summary-quantity"></span>
-                    </p>
+                    <div className="item-name">
+                      {ahoraSiFiltrados.map((e)=> {
+                       return( <p>Nombre : {e.name} x {e.quantity_CD}</p>)
+                      })} 
+                        
+                    </div>
                   </div>
                   <div className="total">
-                    Total:
+                    Total:{" "} 
                     {Number.parseFloat(
-                      detalles[0].unit_Price_CD * detalles[0].quantity_CD
+                      detalles.reduce((acc, currentValue)=> {
+                        return acc + (currentValue.quantity_CD * currentValue.unit_Price_CD)
+                        
+                      }, 0)
                     ).toFixed(2)}
                     <span className="price" id="summary-total"></span>
                   </div>
@@ -193,6 +257,7 @@ export default function ShoppingCart() {
           </FadeIn>
         </section>
       )}
+      
     </>
   );
 }
