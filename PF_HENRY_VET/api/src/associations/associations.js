@@ -1,3 +1,4 @@
+function makeAssociations(sequelize) {
   const { User, ShoppingCart, ShoppingCartDetail, Product, Favorite, Invoice } =
     sequelize.models;
 
