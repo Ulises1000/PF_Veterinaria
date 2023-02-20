@@ -1,52 +1,53 @@
 import axios from "axios";
-import {GoogleAuthProvider, signInWithPopup} from "firebase/auth";
+import { GoogleAuthProvider, signInWithPopup } from "firebase/auth";
 import {
-    GET_PRODUCTS,
-    GET_PRODUCT,
-    DELETE_PRODUCT,
-    UPDATE_PRODUCT,
-    POST_PRODUCT,
-    GET_USER,
-    DELETE_USER,
-    POST_USER,
-    REGISTER_USER,
-    SIGNIN_USER,
-    SIGNOUT_USER,
-    REGISTER_ERRORS,
-    SIGNIN_ERRORS,
-    CLEAN_MSG_REGISTER_USER,
-    UPDATE_USER,
-    CREATE_PAGINATION_ARRAY,
-    SEARCH,
-    FILTEREDBREED,
-    FILTEREDSIZE,
-    SORT,
-    SEARCH_PRO_DASHBOARD,
-    BY_ORDER,
-    BY_ORDER_PRICE,
-    BY_ORDER_STOCK, 
-    GET_FAVORITES,
-    UPDATE_FAVORITE,
-    POST_CARTDTAIL,
-    GET_CARTDTAIL,
-    DELETE_CARTDTAIL,
-    DIFFERENT_OUTCOME,
-    FILTERED,
-    EMPTY_DIFFOUTCOME_OBJ,
-    EMPTY_SHOPPINGCARTDTAIL,
-    EMPTY_SHOPPINGCARTDTAILMSG,
-    SEARCH_USERS_DASHBOARD, 
-    GET_USERS,
-    SET_USER,
-    POST_FAVORITES,
-    CLEARFORM,
-    GET_PRODUCTS_BANEADOS,
-    RESTORE_BANEADOS,
-    SEARCH_PRO_DASHBOARD_DELETED,
-    BY_ORDER_BAN,
-    BY_ORDER_PRICE_BAN,
-    BY_ORDER_STOCK_BAN
-} from './constants';
+  GET_PRODUCTS,
+  GET_PRODUCT,
+  DELETE_PRODUCT,
+  UPDATE_PRODUCT,
+  POST_PRODUCT,
+  GET_USER,
+  DELETE_USER,
+  POST_USER,
+  REGISTER_USER,
+  SIGNIN_USER,
+  SIGNOUT_USER,
+  REGISTER_ERRORS,
+  SIGNIN_ERRORS,
+  CLEAN_MSG_REGISTER_USER,
+  UPDATE_USER,
+  CREATE_PAGINATION_ARRAY,
+  SEARCH,
+  // FILTEREDBREED,
+  // FILTEREDSIZE,
+  FILTEREDPRODUCTS,
+  SORT,
+  SEARCH_PRO_DASHBOARD,
+  BY_ORDER,
+  BY_ORDER_PRICE,
+  BY_ORDER_STOCK,
+  GET_FAVORITES,
+  UPDATE_FAVORITE,
+  POST_CARTDTAIL,
+  GET_CARTDTAIL,
+  DELETE_CARTDTAIL,
+  DIFFERENT_OUTCOME,
+  FILTERED,
+  EMPTY_DIFFOUTCOME_OBJ,
+  EMPTY_SHOPPINGCARTDTAIL,
+  EMPTY_SHOPPINGCARTDTAILMSG,
+  SEARCH_USERS_DASHBOARD,
+  GET_USERS,
+  SET_USER,
+  POST_FAVORITES,
+  CLEARFORM,
+  GET_PRODUCTS_BANEADOS,
+  RESTORE_BANEADOS,
+  SEARCH_PRO_DASHBOARD_DELETED,
+  BY_ORDER_BAN,
+  BY_ORDER_PRICE_BAN,
+  BY_ORDER_STOCK_BAN,
+} from "./constants";
 
 /* ruta + endpoints */
 const URL = "http://localhost:3001/";
@@ -61,33 +62,30 @@ const Endpoints = {
   favoritos: "favorite/",
 };
 
-
- export function searchDashBoard (data){
-    try {
-        return function(dispatch){
-        dispatch({
-           type:SEARCH_PRO_DASHBOARD,
-           payload:data, 
-        })        
-        }
-    } catch (error) { 
-        console.log(error.config);
-    }    
- } 
- export function searchDashBoardDeleted (data){
-
-    try {
-        return function(dispatch){
-        dispatch({
-           type:SEARCH_PRO_DASHBOARD_DELETED,
-           payload:data, 
-        })        
-        }
-    } catch (error) { 
-        console.log(error.config);
-    }    
- } 
-
+export function searchDashBoard(data) {
+  try {
+    return function (dispatch) {
+      dispatch({
+        type: SEARCH_PRO_DASHBOARD,
+        payload: data,
+      });
+    };
+  } catch (error) {
+    console.log(error.config);
+  }
+}
+export function searchDashBoardDeleted(data) {
+  try {
+    return function (dispatch) {
+      dispatch({
+        type: SEARCH_PRO_DASHBOARD_DELETED,
+        payload: data,
+      });
+    };
+  } catch (error) {
+    console.log(error.config);
+  }
+}
 
 export function getAllProducts(name) {
   return async function (dispatch) {
@@ -117,101 +115,108 @@ export function getAllProducts(name) {
       } else {
         console.log(error.message);
       }
-      console.log("Error en Linea 128", error.config);
+      console.log("Error en Linea 129", error.config);
     }
   };
 }
 
 export function getAllProductsBaneados() {
-    return async function(dispatch) {
-        try {
-            const { data } = await axios.get("http://localhost:3001/products/restore/getban");
-            dispatch({
-                type: GET_PRODUCTS_BANEADOS,
-                payload: data,
-            });
-          
-        } catch (error) {            
-            console.log(error);
-        }
-    };
+  return async function (dispatch) {
+    try {
+      const { data } = await axios.get(
+        "http://localhost:3001/products/restore/getban"
+      );
+      dispatch({
+        type: GET_PRODUCTS_BANEADOS,
+        payload: data,
+      });
+    } catch (error) {
+      console.log(error);
+    }
+  };
 }
 
-export function deleteProduct(codProduct){
-    return async function(dispatch){
-        try {
-            const datos = await axios.delete("http://localhost:3001/products/unsubscribe/"+codProduct)
-        dispatch({
-            type: DELETE_PRODUCT,
-            payload:codProduct,
-        })
-        } catch (error) {
-            console.log(error);        
-        }
-        
+export function deleteProduct(codProduct) {
+  return async function (dispatch) {
+    try {
+      const datos = await axios.delete(
+        "http://localhost:3001/products/unsubscribe/" + codProduct
+      );
+      dispatch({
+        type: DELETE_PRODUCT,
+        payload: codProduct,
+      });
+    } catch (error) {
+      console.log(error);
     }
+  };
 }
 
 export function restoreProductsBaneados(codProduct) {
-    return async function(dispatch) {
-        try {
-            const datos = await axios.patch("http://localhost:3001/products/restore/"+ codProduct);
-            dispatch({
-                type: RESTORE_BANEADOS,
-                payload: codProduct,
-            });
-          
-        } catch (error) {            
-            console.log(error);
-        }
-    };
+  return async function (dispatch) {
+    try {
+      const datos = await axios.patch(
+        "http://localhost:3001/products/restore/" + codProduct
+      );
+      dispatch({
+        type: RESTORE_BANEADOS,
+        payload: codProduct,
+      });
+    } catch (error) {
+      console.log(error);
+    }
+  };
 }
 export function getProduct(productName) {
-    return async function(dispatch) {
-        try {
-            const { data } = await axios.get(`${URL + Endpoints.product}getp/${productName}`);
-            dispatch({
-                type: GET_PRODUCT,
-                payload: data,
-            });
-        } catch (error) {
-            if (error.response) {
-                console.log(error.response.data);
-                console.log(error.response.status);
-                console.log(error.response.headers);
-            } else if (error.request) {
-                console.log(error.request);
-            } else {
-                console.log(error.message);
-            }
-            console.log(error.config);
-        }
-    };
+  return async function (dispatch) {
+    try {
+      const { data } = await axios.get(
+        `${URL + Endpoints.product}getp/${productName}`
+      );
+      dispatch({
+        type: GET_PRODUCT,
+        payload: data,
+      });
+    } catch (error) {
+      if (error.response) {
+        console.log(error.response.data);
+        console.log(error.response.status);
+        console.log(error.response.headers);
+      } else if (error.request) {
+        console.log(error.request);
+      } else {
+        console.log(error.message);
+      }
+      console.log(error.config);
+    }
+  };
 }
 
 export function updateProduct(productId, productData) {
-    console.log("DATA",productId,productData)
-    return async function(dispatch) {
-        try {
-            const { data } = await axios.put(`${URL + Endpoints.product}update/${productId}`, productData);
-            dispatch({
-                type: UPDATE_PRODUCT,
-                payload: data,
-            });
-        } catch (error) {
-            if (error.response) {
-                console.log(error.response.data);
-                console.log(error.response.status);
-                console.log(error.response.headers);
-            } else if (error.request) {
-                console.log(error.request);
-            } else {
-                console.log(error.message);
-            }
-            console.log(error.config);
-        }
-    };
-
+  console.log("DATA", productId, productData);
+  return async function (dispatch) {
+    try {
+      const { data } = await axios.put(
+        `${URL + Endpoints.product}update/${productId}`,
+        productData
+      );
+      dispatch({
+        type: UPDATE_PRODUCT,
+        payload: data,
+      });
+    } catch (error) {
+      if (error.response) {
+        console.log(error.response.data);
+        console.log(error.response.status);
+        console.log(error.response.headers);
+      } else if (error.request) {
+        console.log(error.request);
+      } else {
+        console.log(error.message);
+      }
+      console.log(error.config);
+    }
+  };
 }
 /* export async function puebaconection(data){
     console.log(data)
@@ -322,7 +327,7 @@ export function signinUserWithGoogle() {
       const auth = await axios.get(`${URL + Endpoints.user}signinGoogle`);
       dispatch({
         type: SIGNIN_GOOGLE,
-        payload: auth.data
+        payload: auth.data,
       });
     } catch (err) {
       dispatch({
@@ -385,10 +390,10 @@ export function deleteUser(userId) {
 }
 
 export function postUser(userData) {
-    console.log("entré")
+  console.log("entré");
   return async function (dispatch) {
     try {
-      console.log("ACA ESTA EL USER EN EL INDEX MANNN",userData);
+      console.log("ACA ESTA EL USER EN EL INDEX MANNN", userData);
       const { data } = await axios.post(
         `${URL + Endpoints.user}post`,
         userData
@@ -504,56 +509,56 @@ export function sort(order) {
 
 //*  DASHBOARD byOrderPrice
 //? PRODUCTOS______________________
-export const byOrder = (payload) => {   
-    return {
-      type: BY_ORDER,
-      payload,
-    };
+export const byOrder = (payload) => {
+  return {
+    type: BY_ORDER,
+    payload,
   };
-  export const byOrderBan = (payload) => {   
-    return {
-      type: BY_ORDER_BAN,
-      payload,
-    };
+};
+export const byOrderBan = (payload) => {
+  return {
+    type: BY_ORDER_BAN,
+    payload,
   };
-  export const byOrderPrice = (payload) => {   
-    return {
-      type: BY_ORDER_PRICE,
-      payload,
-    };
+};
+export const byOrderPrice = (payload) => {
+  return {
+    type: BY_ORDER_PRICE,
+    payload,
   };
-  export const byOrderPriceBan = (payload) => {   
-    return {
-      type: BY_ORDER_PRICE_BAN,
-      payload,
-    };
+};
+export const byOrderPriceBan = (payload) => {
+  return {
+    type: BY_ORDER_PRICE_BAN,
+    payload,
   };
-  export const byOrderStock = (payload) => {   
-    return {
-      type: BY_ORDER_STOCK,
-      payload,
-    };
+};
+export const byOrderStock = (payload) => {
+  return {
+    type: BY_ORDER_STOCK,
+    payload,
   };
-  export const byOrderStockBan = (payload) => {   
-    return {
-      type: BY_ORDER_STOCK_BAN,
-      payload,
-    };
-}
+};
+export const byOrderStockBan = (payload) => {
+  return {
+    type: BY_ORDER_STOCK_BAN,
+    payload,
+  };
+};
 
 export function clearForm() {
-    return function(dispatch){
-        dispatch({
-            type:CLEARFORM
-        })
-    }
+  return function (dispatch) {
+    dispatch({
+      type: CLEARFORM,
+    });
+  };
 }
 
-export function setUser(data){
-    return{
-        type: SET_USER,
-        payload:data,
-    }
+export function setUser(data) {
+  return {
+    type: SET_USER,
+    payload: data,
+  };
 }
 
 //? _______________________________
@@ -754,7 +759,7 @@ export function deleteShoppingDetail(idCartDtail, productId) {
   return async function (dispatch) {
     try {
       const { data } = await axios.delete(
-        `${URL + Endpoints.detalleCarrito}delete/${idCartDtail}/${productId}`
+        `${URL + Endpoints.detalleCarrito}unsubscribe/${idCartDtail}/${productId}`
       );
       if (data.ok)
         dispatch({
@@ -823,12 +828,3 @@ export function GetUser(name, password) {
     }
   };
 }
-
-
-export function setUser(data) {
-  return {
-    type: SET_USER,
-    payload: data,
-  };
-}
-
