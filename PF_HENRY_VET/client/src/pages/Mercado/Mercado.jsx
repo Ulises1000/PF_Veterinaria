@@ -1,3 +1,4 @@
+import FadeIn from 'react-fade-in';
 import React, { useEffect, useState } from "react";
 import Nav from "../../components/Nav.jsx";
 import Searchbar from "../../components/Searchbar.jsx";
@@ -57,30 +58,37 @@ function Mercado({ hayUser }) {
   if (loading === false && paginationArray[0]) {
     if (pagArrayArray[0] !== null) {
       return (
+      <div>
+
         <div>
           <div className="h-14">
             <Nav user={hayUser} />
             <Searchbar />
           </div>
+        </div>
+          <FadeIn transitionDuration="900">
+        <div>
           <div className="mt-36">
             <div className={styles.center}>
               {Object.values(paginationArray).map((product) =>
                 product.map((p, i) => (
                   <Card
-                    key={i}
-                    id={p.codProduct}
-                    url={p.url}
-                    name={p.name}
-                    unit_price={p.unit_price}
-                    breedType={p.breedType}
-                    petSize={p.petSize}
+                  key={i}
+                  id={p.codProduct}
+                  url={p.url}
+                  name={p.name}
+                  unit_price={p.unit_price}
+                  breedType={p.breedType}
+                  petSize={p.petSize}
                   />
-                ))
-              )}
+                  ))
+                  )}
             </div>
           </div>
           <Footer />
         </div>
+</FadeIn>
+</div>
       )
     } else if (pagArrayArray[0] === null) {
       return (
