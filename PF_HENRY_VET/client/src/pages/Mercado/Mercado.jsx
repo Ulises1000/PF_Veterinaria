@@ -29,6 +29,7 @@ function Mercado({ hayUser }) {
     fetchData();
   }, [state.page]);
 
+console.log(Array.isArray(pagArrayArray) === false, "paginationArray", pagArrayArray)
   useEffect(() =>{
     dispatch(filterProducts({
       breed: "breedType",
@@ -54,7 +55,7 @@ function Mercado({ hayUser }) {
     );
   }
 
-  if (loading === false && paginationArray[0]) {
+  if (loading === false && paginationArray[0] && Array.isArray(pagArrayArray) === true) {
     if (pagArrayArray[0] !== null) {
       return (
         <div>
@@ -82,7 +83,7 @@ function Mercado({ hayUser }) {
           <Footer />
         </div>
       )
-    } else if (pagArrayArray[0] === null) {
+    } else if (pagArrayArray[0] === null ) {
       return (
         <div>
           <div className="h-14">
@@ -99,6 +100,23 @@ function Mercado({ hayUser }) {
       );
     }
   }
+  else {
+    return (
+      <div>
+        <div className="h-14">
+          <Nav />
+          <Searchbar />
+        </div>
+        <div className="mt-36">
+          <div className={styles.center}>
+            <NotFoundProduct />
+          </div>
+        </div>
+        <Footer />
+      </div>
+    );
+  }
+
 }
 
 export default Mercado;
