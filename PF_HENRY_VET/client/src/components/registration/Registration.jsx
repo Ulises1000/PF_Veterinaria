@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-
 import "./registration.Module.css";
-import { getUser, GetUser, postUser, registerUser, signinUser } from "../../redux/action/index.jsx";
+import GoogleButton from "./GoogleButton.jsx";
+import { getUser, GetUser, postUser, registerUser, signinUser} from "../../redux/action";
 
 function validate(input, userTyped) {
   let errors = {};
@@ -44,13 +44,11 @@ function validate(input, userTyped) {
   return errors;
 }
 
-export function Registration({ Navset }) {
+export function Registration({ Navset, setGoogle }) {
   const [registrationChange, setRegistrationChange] = useState(
     Navset ? Navset : "login"
   );
   const dispatch = useDispatch();
-
-
 
   function HandleClickLogin() {
     setRegistrationChange("login");
@@ -154,7 +152,7 @@ useEffect(() =>{
   }
   //ACA ESTA LO NUEVO DE REGISTRATION Y SIGNIN
 //--------------------------------------------------------
-  function handleSubmitNewGame(e){
+  async function handleSubmitNewGame(e){
     e.preventDefault();
     if(registrationChange === "registration"){
       dispatch(registerUser(inputRegistration))
@@ -293,6 +291,8 @@ useEffect(() =>{
           >
             Crear Cuenta
           </button>
+          {/* ESTO ES LO DE GOOGLE */}
+          <GoogleButton setGoogle={setGoogle}/>
         </form>
         <div className="ml-10 mt-1">
           <Link to={"/home"}>
@@ -361,6 +361,7 @@ useEffect(() =>{
           >
             Login
           </button>
+          <GoogleButton isRegister={false}/>
         </form>
         <button
           onClick={HandleClickRegistration}

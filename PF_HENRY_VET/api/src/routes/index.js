@@ -20,7 +20,8 @@ const postShoppingCartDtail = require("./ShoppingCartDtailRoutes/postShoppingCar
 const getFavoriteRouter = require("./FavoriteRoutes/getFavorite");
 const postFavoriteRouter = require("./FavoriteRoutes/postAllFavorites");
 const updateFavoriteRouter = require("./FavoriteRoutes/updateFavorite");
-const MPRouter=require("./MercadoPago/MercadoPago.js")
+const MPRouter=require("./MercadoPago/MercadoPago.js");
+const etherealEmail = require('./etherealEmail/etherealEmail.js');
 // Importar todos los routers;
 // Ejemplo: const authRouter = require('./auth.js');
 
@@ -34,5 +35,6 @@ router.use("/shoppingCart", getShoppingCart);
 router.use("/shoppingCartDetail", getShoppingCartDtail, updateShoppingCartDtail, deleteShoppingCartDtail, postShoppingCartDtail)
 router.use("/favorite",getFavoriteRouter, postFavoriteRouter, updateFavoriteRouter);
 router.use("/payment",MPRouter)
+router.use("/etherealEmail", etherealEmail)
 
 module.exports = router;

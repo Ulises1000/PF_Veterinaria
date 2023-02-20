@@ -1,5 +1,5 @@
 const {Router} = require("express");
-const {User, ShoppingCart, Product} = require("../../db");
+const {User, ShoppingCart} = require("../../db");
 const cloudinary = require("../../cloudinaryConfig/cloudinaryConfig");
 const axios = require("axios");
 const {postFavorite} = require("../FavoriteRoutes/postFavorite");
@@ -14,9 +14,9 @@ router.post("/post", async (req, res) => {
         direction
     } = req.body;
     try{
-        const info = await findUser(name, password);
+        const info = await findUser(email);
 
-        if(!name || !email || !password || !direction) res.status(200).json({
+        if(!name || !email || !direction) res.status(200).json({
             ok: false,
             msg: "Faltan Datos",
             detail: "Faltan Datos"

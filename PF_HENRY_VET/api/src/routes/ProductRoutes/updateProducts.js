@@ -9,6 +9,8 @@ const router = Router();
 router.put("/update/:codProduct", async (req, res) => {
   try {
     const { codProduct } = req.params;
+    const datosl = req.body;
+    console.log(datosl)
     const buscaProduct = await findProductUP(codProduct);
 
   
@@ -18,7 +20,6 @@ router.put("/update/:codProduct", async (req, res) => {
       });
     } else {
       const newDataPro = addNewValuesToAnObjProd(req.body);
-
       await Product.update(newDataPro, {
         where: {
           codProduct,
