@@ -7,7 +7,9 @@ const getProducts = async (nameP) => {
   try {
     //ACA SE BUSCA SI HAY PRODUCTO EN LA DB HACIENDO UNA BUSQUEDA SIMPLE SOLO PARA SABER SI HAY PRODUCTOS
     const hayProduct = await Product.findOne();
-
+   const api = await axios.get(
+          `https://veterinaria-634d6-default-rtdb.firebaseio.com/productosDB.json`
+        );
         await api.data.forEach(async (p) => {
           const obj = {            
             name: p.nombre,
