@@ -24,7 +24,6 @@ function App() {
     }
   }, [user, hayUser]);
 
-  // console.log(localStorage.userPetShop, "localStorage.userPetShop");
   return (
     //:
     <div className="App bg-patas w-full">
@@ -50,7 +49,6 @@ function App() {
           }
         />
 
-        {console.log(user, "esto es el user diomeo")}
         {/* <Route path="/hayUserProfile" element={hayUser.name || hayUser.emails ? <hayUserProfile hayUser={hayUser}/>:<Navigate to="/login" />}/> */}
         <Route exact path="/home" element={<Home hayUser={hayUser} />} />
         <Route exact path="/market" element={<Mercado hayUser={hayUser} />} />

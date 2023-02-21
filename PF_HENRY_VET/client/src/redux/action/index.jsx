@@ -98,7 +98,6 @@ export function getAllProducts(name) {
           ? `${URL + Endpoints.product}get?name=${name}`
           : `${URL + Endpoints.product}get`
       );
-      console.log("Estuvo aca");
       dispatch({
         type: GET_PRODUCTS,
         payload: data,

@@ -20,7 +20,6 @@ router.get("/get", async (req, res) => {
                     height: 150,
                     Crop: 'fill'
                 });
-                console.log(user)
                 res.status(200).json({
                     ok: true,
                     value: user

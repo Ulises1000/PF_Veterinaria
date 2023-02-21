@@ -223,12 +223,6 @@ export const filters = (state = initialState, action) => {
           ? state.searchedProducts
           : state.products;
       const filters = action.payload;
-      console.log(
-        mainArray,
-        "88888888888888888",
-        filters,
-        "666666666666666666666666666666666"
-      );
 
       //state.currentOrder = "Static";
       /*
@@ -257,7 +251,6 @@ export const filters = (state = initialState, action) => {
         // ACA SI SE FILTRO POR TAMAÑO
         if (filteredArray.length > 0) {
           filteredArray = filteredArray.filter((product) => {
-            console.log(product);
             for (let i = 0; i < product.breedType.length; i++) {
               if (product.breedType[i] === filters.breed) {
                 return 1;
@@ -317,7 +310,6 @@ export const filters = (state = initialState, action) => {
         state.filteredProducts.length === 0
       ) {
         let orderedByNameProducts = [...state.products];
-        console.log(orderedByNameProducts);
         if (action.payload === ASCENDENTE) {
           orderedByNameProducts = orderedByNameProducts.sort((a, b) => {
             if (a.name.toLowerCase() < b.name.toLowerCase()) {
@@ -361,7 +353,6 @@ export const filters = (state = initialState, action) => {
         state.filteredProducts.length > 0
       ) {
         let orderedByNameProducts = [...state.filteredProducts];
-        console.log(orderedByNameProducts);
         if (action.payload === ASCENDENTE) {
           orderedByNameProducts = orderedByNameProducts.sort((a, b) => {
             if (a.name < b.name) {
@@ -450,23 +441,18 @@ export const filters = (state = initialState, action) => {
         state.filteredProducts.length === 0 &&
         state.orderedProducts.length === 0
       ) {
-        console.log("1");
         const page = state.products;
         pageHolder.push(page);
       } else if (state.currentOrder !== "Static") {
-        console.log("2");
         const page = state.orderedProducts;
         pageHolder.push(page);
       } else if (state.filteredProducts.length > 0) {
-        console.log("3");
         const page = state.filteredProducts;
         pageHolder.push(page);
       } else if (state.searchedProducts) {
-        console.log("4");
         const page = state.searchedProducts;
         pageHolder.push(page);
       } else {
-        console.log("5");
         const page = state.products;
         pageHolder.push(page);
       }

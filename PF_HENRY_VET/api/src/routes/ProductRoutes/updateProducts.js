@@ -10,7 +10,6 @@ router.put("/update/:codProduct", async (req, res) => {
   try {
     const { codProduct } = req.params;
     const datosl = req.body;
-    console.log(datosl)
     const buscaProduct = await findProductUP(codProduct);
 
   

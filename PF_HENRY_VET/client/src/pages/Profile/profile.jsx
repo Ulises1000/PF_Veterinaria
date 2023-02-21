@@ -6,6 +6,7 @@ import Nav from "../../components/Nav.jsx";
 import { signoutUser } from "../../redux/action/index.jsx";
 import loader from "../../style-assets/paw_icon.png";
 import { updateUser } from "../../redux/action/index.jsx";
+import ModalProfile from "../../components/Modal/ModalProfile.jsx";
 
 export default function UserProfile({ hayUser }) {
   const navigate = useNavigate();
@@ -79,11 +80,11 @@ export default function UserProfile({ hayUser }) {
       setUploading(true);
       const img = reader.result;
       dispatch(
-        updateUser(hayUser.cod_User,{
+        updateUser(usuarioLocal.cod_User,{
           url: img,
-          image_U: hayUser.image_U,
-          password_U: hayUser.password_U,
-          email_U: hayUser.email_U
+          image_U: usuarioLocal.image_U,
+          password_U: usuarioLocal.password_U,
+          email_U: usuarioLocal.email_U
         }) 
       );
       // await axios.post(`${window.location.origin}/api/cloudinaryUpload`, {
@@ -160,6 +161,7 @@ export default function UserProfile({ hayUser }) {
           <div className="flex">
             <h1 className="pr-2 font-semibold">Direccion:</h1>
             <p className="w-80">{usuarioLocal.direction_U}</p>
+            {/* <ModalProfile usuarioLocal={usuarioLocal}/> */}
           </div>
         </div>
         <div className="grid justify-items-center">
