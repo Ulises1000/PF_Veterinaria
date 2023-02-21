@@ -18,10 +18,13 @@ const TableProductsBaneados = () => {
 
   useEffect(() => { 
       dispatch(getAllProductsBaneados())  
+      dispatch(getAllProducts())  
   }, [dispatch]) 
  
   function handleRestore(e) {
+    dispatch(getAllProducts()) 
     dispatch(restoreProductsBaneados(e))
+    dispatch(getAllProductsBaneados())        
   }
 
     const columns = [ 
@@ -56,8 +59,13 @@ const TableProductsBaneados = () => {
         grow: 0,
     },
     {
-      name: 'Desbanear',
-      cell: (row) => <button onClick={()=>handleRestore(row.codProduct)} className="text-red-700    hover:text-white border border-red-700    hover:bg-red-800    focus:ring-1 focus:outline-none focus:ring-red-300    font-medium rounded-lg text-sm px-3 py-1.5 text-center mr-2 mb-2 dark:border-red-500    dark:text-red-500    dark:hover:text-white dark:hover:bg-red-600    dark:focus:ring-red-900" >Desbanear</button>,
+      name: 'Activar',
+      cell: (row) => 
+      <button onClick={()=>handleRestore(row.codProduct)} class="inline-flex items-center px-1.5 py-2 bg-indigo-500 hover:bg-indigo-600 text-white text-sm font-medium rounded-full">
+	    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+	    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 10h10a8 8 0 018 8v2M3 10l6 6m-6-6l6-6" />
+	    </svg></button>,
+      
       grow: 0.1,
     },
     

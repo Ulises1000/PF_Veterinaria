@@ -22,7 +22,18 @@ async function findProductUpdate(codProduct){
     }
 }
 
-async function addNewValuesToAnObjProd(newValues){ 
+
+/* function addNewValuesToAnObjProd(newValues){ 
+    let newObj = {};
+    for(let prop in newValues){
+        if(newValues[prop]){
+            newObj[prop] = newValues[prop];
+        }            
+    }
+    return newObj;
+} */
+
+  async function addNewValuesToAnObjProd(newValues){ 
     let newObj = {}, url;
     
     if(newValues.url) url = await cloudinary.uploader.upload(newValues.url, {
@@ -31,14 +42,14 @@ async function addNewValuesToAnObjProd(newValues){
     })
     
     for(let prop in newValues){
-        if(prop === "url" && url) newObj.url = url;
+        if(prop === "url" && url) newObj.url = url.url;
         else if(newValues[prop] && prop !== "image_url"){
             newObj[prop] = newValues[prop];
         }            
     }
        
     return newObj;
-}
+}  
 
 
 module.exports = {findProductUpdate, findProductUP,addNewValuesToAnObjProd};

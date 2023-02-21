@@ -31,8 +31,29 @@ const getProducts = async (nameP) => {
             
           });
         }
-        let allProducts; 
-        if(nameP){ 
+        let allProducts;  
+         if(nameP){ 
+        allProducts = await Product.findAll({
+          where: {
+            [Op.and]:[
+              {
+                name: {
+                 [Op.or]: [
+                { [Op.iLike]: nameP + "%" },
+                { [Op.substring]: nameP },
+                { [Op.endsWith]: nameP },
+                 ] 
+                }
+              },
+              {
+                unsubscribe:  false                
+              }
+            ],            
+          }
+        })
+          const {data} = await axios.get("http://localhost:3001/products/restore/getban")  
+      } 
+       /*  if(nameP){ 
         allProducts = await Product.findAll({
           where: {
             name: {
@@ -44,13 +65,17 @@ const getProducts = async (nameP) => {
             }
           }
         })  
-      }
-      else {
-        allProducts = await Product.findAll()
-        allProducts = await Product.findAll()
+      } */
 
+
+  
+      else {
+        
+        allProducts = await Product.findAll()
+        /* allProducts = await Product.findAll() */
       };
         //DESPUES DE QUE SE GUARDAN O NO (PORQUE YA EXISTIAN), HACE UNA BUSQUEDA MAS COMPLEJA
+        
     return allProducts;
      
   } catch (err) {

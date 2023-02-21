@@ -15,15 +15,15 @@ import {
   SEARCH_PRO_DASHBOARD,
   BY_ORDER,
   BY_ORDER_PRICE,
-  BY_ORDER_STOCK,
-  SEARCH_USERS_DASHBOARD,
-  GET_USERS,
+  BY_ORDER_STOCK, 
   CLEARFORM,
   GET_PRODUCTS_BANEADOS,
   SEARCH_PRO_DASHBOARD_DELETED,
   BY_ORDER_BAN,
   BY_ORDER_PRICE_BAN,
   BY_ORDER_STOCK_BAN,
+  FILTEREDBREED,
+  IS_ADMIN,
 
 } from "../action/constants";
 import {
@@ -51,6 +51,8 @@ const initialState = {
   productBaneados:[],
   ProductsBanSearch:[],
   filterProducts:[],
+  filteredProducts:[],
+  users:[],
   currentOrder: "Static",
   currentBreed: "breedType",
   currentSize: "petSize",
@@ -214,26 +216,21 @@ export const userReducer = (state = initialState.user, action) => {
 //usar esta
 export const filters = (state = initialState, action) => {
   switch (action.type) {
-    case FILTERED:
-      let filteredProducts = state.orderedProducts;
-      let filters = {
-        breed: state.currentBreed,
     
-      }
     case FILTEREDBREED:
       let filtersBreed = {
         breedType: "breedType",
 
       };
 
-      case FILTEREDPRODUCTS: 
+     case FILTEREDPRODUCTS: 
       /*
         currentBreed: state.currentBreed,
         currentSize: input,
       */
         const mainArray = state.searchedProducts.length > 0 ? state.searchedProducts : state.products
         const filters = action.payload;
-        console.log(mainArray,"88888888888888888" ,filters, "666666666666666666666666666666666")
+        console.log(mainArray,"88888888888888888" ,filters, "666666666666666666666666666666666") 
 
         //state.currentOrder = "Static";
       /*
@@ -481,6 +478,17 @@ export const filters = (state = initialState, action) => {
           };
   
       //*DASHBOARD____________________________________________________________________
+      case GET_USERS: {       
+        return {
+          ...state,
+          users: action.payload, 
+        };
+      }
+      case IS_ADMIN:
+      return {
+        ...state,
+        products: action.payload.value,
+      };
       case GET_PRODUCTS: {       
         return {
           ...state,
@@ -509,7 +517,9 @@ export const filters = (state = initialState, action) => {
         case DELETE_PRODUCT: 
         return {
           ...state,
-          products: state.products.filter(p => p.codProduct !== action.payload)
+          products: state.products.filter(p => p.codProduct !== action.payload.codProduct),
+          productBaneados:action.payload.data,
+          ProductsBanSearch:action.payload.data
         };
       case SEARCH_PRO_DASHBOARD:
         let filterProd = state.filterProducts.filter((us) => us.name.toLowerCase().includes(action.payload.toLowerCase()));
