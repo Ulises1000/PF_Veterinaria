@@ -9,7 +9,6 @@ mercadopago.configure({
   access_token: ACCESS_TOKEN,
 });
 MPRouter.post("", (req, res) => {
-  console.log(req.body[0], "reqbody");
   let arr = req.body
   let preference = {
     items: arr,

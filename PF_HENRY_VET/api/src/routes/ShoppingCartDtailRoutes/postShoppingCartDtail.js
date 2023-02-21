@@ -5,7 +5,6 @@ const {
 } = require("../../controllers/controllerShoppingCartDtail/controllerPost");
 
 router.post("/post", async (req, res) => {
-  console.log("body de CartDEtail ===", Object.values(req.body));
   try {
     const created = await verifyProductInCart(req.body);
     created

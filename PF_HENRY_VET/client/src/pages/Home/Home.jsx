@@ -21,8 +21,6 @@ const Home = ({ hayUser }) => {
     setTimeout(() => {
       setLoading(false);
     }, 2000);
-    console.log(localStorage, "Woah");
-    console.log(product.lenght, "Woah 2");
   }, []);
 
 

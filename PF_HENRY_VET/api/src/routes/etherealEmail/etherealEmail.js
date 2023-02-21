@@ -6,12 +6,16 @@ const etherealEmail = Router();
 const {
     USEREMAIL,
     USERPASSWORD,
+    USEREMAIL2,
+    PORTEMAIL,
+    HOSTEMAIL,
   } = process.env;
 
-etherealEmail.post("/sendEmail", (req, res) =>{
+etherealEmail.post("/sendEmail/admin", (req, res) =>{
     var transporter = nodemailer.createTransport({
-        host: 'smtp.ethereal.email',
-        port: 587,
+        host:HOSTEMAIL, // hostname
+    port: PORTEMAIL, // port for secure SMTP
+    secure: false,
         auth: {
             user: USEREMAIL,
             pass:USERPASSWORD,
@@ -20,10 +24,10 @@ etherealEmail.post("/sendEmail", (req, res) =>{
 
     var mailOptions =
     {
-        from: "Remitente",
-        to: "emaiA@hotmail.com.ar",
-        subject: "Enviado desde nodemailer",
-        text: "Hola Mundo!"
+        from: "OnlyPetsVeterinaria@hotmail.com",
+        to: USEREMAIL2,
+        subject: "Compra de OnlyPets",
+        text: "Tu Compra ha sido realizada"
     }
 
     transporter.sendMail(mailOptions, (error, info) =>{
