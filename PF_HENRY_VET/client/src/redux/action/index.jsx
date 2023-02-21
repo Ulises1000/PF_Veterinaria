@@ -46,7 +46,10 @@ import {
     SEARCH_PRO_DASHBOARD_DELETED,
     BY_ORDER_BAN,
     BY_ORDER_PRICE_BAN,
-    BY_ORDER_STOCK_BAN
+    BY_ORDER_STOCK_BAN,
+    FILTEREDPRODUCTS,
+    IS_ADMIN,
+    NO_ADMIN
 } from './constants';
 
 /* ruta + endpoints */
@@ -97,7 +100,8 @@ export function getAllProducts(name) {
         name
           ? `${URL + Endpoints.product}get?name=${name}`
           : `${URL + Endpoints.product}get`
-      );
+      ); 
+
       dispatch({
         type: GET_PRODUCTS,
         payload: data,
@@ -118,23 +122,40 @@ export function getAllProducts(name) {
     }
   };
 }
-
-export function getAllProductsBaneados() {
-  return async function (dispatch) {
-    try {
-      const { data } = await axios.get(
-        "http://localhost:3001/products/restore/getban"
-      );
-      dispatch({
-        type: GET_PRODUCTS_BANEADOS,
-        payload: data,
-      });
-    } catch (error) {
-      console.log(error);
+export function deleteProduct(codProduct){
+    return async function(dispatch){
+        try {
+            const {data} = await axios.put("http://localhost:3001/products/unsubscribe/"+codProduct)
+        dispatch({
+            type: DELETE_PRODUCT,
+            payload:{data,codProduct},
+        })
+        } catch (error) {
+            console.log(error);        
+        }
+        
     }
-  };
+}
+export function getAllProductsBaneados() {
+ 
+    return async function(dispatch) {
+        try {
+            const { data } = await axios.get("http://localhost:3001/products/restore/getban");
+            console.log("DATAAA",data)
+            dispatch({
+                type: GET_PRODUCTS_BANEADOS,
+                payload: data,
+            });
+          
+        } catch (error) {            
+            console.log(error);
+        }
+    };
 }
 
+
+ 
+ 
 export function deleteProduct(codProduct) {
   return async function (dispatch) {
     try {
@@ -150,6 +171,7 @@ export function deleteProduct(codProduct) {
     }
   };
 }
+ 
 
 export function restoreProductsBaneados(codProduct) {
   return async function (dispatch) {
@@ -191,36 +213,31 @@ export function getProduct(productName) {
   };
 }
 
-export function updateProduct(productId, productData) {
-  console.log("DATA", productId, productData);
-  return async function (dispatch) {
-    try {
-      const { data } = await axios.put(
-        `${URL + Endpoints.product}update/${productId}`,
-        productData
-      );
-      dispatch({
-        type: UPDATE_PRODUCT,
-        payload: data,
-      });
-    } catch (error) {
-      if (error.response) {
-        console.log(error.response.data);
-        console.log(error.response.status);
-        console.log(error.response.headers);
-      } else if (error.request) {
-        console.log(error.request);
-      } else {
-        console.log(error.message);
-      }
-      console.log(error.config);
-    }
-  };
+ 
+export function updateProduct(productId, productData) { 
+    return async function(dispatch) {
+        try {
+            const { data } = await axios.put(`${URL + Endpoints.product}update/${productId}`, productData);
+            dispatch({
+                type: UPDATE_PRODUCT,
+                payload: data,
+            });
+        } catch (error) {
+            if (error.response) {
+                console.log(error.response.data);
+                console.log(error.response.status);
+                console.log(error.response.headers);
+            } else if (error.request) {
+                console.log(error.request);
+            } else {
+                console.log(error.message);
+            }
+            console.log(error.config);
+        }
+    };
+
+ 
 }
-/* export async function puebaconection(data){
-    console.log(data)
-    const prueb =  await axios.post("http://localhost:3001/products/prueba",data)
-} */
 
 export function postProductos(data) {
   return async (dispatch) => {
@@ -257,7 +274,19 @@ export function postProduct(productData) {
     }
   };
 }
-
+export function getAllUsers() {
+  return async function (dispatch) {
+    try { 
+      const getusuarios = await axios.get("http://localhost:3001/users/getusers");
+      dispatch({
+        type: GET_USERS,
+        payload: getusuarios.data,
+      }); 
+    } catch (error) { 
+      console.log(error);
+    }
+  };
+}
 export function getUser(email, password) {
   return async function (dispatch) {
     try {
@@ -284,6 +313,32 @@ export function getUser(email, password) {
   };
 }
 
+export function haceAdmin(cod_User) { 
+  return async (dispatch) => {
+    try {
+      const { data }= await axios.patch('http://localhost:3001/users/isadmin/'+cod_User);
+      dispatch({
+        type: IS_ADMIN,
+        payload: data,
+    });
+    } catch (err) {
+      console.log(err)
+    }
+  };
+}
+export function haceNoAdmin(cod_User) { 
+  return async (dispatch) => {
+    try {
+      const { data }= await axios.patch(`http://localhost:3001/users/noadmin/${cod_User}`);
+      dispatch({
+        type: NO_ADMIN,
+        payload: data,
+    });
+    } catch (err) {
+      console.log(err)
+    }
+  };
+}
 export function registerUser(values) {
   return async (dispatch) => {
     try {
@@ -553,12 +608,14 @@ export function clearForm() {
   };
 }
 
+ 
 export function setUser(data) {
   return {
     type: SET_USER,
     payload: data,
   };
 }
+ 
 
 //? _______________________________
 //*_________________________________
@@ -829,10 +886,5 @@ export function GetUser(name, password) {
 }
 
 
-// export function setUser(data) {
-//   return {
-//     type: SET_USER,
-//     payload: data,
-//   };
-// }
+ 
 

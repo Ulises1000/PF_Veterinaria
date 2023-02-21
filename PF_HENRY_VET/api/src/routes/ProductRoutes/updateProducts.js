@@ -9,16 +9,15 @@ const router = Router();
 router.put("/update/:codProduct", async (req, res) => {
   try {
     const { codProduct } = req.params;
-    const datosl = req.body;
-    const buscaProduct = await findProductUP(codProduct);
-
+    const buscaProduct = await findProductUP(codProduct); 
   
     if (!buscaProduct) {
       res.status(200).json({
         msg: "No se pudo encontrar el producto a actualizar.",
       });
     } else {
-      const newDataPro = addNewValuesToAnObjProd(req.body);
+      const newDataPro = await addNewValuesToAnObjProd(req.body);
+      console.log("newDataPro",newDataPro)
       await Product.update(newDataPro, {
         where: {
           codProduct,

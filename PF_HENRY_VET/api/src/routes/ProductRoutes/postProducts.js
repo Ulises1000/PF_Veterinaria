@@ -9,11 +9,11 @@ const router = Router();
 
 router.post("/post", async (req, res) => {
   try {
-    const { name, description, unit_price, stock, image_url, petSize, breedType } = req.body;
+    const { name, description, unit_price, stock, url, petSize, breedType } = req.body;
 
     const buscaProducto = await findProductos(name);
 
-    if (!name || !description || !unit_price || !stock || !image_url || !petSize || !breedType) {
+    if (!name || !description || !unit_price || !stock || !url || !petSize || !breedType) {
       return res.status(200).json({
         ok: false,
         msg: "Faltan Datos del producto",
@@ -32,14 +32,14 @@ router.post("/post", async (req, res) => {
         description,
         unit_price,
         stock,
-        url: image_url,
+        url,
         petSize,
         breedType 
       });
 
       await cloudinary.uploader.upload(
-        image_url, 
-        {public_id: productCreate.image_url}
+        url, 
+        {public_id: productCreate.url}
       )
       
       const products = await axios.get("http://localhost:3001/products/get");

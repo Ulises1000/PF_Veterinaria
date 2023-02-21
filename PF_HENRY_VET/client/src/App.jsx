@@ -14,6 +14,7 @@ import { useEffect } from "react";
 import Nav from "./components/Nav";
 import TableProducts from "./components/Dashboard/TableProducts";
 import TableUsers from "./components/Dashboard/TableUsers";
+import FormEditProduct from "./components/Dashboard/FormEditProduct";
 
 function App() {
   let user = useSelector((state) => state.user.user);
@@ -99,6 +100,26 @@ function App() {
                 ) :
                 localStorage.userPetShop !== undefined ? JSON.parse(localStorage.userPetShop).isAdmin === true ? (
                   <DashBoard hayUser={hayUser} />
+                ) : (
+                  <Navigate to="/home" />
+                  ) : (
+                    <Navigate to="/home" />
+                ) 
+          }
+        />
+         <Route
+          exact
+          path="/editpro/:id"
+          element={
+            user ? user ? user.isAdmin === true ? (
+              <FormEditProduct hayUser={hayUser} />
+            ) : (
+                <Navigate to="/home" />
+              ) : (
+                <Navigate to="/home" />
+                ) :
+                localStorage.userPetShop !== undefined ? JSON.parse(localStorage.userPetShop).isAdmin === true ? (
+                  <FormEditProduct hayUser={hayUser} />
                 ) : (
                   <Navigate to="/home" />
                   ) : (

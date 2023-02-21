@@ -15,13 +15,15 @@ import {
   SEARCH_PRO_DASHBOARD,
   BY_ORDER,
   BY_ORDER_PRICE,
-  BY_ORDER_STOCK,
+  BY_ORDER_STOCK, 
   CLEARFORM,
   GET_PRODUCTS_BANEADOS,
   SEARCH_PRO_DASHBOARD_DELETED,
   BY_ORDER_BAN,
   BY_ORDER_PRICE_BAN,
   BY_ORDER_STOCK_BAN,
+  FILTEREDBREED,
+  IS_ADMIN,
 } from "../action/constants";
 import {
   GET_USER,
@@ -44,10 +46,12 @@ import { sort } from "../action";
 const initialState = {
   products: [],
   product: {},
-  productosedit: {},
-  productBaneados: [],
-  ProductsBanSearch: [],
-  filterProducts: [],
+  productosedit:{},
+  productBaneados:[],
+  ProductsBanSearch:[],
+  filterProducts:[],
+  filteredProducts:[],
+  users:[],
   currentOrder: "Static",
   currentBreed: "breedType",
   currentSize: "petSize",
@@ -212,17 +216,26 @@ export const userReducer = (state = initialState.user, action) => {
 export const filters = (state = initialState, action) => {
   switch (action.type) {
 
-    case FILTEREDPRODUCTS:
-
+    
+    case FILTEREDBREED:
+      let filtersBreed = {
+        breedType: "breedType",
+    }
+     case FILTEREDPRODUCTS: 
       /*
         currentBreed: state.currentBreed,
         currentSize: input,
       */
+
+        const mainArray = state.searchedProducts.length > 0 ? state.searchedProducts : state.products
+        const filters = action.payload;
+        console.log(mainArray,"88888888888888888" ,filters, "666666666666666666666666666666666") 
       const mainArray =
         state.searchedProducts.length > 0
           ? state.searchedProducts
           : state.products;
       const filters = action.payload;
+
 
       //state.currentOrder = "Static";
       /*
@@ -343,6 +356,50 @@ export const filters = (state = initialState, action) => {
           });
         }
 
+         case CREATE_PAGINATION_ARRAY:
+          const pageSize = 15;
+          let pageHolder = []
+    
+          if(state.filteredProducts.length === 0 && state.orderedProducts.length === 0){
+            console.log("1")
+            const page = state.products
+            pageHolder.push(page)
+          } else if(state.currentOrder !== "Static"){
+            console.log("2")
+            const page = state.orderedProducts
+            pageHolder.push(page)
+          } else if(state.filteredProducts.length > 0){
+            console.log("3")
+            const page = state.filteredProducts
+            pageHolder.push(page)
+          } else if(state.searchedProducts){
+            console.log("4")
+            const page = state.searchedProducts
+            pageHolder.push(page)
+          } else {
+            console.log("5")
+            const page = state.products
+            pageHolder.push(page)
+          }
+    
+          return {
+            ...state,
+            paginationArray: pageHolder,
+          };
+  
+      //*DASHBOARD____________________________________________________________________
+      case GET_USERS: {       
+        return {
+          ...state,
+          users: action.payload, 
+        };
+      }
+      case IS_ADMIN:
+      return {
+        ...state,
+        products: action.payload.value,
+      };
+      case GET_PRODUCTS: {       
         return {
           ...state,
           orderedProducts: orderedByNameProducts,
@@ -427,9 +484,10 @@ export const filters = (state = initialState, action) => {
           });
         }
         return {
-          ...state,
+          ...state, 
           orderedProducts: orderedByNameProducts,
           currentOrder: action.payload,
+
         };
       }
 
@@ -488,11 +546,13 @@ export const filters = (state = initialState, action) => {
         ProductsBanSearch: action.payload,
       };
 
-    case DELETE_PRODUCT:
-      return {
-        ...state,
-        products: state.products.filter((p) => p.codProduct !== action.payload),
-      };
+    case DELETE_PRODUCT: 
+        return {
+          ...state,
+          products: state.products.filter(p => p.codProduct !== action.payload.codProduct),
+          productBaneados:action.payload.data,
+          ProductsBanSearch:action.payload.data
+     };
     case SEARCH_PRO_DASHBOARD:
       let filterProd = state.filterProducts.filter((us) =>
         us.name.toLowerCase().includes(action.payload.toLowerCase())
