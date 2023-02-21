@@ -24,7 +24,6 @@ import {
   BY_ORDER_STOCK_BAN,
   FILTEREDBREED,
   IS_ADMIN,
-
 } from "../action/constants";
 import {
   GET_USER,
@@ -39,7 +38,7 @@ import {
   UPDATE_USER,
 } from "../action/constants";
 import { UPDATE_FAVORITE, POST_FAVORITES } from "../action/constants";
-import { SEARCH_USERS_DASHBOARD, GET_USERS } from "../action/constants";
+// import { SEARCH_USERS_DASHBOARD, GET_USERS } from "../action/constants";
 
 import { ASCENDENTE, DESCENDENTE } from "../../const/orderByName";
 import { sort } from "../action";
@@ -65,7 +64,7 @@ const initialState = {
   orderedProducts: [],
   paginationArray: [],
   shoppingCart: [],
-  filteredOnlyBySize:[], 
+  filteredOnlyBySize: [],
 };
 
 export const searchDashb = (state = initialState, action) => {
@@ -216,23 +215,29 @@ export const userReducer = (state = initialState.user, action) => {
 //usar esta
 export const filters = (state = initialState, action) => {
   switch (action.type) {
+
     
     case FILTEREDBREED:
       let filtersBreed = {
         breedType: "breedType",
-
-      };
-
+    }
      case FILTEREDPRODUCTS: 
       /*
         currentBreed: state.currentBreed,
         currentSize: input,
       */
+
         const mainArray = state.searchedProducts.length > 0 ? state.searchedProducts : state.products
         const filters = action.payload;
         console.log(mainArray,"88888888888888888" ,filters, "666666666666666666666666666666666") 
+      const mainArray =
+        state.searchedProducts.length > 0
+          ? state.searchedProducts
+          : state.products;
+      const filters = action.payload;
 
-        //state.currentOrder = "Static";
+
+      //state.currentOrder = "Static";
       /*
       {
         size: "firulete", "", undefined, "petSize"
@@ -240,15 +245,14 @@ export const filters = (state = initialState, action) => {
       }
       
       */
-      let filteredArray = []
-      
-      
+      let filteredArray = [];
+
       // PRIMERO: Filtramos por tamaño
-      if(filters.size !== "petSize" && filters.size !== undefined){
+      if (filters.size !== "petSize" && filters.size !== undefined) {
         filteredArray = mainArray.filter((product) => {
           for (let i = 0; i < product.petSize.length; i++) {
             if (product.petSize[i] === filters.size) {
-              return 1
+              return 1;
             }
           }
           return 0;
@@ -256,24 +260,23 @@ export const filters = (state = initialState, action) => {
       }
 
       // SEGUNDO: Filtramos por especie
-      if(filters.breed !== "breedType" && filters.breed !== undefined){
+      if (filters.breed !== "breedType" && filters.breed !== undefined) {
         // ACA SI SE FILTRO POR TAMAÑO
-        if(filteredArray.length > 0){
+        if (filteredArray.length > 0) {
           filteredArray = filteredArray.filter((product) => {
-            console.log(product)
             for (let i = 0; i < product.breedType.length; i++) {
               if (product.breedType[i] === filters.breed) {
-                return 1
+                return 1;
               }
             }
             return 0;
           });
         } else {
-        // ACA SI NO SE FILTRO POR TAMAÑO
+          // ACA SI NO SE FILTRO POR TAMAÑO
           filteredArray = mainArray.filter((product) => {
             for (let i = 0; i < product.breedType.length; i++) {
               if (product.breedType[i] === filters.breed) {
-                return 1
+                return 1;
               }
             }
             return 0;
@@ -281,9 +284,13 @@ export const filters = (state = initialState, action) => {
         }
       }
 
-    if (filters.breed !== "breedType" && filters.size !== "petSize" && filteredArray.length === 0){
-      filteredArray = [null]
-    }
+      if (
+        filters.breed !== "breedType" &&
+        filters.size !== "petSize" &&
+        filteredArray.length === 0
+      ) {
+        filteredArray = [null];
+      }
 
       // ACA LLEGAS O FILTRADO POR TAMAÑO Y ESPECIE
       // O FILTRADO SOLO POR ESPECIE
@@ -293,10 +300,9 @@ export const filters = (state = initialState, action) => {
         currentBreed: filters.breed,
         currentSize: filters.size,
         filteredProducts: filteredArray.length > 0 ? filteredArray : mainArray,
-        currentOrder: "Static"
+        currentOrder: "Static",
         // currentPage: 1,
       };
-
 
     case SEARCH:
       return {
@@ -311,142 +317,46 @@ export const filters = (state = initialState, action) => {
         currentSize: "petSize",
       };
 
-
-
-
-      case SORT:
-        if (
-          state.searchedProducts.length === 0 &&
-          state.filteredProducts.length === 0
-        ) {
-          let orderedByNameProducts = [...state.products];
-          console.log(orderedByNameProducts);
-          if (action.payload === ASCENDENTE) {
-            orderedByNameProducts = orderedByNameProducts.sort((a, b) => {
-              if (a.name.toLowerCase() < b.name.toLowerCase()) {
-                return action.payload === ASCENDENTE ? -1 : 1;
-              }
-              return 0;
-            });
-          }
-          if (action.payload === DESCENDENTE) {
-            orderedByNameProducts = orderedByNameProducts.sort((a, b) => {
-              if (a.name.toLowerCase() > b.name.toLowerCase()) {
-                return action.payload === ASCENDENTE ? 1 : -1;
-              }
-              return 0;
-            });
-          }
-  
-          if (action.payload === "LowToHigh") {
-            orderedByNameProducts = orderedByNameProducts.sort(function (a, b) {
-              if (a.unit_price > b.unit_price) return 1;
-              if (b.unit_price > a.unit_price) return -1;
-              return 0;
-            });
-          }
-  
-          if (action.payload === "HighToLow") {
-            orderedByNameProducts = orderedByNameProducts.sort(function (a, b) {
-              if (a.unit_price > b.unit_price) return -1;
-              if (b.unit_price > a.unit_price) return 1;
-              return 0;
-            });
-          }
-  
-          return {
-            ...state,
-            orderedProducts: orderedByNameProducts,
-            currentOrder: action.payload,
-          };
-        } else if (
-          state.searchedProducts.length === 0 &&
-          state.filteredProducts.length > 0
-        ) {
-          let orderedByNameProducts = [...state.filteredProducts];
-          console.log(orderedByNameProducts);
-          if (action.payload === ASCENDENTE) {
-            orderedByNameProducts = orderedByNameProducts.sort((a, b) => {
-              if (a.name < b.name) {
-                return action.payload === ASCENDENTE ? -1 : 1;
-              }
-              return 0;
-            });
-          }
-          if (action.payload === DESCENDENTE) {
-            orderedByNameProducts = orderedByNameProducts.sort((a, b) => {
-              if (a.name > b.name) {
-                return action.payload === ASCENDENTE ? 1 : -1;
-              }
-              return 0;
-            });
-          }
-  
-          if (action.payload === "LowToHigh") {
-            orderedByNameProducts = orderedByNameProducts.sort(function (a, b) {
-              if (b.unit_price > a.unit_price) return -1;
-              if (a.unit_price > b.unit_price) return 1;
-              return 0;
-            });
-          }
-  
-          if (action.payload === "HighToLow") {
-            orderedByNameProducts = orderedByNameProducts.sort(function (a, b) {
-              if (a.unit_price > b.unit_price) return -1;
-              if (b.unit_price > a.unit_price) return 1;
-              return 0;
-            });
-          }
-  
-          return {
-            ...state,
-            orderedProducts: orderedByNameProducts,
-            currentOrder: action.payload,
-          };
-        } else {
-          let orderedByNameProducts = [...state.filteredProducts];
-  
-          if (action.payload === ASCENDENTE) {
-            orderedByNameProducts = orderedByNameProducts.sort((a, b) => {
-              if (a.name < b.name) {
-                return action.payload === ASCENDENTE ? -1 : 1;
-              }
-              return 0;
-            });
-          }
-          if (action.payload === DESCENDENTE) {
-            orderedByNameProducts = orderedByNameProducts.sort((a, b) => {
-              if (a.name > b.name) {
-                return action.payload === ASCENDENTE ? 1 : -1;
-              }
-              return 0;
-            });
-          }
-  
-          if (action.payload === "LowToHigh") {
-            orderedByNameProducts = orderedByNameProducts.sort(function (a, b) {
-              if (b.unit_price > a.unit_price) return -1;
-              if (a.unit_price > b.unit_price) return 1;
-              return 0;
-            });
-          }
-  
-          if (action.payload === "HighToLow") {
-            orderedByNameProducts = orderedByNameProducts.sort(function (a, b) {
-              if (a.unit_price > b.unit_price) return -1;
-              if (b.unit_price > a.unit_price) return 1;
-              return 0;
-            });
-          }
-          return {
-            ...state,
-            orderedProducts: orderedByNameProducts,
-            currentOrder: action.payload,
-          };
+    case SORT:
+      if (
+        state.searchedProducts.length === 0 &&
+        state.filteredProducts.length === 0
+      ) {
+        let orderedByNameProducts = [...state.products];
+        if (action.payload === ASCENDENTE) {
+          orderedByNameProducts = orderedByNameProducts.sort((a, b) => {
+            if (a.name.toLowerCase() < b.name.toLowerCase()) {
+              return action.payload === ASCENDENTE ? -1 : 1;
+            }
+            return 0;
+          });
+        }
+        if (action.payload === DESCENDENTE) {
+          orderedByNameProducts = orderedByNameProducts.sort((a, b) => {
+            if (a.name.toLowerCase() > b.name.toLowerCase()) {
+              return action.payload === ASCENDENTE ? 1 : -1;
+            }
+            return 0;
+          });
         }
 
+        if (action.payload === "LowToHigh") {
+          orderedByNameProducts = orderedByNameProducts.sort(function (a, b) {
+            if (a.unit_price > b.unit_price) return 1;
+            if (b.unit_price > a.unit_price) return -1;
+            return 0;
+          });
+        }
 
-        case CREATE_PAGINATION_ARRAY:
+        if (action.payload === "HighToLow") {
+          orderedByNameProducts = orderedByNameProducts.sort(function (a, b) {
+            if (a.unit_price > b.unit_price) return -1;
+            if (b.unit_price > a.unit_price) return 1;
+            return 0;
+          });
+        }
+
+         case CREATE_PAGINATION_ARRAY:
           const pageSize = 15;
           let pageHolder = []
     
@@ -492,107 +402,245 @@ export const filters = (state = initialState, action) => {
       case GET_PRODUCTS: {       
         return {
           ...state,
-          products: action.payload,        
-          filterProducts: action.payload,
-          ProductsDashb: action.payload
+          orderedProducts: orderedByNameProducts,
+          currentOrder: action.payload,
+        };
+      } else if (
+        state.searchedProducts.length === 0 &&
+        state.filteredProducts.length > 0
+      ) {
+        let orderedByNameProducts = [...state.filteredProducts];
+        if (action.payload === ASCENDENTE) {
+          orderedByNameProducts = orderedByNameProducts.sort((a, b) => {
+            if (a.name < b.name) {
+              return action.payload === ASCENDENTE ? -1 : 1;
+            }
+            return 0;
+          });
+        }
+        if (action.payload === DESCENDENTE) {
+          orderedByNameProducts = orderedByNameProducts.sort((a, b) => {
+            if (a.name > b.name) {
+              return action.payload === ASCENDENTE ? 1 : -1;
+            }
+            return 0;
+          });
+        }
+
+        if (action.payload === "LowToHigh") {
+          orderedByNameProducts = orderedByNameProducts.sort(function (a, b) {
+            if (b.unit_price > a.unit_price) return -1;
+            if (a.unit_price > b.unit_price) return 1;
+            return 0;
+          });
+        }
+
+        if (action.payload === "HighToLow") {
+          orderedByNameProducts = orderedByNameProducts.sort(function (a, b) {
+            if (a.unit_price > b.unit_price) return -1;
+            if (b.unit_price > a.unit_price) return 1;
+            return 0;
+          });
+        }
+
+        return {
+          ...state,
+          orderedProducts: orderedByNameProducts,
+          currentOrder: action.payload,
+        };
+      } else {
+        let orderedByNameProducts = [...state.filteredProducts];
+
+        if (action.payload === ASCENDENTE) {
+          orderedByNameProducts = orderedByNameProducts.sort((a, b) => {
+            if (a.name < b.name) {
+              return action.payload === ASCENDENTE ? -1 : 1;
+            }
+            return 0;
+          });
+        }
+        if (action.payload === DESCENDENTE) {
+          orderedByNameProducts = orderedByNameProducts.sort((a, b) => {
+            if (a.name > b.name) {
+              return action.payload === ASCENDENTE ? 1 : -1;
+            }
+            return 0;
+          });
+        }
+
+        if (action.payload === "LowToHigh") {
+          orderedByNameProducts = orderedByNameProducts.sort(function (a, b) {
+            if (b.unit_price > a.unit_price) return -1;
+            if (a.unit_price > b.unit_price) return 1;
+            return 0;
+          });
+        }
+
+        if (action.payload === "HighToLow") {
+          orderedByNameProducts = orderedByNameProducts.sort(function (a, b) {
+            if (a.unit_price > b.unit_price) return -1;
+            if (b.unit_price > a.unit_price) return 1;
+            return 0;
+          });
+        }
+        return {
+          ...state, 
+          orderedProducts: orderedByNameProducts,
+          currentOrder: action.payload,
+
         };
       }
-      case GET_PRODUCT:
-        return {
-          ...state,
-          product: action.payload,
+
+    case CREATE_PAGINATION_ARRAY:
+      const pageSize = 15;
+      let pageHolder = [];
+
+      if (
+        state.filteredProducts.length === 0 &&
+        state.orderedProducts.length === 0
+      ) {
+        const page = state.products;
+        pageHolder.push(page);
+      } else if (state.currentOrder !== "Static") {
+        const page = state.orderedProducts;
+        pageHolder.push(page);
+      } else if (state.filteredProducts.length > 0) {
+        const page = state.filteredProducts;
+        pageHolder.push(page);
+      } else if (state.searchedProducts) {
+        const page = state.searchedProducts;
+        pageHolder.push(page);
+      } else {
+        const page = state.products;
+        pageHolder.push(page);
+      }
+
+      return {
+        ...state,
+        paginationArray: pageHolder,
       };
-      case POST_PRODUCT:
-        return {
-          ...state,
-          products: action.payload.value,
-        };
-        case GET_PRODUCTS_BANEADOS:       
-          return{
-            ...state,
-            productBaneados:action.payload,
-            ProductsBanSearch:action.payload
-          }
-          
-        case DELETE_PRODUCT: 
+
+    //*DASHBOARD____________________________________________________________________
+    case GET_PRODUCTS: {
+      return {
+        ...state,
+        products: action.payload,
+        filterProducts: action.payload,
+        ProductsDashb: action.payload,
+      };
+    }
+    case GET_PRODUCT:
+      return {
+        ...state,
+        product: action.payload,
+      };
+    case POST_PRODUCT:
+      return {
+        ...state,
+        products: action.payload.value,
+      };
+    case GET_PRODUCTS_BANEADOS:
+      return {
+        ...state,
+        productBaneados: action.payload,
+        ProductsBanSearch: action.payload,
+      };
+
+    case DELETE_PRODUCT: 
         return {
           ...state,
           products: state.products.filter(p => p.codProduct !== action.payload.codProduct),
           productBaneados:action.payload.data,
           ProductsBanSearch:action.payload.data
-        };
-      case SEARCH_PRO_DASHBOARD:
-        let filterProd = state.filterProducts.filter((us) => us.name.toLowerCase().includes(action.payload.toLowerCase()));
-         return {
-          ...state,
-          products: filterProd,
-        };
-        case SEARCH_PRO_DASHBOARD_DELETED:
-        let filterProdDEL = state.ProductsBanSearch.filter((us) => us.name.toLowerCase().includes(action.payload.toLowerCase()));
-         return {
-          ...state,
-          productBaneados: filterProdDEL,
-        }; 
-        
-        
-      case BY_ORDER: 
-      const orderProducts = action.payload === "Asc"
+     };
+    case SEARCH_PRO_DASHBOARD:
+      let filterProd = state.filterProducts.filter((us) =>
+        us.name.toLowerCase().includes(action.payload.toLowerCase())
+      );
+      return {
+        ...state,
+        products: filterProd,
+      };
+    case SEARCH_PRO_DASHBOARD_DELETED:
+      let filterProdDEL = state.ProductsBanSearch.filter((us) =>
+        us.name.toLowerCase().includes(action.payload.toLowerCase())
+      );
+      return {
+        ...state,
+        productBaneados: filterProdDEL,
+      };
+
+    case BY_ORDER:
+      const orderProducts =
+        action.payload === "Asc"
           ? state.products.sort((a, b) => (a.name > b.name ? 1 : -1))
-          : state.products.sort((a, b) => (a.name > b.name ? -1 : 1)); 
+          : state.products.sort((a, b) => (a.name > b.name ? -1 : 1));
       return {
         ...state,
         products: orderProducts,
       };
 
-
-      case BY_ORDER_BAN: 
-      const orderProductsBan = action.payload === "Asc"
+    case BY_ORDER_BAN:
+      const orderProductsBan =
+        action.payload === "Asc"
           ? state.productBaneados.sort((a, b) => (a.name > b.name ? 1 : -1))
-          : state.productBaneados.sort((a, b) => (a.name > b.name ? -1 : 1)); 
+          : state.productBaneados.sort((a, b) => (a.name > b.name ? -1 : 1));
       return {
         ...state,
-        productBaneados: orderProductsBan,      
+        productBaneados: orderProductsBan,
       };
-      case BY_ORDER_PRICE: 
-      const orderPrice = action.payload === "AscPrice"
-          ? state.products.sort((a, b) => (a.unit_price > b.unit_price ? 1 : -1))
-          : state.products.sort((a, b) => (a.unit_price > b.unit_price ? -1 : 1));          
+    case BY_ORDER_PRICE:
+      const orderPrice =
+        action.payload === "AscPrice"
+          ? state.products.sort((a, b) =>
+              a.unit_price > b.unit_price ? 1 : -1
+            )
+          : state.products.sort((a, b) =>
+              a.unit_price > b.unit_price ? -1 : 1
+            );
       return {
         ...state,
         products: orderPrice,
       };
-      case BY_ORDER_PRICE_BAN: 
-      const orderPriceBan = action.payload === "AscPrice"
-          ? state.productBaneados.sort((a, b) => (a.unit_price > b.unit_price ? 1 : -1))
-          : state.productBaneados.sort((a, b) => (a.unit_price > b.unit_price ? -1 : 1));          
+    case BY_ORDER_PRICE_BAN:
+      const orderPriceBan =
+        action.payload === "AscPrice"
+          ? state.productBaneados.sort((a, b) =>
+              a.unit_price > b.unit_price ? 1 : -1
+            )
+          : state.productBaneados.sort((a, b) =>
+              a.unit_price > b.unit_price ? -1 : 1
+            );
       return {
         ...state,
-        productBaneados: orderPriceBan,      
+        productBaneados: orderPriceBan,
       };
 
-      case BY_ORDER_STOCK: 
-      const orderStock = action.payload === "AscStock"
+    case BY_ORDER_STOCK:
+      const orderStock =
+        action.payload === "AscStock"
           ? state.products.sort((a, b) => (a.stock > b.stock ? 1 : -1))
           : state.products.sort((a, b) => (a.stock > b.stock ? -1 : 1));
       return {
         ...state,
         products: orderStock,
       };
-      case BY_ORDER_STOCK_BAN: 
-      const orderStockBan = action.payload === "AscStock"
+    case BY_ORDER_STOCK_BAN:
+      const orderStockBan =
+        action.payload === "AscStock"
           ? state.productBaneados.sort((a, b) => (a.stock > b.stock ? 1 : -1))
-          : state.productBaneados.sort((a, b) => (a.stock > b.stock ? -1 : 1));          
+          : state.productBaneados.sort((a, b) => (a.stock > b.stock ? -1 : 1));
       return {
         ...state,
-        productBaneados: orderStockBan,      
+        productBaneados: orderStockBan,
       };
 
-      case CLEARFORM:
-        return{
-          ...state,
-          product: {}
-        }
-      
+    case CLEARFORM:
+      return {
+        ...state,
+        product: {},
+      };
+
     //*___________________________________________________________________________________
 
     default:
@@ -620,8 +668,4 @@ export const favoriteReducer = (state = initialState, action) => {
     default:
       return state;
   }
-
-
-
 };
-

@@ -9,7 +9,6 @@ const router = Router();
 router.put("/update/:codProduct", async (req, res) => {
   try {
     const { codProduct } = req.params;
-
     const buscaProduct = await findProductUP(codProduct); 
   
     if (!buscaProduct) {

@@ -4,10 +4,10 @@ const router = Router();
 const cloudinary = require("../../cloudinaryConfig/cloudinaryConfig");
 const { findUser } = require("../../controllers/controllerUsers/controllerGet");
 
+
 router.get("/getusers", async (req, res) => {
     try {
-      const infoUsers = await User.findAll();
-      
+      const infoUsers = await User.findAll();      
       res.status(200).send(infoUsers);
     } catch (err) {
       res.status(404).send({
@@ -15,9 +15,10 @@ router.get("/getusers", async (req, res) => {
         msg: "Lo Lamentamos, No se pudo traer todos lo usuarios.",
         detail: err.message,
       });
+
     }
   });
-
+  
 router.get("/get", async (req, res) => {
   const { email, password } = req.query;
   try {

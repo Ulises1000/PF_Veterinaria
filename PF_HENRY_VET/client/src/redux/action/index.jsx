@@ -1,5 +1,5 @@
 import axios from "axios";
-import {GoogleAuthProvider, signInWithPopup} from "firebase/auth";
+import { GoogleAuthProvider, signInWithPopup } from "firebase/auth";
 import {
     GET_PRODUCTS,
     GET_PRODUCT,
@@ -18,8 +18,9 @@ import {
     UPDATE_USER,
     CREATE_PAGINATION_ARRAY,
     SEARCH,
-    FILTEREDBREED,
-    FILTEREDSIZE,
+    // FILTEREDBREED,
+    // FILTEREDSIZE,
+    FILTEREDPRODUCTS,
     SORT,
     SEARCH_PRO_DASHBOARD,
     BY_ORDER,
@@ -64,33 +65,30 @@ const Endpoints = {
   favoritos: "favorite/",
 };
 
-
- export function searchDashBoard (data){
-    try {
-        return function(dispatch){
-        dispatch({
-           type:SEARCH_PRO_DASHBOARD,
-           payload:data, 
-        })        
-        }
-    } catch (error) { 
-        console.log(error.config);
-    }    
- } 
- export function searchDashBoardDeleted (data){
-
-    try {
-        return function(dispatch){
-        dispatch({
-           type:SEARCH_PRO_DASHBOARD_DELETED,
-           payload:data, 
-        })        
-        }
-    } catch (error) { 
-        console.log(error.config);
-    }    
- } 
-
+export function searchDashBoard(data) {
+  try {
+    return function (dispatch) {
+      dispatch({
+        type: SEARCH_PRO_DASHBOARD,
+        payload: data,
+      });
+    };
+  } catch (error) {
+    console.log(error.config);
+  }
+}
+export function searchDashBoardDeleted(data) {
+  try {
+    return function (dispatch) {
+      dispatch({
+        type: SEARCH_PRO_DASHBOARD_DELETED,
+        payload: data,
+      });
+    };
+  } catch (error) {
+    console.log(error.config);
+  }
+}
 
 export function getAllProducts(name) {
   return async function (dispatch) {
@@ -103,6 +101,7 @@ export function getAllProducts(name) {
           ? `${URL + Endpoints.product}get?name=${name}`
           : `${URL + Endpoints.product}get`
       ); 
+
       dispatch({
         type: GET_PRODUCTS,
         payload: data,
@@ -119,7 +118,7 @@ export function getAllProducts(name) {
       } else {
         console.log(error.message);
       }
-      console.log("Error en Linea 128", error.config);
+      console.log("Error en Linea 129", error.config);
     }
   };
 }
@@ -138,6 +137,7 @@ export function deleteProduct(codProduct){
     }
 }
 export function getAllProductsBaneados() {
+ 
     return async function(dispatch) {
         try {
             const { data } = await axios.get("http://localhost:3001/products/restore/getban");
@@ -154,44 +154,66 @@ export function getAllProductsBaneados() {
 }
 
 
+ 
+ 
+export function deleteProduct(codProduct) {
+  return async function (dispatch) {
+    try {
+      const datos = await axios.delete(
+        "http://localhost:3001/products/unsubscribe/" + codProduct
+      );
+      dispatch({
+        type: DELETE_PRODUCT,
+        payload: codProduct,
+      });
+    } catch (error) {
+      console.log(error);
+    }
+  };
+}
+ 
 
 export function restoreProductsBaneados(codProduct) {
-    return async function(dispatch) {
-        try {
-            const datos = await axios.patch("http://localhost:3001/products/restore/"+ codProduct);
-            dispatch({
-                type: RESTORE_BANEADOS,
-                payload: codProduct,
-            });
-          
-        } catch (error) {            
-            console.log(error);
-        }
-    };
+  return async function (dispatch) {
+    try {
+      const datos = await axios.patch(
+        "http://localhost:3001/products/restore/" + codProduct
+      );
+      dispatch({
+        type: RESTORE_BANEADOS,
+        payload: codProduct,
+      });
+    } catch (error) {
+      console.log(error);
+    }
+  };
 }
 export function getProduct(productName) {
-    return async function(dispatch) {
-        try {
-            const { data } = await axios.get(`${URL + Endpoints.product}getp/${productName}`);
-            dispatch({
-                type: GET_PRODUCT,
-                payload: data,
-            });
-        } catch (error) {
-            if (error.response) {
-                console.log(error.response.data);
-                console.log(error.response.status);
-                console.log(error.response.headers);
-            } else if (error.request) {
-                console.log(error.request);
-            } else {
-                console.log(error.message);
-            }
-            console.log(error.config);
-        }
-    };
+  return async function (dispatch) {
+    try {
+      const { data } = await axios.get(
+        `${URL + Endpoints.product}getp/${productName}`
+      );
+      dispatch({
+        type: GET_PRODUCT,
+        payload: data,
+      });
+    } catch (error) {
+      if (error.response) {
+        console.log(error.response.data);
+        console.log(error.response.status);
+        console.log(error.response.headers);
+      } else if (error.request) {
+        console.log(error.request);
+      } else {
+        console.log(error.message);
+      }
+      console.log(error.config);
+    }
+  };
 }
 
+ 
 export function updateProduct(productId, productData) { 
     return async function(dispatch) {
         try {
@@ -214,6 +236,7 @@ export function updateProduct(productId, productData) {
         }
     };
 
+ 
 }
 
 export function postProductos(data) {
@@ -358,7 +381,7 @@ export function signinUserWithGoogle() {
       const auth = await axios.get(`${URL + Endpoints.user}signinGoogle`);
       dispatch({
         type: SIGNIN_GOOGLE,
-        payload: auth.data
+        payload: auth.data,
       });
     } catch (err) {
       dispatch({
@@ -421,10 +444,10 @@ export function deleteUser(userId) {
 }
 
 export function postUser(userData) {
-    console.log("entré")
+  console.log("entré");
   return async function (dispatch) {
     try {
-      console.log("ACA ESTA EL USER EN EL INDEX MANNN",userData);
+      console.log("ACA ESTA EL USER EN EL INDEX MANNN", userData);
       const { data } = await axios.post(
         `${URL + Endpoints.user}post`,
         userData
@@ -540,51 +563,59 @@ export function sort(order) {
 
 //*  DASHBOARD byOrderPrice
 //? PRODUCTOS______________________
-export const byOrder = (payload) => {   
-    return {
-      type: BY_ORDER,
-      payload,
-    };
+export const byOrder = (payload) => {
+  return {
+    type: BY_ORDER,
+    payload,
   };
-  export const byOrderBan = (payload) => {   
-    return {
-      type: BY_ORDER_BAN,
-      payload,
-    };
+};
+export const byOrderBan = (payload) => {
+  return {
+    type: BY_ORDER_BAN,
+    payload,
   };
-  export const byOrderPrice = (payload) => {   
-    return {
-      type: BY_ORDER_PRICE,
-      payload,
-    };
+};
+export const byOrderPrice = (payload) => {
+  return {
+    type: BY_ORDER_PRICE,
+    payload,
   };
-  export const byOrderPriceBan = (payload) => {   
-    return {
-      type: BY_ORDER_PRICE_BAN,
-      payload,
-    };
+};
+export const byOrderPriceBan = (payload) => {
+  return {
+    type: BY_ORDER_PRICE_BAN,
+    payload,
   };
-  export const byOrderStock = (payload) => {   
-    return {
-      type: BY_ORDER_STOCK,
-      payload,
-    };
+};
+export const byOrderStock = (payload) => {
+  return {
+    type: BY_ORDER_STOCK,
+    payload,
   };
-  export const byOrderStockBan = (payload) => {   
-    return {
-      type: BY_ORDER_STOCK_BAN,
-      payload,
-    };
-}
+};
+export const byOrderStockBan = (payload) => {
+  return {
+    type: BY_ORDER_STOCK_BAN,
+    payload,
+  };
+};
 
 export function clearForm() {
-    return function(dispatch){
-        dispatch({
-            type:CLEARFORM
-        })
-    }
+  return function (dispatch) {
+    dispatch({
+      type: CLEARFORM,
+    });
+  };
 }
 
+ 
+export function setUser(data) {
+  return {
+    type: SET_USER,
+    payload: data,
+  };
+}
+ 
 
 //? _______________________________
 //*_________________________________
@@ -784,7 +815,7 @@ export function deleteShoppingDetail(idCartDtail, productId) {
   return async function (dispatch) {
     try {
       const { data } = await axios.delete(
-        `${URL + Endpoints.detalleCarrito}delete/${idCartDtail}/${productId}`
+        `${URL + Endpoints.detalleCarrito}unsubscribe/${idCartDtail}/${productId}`
       );
       if (data.ok)
         dispatch({
@@ -855,10 +886,5 @@ export function GetUser(name, password) {
 }
 
 
-export function setUser(data) {
-  return {
-    type: SET_USER,
-    payload: data,
-  };
-}
+ 
 
