@@ -20,7 +20,6 @@ import {
     SEARCH,
     // FILTEREDBREED,
     // FILTEREDSIZE,
-    FILTEREDPRODUCTS,
     SORT,
     SEARCH_PRO_DASHBOARD,
     BY_ORDER,
@@ -156,21 +155,21 @@ export function getAllProductsBaneados() {
 
  
  
-export function deleteProduct(codProduct) {
-  return async function (dispatch) {
-    try {
-      const datos = await axios.delete(
-        "http://localhost:3001/products/unsubscribe/" + codProduct
-      );
-      dispatch({
-        type: DELETE_PRODUCT,
-        payload: codProduct,
-      });
-    } catch (error) {
-      console.log(error);
-    }
-  };
-}
+// export function deleteProduct(codProduct) {
+//   return async function (dispatch) {
+//     try {
+//       const datos = await axios.delete(
+//         "http://localhost:3001/products/unsubscribe/" + codProduct
+//       );
+//       dispatch({
+//         type: DELETE_PRODUCT,
+//         payload: codProduct,
+//       });
+//     } catch (error) {
+//       console.log(error);
+//     }
+//   };
+// }
  
 
 export function restoreProductsBaneados(codProduct) {

@@ -154,7 +154,7 @@ function FormEditProduct(){
 
                  <label>Precio unitario</label>
                 <div>                    
-                    <input   type="text" name="unit_price" value={inputEditProductos.unit_price} onChange={(e) => handleChange(e)} className="bg-gray-200 appearance-none border-2 border-gray-200 rounded w-full py-2 px-4 text-gray-700 leading-tight focus:outline-none focus:bg-white focus:border-yellow-500"/> <br/>
+                    <input   type="number" name="unit_price" value={inputEditProductos.unit_price} onChange={(e) => handleChange(e)} className="bg-gray-200 appearance-none border-2 border-gray-200 rounded w-full py-2 px-4 text-gray-700 leading-tight focus:outline-none focus:bg-white focus:border-yellow-500"/> <br/>
                     {(errors.unit_price && <p className="error">{errors.unit_price}</p>)} 
                 </div>   
                              
@@ -165,7 +165,7 @@ function FormEditProduct(){
                 </div>
                 <label>stock </label>
                 <div>
-                    <input  type="text" name="stock" value={inputEditProductos.stock} onChange={(e) => handleChange(e)} className="bg-gray-200 appearance-none border-2 border-gray-200 rounded w-full py-2 px-4 text-gray-700 leading-tight focus:outline-none focus:bg-white focus:border-yellow-500"/> <br/> 
+                    <input  type="number" name="stock" value={inputEditProductos.stock} onChange={(e) => handleChange(e)} className="bg-gray-200 appearance-none border-2 border-gray-200 rounded w-full py-2 px-4 text-gray-700 leading-tight focus:outline-none focus:bg-white focus:border-yellow-500"/> <br/> 
                     {(errors.stock && <p className="error">{errors.stock}</p>)} 
                 </div>  
                 

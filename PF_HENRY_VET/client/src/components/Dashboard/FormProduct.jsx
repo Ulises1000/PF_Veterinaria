@@ -77,17 +77,17 @@ function FormProduct() {
       <div>
         <button
           type="button"
-          className="m-5   text-purple-700 hover:text-white border border-purple-700 hover:bg-purple-800 focus:ring-1 focus:outline-none focus:ring-purple-300 font-medium rounded-lg text-sm px-4 py-1 text-center mr-2 mb-2 dark:border-purple-400 dark:text-purple-400 dark:hover:text-white dark:hover:bg-purple-500 dark:focus:ring-purple-900"
+          className="m-5 text-violet-700 hover:text-white border border-violet-700 hover:bg-violet-800 focus:ring-1 focus:outline-none focus:ring-violet-300 font-medium rounded-lg text-sm px-4 py-1 text-center mr-2 mb-2 dark:border-violet-400 dark:text-violet-400 dark:hover:text-white dark:hover:bg-violet-500 dark:focus:ring-violet-900"
         >
           <Link to="/dashboard">Volver</Link>
         </button>
       </div>
 
       <form
-        className="w-full m-5 p-5 max-w-sm bg-purple-600 text-white text-sm rounded-lg"
+        className="w-full m-5 p-5 max-w-sm bg-violet-600 text-white text-sm rounded-lg"
         onSubmit={(e) => handleSubmit(e)}
       >
-        <h3 className="text-lg content-center ">Crear Producto</h3>
+        <h3 className="text-lg mb-4 content-center ">Crear Producto</h3>
 
         <label className="labels">Imagen </label>
         <div className="inputsForm">
@@ -97,7 +97,7 @@ function FormProduct() {
             name="image_url"
             value={inputProductos.image_url}
             onChange={(e) => handleChange(e)}
-            className="bg-gray-200 appearance-none border-2 border-gray-200 rounded w-full py-2 px-4 text-gray-700 leading-tight focus:outline-none focus:bg-white focus:border-purple-500"
+            className="bg-gray-200 appearance-none border-2 border-gray-200 rounded w-full py-2 px-4 text-gray-700 leading-tight focus:outline-none focus:bg-white focus:border-violet-500"
           />{" "}
           <br />
           {errors.image_url && <p className="error">{errors.image_url}</p>}
@@ -111,7 +111,7 @@ function FormProduct() {
             name="name"
             value={inputProductos.name}
             onChange={(e) => handleChange(e)}
-            className="bg-gray-200 appearance-none border-2 border-gray-200 rounded w-full py-2 px-4 text-gray-700 leading-tight focus:outline-none focus:bg-white focus:border-purple-500"
+            className="bg-gray-200 appearance-none border-2 border-gray-200 rounded w-full py-2 px-4 text-gray-700 leading-tight focus:outline-none focus:bg-white focus:border-violet-500"
           />{" "}
           <br />
           {errors.name && <p className="error">{errors.name}</p>}
@@ -121,11 +121,11 @@ function FormProduct() {
         <div className="inputsForm">
           <input
             placeholder="Precio unitario"
-            type="text"
+            type="number"
             name="unit_price"
             value={inputProductos.unit_price}
             onChange={(e) => handleChange(e)}
-            className="bg-gray-200 appearance-none border-2 border-gray-200 rounded w-full py-2 px-4 text-gray-700 leading-tight focus:outline-none focus:bg-white focus:border-purple-500"
+            className="bg-gray-200 appearance-none border-2 border-gray-200 rounded w-full py-2 px-4 text-gray-700 leading-tight focus:outline-none focus:bg-white focus:border-violet-500"
           />{" "}
           <br />
           {errors.unit_price && <p className="error">{errors.unit_price}</p>}
@@ -139,7 +139,7 @@ function FormProduct() {
             name="description"
             value={inputProductos.description}
             onChange={(e) => handleChange(e)}
-            className="bg-gray-200 appearance-none border-2 border-gray-200 rounded w-full py-2 px-4 text-gray-700 leading-tight focus:outline-none focus:bg-white focus:border-purple-500"
+            className="bg-gray-200 appearance-none border-2 border-gray-200 rounded w-full py-2 px-4 text-gray-700 leading-tight focus:outline-none focus:bg-white focus:border-violet-500"
           />{" "}
           <br />
           {errors.description && <p className="error">{errors.description}</p>}
@@ -149,11 +149,11 @@ function FormProduct() {
         <div className="inputsForm">
           <input
             placeholder="stock"
-            type="text"
+            type="number"
             name="stock"
             value={inputProductos.stock}
             onChange={(e) => handleChange(e)}
-            className="bg-gray-200 appearance-none border-2 border-gray-200 rounded w-full py-2 px-4 text-gray-700 leading-tight focus:outline-none focus:bg-white focus:border-purple-500"
+            className="bg-gray-200 appearance-none border-2 border-gray-200 rounded w-full py-2 px-4 text-gray-700 leading-tight focus:outline-none focus:bg-white focus:border-violet-500"
           />{" "}
           <br />
           {errors.stock && <p className="error">{errors.stock}</p>}
@@ -188,7 +188,7 @@ function FormProduct() {
 
         <button
           type="submit"
-          /* disabled={ Object.keys(errors).length<1 ? false : true} */ class="mt-3 w-full   hover:text-white border border-purple-700 hover:bg-purple-800 focus:ring-1 focus:outline-none focus:ring-purple-300 font-medium rounded-lg text-sm px-4 py-1.5 text-center mr-2 mb-2 dark:border-purple-400 dark:text-white dark:hover:text-white dark:hover:bg-purple-500 dark:bg-purple-400 dark:focus:ring-purple-900"
+          /* disabled={ Object.keys(errors).length<1 ? false : true} */ class="mt-3 w-full   hover:text-white border border-violet-700 hover:bg-violet-800 focus:ring-1 focus:outline-none focus:ring-violet-300 font-medium rounded-lg text-sm px-4 py-1.5 text-center mr-2 mb-2 dark:border-violet-400 dark:text-white dark:hover:text-white dark:hover:bg-violet-500 dark:bg-violet-400 dark:focus:ring-violet-900"
         >
           Crear
         </button>

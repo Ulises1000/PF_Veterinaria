@@ -27,7 +27,7 @@ function App() {
 
   return (
     //:
-    <div className="App bg-patas w-full">
+    <div className="App bg-patas bg-transparent w-full">
       <Routes>
         <Route
           exact

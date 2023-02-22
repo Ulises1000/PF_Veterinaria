@@ -39,10 +39,10 @@ router.post("/post", async (req, res) => {
             })
             //--------------------------------
 
-            const todosLosProducts = await axios.get("http://localhost:3001/products/get");
-            todosLosProducts.data.forEach(async el => {
-                await postFavorite(el.codProduct, el.name, el.url, createdUser.cod_User)  
-            });
+            // const todosLosProducts = await axios.get("http://localhost:3001/products/get");
+            // todosLosProducts.data.forEach(async el => {
+            //     await postFavorite(el.codProduct, el.name, el.url, createdUser.cod_User)  
+            // });
             //--------------------------------
             await cloudinary.uploader.upload(
                 "https://www.pngkey.com/png/detail/202-2024792_user-profile-icon-png-download-fa-user-circle.png",

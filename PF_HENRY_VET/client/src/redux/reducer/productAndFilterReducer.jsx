@@ -24,6 +24,7 @@ import {
   BY_ORDER_STOCK_BAN,
   FILTEREDBREED,
   IS_ADMIN,
+  GET_USERS,
 } from "../action/constants";
 import {
   GET_USER,
@@ -58,7 +59,7 @@ const initialState = {
   currentSearch: "",
   searchedProducts: [],
   currentFilter: "",
-  filteredProducts: [],
+  // filteredProducts: [],
   filteredProductsBySize: [],
   orderedByNameProducts: [],
   orderedProducts: [],
@@ -227,9 +228,8 @@ export const filters = (state = initialState, action) => {
         currentSize: input,
       */
 
-        const mainArray = state.searchedProducts.length > 0 ? state.searchedProducts : state.products
-        const filters = action.payload;
-        console.log(mainArray,"88888888888888888" ,filters, "666666666666666666666666666666666") 
+        // const mainArray = state.searchedProducts.length > 0 ? state.searchedProducts : state.products
+        // const filters = action.payload;
       const mainArray =
         state.searchedProducts.length > 0
           ? state.searchedProducts
@@ -356,55 +356,7 @@ export const filters = (state = initialState, action) => {
           });
         }
 
-         case CREATE_PAGINATION_ARRAY:
-          const pageSize = 15;
-          let pageHolder = []
-    
-          if(state.filteredProducts.length === 0 && state.orderedProducts.length === 0){
-            console.log("1")
-            const page = state.products
-            pageHolder.push(page)
-          } else if(state.currentOrder !== "Static"){
-            console.log("2")
-            const page = state.orderedProducts
-            pageHolder.push(page)
-          } else if(state.filteredProducts.length > 0){
-            console.log("3")
-            const page = state.filteredProducts
-            pageHolder.push(page)
-          } else if(state.searchedProducts){
-            console.log("4")
-            const page = state.searchedProducts
-            pageHolder.push(page)
-          } else {
-            console.log("5")
-            const page = state.products
-            pageHolder.push(page)
-          }
-    
-          return {
-            ...state,
-            paginationArray: pageHolder,
-          };
-  
-      //*DASHBOARD____________________________________________________________________
-      case GET_USERS: {       
-        return {
-          ...state,
-          users: action.payload, 
-        };
-      }
-      case IS_ADMIN:
-      return {
-        ...state,
-        products: action.payload.value,
-      };
-      case GET_PRODUCTS: {       
-        return {
-          ...state,
-          orderedProducts: orderedByNameProducts,
-          currentOrder: action.payload,
-        };
+     
       } else if (
         state.searchedProducts.length === 0 &&
         state.filteredProducts.length > 0
@@ -491,34 +443,84 @@ export const filters = (state = initialState, action) => {
         };
       }
 
-    case CREATE_PAGINATION_ARRAY:
-      const pageSize = 15;
-      let pageHolder = [];
+      case CREATE_PAGINATION_ARRAY:
+        const pageSize = 15;
+        let pageHolder = []
+  
+        if(state.filteredProducts.length === 0 && state.orderedProducts.length === 0){
+          console.log("1")
+          const page = state.products
+          pageHolder.push(page)
+        } else if(state.currentOrder !== "Static"){
+          console.log("2")
+          const page = state.orderedProducts
+          pageHolder.push(page)
+        } else if(state.filteredProducts.length > 0){
+          console.log("3")
+          const page = state.filteredProducts
+          pageHolder.push(page)
+        } else if(state.searchedProducts){
+          console.log("4")
+          const page = state.searchedProducts
+          pageHolder.push(page)
+        } else {
+          console.log("5")
+          const page = state.products
+          pageHolder.push(page)
+        }
+  
+        return {
+          ...state,
+          paginationArray: pageHolder,
+        };
 
-      if (
-        state.filteredProducts.length === 0 &&
-        state.orderedProducts.length === 0
-      ) {
-        const page = state.products;
-        pageHolder.push(page);
-      } else if (state.currentOrder !== "Static") {
-        const page = state.orderedProducts;
-        pageHolder.push(page);
-      } else if (state.filteredProducts.length > 0) {
-        const page = state.filteredProducts;
-        pageHolder.push(page);
-      } else if (state.searchedProducts) {
-        const page = state.searchedProducts;
-        pageHolder.push(page);
-      } else {
-        const page = state.products;
-        pageHolder.push(page);
-      }
-
+    //*DASHBOARD____________________________________________________________________
+    case GET_USERS: {       
       return {
         ...state,
-        paginationArray: pageHolder,
+        users: action.payload, 
       };
+    }
+    case IS_ADMIN:
+    return {
+      ...state,
+      products: action.payload.value,
+    };
+    // case GET_PRODUCTS: {       
+    //   return {
+    //     ...state,
+    //     orderedProducts: orderedByNameProducts,
+    //     currentOrder: action.payload,
+    //   };
+    // }
+    // case CREATE_PAGINATION_ARRAY:
+    //   const pageSize = 15;
+    //   let pageHolder = [];
+
+    //   if (
+    //     state.filteredProducts.length === 0 &&
+    //     state.orderedProducts.length === 0
+    //   ) {
+    //     const page = state.products;
+    //     pageHolder.push(page);
+    //   } else if (state.currentOrder !== "Static") {
+    //     const page = state.orderedProducts;
+    //     pageHolder.push(page);
+    //   } else if (state.filteredProducts.length > 0) {
+    //     const page = state.filteredProducts;
+    //     pageHolder.push(page);
+    //   } else if (state.searchedProducts) {
+    //     const page = state.searchedProducts;
+    //     pageHolder.push(page);
+    //   } else {
+    //     const page = state.products;
+    //     pageHolder.push(page);
+    //   }
+
+    //   return {
+    //     ...state,
+    //     paginationArray: pageHolder,
+    //   };
 
     //*DASHBOARD____________________________________________________________________
     case GET_PRODUCTS: {
