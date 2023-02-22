@@ -9,7 +9,6 @@ router.get("/get", async (req, res) => {
   const { name } = req.query;
   try {
     const getP = name ? await getProducts(name.trim()) : await getProducts();
-    console.log(getP, "getP");
     if (!getP.length)
       res.status(200).json({
         ok: false,

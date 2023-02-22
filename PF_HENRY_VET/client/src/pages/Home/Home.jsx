@@ -21,8 +21,6 @@ const Home = ({ hayUser }) => {
     setTimeout(() => {
       setLoading(false);
     }, 2000);
-    console.log(localStorage, "Woah");
-    console.log(product.lenght, "Woah 2");
   }, []);
 
 
@@ -56,7 +54,7 @@ const Home = ({ hayUser }) => {
   
         <div className="flex flex-row  w-full space-y-36 md:space-y-5 md:mr-28 mt-10 md:mt-40  space-x-3 items-center justify-around">
           <div className="sm:mt-40 md:mt-10 hidden md:flex flex-col md:visible">
-            <h1 className="text-gray-500 font-Fredoka font-semibold mt- underline underline-offset-8 mb-2">
+            <h1 className="text-gray-500 font-Fredoka font-semibold mt- mb-2">
               Dieta y consejos
             </h1>
             <img
@@ -66,7 +64,7 @@ const Home = ({ hayUser }) => {
             <Modal  title={"Dietas y Consejos"}/>
           </div>
           <div className="hidden md:flex flex-col md:visible">
-            <h1 className="text-gray-500 font-Fredoka font-semibold mt- underline underline-offset-8 mb-2">
+            <h1 className="text-gray-500 font-Fredoka font-semibold mt- mb-2">
               No olvides desparasitar a tus mascotas!
             </h1>
             <img
@@ -76,7 +74,7 @@ const Home = ({ hayUser }) => {
             <Modal  title={"No olvides desparasitar a tus mascotas!"}/>
           </div>
           <div className="flex flex-col">
-            <h1 className="text-gray-500 font-Fredoka font-semibold mt- underline underline-offset-8 mb-2">
+            <h1 className="text-gray-500 font-Fredoka font-semibold mt- mb-2">
               Adiestramiento 101
             </h1>
             <img
@@ -92,7 +90,7 @@ const Home = ({ hayUser }) => {
         <div className="flex flex-col">
           <div className="flex flex-row space-x-4 justify-center items-center mt-11">
             <div className="md:flex flex-col hidden md:visible">
-              <h1 className=" text-gray-500 font-Fredoka font-semibold mt- underline underline-offset-8 mb-2">
+              <h1 className=" text-gray-500 font-Fredoka font-semibold mt- mb-2">
                 Manten a tu gato entretenido y ejercitado!
               </h1>
               <img
@@ -102,7 +100,7 @@ const Home = ({ hayUser }) => {
                <Modal title={"Manten a tu gato entretenido y ejercitado!"}/>
             </div>
             <div className="md:flex flex-col hidden md:visible">
-              <h1 className="text-gray-500 font-Fredoka font-semibold mt- underline underline-offset-8 mb-2">
+              <h1 className="text-gray-500 font-Fredoka font-semibold mt- mb-2">
                 Consejos nutricionales para Felinos
               </h1>
               <img
@@ -112,7 +110,7 @@ const Home = ({ hayUser }) => {
               <Modal title={"Consejos nutricionales para Felinos"}/>
             </div>
             <div className="flex flex-col">
-              <h1 className="text-gray-500 font-Fredoka mb-5 md:mb-1 font-semibold underline sm:underline-offset-8 md:underline-offset-0">
+              <h1 className="text-gray-500 font-Fredoka mb-5 md:mb-1 font-semibold md">
                 Adiestramiento para Felinos
               </h1>
               <img
@@ -134,7 +132,7 @@ const Home = ({ hayUser }) => {
             <a href={`details/${productoUno.codProduct}`}>
                 <div className="mr-9">
                   <div className="flex flex-col">
-                    <h1 className="text-gray-500 font-Fredoka mb-5 md:mb-1 font-semibold underline sm:underline-offset-8 md:underline-offset-0">
+                    <h1 className="text-gray-500 font-Fredoka mb-5 md:mb-1 font-semibold md">
                     {productoUno.name}{" "}
                     </h1>
                     <img
@@ -148,7 +146,7 @@ const Home = ({ hayUser }) => {
                 <div>
                 <a href={`details/${productoDos.codProduct}`}>
                   <div className="flex flex-col">
-                    <h1 className="text-gray-500 font-Fredoka mb-5 md:mb-1 font-semibold underline sm:underline-offset-8 md:underline-offset-0">
+                    <h1 className="text-gray-500 font-Fredoka mb-5 md:mb-1 font-semibold md">
                       {" "}
                       {productoDos.name}
                     </h1>

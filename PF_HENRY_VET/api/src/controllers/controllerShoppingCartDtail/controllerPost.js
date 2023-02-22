@@ -2,7 +2,6 @@ const { ShoppingCartDetail } = require("../../db");
 
 async function verifyProductInCart(values) {
   const { idCart, idProduct, unit_price, date_added, quantity } = values;
-  console.log("Values ===", values);
   try {
     const [info, created] = await ShoppingCartDetail.findOrCreate({
       where: {
@@ -19,7 +18,6 @@ async function verifyProductInCart(values) {
     });
     return created;
   } catch (err) {
-    console.log("error ===", err.message)
     throw new Error(err);
   }
 }

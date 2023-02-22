@@ -2,7 +2,6 @@ import React from "react";
 
 export default function Modal(obj) {
   const [showModal, setShowModal] = React.useState(false);
-  console.log(obj.title)
   return (
     <>
       <button

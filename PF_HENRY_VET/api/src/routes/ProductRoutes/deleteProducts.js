@@ -1,20 +1,18 @@
 const { Router } = require("express");
+const axios =require ("axios");
 const { Product } = require("../../db.js");
 const router = Router();
 
-router.delete("/unsubscribe/:codProduct", async (req, res) => {
+router.put("/unsubscribe/:codProduct", async (req, res) => {
   const { codProduct } = req.params;
   try {
-    const product = await Product.findOne({
-      where: { codProduct },
-    });
-    product.set({
-      unsubscribe:true
-    })
-    await product.save();
-    await product.destroy();
+     await Product.update({unsubscribe: true},{
+      where: {codProduct}
+    })   
 
-    res.status(200).send("Se baneo el producto");
+  const {data} = await axios.get("http://localhost:3001/products/restore/getban") 
+
+    res.status(200).send(data);
   } catch (err) {
     res.status(404).send({
       ok: false,
@@ -38,7 +36,7 @@ router.patch("/restore/:codProduct", async (req, res) => {
       })
       await baneado.save()
       await baneado.restore();
-
+      const {data} = await axios.get("http://localhost:3001/products/restore/getban") 
       res.status(200).send("Se desbaneo el producto");
     } else {
       res
@@ -58,10 +56,9 @@ router.get("/restore/getban", async (req, res) => {
   try {     
     const getBaneados = await Product.findAll({ 
       where: {unsubscribe: true},
-      paranoid: false,
-    })     
+    }) 
    res.send(getBaneados)   
-  
+   
   } catch (err) {
     res.status(404).send({
       ok: false,

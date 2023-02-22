@@ -42,7 +42,8 @@ export const SEARCH_PRO_DASHBOARD = "SEARCH_PRO_DASHBOARD";
 export const BY_ORDER = "BY_ORDER";
 export const BY_ORDER_PRICE = "BY_ORDER_PRICE";
 export const BY_ORDER_STOCK = "BY_ORDER_STOCK";
-
+export const IS_ADMIN = "IS_ADMIN"
+export const NO_ADMIN = "NO_ADMIN"
 export const  BY_ORDER_BAN = "BY_ORDER_BAN";
 export const BY_ORDER_PRICE_BAN = "BY_ORDER_PRICE_BAN"
 export const BY_ORDER_STOCK_BAN = "BY_ORDER_STOCK_BAN"
@@ -58,3 +59,7 @@ export const UPDATE_FAVORITE = "UPDATE_FAVORITE";
 export const SEARCH_USERS_DASHBOARD = "SEARCH_USERS_DASHBOARD";
 
 export const POST_FAVORITES = "POST_FAVORITES";
+
+
+export const FILTEREDSIZE = "FILTEREDSIZE";
+export const FILTEREDBREED = "FILTEREDBREED";

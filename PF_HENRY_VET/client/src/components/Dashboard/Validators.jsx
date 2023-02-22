@@ -10,11 +10,11 @@ export const validate = (inputProductos) => {
    /*  if(inputProductos.image_url <1){
         errors.image_url = 'Agregue url de Imagen'
     } */  
-    /* if(!RegExpressionText.test(inputProductos.name)){
-        errors.name = 'No se permiten números ni caracteres especiales'
-    } */ 
-     if(!RegExpressionNum.test(inputProductos.healthScore)){
-    errors.healthScore = 'Solo se permiten numeros'
+     if(RegExpressionText.test(inputProductos.unit_price)){
+        errors.unit_price = 'Solo se permiten numeros'
+    }  
+     if(RegExpressionNum.test(inputProductos.stock)){
+    errors.stock = 'Solo se permiten numeros'
     }    
     //*-----------------------------------
    if(!inputProductos.name){

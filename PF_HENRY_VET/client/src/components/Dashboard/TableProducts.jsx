@@ -1,4 +1,3 @@
-
 import React, { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { byOrder, byOrderPrice, byOrderStock, deleteProduct, getAllProducts, getAllProductsBaneados } from '../../redux/action' 
@@ -16,19 +15,16 @@ const TableProducts = () => {
   const [order, setOrder] = useState("");
   const [orderprice, setOrderprice] = useState("");
   const [orderstock, setOrderstock] = useState("");
-
-  useEffect(() => {
-    dispatch(getAllProducts());
-  }, []);
-
+ 
 
   useEffect(() => { 
-      dispatch(getAllProducts())   
+      dispatch(getAllProducts()) 
+      dispatch(getAllProductsBaneados())  
   }, [dispatch]) 
  
   function handleDelete(e) {
-    dispatch(deleteProduct(e))
     dispatch(getAllProductsBaneados())
+    dispatch(deleteProduct(e))
   }
 
  
@@ -75,27 +71,29 @@ const TableProducts = () => {
     {
       name: "Editar",
       cell: (row) => (
-        <button class="focus:outline-none text-white bg-yellow-400 hover:bg-yellow-300 focus:ring-4 focus:ring-yellow-300 font-medium rounded-lg text-sm px-2.5 py-2 mr-2 dark:focus:ring-yellow-900">
-          <Link to={`/editpro/${row.codProduct}`}>Editar</Link>
-        </button>
+          <Link to={`/editpro/${row.codProduct}`}>
+         <div class="w-auto h-auto">
+        <div class="flex-1 h-full">
+          <div class="flex items-center justify-center flex-1 h-full p-2 hover:bg-yellow-400 bg-yellow-500 text-white shadow rounded-full">
+            <div class="relative">
+              <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
+                <path d="M13.586 3.586a2 2 0 112.828 2.828l-.793.793-2.828-2.828.793-.793zM11.379 5.793L3 14.172V17h2.828l8.38-8.379-2.83-2.828z" />
+              </svg>
+            </div>
+          </div>
+        </div>
+      </div>
+        </Link>
       ),
-      grow: 0.1,
-    },
+      grow: 0,
+    },   
     {
-      name: "Borrar",
-      cell: (row) => (
-        <button
-          className="text-red-700    hover:text-white border border-red-700    hover:bg-red-800    focus:ring-1 focus:outline-none focus:ring-red-300    font-medium rounded-lg text-sm px-3 py-1.5 text-center mr-2 mb-2 dark:border-red-500    dark:text-red-500    dark:hover:text-white dark:hover:bg-red-600    dark:focus:ring-red-900" /* onClick={()=>deleteProduct(row.codProduct)} */
-        >
-          Borrar
-        </button>
-      ),
-      grow: 0.1,
-    },
-    {
-      name: 'Borrar',
-      cell: (row) => <button onClick={()=>handleDelete(row.codProduct)} className="text-red-700    hover:text-white border border-red-700    hover:bg-red-800    focus:ring-1 focus:outline-none focus:ring-red-300    font-medium rounded-lg text-sm px-3 py-1.5 text-center mr-2 mb-2 dark:border-red-500    dark:text-red-500    dark:hover:text-white dark:hover:bg-red-600    dark:focus:ring-red-900">Banear</button>,
-
+      name: 'Desactivar',
+      cell: (row) => 
+      <button onClick={()=>handleDelete(row.codProduct)} class="inline-flex items-center px-1.5 py-2 bg-red-600 hover:bg-red-700 text-white text-sm font-medium rounded-full">
+	    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-1" fill="none" viewBox="0 0 20 24" stroke="currentColor">
+	    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" />
+	    </svg></button>,
       grow: 0.1,
     },
   ];
@@ -153,7 +151,7 @@ const TableProducts = () => {
             </div> 
             <div>
               <Link to="/formproduct">
-             <button type="button" class="ml-2 border border-purple-700 hover:bg-purple-800 focus:ring-1 focus:outline-none focus:ring-purple-300 font-medium rounded-lg text-sm px-4 py-1 text-center mr-2 mb-2 dark:border-purple-400 dark:text-white dark:hover:text-purple-600 dark:hover:bg-purple-300 dark:bg-purple-500 dark:focus:ring-purple-900"> Crear un Producto </button>
+             <button type="button" className="ml-2 border dark:bg-violet-500 border-violet-800 hover:bg-violet-900 focus:ring-1 focus:outline-none focus:ring-purple-300 font-medium rounded-lg text-sm px-4 py-1 text-center mr-2 mb-2 dark:border-purple-400 dark:text-white dark:hover:text-purple-600 dark:hover:bg-purple-300 dark:bg-purple-500 dark:focus:ring-purple-900"> Crear un Producto </button>
              </Link>
             </div>     
     </section>

@@ -14,6 +14,7 @@ import { useEffect } from "react";
 import Nav from "./components/Nav";
 import TableProducts from "./components/Dashboard/TableProducts";
 import TableUsers from "./components/Dashboard/TableUsers";
+import FormEditProduct from "./components/Dashboard/FormEditProduct";
 
 function App() {
   let user = useSelector((state) => state.user.user);
@@ -24,10 +25,9 @@ function App() {
     }
   }, [user, hayUser]);
 
-  // console.log(localStorage.userPetShop, "localStorage.userPetShop");
   return (
     //:
-    <div className="App bg-patas w-full">
+    <div className="App bg-patas bg-transparent w-full">
       <Routes>
         <Route
           exact
@@ -50,7 +50,6 @@ function App() {
           }
         />
 
-        {console.log(user, "esto es el user diomeo")}
         {/* <Route path="/hayUserProfile" element={hayUser.name || hayUser.emails ? <hayUserProfile hayUser={hayUser}/>:<Navigate to="/login" />}/> */}
         <Route exact path="/home" element={<Home hayUser={hayUser} />} />
         <Route exact path="/market" element={<Mercado hayUser={hayUser} />} />
@@ -101,6 +100,26 @@ function App() {
                 ) :
                 localStorage.userPetShop !== undefined ? JSON.parse(localStorage.userPetShop).isAdmin === true ? (
                   <DashBoard hayUser={hayUser} />
+                ) : (
+                  <Navigate to="/home" />
+                  ) : (
+                    <Navigate to="/home" />
+                ) 
+          }
+        />
+         <Route
+          exact
+          path="/editpro/:id"
+          element={
+            user ? user ? user.isAdmin === true ? (
+              <FormEditProduct hayUser={hayUser} />
+            ) : (
+                <Navigate to="/home" />
+              ) : (
+                <Navigate to="/home" />
+                ) :
+                localStorage.userPetShop !== undefined ? JSON.parse(localStorage.userPetShop).isAdmin === true ? (
+                  <FormEditProduct hayUser={hayUser} />
                 ) : (
                   <Navigate to="/home" />
                   ) : (

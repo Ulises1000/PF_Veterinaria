@@ -8,6 +8,10 @@ module.exports = (sequelize) => {
             defaultValue: DataTypes.UUIDV4,
             primaryKey: true
         },
+        num:{
+            type: DataTypes.INTEGER,
+            autoIncrement: true,
+          },
         name_U: {
             type: DataTypes.STRING,
             allowNull: false
@@ -31,7 +35,7 @@ module.exports = (sequelize) => {
         },
         isAdmin: {
           type: DataTypes.BOOLEAN,
-          allowNull: false,
+          //allowNull: false,
           defaultValue: false,
         },
         url: {
@@ -44,5 +48,8 @@ module.exports = (sequelize) => {
             allowNull: false,
             defaultValue: false
         }
-    })
+    },{
+        // Opciones de tu modelo
+        paranoid: true // Habilita eliminación suave eliminacion logica
+      })
 }

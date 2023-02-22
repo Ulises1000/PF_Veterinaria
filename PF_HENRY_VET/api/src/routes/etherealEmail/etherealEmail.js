@@ -6,35 +6,39 @@ const etherealEmail = Router();
 const {
     USEREMAIL,
     USERPASSWORD,
+    USEREMAIL2,
+    PORTEMAIL,
+    HOSTEMAIL,
   } = process.env;
 
-etherealEmail.post("/sendEmail", (req, res) =>{
-    var transporter = nodemailer.createTransport({
-        host: 'smtp.ethereal.email',
-        port: 587,
-        auth: {
-            user: USEREMAIL,
-            pass:USERPASSWORD,
-        }
-    });
+// etherealEmail.post("/sendEmail/admin", (req, res) =>{
+//     var transporter = nodemailer.createTransport({
+//         host:HOSTEMAIL, // hostname
+//     port: PORTEMAIL, // port for secure SMTP
+//     secure: false,
+//         auth: {
+//             user: USEREMAIL,
+//             pass:USERPASSWORD,
+//         }
+//     });
 
-    var mailOptions =
-    {
-        from: "Remitente",
-        to: "emaiA@hotmail.com.ar",
-        subject: "Enviado desde nodemailer",
-        text: "Hola Mundo!"
-    }
+//     var mailOptions =
+//     {
+//         from: "OnlyPetsVeterinaria@hotmail.com",
+//         to: USEREMAIL2,
+//         subject: "Compra de OnlyPets",
+//         text: "Tu Compra ha sido realizada"
+//     }
 
-    transporter.sendMail(mailOptions, (error, info) =>{
-        if(error){
-            res.status(500).send(error.message);
-        } else {
-            console.log("Email Enviado.")
-            res.status(200).jsonp(req.body);
-        }
-    })
-})
+//     transporter.sendMail(mailOptions, (error, info) =>{
+//         if(error){
+//             res.status(500).send(error.message);
+//         } else {
+//             console.log("Email Enviado.")
+//             res.status(200).jsonp(req.body);
+//         }
+//     })
+// })
 
 
 module.exports = etherealEmail;
