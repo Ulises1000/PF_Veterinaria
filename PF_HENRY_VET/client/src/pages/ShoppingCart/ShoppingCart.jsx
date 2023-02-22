@@ -1,4 +1,3 @@
-import FadeIn from "react-fade-in";
 import { useReducer, useState, useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { shoppingCartDtailReducer } from "../../redux/reducer/shoppingCartDtailReducer";
@@ -200,7 +199,6 @@ let ahoraSiFiltrados = []
 
       {paymentCoso && (
         <section className="mt-52 flex justify-center" >
-          <FadeIn transitionDuration="900">
             <div className=" flex-col ">
               <div className="block-heading">
                 <h2>Finaliza tu Compra</h2>
@@ -254,7 +252,6 @@ let ahoraSiFiltrados = []
                 </div>
               </div>
             </div>
-          </FadeIn>
         </section>
       )}
       

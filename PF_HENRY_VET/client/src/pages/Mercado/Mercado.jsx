@@ -1,4 +1,3 @@
-import FadeIn from 'react-fade-in';
 import React, { useEffect, useState } from "react";
 import Nav from "../../components/Nav.jsx";
 import Searchbar from "../../components/Searchbar.jsx";
@@ -67,7 +66,6 @@ console.log(Array.isArray(pagArrayArray) === false, "paginationArray", pagArrayA
             <Searchbar />
           </div>
         </div>
-          <FadeIn transitionDuration="900">
         <div>
           <div className="mt-36">
             <div className={styles.center}>
@@ -88,7 +86,6 @@ console.log(Array.isArray(pagArrayArray) === false, "paginationArray", pagArrayA
           </div>
           <Footer />
         </div>
-</FadeIn>
 </div>
       )
     } else if (pagArrayArray[0] === null ) {
