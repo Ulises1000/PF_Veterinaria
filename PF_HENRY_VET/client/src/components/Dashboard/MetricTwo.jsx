@@ -1,4 +1,4 @@
-import { Card, Title, AreaChart } from "@tremor/react";
+ import { Card, Title, AreaChart } from "@tremor/react";
 
 const chartdata = [
   {

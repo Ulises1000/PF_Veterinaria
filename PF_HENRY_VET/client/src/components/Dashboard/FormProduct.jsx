@@ -59,7 +59,7 @@ function FormProduct() {
       alert("Producto creado");
 
       setInputProducto({
-        image_url: "",
+        url: "",
         name: "",
         unit_price: "",
         description: "",
@@ -94,8 +94,8 @@ function FormProduct() {
           <input
             placeholder="Imagen"
             type="text"
-            name="image_url"
-            value={inputProductos.image_url}
+            name="url"
+            value={inputProductos.url}
             onChange={(e) => handleChange(e)}
             className="bg-gray-200 appearance-none border-2 border-gray-200 rounded w-full py-2 px-4 text-gray-700 leading-tight focus:outline-none focus:bg-white focus:border-violet-500"
           />{" "}
@@ -121,7 +121,7 @@ function FormProduct() {
         <div className="inputsForm">
           <input
             placeholder="Precio unitario"
-            type="number"
+            type="text"
             name="unit_price"
             value={inputProductos.unit_price}
             onChange={(e) => handleChange(e)}
@@ -149,7 +149,7 @@ function FormProduct() {
         <div className="inputsForm">
           <input
             placeholder="stock"
-            type="number"
+            type="text"
             name="stock"
             value={inputProductos.stock}
             onChange={(e) => handleChange(e)}

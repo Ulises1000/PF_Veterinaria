@@ -2,7 +2,7 @@ export const validate = (inputProductos) => {
       let errors = {};
     let RegExpressionUrl= /^https?:\/\/(?:www.)?[-a-zA-Z0-9@:%.+~#=]{1,256}.[a-zA-Z0-9()]{1,6}\b(?:[-a-zA-Z0-9()@:%+.~#?&/=]*)$/
     let RegExpressionText = /^[a-zA-Z\s]*$/;
-    let RegExpressionNum= /^[0-9,$]*$/;
+    let RegExpressionNum= /^[0-9]*$/;
 
    /*   if(!RegExpressionUrl.test(inputProductos.image_url)){
         errors.image_url = 'Agregue correctamente la URL'
@@ -10,10 +10,10 @@ export const validate = (inputProductos) => {
    /*  if(inputProductos.image_url <1){
         errors.image_url = 'Agregue url de Imagen'
     } */  
-     if(RegExpressionText.test(inputProductos.unit_price)){
+     if(!RegExpressionNum.test(inputProductos.unit_price)){
         errors.unit_price = 'Solo se permiten numeros'
     }  
-     if(RegExpressionNum.test(inputProductos.stock)){
+     if(!RegExpressionNum.test(inputProductos.stock)){
     errors.stock = 'Solo se permiten numeros'
     }    
     //*-----------------------------------
