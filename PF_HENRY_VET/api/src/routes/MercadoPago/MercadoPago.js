@@ -81,6 +81,7 @@ MPRouter.get("/sendEmail/admin", (req, res) =>{
       if(error){
           res.status(500).send(error.message);
       } else {
+          
           console.log("Email Enviado.")
           res.status(200).jsonp(req.body);
       }

@@ -1,5 +1,4 @@
 import axios from "axios";
-import { GoogleAuthProvider, signInWithPopup } from "firebase/auth";
 import {
     GET_PRODUCTS,
     GET_PRODUCT,
@@ -20,6 +19,10 @@ import {
     SEARCH,
     // FILTEREDBREED,
     // FILTEREDSIZE,
+    GET_REVIEWS,
+    POST_REVIEWS,
+    UPDATE_REVIEWS,
+    DELETE_REVIEWS,
     SORT,
     SEARCH_PRO_DASHBOARD,
     BY_ORDER,
@@ -62,6 +65,7 @@ const Endpoints = {
   detalleCarrito: "shoppingCartDetail/",
   razas: "breed/",
   favoritos: "favorite/",
+  reviews: "/review/"
 };
 
 export function searchDashBoard(data) {
@@ -886,5 +890,43 @@ export function GetUser(name, password) {
 }
 
 
- 
+/* REVIEWS */
 
+export function getAllReviewsFromProdOrProdAndUser(idProd, idUser){
+  return async (dispatch) => {
+    const info = await axios.get(`${URL + Endpoints.reviews}get`, {idProd, idUser});
+    return dispatch({
+      type: GET_REVIEWS,
+      payload: info.data
+    })
+  }
+}
+export function postReview(values){
+  return async (dispatch) => {
+    const info = await axios.post(`${URL + Endpoints.reviews}post`, values);
+    return dispatch({
+      type: POST_REVIEWS,
+      payload: info.data
+    })
+  }
+}
+export function updateReview(values){
+  return async (dispatch) => {
+    const info = await axios.put(`${URL + Endpoints.reviews}update`, values);
+    /*
+    return dispatch({
+      type: UPDATE_REVIEWS,
+      payload: info.data
+    })
+    */
+  }
+}
+export function deleteReview(idReview){
+  return async (dispatch) => {
+    const info = await axios.put(`${URL + Endpoints.reviews}unsubscribe/${idReview}`);
+    return dispatch({
+      type: DELETE_REVIEWS,
+      payload: info.data
+    })
+  }
+}

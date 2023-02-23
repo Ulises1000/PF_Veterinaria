@@ -7,6 +7,7 @@ const getProducts = async (nameP) => {
   try {
     //ACA SE BUSCA SI HAY PRODUCTO EN LA DB HACIENDO UNA BUSQUEDA SIMPLE SOLO PARA SABER SI HAY PRODUCTOS
     const hayProduct = await Product.findOne();
+    console.log(hayProduct)
     //EN CASO DE NO HABER REALIZA EL IF Y GUARDA LOS PRODUCTOS EN LA DB
     if(!hayProduct){
         const api = await axios.get(
