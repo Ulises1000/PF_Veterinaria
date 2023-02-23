@@ -239,6 +239,7 @@ export function updateProduct(productId, productData) {
 }
 
 export function postProductos(data) {
+  console.log(" CREACION DATOOOOOS",data)
   return async (dispatch) => {
     const post = await axios.post("http://localhost:3001/products/post", data);
     dispatch({

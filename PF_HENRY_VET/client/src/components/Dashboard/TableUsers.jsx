@@ -90,13 +90,13 @@ const TableProducts = ({hayUser}) => {
   };
   const handleEditUserAdmin = (e) => {
     dispatch(haceAdmin(e));
-    window.location.href = "/";
+  /*   window.location.href = "/"; */
     dispatch(getAllUsers());
     dispatch(getAllProducts());
   };
   const handleEditUserNoAdmin = (e) => {
     dispatch(haceNoAdmin(e));
-    window.location.href = "/";
+/*     window.location.href = "/"; */
     dispatch(getAllUsers());
     dispatch(getAllProducts());
   };
@@ -166,12 +166,9 @@ const TableProducts = ({hayUser}) => {
     <div>
       <h1 className="bg-gray-600 text-white rounded p-2 mb-1">
         Tabla de Usuarios
-      </h1>
+      </h1> 
       <div>
-        <SearchProTable />
-      </div>
-      <div>
-        <select
+       {/*  <select
           onChange={(e) => handleByOrder(e)}
           className="bg-gray-50 border border-gray-100 text-gray-900 text-sm rounded-lg focus:ring-blue-100 focus:border-blue-100 block w-19 p-1.5 dark:bg-gray-100 dark:border-gray-300 dark:placeholder-gray-400 dark:text-black dark:focus:ring-blue-500 dark:focus:border-blue-500"
         >
@@ -180,7 +177,7 @@ const TableProducts = ({hayUser}) => {
           </option>
           <option value="Asc">A-Z</option>
           <option value="Des">Z-A</option>
-        </select>
+        </select> */}
       </div>
 
       <div className="flex flex-col">

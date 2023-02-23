@@ -62,7 +62,7 @@ router.put("/update/:idUser", async (req, res) => {
             } 
             */
             const newData = await addNewValuesToAnObj(req.body);       
-           const newuser= await User.update(newData,{
+            const newuser= await User.update(newData,{
                 where: {
                     cod_User: idUser
                 }

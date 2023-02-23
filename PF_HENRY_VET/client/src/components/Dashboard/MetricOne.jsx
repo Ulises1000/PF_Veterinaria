@@ -49,32 +49,16 @@ import {
         target: `${objGananciaMm} O/gnm`,
         delta: `${Math.trunc(ptajeACumplirNeto)}%/c`,
         deltaType: "increase",
-      },
-      {
-        title: "Clientes",
-        metric: "$ 1,699",
-        progress: 50.2,
-        target: "$ 9,000",
-        delta: "11.6%",
-        deltaType: "moderateDecrease",
-      },
-      {
-        title: "Stock",
-        metric: "$ 1,699",
-        progress: 50.2,
-        target: "$ 9,000",
-        delta: "11.6%",
-        deltaType: "moderateDecrease",
-      }
+      } 
     ];
   
     return (
       <ColGrid
         numColsMd={2}
-        numColsLg={3}
-        marginTop="mt-6"
-        gapX="gap-x-6"
-        gapY="gap-y-6"
+        numColsLg={2}
+        marginTop="mt-1"
+        gapX="gap-x-1"
+        gapY="gap-y-1"
         decorationColor="green"
       >
         {data.map((e) => (
@@ -87,7 +71,7 @@ import {
               </Block>
               <BadgeDelta text={e.delta} />
             </Flex>
-            <Flex marginTop="mt-4" spaceX="space-x-2">
+            <Flex marginTop="mt-1" spaceX="space-x-2">
               <div className="bg-green-200 rounded">
                 <Text>{`${e.progress}% (${e.metric})`}</Text>
               </div>

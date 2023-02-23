@@ -10,7 +10,8 @@ const router = Router();
 router.post("/post", async (req, res) => {
   try {
     const { name, description, unit_price, stock, url, petSize, breedType } = req.body;
-
+    console.log("REC BODY", req.body)
+    
     const buscaProducto = await findProductos(name);
 
     if (!name || !description || !unit_price || !stock || !url || !petSize || !breedType) {
