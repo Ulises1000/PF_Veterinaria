@@ -15,6 +15,7 @@ import Nav from "./components/Nav";
 import TableProducts from "./components/Dashboard/TableProducts";
 import TableUsers from "./components/Dashboard/TableUsers";
 import FormEditProduct from "./components/Dashboard/FormEditProduct";
+import AboutUs from "./pages/AboutUs/AboutUs";
 
 function App() {
   let user = useSelector((state) => state.user.user);
@@ -53,6 +54,7 @@ function App() {
         {/* <Route path="/hayUserProfile" element={hayUser.name || hayUser.emails ? <hayUserProfile hayUser={hayUser}/>:<Navigate to="/login" />}/> */}
         <Route exact path="/home" element={<Home hayUser={hayUser} />} />
         <Route exact path="/market" element={<Mercado hayUser={hayUser} />} />
+        <Route exact path="/aboutUs" element={<AboutUs hayUser={hayUser} />} />
         <Route
           exact
           path="/details/:id"
