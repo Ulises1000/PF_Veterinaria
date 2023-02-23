@@ -90,13 +90,13 @@ const TableProducts = ({hayUser}) => {
   };
   const handleEditUserAdmin = (e) => {
     dispatch(haceAdmin(e));
-    window.location.href = "/";
+  /*   window.location.href = "/"; */
     dispatch(getAllUsers());
     dispatch(getAllProducts());
   };
   const handleEditUserNoAdmin = (e) => {
     dispatch(haceNoAdmin(e));
-    window.location.href = "/";
+/*     window.location.href = "/"; */
     dispatch(getAllUsers());
     dispatch(getAllProducts());
   };
