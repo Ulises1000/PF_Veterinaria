@@ -23,6 +23,7 @@ function GoogleButton({isRegister = true, setGoogle}){
             password: ""
           }
         })
+
       }else{
         dispatch(getUser(user.email, ""));
       }
@@ -31,7 +32,7 @@ function GoogleButton({isRegister = true, setGoogle}){
       <>
         {
           isRegister === undefined ? 
-          <button
+         <button
             type="button"
             className="noParametreGoogleButton bg-slate-400 mt-2 mb-5"
         >

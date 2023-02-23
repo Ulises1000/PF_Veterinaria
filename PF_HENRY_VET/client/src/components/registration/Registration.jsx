@@ -158,6 +158,8 @@ useEffect(() =>{
       dispatch(registerUser(inputRegistration))
       console.log(inputRegistration)
       dispatch(postUser(inputRegistration))
+      dispatch(signinUser(inputRegistration))
+      dispatch(getUser(inputRegistration.email, inputRegistration.password))
     }  
     else {
       dispatch(signinUser(inputLogin))

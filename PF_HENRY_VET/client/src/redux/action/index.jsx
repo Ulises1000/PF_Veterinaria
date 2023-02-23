@@ -52,7 +52,7 @@ import {
 } from './constants';
 
 /* ruta + endpoints */
-const URL = "http://localhost:3001/";
+const URL = "https://back-only-pets-production.up.railway.app/";
 // const URL = import.meta.env.VITE_API_URL
 
 const Endpoints = {
@@ -124,7 +124,7 @@ export function getAllProducts(name) {
 export function deleteProduct(codProduct){
     return async function(dispatch){
         try {
-            const {data} = await axios.put("http://localhost:3001/products/unsubscribe/"+codProduct)
+            const {data} = await axios.put("https://back-only-pets-production.up.railway.app/products/unsubscribe/"+codProduct)
         dispatch({
             type: DELETE_PRODUCT,
             payload:{data,codProduct},
@@ -139,8 +139,7 @@ export function getAllProductsBaneados() {
  
     return async function(dispatch) {
         try {
-            const { data } = await axios.get("http://localhost:3001/products/restore/getban");
-            console.log("DATAAA",data)
+            const { data } = await axios.get("https://back-only-pets-production.up.railway.app/products/restore/getban");
             dispatch({
                 type: GET_PRODUCTS_BANEADOS,
                 payload: data,
@@ -176,7 +175,7 @@ export function restoreProductsBaneados(codProduct) {
   return async function (dispatch) {
     try {
       const datos = await axios.patch(
-        "http://localhost:3001/products/restore/" + codProduct
+              "https://back-only-pets-production.up.railway.app/products/restore/" + codProduct
       );
       dispatch({
         type: RESTORE_BANEADOS,
@@ -239,7 +238,6 @@ export function updateProduct(productId, productData) {
 }
 
 export function postProductos(data) {
-  console.log(" CREACION DATOOOOOS",data)
   return async (dispatch) => {
     const post = await axios.post("http://localhost:3001/products/post", data);
     dispatch({
@@ -277,7 +275,7 @@ export function postProduct(productData) {
 export function getAllUsers() {
   return async function (dispatch) {
     try { 
-      const getusuarios = await axios.get("http://localhost:3001/users/getusers");
+        const getusuarios = await axios.get("https://back-only-pets-production.up.railway.app/users/getusers");
       dispatch({
         type: GET_USERS,
         payload: getusuarios.data,
@@ -293,7 +291,6 @@ export function getUser(email, password) {
       const { data } = await axios.get(
         `${URL + Endpoints.user}get?email=${email}&password=${password}`
       );
-      console.log(data, "meu deus");
       dispatch({
         type: GET_USER,
         payload: data,
@@ -316,7 +313,7 @@ export function getUser(email, password) {
 export function haceAdmin(cod_User) { 
   return async (dispatch) => {
     try {
-      const { data }= await axios.patch('http://localhost:3001/users/isadmin/'+cod_User);
+        const { data }= await axios.patch('https://back-only-pets-production.up.railway.app/users/isadmin/'+cod_User);
       dispatch({
         type: IS_ADMIN,
         payload: data,
@@ -329,7 +326,7 @@ export function haceAdmin(cod_User) {
 export function haceNoAdmin(cod_User) { 
   return async (dispatch) => {
     try {
-      const { data }= await axios.patch(`http://localhost:3001/users/noadmin/${cod_User}`);
+        const { data }= await axios.patch(`https://back-only-pets-production.up.railway.app/users/noadmin/${cod_User}`);
       dispatch({
         type: NO_ADMIN,
         payload: data,
@@ -444,7 +441,6 @@ export function deleteUser(userId) {
 }
 
 export function postUser(userData) {
-  console.log("entré");
   return async function (dispatch) {
     try {
       console.log("ACA ESTA EL USER EN EL INDEX MANNN", userData);
