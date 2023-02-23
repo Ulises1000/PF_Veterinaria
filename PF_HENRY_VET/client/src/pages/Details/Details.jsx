@@ -22,16 +22,17 @@ const Details = ({ hayUser }) => {
     dispatch(getProduct(id));
   }, [dispatch, id]);
 
+  console.log(user,"este es el id del usuario")
 
-  useEffect(() => {
-    dispatch(getAllReviewsFromProdOrProdAndUser(id));
-  }, [])
   const navigate = useNavigate()
   let userDetail = hayUser;
-
+  
   if (hayUser === undefined) {
     userDetail = JSON.parse(localStorage.userPetShop);
   }
+  useEffect(() => {
+    dispatch(getAllReviewsFromProdOrProdAndUser(id,user?user.cod_User:userDetail.cod_User));
+  }, [])
   console.log("USERDETAIL ==>", userDetail.shoppingCartCodCart);
   console.log("Product ===", product);
   console.log("USUARIO ===", user);
@@ -101,7 +102,14 @@ const Details = ({ hayUser }) => {
                   min={0}
                   max={product.stock}
                   onKeyDown="return false"
-                  onChange={(e) => setQuantity(parseFloat(e.target.value))}
+                  onChange={(e) => {
+                    if(e.target.value > product.stock){
+                      e.target.value = product.stock
+                    } else if (e.target.valuealue < 1){
+                      e.target.value = 1
+                    }
+                    setQuantity(parseFloat(e.target.value))
+                  }}
                 ></input>
 
                 <p>Precio: ${product.unit_price}</p>

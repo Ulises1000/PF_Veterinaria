@@ -2,8 +2,8 @@ const { Review } = require("../../db");
 const {Router} = require("express");
 const router = Router();
 
-router.get("/get", async (req, res) => {
-    const {productId, userId} = req.body;
+router.get(`/get/:productId${"&"}:userId`, async (req, res) => {
+    const {productId, userId} = req.params;
     try{
       if(userId){
         const response = await Review.findOne({
@@ -24,7 +24,8 @@ router.get("/get", async (req, res) => {
         res.status(200).send(response)
       }
     }catch(error){
-      res.status(400).send(error)
+      console.log(error.message)
+      res.status(400).send(error.message)
     }
 })
  

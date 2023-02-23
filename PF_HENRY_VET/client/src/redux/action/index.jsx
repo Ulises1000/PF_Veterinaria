@@ -65,7 +65,7 @@ const Endpoints = {
   detalleCarrito: "shoppingCartDetail/",
   razas: "breed/",
   favoritos: "favorite/",
-  reviews: "/review/"
+  reviews: "review/"
 };
 
 export function searchDashBoard(data) {
@@ -893,8 +893,9 @@ export function GetUser(name, password) {
 /* REVIEWS */
 
 export function getAllReviewsFromProdOrProdAndUser(idProd, idUser){
+  console.log(idProd,"idProd", idUser, "idUser")
   return async (dispatch) => {
-    const info = await axios.get(`${URL + Endpoints.reviews}get`, {idProd, idUser});
+    const info = await axios.get(`${URL + Endpoints.reviews}get/${idProd}&${idUser}`);
     return dispatch({
       type: GET_REVIEWS,
       payload: info.data

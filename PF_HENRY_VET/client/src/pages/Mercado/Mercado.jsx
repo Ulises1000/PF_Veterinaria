@@ -58,30 +58,37 @@ console.log(Array.isArray(pagArrayArray) === false, "paginationArray", pagArrayA
   if (loading === false && paginationArray[0] && Array.isArray(pagArrayArray) === true) {
     if (pagArrayArray[0] !== null) {
       return (
+      <div>
+
         <div>
           <div className="h-14">
             <Nav user={hayUser} />
             <Searchbar />
           </div>
+        </div>
+        <div>
           <div className="mt-36">
             <div className={styles.center}>
               {Object.values(paginationArray).map((product) =>
                 product.map((p, i) => (
                   <Card
-                    key={i}
-                    id={p.codProduct}
-                    url={p.url}
-                    name={p.name}
-                    unit_price={p.unit_price}
-                    breedType={p.breedType}
-                    petSize={p.petSize}
+                  key={i}
+                  id={p.codProduct}
+                  url={p.url}
+                  name={p.name}
+                  unit_price={p.unit_price}
+                  breedType={p.breedType}
+                  petSize={p.petSize}
+                  stock={p.stock}
+                  unsubscribe={p.unsubscribe}
                   />
-                ))
-              )}
+                  ))
+                  )}
             </div>
           </div>
           <Footer />
         </div>
+</div>
       )
     } else if (pagArrayArray[0] === null ) {
       return (
