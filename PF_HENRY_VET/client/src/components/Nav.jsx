@@ -56,7 +56,7 @@ function Nav({ user }) {
             <div className="hidden md:flex items-center space-x-2">
               <Link
                 to="/market"
-                className="py-4 px-3 text-gray-700 font-semibold hover:font-medium hover:text-black"
+                className="py-4 px-3 text-white font-semibold hover:font-medium hover:text-violet-700"
               >
                 Mercado
               </Link>
@@ -64,7 +64,7 @@ function Nav({ user }) {
                 usuarioLocal.isAdmin === true ? (
                   <Link
                     to="/dashboard"
-                    className="py-4 px-3 text-gray-700 font-semibold hover:font-medium hover:text-black"
+                    className="py-4 px-3 text-white font-semibold hover:font-medium hover:text-violet-700"
                   >
                     Dashboard
                   </Link>
@@ -83,35 +83,36 @@ function Nav({ user }) {
             <div className="hidden md:flex justify-center">
               {usuarioLocal ? (
                 <div className="flex flex-row relative ">
-                  <img src={usuarioLocal.url} className="h-16 mt-5" />
+                  <img src={usuarioLocal.url} className="h-12 w-12 mt-7 border-2 border-violet-500 rounded-full" />
                   <button
                     onClick={() => {
                       setVisibilidad(!visibilidad);
                     }}
-                    className="bg-Dark-Violet mt-5 text-white  p-4 text-base border-0"
+                    className=" mt-5 text-white hover:text-violet-800 p-4 text-base border-0"
                   >
                     {usuarioLocal.email_U}
                     <div
                       className={`${
                         visibilidad === false ? "hidden" : "show"
-                      } absolute right-0.5 mt-4 ml-3 bg-violet-300  w-full h-46 `}
+                      } absolute right-0.5 mt-4 ml-3 bg-violet-400  w-full h-46 `}
                     >
                       {/* {user.email_U} */}
+                    </div>
                       <div
                         className={`${
                           visibilidad === false ? "hidden" : "show"
-                        } absolute right-0.5 mt-4 ml-3 bg-violet-300  w-full h-46 `}
+                        } absolute right-0.5 mt-3 ml-3 bg-violet-400  w-full h-46 `}
                       >
                         <div className="flex flex-col">
                           <Link
                             to="/profile"
-                            className="text-black p-2 hover:text-gray-300 block"
+                            className=" text-white hover:text-violet-600 p-2 block"
                           >
                             Perfil
                           </Link>
-                          <div className="hover:text-red-400">
+                          <div className="text-black  hover:text-red-800">
                             <p
-                              className="p-2 bg-red-700"
+                              className="p-2  bg-violet-400"
                               onClick={() => HandleLogout()}
                             >
                               Logout
@@ -119,7 +120,6 @@ function Nav({ user }) {
                           </div>
                         </div>
                       </div>
-                    </div>
                   </button>
                   <Link to="/shoppingCart">
                     <svg
@@ -128,7 +128,7 @@ function Nav({ user }) {
                       viewBox="0 0 24 24"
                       strokeWidth="1.5"
                       stroke="currentColor"
-                      className="w-6 h-6 mt-10 "
+                      className="w-10 h-10 mt-9 text-white hover:border bg-violet-300 hover:border-violet-700 rounded-lg hover:text-violet-700"
                     >
                       <path
                         strokeLinecap="round"

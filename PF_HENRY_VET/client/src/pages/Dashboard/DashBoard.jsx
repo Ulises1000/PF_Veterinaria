@@ -1,11 +1,10 @@
 import React from 'react';
 import Menu from '../../components/Dashboard/Menu';
 
-const DashBoard = () => {
+const DashBoard = ({hayUser}) => {
   return (
     <div>
-      <h1>DashBoard</h1>
-      <Menu/>
+      <Menu hayUser = {hayUser}/>
     </div>
   );
 }

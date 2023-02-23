@@ -151,7 +151,7 @@ const TableProducts = () => {
             </div> 
             <div>
               <Link to="/formproduct">
-             <button type="button" class="ml-2 border border-purple-700 hover:bg-purple-800 focus:ring-1 focus:outline-none focus:ring-purple-300 font-medium rounded-lg text-sm px-4 py-1 text-center mr-2 mb-2 dark:border-purple-400 dark:text-white dark:hover:text-purple-600 dark:hover:bg-purple-300 dark:bg-purple-500 dark:focus:ring-purple-900"> Crear un Producto </button>
+             <button type="button" className="ml-2 border dark:bg-violet-500 border-violet-800 hover:bg-violet-900 focus:ring-1 focus:outline-none focus:ring-purple-300 font-medium rounded-lg text-sm px-4 py-1 text-center mr-2 mb-2 dark:border-purple-400 dark:text-white dark:hover:text-purple-600 dark:hover:bg-purple-300 dark:bg-purple-500 dark:focus:ring-purple-900"> Crear un Producto </button>
              </Link>
             </div>     
     </section>

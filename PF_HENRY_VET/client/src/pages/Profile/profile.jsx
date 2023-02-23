@@ -128,7 +128,6 @@ export default function UserProfile({ hayUser }) {
     setTimeout(() => {
       setLoading(false);
     }, 2000);
-    console.log(localStorage);
   }, [localStorage]);
   if (loading) {
     return (
@@ -140,7 +139,6 @@ export default function UserProfile({ hayUser }) {
   }
   let userLocal = "";
   if (localStorage.userPetShop) {
-    console.log(usuarioLocal, "userPetShop en NAVV");
     userLocal = JSON.parse(localStorage.userPetShop).data;
   }
 

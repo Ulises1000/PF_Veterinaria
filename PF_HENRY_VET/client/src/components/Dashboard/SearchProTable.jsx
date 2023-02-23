@@ -15,12 +15,12 @@ const SearchProTable = () => {
   return (
     <div>
       <input
-        class="shadow appearance-none border rounded w-full py-1 px-2  rounded-lg text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+        class="shadow appearance-none border w-full py-1 px-2  rounded-lg text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
         id="search"
         type="text"
         onChange={(e)=>handleInputChange(e)}
         value={name}
-        placeholder="Search..."
+        placeholder="Buscar..."
         autoComplete="off"
       />
     </div>
