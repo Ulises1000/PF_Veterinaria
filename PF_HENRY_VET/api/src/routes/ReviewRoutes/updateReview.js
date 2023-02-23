@@ -1,13 +1,17 @@
 const { Review } = require("../../db");
 const {Router} = require("express");
 const router = Router();
+const {createNewOfObj} = require("../../controllers/controllerReview/controllerUpdate");
 
-router.post("/post", async (req, res) => {
-    const { commentary_R, stars_R, productId, userId } = req.body;
+router.post("/update", async (req, res) => {
     try{
         
       if(!commentary_R || !stars_R || !productId || !userId){
-          console.log("missing parameters", 404)
+        Review.update(createNewOfObj(req.body), {
+          where: {
+            
+          }
+        })
       }
     
       const response = await Review.create({
