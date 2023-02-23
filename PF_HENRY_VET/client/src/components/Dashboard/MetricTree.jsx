@@ -6,8 +6,7 @@ import { getAllProducts } from "../../redux/action";
 
 const MetricTree = () => {
   const dispatch = useDispatch()
-  const getStock = useSelector((state) => state.filters.products);
- console.log("EL STOCK ES ESTE",getStock)
+  const getStock = useSelector((state) => state.filters.products); 
  
  useEffect(() => {
     dispatch(getAllProducts())
@@ -17,10 +16,9 @@ const MetricTree = () => {
   return (
     <div>
        <Card>
-    <Title>Number of species threatened with extinction (2021)</Title>
+    <Title>Stock de todos los productos en tienda</Title>
     <Subtitle>
-      The IUCN Red List has assessed only a small share of the total known
-      species in the world.
+     El gráfico muestra el stock por cada uno de los productos de Only Pets
     </Subtitle>
     <BarChart
       data={getStock}
