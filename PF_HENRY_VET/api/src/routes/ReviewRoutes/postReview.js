@@ -7,15 +7,15 @@ router.post("/post", async (req, res) => {
     try{
         
       if(!commentary_R || !stars_R || !productId || !userId){
-          console.log("missing parameters", 404)
+        res.status(200).send({msg: "Faltan Datos"}) 
       }
-    
-      const response = await Review.create({
-        productId, userId, commentary_R, stars_R
-      })
-      
-      res.status(200).send(response) 
-
+      else{
+        const response = await Review.create({
+          productId, userId, commentary_R, stars_R
+        })
+        
+        res.status(200).send(response) 
+      }
     }catch(error){
       res.status(400).send(error)
     }

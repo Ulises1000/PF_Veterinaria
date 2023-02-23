@@ -6,7 +6,8 @@ router.put("/unsubscribe?", async (req, res) => {
       
     try {
         const { reviewId } = req.params;
-        if (!reviewId) console.log("Missing parameters", 404);
+        if (!reviewId) return res.send(400).status("Review not found");
+        
         const reviewFound = await Review.findByPk(reviewId);
 
         if (!reviewFound) return res.send(400).status("Review not found");
