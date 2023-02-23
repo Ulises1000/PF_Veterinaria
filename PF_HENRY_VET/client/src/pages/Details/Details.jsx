@@ -9,6 +9,7 @@ import loader from "../../style-assets/paw_icon.png";
 import Footer from "../../components/Footer";
 import ReviewsFromCostumers from "../Reviews/ReviewsFromConstumers";
 import { getAllReviewsFromProdOrProdAndUser } from "../../redux/action";
+import { updateProduct } from "../../redux/action";
 
 const Details = ({ hayUser }) => {
   const dispatch = useDispatch();
@@ -18,6 +19,23 @@ const Details = ({ hayUser }) => {
   const product = useSelector((state) => state.products.product);
   const user = useSelector((state) => state.user.user);
   const { id } = useParams();
+   
+  const [inputEditProductos, setInputEditProducto] = useState({       
+    url: "", 
+    name: "",
+    unit_price:"",
+    description:"",
+    stock:"", 
+    petSize: {
+     firsTime:true,
+     value:[]
+    },
+    breedType: {
+     firsTime:true,
+     value:[]
+    }, 
+})   
+
   useEffect(() => {
     dispatch(getProduct(id));
   }, [dispatch, id]);
@@ -50,11 +68,11 @@ const Details = ({ hayUser }) => {
 
 
   function handleClick() {
-    console.log("Entro");
     console.log(product.unit_price);
     console.log(userDetail.shoppingCartCodCart);
     console.log(product.codProduct);
     console.log(quantity);
+    let { stock } = product
     dispatch(
       postShoppingDetail({
         unit_price: product.unit_price,
@@ -65,8 +83,11 @@ const Details = ({ hayUser }) => {
         productName: product.name,
       }),
       swal("Producto añadido!","", "success")
-      
-    );
+      );
+      stock=stock-quantity
+      product.stock=stock
+      console.log(product)
+      dispatch(updateProduct(product.codProduct, product))
     //debe afectar el product.stock en base a la cantidad del pedido solicitado
     //Deberia enviar el monto total en base a la cantidad del pedido2
   }

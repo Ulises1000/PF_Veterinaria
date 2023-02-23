@@ -29,11 +29,8 @@ module.exports = (sequelize) => {
       allowNull: false,
     },
     stock: {
-      type: DataTypes.INTEGER,
-      allowNull: false,
-      validate: {
-        min: 1
-      }
+      type: DataTypes.FLOAT,
+      allowNull: false
     },
     breedType: {
       type: DataTypes.ARRAY(DataTypes.STRING),

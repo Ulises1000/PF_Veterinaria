@@ -10,8 +10,8 @@ import Menu from './Menu'
 
 const TableProducts = () => {
   const dispatch = useDispatch();
-  const getProductos = useSelector((state) => state.filters.products);
-
+  let  getProductos = useSelector((state) => state.filters.products);
+  getProductos=getProductos.filter((p)=>p.unsubscribe !== true)
   const [order, setOrder] = useState("");
   const [orderprice, setOrderprice] = useState("");
   const [orderstock, setOrderstock] = useState("");
