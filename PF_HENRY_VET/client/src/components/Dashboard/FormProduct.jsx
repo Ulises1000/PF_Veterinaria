@@ -17,8 +17,8 @@ function FormProduct() {
     unit_price: "",
     description: "",
     stock: "",
-    petSize: [],
-    breedType: [],
+    petSize: ["Todos"],
+    breedType: ["Todos"],
   });
 
   const [errors, setErrors] = useState({});

@@ -79,6 +79,8 @@ console.log(Array.isArray(pagArrayArray) === false, "paginationArray", pagArrayA
                   unit_price={p.unit_price}
                   breedType={p.breedType}
                   petSize={p.petSize}
+                  stock={p.stock}
+                  unsubscribe={p.unsubscribe}
                   />
                   ))
                   )}
