@@ -21,10 +21,10 @@ function makeAssociations(sequelize) {
     Product.hasMany(Favorite, {foreignKey:"user_favorite"})
     Favorite.belongsTo(User, {foreignKey:"user_favorite"})
     //Associations Producto-Review
-    User.hasMany(Favorite, {foreignKey:'userId'});
+    User.hasMany(Review, {foreignKey:'userId'});
     Review.belongsTo(Review, {foreignKey:'userId'});
     //Associations Usuario-Review
-    Product.hasMany(Favorite, {foreignKey:'productId'});
+    Product.hasMany(Review, {foreignKey:'productId'});
     Review.belongsTo(Review, {foreignKey:'productId'});
 }
 

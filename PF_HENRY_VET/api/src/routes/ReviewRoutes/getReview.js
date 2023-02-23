@@ -9,14 +9,16 @@ router.get("/get", async (req, res) => {
         const response = await Review.findOne({
           where: {
             productId,
-            userId 
+            userId,
+            baja_R: false 
           }
         })
         res.status(200).send(response)  
       }else{
         const response = await Review.findAll({
           where: {
-            productId 
+            productId,
+            baja_R: false 
           }
         })
         res.status(200).send(response)

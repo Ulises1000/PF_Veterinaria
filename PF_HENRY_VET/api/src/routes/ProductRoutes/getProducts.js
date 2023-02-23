@@ -19,6 +19,7 @@ router.get("/get", async (req, res) => {
       res.status(200).json(getP);
     }
   } catch (err) {
+    console.log(err)
     res.status(404).send({
       ok: false,
       msg: "Lo Lamentamos, Error al llamar los productos.",

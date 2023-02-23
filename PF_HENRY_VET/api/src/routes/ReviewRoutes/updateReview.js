@@ -4,10 +4,10 @@ const axios = require("axios");
 const router = Router();
 const {createNewOfObj} = require("../../controllers/controllerReview/controllerUpdate");
 
-router.post("/update", async (req, res) => {
-    const {idReview} = req.body;
+router.put("/update", async (req, res) => {
+    const {idReview, stars_R, commentary_R} = req.body;
     try{
-      if(!idReview) res.status(200).send({msg: "No Se Mandaron los Datos Necesarios"}) 
+      if(!idReview || (!stars_R && !commentary_R)) res.status(200).send({msg: "No Se Mandaron los Datos Necesarios"}) 
       else{
         const seRealizo = await Review.update(createNewOfObj(req.body), {
           where: {
@@ -19,6 +19,7 @@ router.post("/update", async (req, res) => {
         res.status(200).send(reviewUser) 
       }
     }catch(error){
+      console.log(error)
       res.status(400).send(error)
     }
 })

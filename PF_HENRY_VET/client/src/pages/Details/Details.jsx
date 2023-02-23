@@ -2,20 +2,30 @@ import React, { useEffect, useState } from "react";
 import { useParams, useNavigate} from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { getProduct, postShoppingDetail } from "../../redux/action";
+import Rodal from "rodal";
 import swal from 'sweetalert';
 import Nav from "../../components/Nav.jsx";
 import loader from "../../style-assets/paw_icon.png";
 import Footer from "../../components/Footer";
+import ReviewsFromCostumers from "../Reviews/ReviewsFromConstumers";
+import { getAllReviewsFromProdOrProdAndUser } from "../../redux/action";
 
 const Details = ({ hayUser }) => {
   const dispatch = useDispatch();
   const [quantity, setQuantity] = useState(0);
+  const [button, setButtons] = useState(false);
+  const reviews = useSelector((state) => state.reviews.reviews);
   const product = useSelector((state) => state.products.product);
   const user = useSelector((state) => state.user.user);
   const { id } = useParams();
   useEffect(() => {
     dispatch(getProduct(id));
   }, [dispatch, id]);
+
+
+  useEffect(() => {
+    dispatch(getAllReviewsFromProdOrProdAndUser(id));
+  }, [])
   const navigate = useNavigate()
   let userDetail = hayUser;
 
@@ -36,6 +46,7 @@ const Details = ({ hayUser }) => {
       </div>
     );
   }
+
 
   function handleClick() {
     console.log("Entro");
@@ -104,6 +115,21 @@ const Details = ({ hayUser }) => {
             </div>
           </div>
         </div>
+      </div>
+      <div>
+      <button onClick={() => setButtons(!button)}>
+        <i class="fa-sharp fa-solid fa-circle-plus"></i>
+      </button>
+        
+      <Rodal
+        visible={button}
+        showCloseButton={true}
+        enterAnimation="/slideUp"
+        animation={"/slideUp"}
+        className="bg-indigo-400"
+      ><div>HOLA</div></Rodal>
+
+      <ReviewsFromCostumers reviews={reviews}/>
       </div>
       <Footer />
     </div>
