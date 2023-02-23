@@ -29,9 +29,9 @@ MPRouter.post("", (req, res) => {
     //   },
     // ],
     back_urls: {
-      success: "http://localhost:3001/payment/sendEmail/admin",
-      failure: "http://localhost:3001/payment/feedback",
-      pending: "http://localhost:3001/payment/feedback",
+        success: "https://back-only-pets-production.up.railway.app/payment/sendEmail/admin",
+        failure: "https://back-only-pets-production.up.railway.app/payment/feedback",
+        pending: "https://back-only-pets-production.up.railway.app/payment/feedback",
     },
     auto_return: "approved",
   };
@@ -56,11 +56,10 @@ MPRouter.get("/sendEmail/admin", (req, res) =>{
 
 
 
-  console.log(req.query.payment_id, "eSTO NECESITO QUE FUNQUE")
   var transporter = nodemailer.createTransport({
       host:HOSTEMAIL, // hostname
-  port: PORTEMAIL, // port for secure SMTP
-  secure: false,
+      port: PORTEMAIL, // port for secure SMTP
+      secure: false,
       auth: {
           user: USEREMAIL,
           pass:USERPASSWORD,
@@ -72,7 +71,7 @@ MPRouter.get("/sendEmail/admin", (req, res) =>{
       from: USEREMAIL,
       to:USEREMAIL2,
       subject: "Compra de OnlyPets",
-      text: req.query.payment_id - req.query.merchant_order_id - req.query.status
+      text: req.query.payment_id + req.query.merchant_order_id + req.query.status
   }
 
 
